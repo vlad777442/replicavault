@@ -91,3 +91,9 @@ What would change the answer:
 
 - **Toward zero-copy.** You could decide that a small BlueStore patch counts as (b)-lite. For example: a supported cross-collection rename that also moves the cached onode and omap prefix, or restricted to objects with no shared blobs. It could probably be written, but the gate says option (b) as the only viable path means fail. That's your call, not mine.
 - **Against option (a).** Evidence that some OSD path scans or trims unknown meta objects.
+
+## Addendum (2026-09-25, Phase 3): other code that lists meta
+
+I searched every `collection_list` caller in `osd/`. All are scoped to PG collections except `OSD::trim_stale_maps` (`osd/OSD.cc:8017–8050`), which lists the whole meta collection. It removes any object whose name contains `osdmap.` with a parsed epoch below `oldest_map`, and parses with `stoul`, which can throw on a bad suffix (`OSD.cc:8005–8014`). It runs only from the admin-socket command `trim stale osdmaps` (`OSD.cc:3169–3180`).
+
+Consequence: vault entry names must never contain `osdmap.`. The design note fixes this with a hex-encoded name (`design-note.md` §3). No other automatic path scans meta, so the recommendation (option a) stands, now at high confidence for the boot, scrub, backfill, stray and split/merge paths.
