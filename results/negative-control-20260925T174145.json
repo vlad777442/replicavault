@@ -1,0 +1,21 @@
+{
+  "run_id": "negative-control-20260925T174145",
+  "timestamp": "20260925T174145",
+  "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+  "command": "scripts/negative-control.sh rvtest",
+  "object": "negctl-20260925T174145",
+  "pg": "1.1d",
+  "acting": [
+    1,
+    3,
+    0
+  ],
+  "corrupted_osd": 0,
+  "detected": true,
+  "inconsistent_pgs": [
+    "1.1d"
+  ],
+  "findings": "17:42:39 inconsistent PGs in rvtest: [\"1.1d\"]\n17:42:40 health: HEALTH_ERR 12 mgr modules have failed dependencies; 2 scrub errors; Possible data damage: 1 pg inconsistent\n[WRN] MGR_MODULE_DEPENDENCY: 12 mgr modules have failed dependencies\n    Module 'balancer' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'crash' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'devicehealth' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'iostat' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'nfs' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'orchestrator' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'pg_autoscaler' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'progress' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'rbd_support' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'status' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'telemetry' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n    Module 'volumes' has failed dependency: /lib/x86_64-linux-gnu/libcephfs.so.2: undefined symbol: _ZN15CommonSafeTimerISt5mutexE12cancel_eventEP7Context\n[ERR] OSD_SCRUB_ERRORS: 2 scrub errors\n[ERR] PG_DAMAGED: Possible data damage: 1 pg inconsistent\n    pg 1.1d is active+clean+inconsistent, acting [1,3,0]",
+  "repaired_and_clean": true,
+  "result": "pass"
+}
