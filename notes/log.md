@@ -10,3 +10,8 @@
 - Standing HEALTH_WARN "12 mgr modules have failed dependencies" (python deps for mgr modules in the dev build). Harmless for the pilot; check_inconsistent ignores it.
 - Phase 3 (first pass): `notes/design-note.md` (delete path primary→replica, hook points, bypass paths, scrub/backfill/snap-trim/stray/split-merge) and `notes/destructive-paths.md` (22 rows). Findings: (1) primary encodes subop txn before queuing its own, so local rewrite is invisible to replicas; replica can rewrite `rm->opt` in `do_repop`. (2) One `queue_transactions` = one BlueStore txc, so vault copy + remove are atomic. (3) Recovery-delete and backfill-remove bypass `do_repop` → coverage gap when rank 1 was down; recommend hooking `remove_snap_mapped_object` too. (4) `trim stale osdmaps` admin command deletes meta objects whose name contains `osdmap.` → vault names must be hex-encoded.
 - Open for Vlad: mechanism (Phase 1), recovery-delete hook, whiteout handling.
+
+## 2026-09-26
+- Vlad: mechanism (a) approved; yes to vaulting recovery-path deletes and whiteout heads. Asked me to draft the revision.
+- Drafted `docs/revision-1-copying-vault.md` (H1 restated with proposed thresholds, Figure A reframed, B3 dropped, consequential edits, scope decisions). Not committed: waiting for Vlad to confirm thresholds, because committing freezes it and building can't start until it's committed.
+- Vlad kept the thresholds. Committed revision 1; starting Phase 4.
