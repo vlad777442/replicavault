@@ -1,0 +1,169 @@
+{
+ "scenario": "s10-snapshot-delete",
+ "timestamp": "20260926T161747",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s10-snapshot-delete.sh ",
+ "pool": "rvsnap",
+ "duration_s": 147,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 0,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 3
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "fail",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": false,
+     "b_matches_b1": false
+    },
+    "vault_lines": {
+     "before_trim": 0,
+     "after_trim": 0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 43,
+   "snapshot_reads": {
+    "pass": false
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": false
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": false,
+     "b_matches_b1": false
+    },
+    "vault_lines": {
+     "before_trim": 0,
+     "after_trim": 0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 40,
+   "snapshot_reads": {
+    "pass": false
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": false
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": false,
+     "b_matches_b1": false
+    },
+    "vault_lines": {
+     "before_trim": 0,
+     "after_trim": 0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 39,
+   "snapshot_reads": {
+    "pass": false
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": false
+  }
+ ]
+}

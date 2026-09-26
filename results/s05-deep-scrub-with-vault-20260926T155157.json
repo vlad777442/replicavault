@@ -1,0 +1,136 @@
+{
+ "scenario": "s05-deep-scrub-with-vault",
+ "timestamp": "20260926T155157",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s05-deep-scrub-with-vault.sh ",
+ "pool": "rvtest",
+ "duration_s": 306,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 3
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "objects": 96,
+    "deleted": 64
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 64,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 32,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 81,
+   "pass": true,
+   "second_deep_scrub_clean": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "objects": 96,
+    "deleted": 64
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 64,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 32,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 80,
+   "pass": true,
+   "second_deep_scrub_clean": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "objects": 96,
+    "deleted": 64
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 64,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 32,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 82,
+   "pass": true,
+   "second_deep_scrub_clean": true
+  }
+ ]
+}

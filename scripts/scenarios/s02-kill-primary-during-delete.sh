@@ -10,7 +10,10 @@ source "$(dirname "$0")/common.sh"
 RUNS=20
 scenario_init s02-kill-primary-during-delete "$@"
 
-DELAYS=(0 0.002 0.005 0.01 0.02 0.03 0.05 0.08 0.1 0.2)
+# rados needs ~150-250 ms to start and connect before it sends the op, so the kills
+# are concentrated there; the first vanilla run showed delays <= 0.1 s always kill
+# before the op is sent (rm then waits ~10 s and lands on the new primary).
+DELAYS=(0.05 0.12 0.15 0.18 0.2 0.22 0.25 0.28 0.3 0.35 0.4 0.5)
 for run in $(seq 1 "$RUNS"); do
   delay=${DELAYS[$(( (run - 1) % ${#DELAYS[@]} ))]}
   run_begin "$run" "{\"kill_delay_s\": $delay}"

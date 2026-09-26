@@ -28,7 +28,8 @@ fi
 snap_sha() {  # snap_sha SNAP NAME -> sha256 of the object as of SNAP, or ENOENT
   local f=$WORK/snapread
   rm -f "$f"
-  if rados -p "$SNAP_POOL" -s "$1" get "$2" "$f"; then sha "$f"; else echo ENOENT; fi
+  # `rados -s` prints "selected snap N 'name'" on stdout; keep it out of the result
+  if rados -p "$SNAP_POOL" -s "$1" get "$2" "$f" >/dev/null; then sha "$f"; else echo ENOENT; fi
 }
 
 for run in $(seq 1 "$RUNS"); do

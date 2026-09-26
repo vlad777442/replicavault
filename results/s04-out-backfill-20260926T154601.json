@@ -1,0 +1,155 @@
+{
+ "scenario": "s04-out-backfill",
+ "timestamp": "20260926T154601",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s04-out-backfill.sh ",
+ "pool": "rvtest",
+ "duration_s": 355,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 2
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "pg": "1.e",
+    "acting_before": [
+     1,
+     4,
+     2
+    ],
+    "acting_after_out_nonretainer": [
+     1,
+     4,
+     0
+    ],
+    "acting_after_out_retainer": [
+     1,
+     2,
+     0
+    ],
+    "acting_final": [
+     1,
+     4,
+     2
+    ]
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 15,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 167,
+   "vault_not_copied": {
+    "pass": null,
+    "vault_lines": 0,
+    "copies_found": []
+   },
+   "retainer": 4,
+   "nonretainer": 2,
+   "primary": 1,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "pg": "1.18",
+    "acting_before": [
+     2,
+     3,
+     1
+    ],
+    "acting_after_out_nonretainer": [
+     2,
+     3,
+     0
+    ],
+    "acting_after_out_retainer": [
+     2,
+     1,
+     0
+    ],
+    "acting_final": [
+     2,
+     3,
+     1
+    ]
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 15,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 181,
+   "vault_not_copied": {
+    "pass": null,
+    "vault_lines": 0,
+    "copies_found": []
+   },
+   "retainer": 3,
+   "nonretainer": 1,
+   "primary": 2,
+   "pass": true
+  }
+ ]
+}
