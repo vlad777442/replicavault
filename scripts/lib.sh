@@ -26,11 +26,38 @@ rv_require_cluster() {
 }
 
 # Git hash of the Ceph tree the running binaries were built from, with -dirty if modified.
+# Before scripts/use-build.sh has been used, the source tree HEAD is the best we know.
 rv_ceph_git() {
-  local h
-  h=$(git -C "$CEPH_BUILD/.." rev-parse HEAD)
-  git -C "$CEPH_BUILD/.." diff --quiet HEAD -- src || h="$h-dirty"
-  echo "$h"
+  local f=$CEPH_BUILD/bin/ceph-osd.build h
+  if [[ -s $f ]]; then
+    cut -d' ' -f2 "$f"
+  else
+    h=$(git -C "$CEPH_BUILD/.." rev-parse HEAD)
+    git -C "$CEPH_BUILD/.." diff --quiet HEAD -- src || h="$h-dirty"
+    echo "$h"
+  fi
+}
+
+# "vanilla" or "rv" (the OSD build installed by scripts/use-build.sh), or "unknown".
+rv_build() {
+  local f=$CEPH_BUILD/bin/ceph-osd.build
+  if [[ -s $f ]]; then cut -d' ' -f1 "$f"; else echo unknown; fi
+}
+
+osd_ids() {
+  ceph osd ls
+}
+
+# True iff every running ceph-osd was started from the currently installed binary
+# (a daemon started before the binary was replaced shows "(deleted)" in /proc).
+rv_check_osd_binaries() {
+  local n pid exe rc=0
+  for n in $(osd_ids); do
+    pid=$(osd_pid "$n") || { log "osd.$n not running"; rc=1; continue; }
+    exe=$(readlink "/proc/$pid/exe")
+    if [[ $exe == *"(deleted)"* ]]; then log "osd.$n runs a replaced binary: $exe"; rc=1; fi
+  done
+  return $rc
 }
 
 # acting_set <pool> <obj> -> space-separated OSD ids, primary first

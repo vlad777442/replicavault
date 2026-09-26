@@ -7,6 +7,8 @@
 #
 #   vault-inspect.sh dump    <osd>                  JSON line per entry: identity, stored
 #                                                   sha256, sha256 of the stored bytes
+#   vault-inspect.sh names   <osd>                  vault entry names only (one store open)
+#   vault-inspect.sh check   <osd> <vname>...       JSON line per named entry (found, intact)
 #   vault-inspect.sh list    <osd>                  human-readable table
 #   vault-inspect.sh extract <osd> <vname> <file>   write the entry's bytes to <file>
 #   vault-inspect.sh restore <osd> <vname> [name]   extract, verify checksum, write back
@@ -73,24 +75,46 @@ def decode(v):
             "key": unhex(f[6]), "oid": unhex(f[7])}
 '
 
-dump_one_osd() {
-  local n=$1 spec vname attr_sha data_sha size
-  stop_for_inspection "$n"
-  while IFS= read -r spec; do
-    vname=$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])[1]["oid"])' "$spec")
-    attr_sha=$(cot "$n" --pgid meta "$spec" get-attr rv.sha256 || echo MISSING)
-    # get-bytes refuses (EEXIST, exit 0) to overwrite an existing file
-    rm -f "$WORK/b"
-    cot "$n" --pgid meta "$spec" get-bytes "$WORK/b" || true
-    [[ -e $WORK/b ]] || : > "$WORK/b"
-    data_sha=$(sha "$WORK/b")
-    size=$(stat -c %s "$WORK/b")
-    python3 -c "$decode_name_py
+# emit_entry <osd> <spec> -> one JSON line (identity, stored and actual sha256)
+emit_entry() {
+  local n=$1 spec=$2 vname attr_sha data_sha size
+  vname=$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])[1]["oid"])' "$spec")
+  attr_sha=$(cot "$n" --pgid meta "$spec" get-attr rv.sha256 || echo MISSING)
+  # get-bytes refuses (EEXIST, exit 0) to overwrite an existing file
+  rm -f "$WORK/b"
+  cot "$n" --pgid meta "$spec" get-bytes "$WORK/b" || true
+  [[ -e $WORK/b ]] || : > "$WORK/b"
+  data_sha=$(sha "$WORK/b")
+  size=$(stat -c %s "$WORK/b")
+  python3 -c "$decode_name_py
 import json, sys
 d = decode(sys.argv[1])
-d.update(osd=int(sys.argv[2]), stored_sha256=sys.argv[3], data_sha256=sys.argv[4],
+d.update(osd=int(sys.argv[2]), found=True, stored_sha256=sys.argv[3], data_sha256=sys.argv[4],
          size=int(sys.argv[5]), intact=sys.argv[3] == sys.argv[4])
 print(json.dumps(d))" "$vname" "$n" "$attr_sha" "$data_sha" "$size"
+}
+
+# check <osd> <vname>...: JSON line per requested entry; found=false if absent
+check_entries() {
+  local n=$1 vname spec; shift
+  stop_for_inspection "$n"
+  vault_entries "$n" > "$WORK/entries"
+  for vname in "$@"; do
+    spec=$(grep -F "\"oid\":\"$vname\"" "$WORK/entries" | head -1 || true)
+    if [[ -n $spec ]]; then
+      emit_entry "$n" "$spec"
+    else
+      python3 -c 'import json,sys; print(json.dumps({"vname": sys.argv[1], "osd": int(sys.argv[2]), "found": False}))' "$vname" "$n"
+    fi
+  done
+  resume "$n"
+}
+
+dump_one_osd() {
+  local n=$1 spec
+  stop_for_inspection "$n"
+  while IFS= read -r spec; do
+    emit_entry "$n" "$spec"
   done < <(vault_entries "$n")
   resume "$n"
 }
@@ -101,6 +125,17 @@ case $cmd in
     [[ $# -eq 1 ]] || die "usage: $0 dump <osd>[,<osd>...]"
     IFS=, read -r -a osds <<<"$1"
     for n in "${osds[@]}"; do dump_one_osd "$n"; done
+    ;;
+  names)
+    [[ $# -eq 1 ]] || die "usage: $0 names <osd>"
+    stop_for_inspection "$1"
+    vault_entries "$1" | python3 -c 'import json,sys
+for l in sys.stdin: print(json.loads(l)[1]["oid"])'
+    resume "$1"
+    ;;
+  check)
+    [[ $# -ge 2 ]] || die "usage: $0 check <osd> <vname>..."
+    check_entries "$@"
     ;;
   list)
     [[ $# -eq 1 ]] || die "usage: $0 list <osd>[,<osd>...]"
