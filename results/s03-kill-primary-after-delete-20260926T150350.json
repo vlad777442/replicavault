@@ -1,0 +1,76 @@
+{
+ "scenario": "s03-kill-primary-after-delete",
+ "timestamp": "20260926T150350",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s03-kill-primary-after-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 102,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 1
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "down_s": 0
+   },
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     4
+    ],
+    "pg": "1.19",
+    "killed": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "pass": true
+  }
+ ]
+}

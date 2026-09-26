@@ -20,12 +20,7 @@ for run in $(seq 1 "$RUNS"); do
   read -r -a acting <<<"$(acting_set "$POOL" "$target")"
   note acting_before "[$(IFS=,; echo "${acting[*]}")]"
   note pg "\"$pg\""
-  i=0; found=0
-  while (( found < 3 && i < 400 )); do
-    name=$RUN_PREFIX-live-$i
-    if [[ $(pg_of "$POOL" "$name") == "$pg" ]]; then put_obj "$name" 65536; found=$((found + 1)); fi
-    i=$((i + 1))
-  done
+  for name in $(names_in_pg "$RUN_PREFIX-live" "$pg" 3); do put_obj "$name" 65536; done
   primary=${acting[0]}
   pid=$(osd_pid "$primary")
   ( rados -p "$POOL" rm "$target"; echo $? > "$WORK/rc-$run" ) &

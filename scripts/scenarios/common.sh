@@ -233,3 +233,12 @@ vault_lines_for() {
       | sed -E "s/.* vname=([^ ]+).*/$n \1/" || true
   done
 }
+
+# names_in_pg PREFIX PGID COUNT [NS] [POOL]: first COUNT names "PREFIX-<i>" in PGID,
+# computed locally (scripts/pgmap.py, validated against `ceph osd map`)
+names_in_pg() {
+  local prefix=$1 pgid=$2 count=$3 ns=${4:-} pool=${5:-$POOL} pid pgn
+  pid=$(ceph osd pool ls detail -f json | python3 -c "import json,sys; print([p['pool_id'] for p in json.load(sys.stdin) if p['pool_name']=='$pool'][0])")
+  pgn=$(ceph osd pool get "$pool" pg_num -f json | python3 -c 'import json,sys; print(json.load(sys.stdin)["pg_num"])')
+  python3 "$SCEN_DIR/../pgmap.py" find "$pid" "$pgn" "$pgid" "$prefix" "$count" --ns "$ns"
+}

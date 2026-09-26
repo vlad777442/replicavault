@@ -15,11 +15,9 @@ scenario_init s04-out-backfill "$@"
 
 # put NUM objects that map to $pg, named $1-<i>; echo their names
 put_in_pg() {
-  local prefix=$1 num=$2 i=0 found=0 name
-  while (( found < num && i < 2000 )); do
-    name=$prefix-$i
-    if [[ $(pg_of "$POOL" "$name") == "$pg" ]]; then put_obj "$name" $(( 32768 + i )); echo "$name"; found=$((found + 1)); fi
-    i=$((i + 1))
+  local prefix=$1 num=$2 i=0 name
+  for name in $(names_in_pg "$prefix" "$pg" "$num"); do
+    put_obj "$name" $(( 32768 + i )); echo "$name"; i=$((i + 1))
   done
 }
 

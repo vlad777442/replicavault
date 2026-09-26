@@ -17,15 +17,11 @@ for run in $(seq 1 "$RUNS"); do
   read -r -a acting <<<"$(acting_set "$POOL" "$seed")"
   R=${acting[1]}
   note acting "[$(IFS=,; echo "${acting[*]}")]"
-  i=0; found=0
-  while (( found < 8 && i < 1000 )); do
-    name=$RUN_PREFIX-o$i
-    if [[ $(pg_of "$POOL" "$name") == "$pg" ]]; then
-      put_obj "$name" $(( 200000 + i ))
-      (( found % 2 == 0 )) && del_obj "$name"
-      found=$((found + 1))
-    fi
-    i=$((i + 1))
+  found=0
+  for name in $(names_in_pg "$RUN_PREFIX-o" "$pg" 8); do
+    put_obj "$name" $(( 200000 + found ))
+    if (( found % 2 == 0 )); then del_obj "$name"; fi
+    found=$((found + 1))
   done
   logsz=$(stat -c %s "$CEPH_BUILD/out/osd.$R.log")
   ceph osd set noout >/dev/null
