@@ -15,3 +15,6 @@
 - Vlad: mechanism (a) approved; yes to vaulting recovery-path deletes and whiteout heads. Asked me to draft the revision.
 - Drafted `docs/revision-1-copying-vault.md` (H1 restated with proposed thresholds, Figure A reframed, B3 dropped, consequential edits, scope decisions). Not committed: waiting for Vlad to confirm thresholds, because committing freezes it and building can't start until it's committed.
 - Vlad kept the thresholds. Committed revision 1; starting Phase 4.
+- Phase 4: prototype built (ceph `ca2a5b2`, `17451c9`). Hooks in `do_repop` and `remove_missing_object`; module `src/osd/ReplicaVault.{h,cc}`. Probe delete vaulted only on rank 1 with matching sha256; smoke passes on prototype.
+- Bug found: vault copy in the PG txc → vault bytes charged to PG pool → BlueStore fsck statfs errors on retaining OSDs. Fixed by queuing the vault copy as its own txc on the same sequencer (order preserved by `_txc_finish_io`). Repaired all OSD stats; fsck clean after re-test.
+- `scripts/vault-inspect.sh` (dump/list/extract/restore). Harness bug: objectstore-tool `get-bytes` silently refuses to overwrite a file (EEXIST, exit 0) — script now removes temp file first. Manual restore of `rvprobe-1`: new version 13 > vaulted 6, content matches.

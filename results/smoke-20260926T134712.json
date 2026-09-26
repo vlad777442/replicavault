@@ -1,0 +1,17 @@
+{
+  "run_id": "smoke-20260926T134712",
+  "timestamp": "20260926T134712",
+  "ceph_git": "ca2a5b245558cfc1a872c0289fb79aae6a30fe23",
+  "command": "scripts/smoke.sh rvtest",
+  "pool": "rvtest",
+  "objects_written": 16,
+  "objects_deleted": 8,
+  "killed_osd": 1,
+  "acting_before_kill": [
+    1,
+    4,
+    3
+  ],
+  "failures": [],
+  "result": "pass"
+}

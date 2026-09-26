@@ -93,3 +93,39 @@ Options:
 1. **Recovery-delete hook** (§4): vault on that path too (recommended), or record the gap?
 2. **Whiteouts** (pool has snapshots and the head is deleted): the head's data is removed and an empty whiteout head is created. Should v1 vault the head's pre-delete bytes in this case? The clones still hold snapshot data, but the head may have changed since the last snapshot. My suggestion: vault the head too (same code path, the log entry is a `MODIFY`). `CLAUDE.md` says "document, don't change snapshot semantics", and vaulting a copy doesn't change them.
 3. ~~Transaction atomicity~~: resolved. One `queue_transactions` call is one BlueStore txc (§3 step 5).
+
+## 7. Prototype as built (Phase 4, 2026-09-26)
+
+Ceph branch `replicavault-pilot`: `ca2a5b2` (prototype) and `17451c9` (accounting fix), on top of `c92aebb2`.
+
+**New module `src/osd/ReplicaVault.{h,cc}`:**
+- `RETAIN_RANK = 1` and `VAULT_LOG_LEVEL = 1` are compile-time constants.
+- `acting_rank()` uses `OSDMap::pg_to_up_acting_osds` on the PG's own map. That is the same acting set that `ceph osd map` prints.
+- `deleted_heads()` reads only the op headers of the shipped transaction, never data payloads. It returns a head as deleted when it is removed and either the log has a DELETE entry for it, or it is recreated with no data written (a whiteout).
+- `vault_object()` reads the object with `stat`, `getattrs`, `read` and `omap_get`, and skips heads that are already whiteouts. It then stages `touch`, `write`, `setattrs` and `omap_setheader`/`omap_setkeys` on `coll_t::meta()`, object `rv1_<pool>_<pgid>_<epoch>-<ver>_<sec>.<nsec>_<hex ns>_<hex key>_<hex name>` in namespace `replicavault`. The xattrs are the originals plus `rv.sha256`, `rv.size`, `rv.pool`, `rv.pgid`, `rv.oid`, `rv.nspace`, `rv.key`, `rv.version`, `rv.vaulted_at`, `rv.osd`, `rv.path` and `rv.acting`.
+- It logs `replicavault: vaulted pool=… pg=… oid=… ns=… v=… osd=… path=repop|recovery acting=[…] size=… omap_keys=… sha256=… vname=…` at debug level 1.
+
+**Hooks:**
+- `ReplicatedBackend::do_repop`: after decoding the log, before `log_operation`.
+- `PrimaryLogPG::remove_missing_object`: recovery-delete, head objects only.
+
+**Transaction layout (after the fix):** the vault copy is queued as its **own** BlueStore txc on the PG's collection handle, immediately before the PG transaction.
+
+- **First version.** It put the copy into the PG's txc. The vault bytes were then charged to the PG's pool (`BlueStore.cc:14126–14131`), and every retaining OSD failed `ceph-bluestore-tool fsck` with a per-pool statfs mismatch (pool 1 stored 0x611002 bytes with 0 expected, and meta the reverse). This is a prototype bug, not a design problem.
+- **Why a separate txc is safe.**
+  - A meta-only txc is charged to `META_POOL_ID`, the default (`BlueStore.h:1915`).
+  - The two txcs share one OpSequencer, and `_txc_finish_io` (`BlueStore.cc:14266`) submits a sequencer's txcs to the KV store in queue order. A txc with no AIO still goes through `_txc_finish_io` (`_txc_state_proc`, PREPARE → AIO_WAIT → `_txc_finish_io`, `BlueStore.cc:14155–14182`).
+  - So after a crash, either both are durable, only the vault copy is, or neither is. The remove is never durable without the copy.
+  - If only the copy survives, the delete is redelivered, through repop resend or recovery, and vaulted again. That leaves a duplicate entry but loses nothing.
+- **After the fix.** I repaired all 5 OSDs' stats with `ceph-bluestore-tool repair`. Then I vaulted 6 deletes and fsck'd each retaining OSD (0, 2, 4): all `fsck success`.
+
+**Verification so far:**
+- A probe delete was vaulted only on the rank-1 OSD (osd.3 in `[1,3,0]`), with a matching SHA-256.
+- `smoke.sh` passes on both builds (`results/smoke-20260926T134712.json`, `results/smoke-20260926T135516.json`).
+- `vault-inspect.sh list 3` showed 10 entries, all intact, sizes 0 B to 4 MiB.
+- A manual restore of `rvprobe-1` produced a new version (13, above the vaulted 6) with byte-identical content.
+
+**Still to test** (Phase 5):
+- The recovery-delete path (`path=recovery`) and the whiteout path. Nothing has hit them yet.
+- Read-after-queue: a write immediately followed by a delete of the same object, both still in flight. **Inferred** from how BlueStore updates in-memory onodes at queue time, but not verified.
+- Behaviour when the acting set changes between the primary's op and the replica's apply.
