@@ -24,3 +24,4 @@
 - Vanilla suite: all 11 scenarios pass (s10 and s02 after the fixes above; the superseded s10 vanilla result file with 0/3 is kept for the record). Switching to rv build.
 - Prototype suite: all 11 scenarios pass (results/*-20260926T1645..1921*.json). Added s12 (rank-1 OSD misses a delete → recovery-path vault); running vanilla then rv.
 - s12: vanilla 10/10, rv 10/10 (recovery-path vault fires; 2 copies per missed delete). Final fsck on all 5 OSDs clean with 601 vault entries (results/final-fsck-*.json). Phase 5 complete.
+- Phase 6: results/GATE_REPORT.md written. Recommendation: pass with revised hypotheses. (Caught and fixed two wrong numbers while cross-checking the report against result files: vault-check total 646, not 814; s02 prototype timing split 10/2/8.)
