@@ -1,0 +1,627 @@
+{
+ "scenario": "s11-manual-restore",
+ "timestamp": "20260926T192132",
+ "mode": "rv",
+ "ceph_git": "17451c9003d3e9b5e72d1d1a09b2397cf33eab1f",
+ "osd_build_marker": "rv 17451c9003d3e9b5e72d1d1a09b2397cf33eab1f ba232fcc6f3cc4dd",
+ "command": "scripts/scenarios/s11-manual-restore.sh ",
+ "pool": "rvtest",
+ "duration_s": 577,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 10,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-0",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "2376'85",
+         "acting": "3,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-1",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "2376'93",
+         "acting": "0,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-2",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "2376'100",
+         "acting": "1,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-r/s11-manual-restore-20260926T192132-r1-3",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2376'88",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-4",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2376'116",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-5",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "2376'78",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "2376'80",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-7@loc-r",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2376'114",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-8",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2376'91",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r1-9",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2376'118",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 10
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 6,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 317,
+   "restore": {
+    "pass": true,
+    "restored": 6,
+    "results": [
+     {
+      "vname": "rv1_1_1.10_2376-93_1790472100.486747392___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d31",
+      "from_osd": 2,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-1",
+      "overwrote_existing": false,
+      "vaulted_version": 93,
+      "vaulted_epoch": 2376,
+      "new_version": 94,
+      "new_version_is_newer": true,
+      "sha256": "e7f100a6d393c377440ee5c0e5211eeadfe5495b1ee104650c2e3aa4633caae8",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.9_2376-100_1790472101.072457220___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d32",
+      "from_osd": 4,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-2",
+      "overwrote_existing": false,
+      "vaulted_version": 100,
+      "vaulted_epoch": 2376,
+      "new_version": 101,
+      "new_version_is_newer": true,
+      "sha256": "bc545e78c5edc4cd6cb92075377c74862eb047bd18d4bac174d2418b2a2b6faf",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.1d_2376-88_1790472101.666609117_74656e616e742d72__7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d33",
+      "from_osd": 3,
+      "pool": "rvtest",
+      "nspace": "tenant-r",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-3",
+      "overwrote_existing": false,
+      "vaulted_version": 88,
+      "vaulted_epoch": 2376,
+      "new_version": 89,
+      "new_version_is_newer": true,
+      "sha256": "f2ac5c2069e6bc149c96140d661b0a62e2625ce4be8aa1c0b58e0576309c1828",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.7_2376-116_1790472102.217298535___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d34",
+      "from_osd": 3,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-4",
+      "overwrote_existing": false,
+      "vaulted_version": 116,
+      "vaulted_epoch": 2376,
+      "new_version": 119,
+      "new_version_is_newer": true,
+      "sha256": "f054d54080f058bbcdf31cd0d3400d82251946bcd99936544853a6e3c56a50c6",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.11_2376-78_1790472102.741814448___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d35",
+      "from_osd": 1,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-5",
+      "overwrote_existing": false,
+      "vaulted_version": 78,
+      "vaulted_epoch": 2376,
+      "new_version": 81,
+      "new_version_is_newer": true,
+      "sha256": "32639bf2610c81d343b464a8ff26283f0da79dee70e548f71bb0569ce311c7fd",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.1e_2376-114_1790472103.844844576__6c6f632d72_7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72312d37",
+      "from_osd": 0,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "loc-r",
+      "restored_as": "s11-manual-restore-20260926T192132-r1-7",
+      "overwrote_existing": false,
+      "vaulted_version": 114,
+      "vaulted_epoch": 2376,
+      "new_version": 115,
+      "new_version_is_newer": true,
+      "sha256": "0c98868141ce7de8c839bee19b759491c74156846b4037b48156e6c8149b9914",
+      "readback_matches": true,
+      "pass": true
+     }
+    ]
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 10,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'124",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'123",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-2",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2456'124",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-r/s11-manual-restore-20260926T192132-r2-3",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'93",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-4",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'118",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-5",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2456'126",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-6",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'144",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-7@loc-r",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'125",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-8",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "2456'89",
+         "acting": "4,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s11-manual-restore-20260926T192132-r2-9",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "2456'127",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 10
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 6,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 254,
+   "restore": {
+    "pass": true,
+    "restored": 6,
+    "results": [
+     {
+      "vname": "rv1_1_1.1e_2456-123_1790472417.484962140___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d31",
+      "from_osd": 0,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-1",
+      "overwrote_existing": false,
+      "vaulted_version": 123,
+      "vaulted_epoch": 2456,
+      "new_version": 128,
+      "new_version_is_newer": true,
+      "sha256": "e41c4573fe7728b30baea5418a4d396276063079bf7c42c479f1fc5c384175d4",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.7_2456-124_1790472418.031605889___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d32",
+      "from_osd": 3,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-2",
+      "overwrote_existing": false,
+      "vaulted_version": 124,
+      "vaulted_epoch": 2456,
+      "new_version": 127,
+      "new_version_is_newer": true,
+      "sha256": "5635380022858185a8c611324c6326567a5eb289e2c51fba6dc303d588de74fa",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.0_2456-93_1790472418.571456102_74656e616e742d72__7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d33",
+      "from_osd": 0,
+      "pool": "rvtest",
+      "nspace": "tenant-r",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-3",
+      "overwrote_existing": false,
+      "vaulted_version": 93,
+      "vaulted_epoch": 2456,
+      "new_version": 94,
+      "new_version_is_newer": true,
+      "sha256": "bcc8078929de61e2faae1dc4b6b15933cf71e4b478a5df5cc5cd1fa0059fe127",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.f_2456-118_1790472419.135445733___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d34",
+      "from_osd": 0,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-4",
+      "overwrote_existing": false,
+      "vaulted_version": 118,
+      "vaulted_epoch": 2456,
+      "new_version": 119,
+      "new_version_is_newer": true,
+      "sha256": "9b7604b23202bdc58979317b437920b53e5e1cf263ec71b56be27ab04f548245",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.7_2456-126_1790472419.703349091___7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d35",
+      "from_osd": 3,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-5",
+      "overwrote_existing": false,
+      "vaulted_version": 126,
+      "vaulted_epoch": 2456,
+      "new_version": 128,
+      "new_version_is_newer": true,
+      "sha256": "0a37d6b125ec7a5a3612ed9556e993265465c77c18c880da4e36415e7944e68d",
+      "readback_matches": true,
+      "pass": true
+     },
+     {
+      "vname": "rv1_1_1.1e_2456-125_1790472420.991285949__6c6f632d72_7331312d6d616e75616c2d726573746f72652d3230323630393236543139323133322d72322d37",
+      "from_osd": 0,
+      "pool": "rvtest",
+      "nspace": "",
+      "key": "loc-r",
+      "restored_as": "s11-manual-restore-20260926T192132-r2-7",
+      "overwrote_existing": false,
+      "vaulted_version": 125,
+      "vaulted_epoch": 2456,
+      "new_version": 129,
+      "new_version_is_newer": true,
+      "sha256": "692d1988669478cbc1f35b96c4f8917c2898c58500f0bb8fb39b4d30979c4add",
+      "readback_matches": true,
+      "pass": true
+     }
+    ]
+   },
+   "pass": true
+  }
+ ]
+}
