@@ -23,3 +23,4 @@
 - s10 script bug: `rados -s` prints 'selected snap' to stdout, polluted snapshot checksum; content was correct. Fixed. s02 delays shifted to 0.05-0.5 s (first vanilla run: delays <= 0.1 s always killed before the op was sent). Both to be rerun on vanilla.
 - Vanilla suite: all 11 scenarios pass (s10 and s02 after the fixes above; the superseded s10 vanilla result file with 0/3 is kept for the record). Switching to rv build.
 - Prototype suite: all 11 scenarios pass (results/*-20260926T1645..1921*.json). Added s12 (rank-1 OSD misses a delete → recovery-path vault); running vanilla then rv.
+- s12: vanilla 10/10, rv 10/10 (recovery-path vault fires; 2 copies per missed delete). Final fsck on all 5 OSDs clean with 601 vault entries (results/final-fsck-*.json). Phase 5 complete.

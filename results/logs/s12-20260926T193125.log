@@ -1,0 +1,202 @@
+19:31:32 clean after 6 s
+19:31:35 installed vanilla (c92aebb279828e9c3c1f5d24613efca272649e62)
+19:31:38 osd.0 (pid 1117240) down and exited
+19:31:47 osd.0 up (pid 1121041)
+19:32:00 clean after 13 s
+19:32:02 osd.1 (pid 1094338) down and exited
+19:32:09 osd.1 up (pid 1121878)
+19:32:19 clean after 10 s
+19:32:23 osd.2 (pid 1095815) down and exited
+19:32:29 osd.2 up (pid 1122675)
+19:32:43 clean after 14 s
+19:32:45 osd.3 (pid 1119926) down and exited
+19:32:51 osd.3 up (pid 1123470)
+19:33:04 clean after 13 s
+19:33:06 osd.4 (pid 1100585) down and exited
+19:33:14 osd.4 up (pid 1124268)
+19:33:25 clean after 11 s
+19:33:25 all OSDs running vanilla
+19:33:26 scenario s12-retainer-misses-delete: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=10 pool=rvtest
+19:33:32 clean after 6 s
+19:33:32 --- s12-retainer-misses-delete run 1 {}
+19:33:37 osd.0 (pid 1121041) down and exited
+19:33:47 osd.0 up (pid 1125656)
+19:34:00 clean after 13 s
+19:34:07 clean after 7 s
+19:34:32 deep-scrubbed 32 PGs in 25 s
+19:34:39 clean after 7 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:34:39 --- s12-retainer-misses-delete run 2 {}
+19:34:42 osd.0 (pid 1125656) down and exited
+19:34:54 osd.0 up (pid 1128089)
+19:35:07 clean after 13 s
+19:35:13 clean after 6 s
+19:35:40 deep-scrubbed 32 PGs in 27 s
+19:35:47 clean after 6 s
+run 2: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:35:48 --- s12-retainer-misses-delete run 3 {}
+19:35:52 osd.1 (pid 1121878) down and exited
+19:36:02 osd.1 up (pid 1130523)
+19:36:15 clean after 13 s
+19:36:22 clean after 6 s
+19:36:45 deep-scrubbed 32 PGs in 23 s
+19:36:52 clean after 6 s
+run 3: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:36:53 --- s12-retainer-misses-delete run 4 {}
+19:36:57 osd.3 (pid 1123470) down and exited
+19:37:06 osd.3 up (pid 1132927)
+19:37:20 clean after 14 s
+19:37:26 clean after 6 s
+19:37:53 deep-scrubbed 32 PGs in 27 s
+19:38:00 clean after 6 s
+run 4: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:38:00 --- s12-retainer-misses-delete run 5 {}
+19:38:05 osd.0 (pid 1128089) down and exited
+19:38:15 osd.0 up (pid 1135358)
+19:38:28 clean after 13 s
+19:38:35 clean after 6 s
+19:39:01 deep-scrubbed 32 PGs in 26 s
+19:39:08 clean after 6 s
+run 5: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:39:08 --- s12-retainer-misses-delete run 6 {}
+19:39:13 osd.0 (pid 1135358) down and exited
+19:39:23 osd.0 up (pid 1137790)
+19:39:39 clean after 16 s
+19:39:45 clean after 6 s
+19:40:14 deep-scrubbed 32 PGs in 29 s
+19:40:20 clean after 6 s
+run 6: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:40:21 --- s12-retainer-misses-delete run 7 {}
+19:40:26 osd.0 (pid 1137790) down and exited
+19:40:38 osd.0 up (pid 1140278)
+19:40:54 clean after 16 s
+19:41:01 clean after 6 s
+19:41:29 deep-scrubbed 32 PGs in 28 s
+19:41:36 clean after 7 s
+run 7: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:41:36 --- s12-retainer-misses-delete run 8 {}
+19:41:41 osd.0 (pid 1140278) down and exited
+19:41:52 osd.0 up (pid 1142761)
+19:42:06 clean after 14 s
+19:42:13 clean after 7 s
+19:42:39 deep-scrubbed 32 PGs in 26 s
+19:42:46 clean after 6 s
+run 8: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:42:47 --- s12-retainer-misses-delete run 9 {}
+19:42:51 osd.2 (pid 1122675) down and exited
+19:43:01 osd.2 up (pid 1145189)
+19:43:15 clean after 14 s
+19:43:22 clean after 7 s
+19:43:49 deep-scrubbed 32 PGs in 27 s
+19:43:56 clean after 7 s
+run 9: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:43:56 --- s12-retainer-misses-delete run 10 {}
+19:44:01 osd.2 (pid 1145189) down and exited
+19:44:12 osd.2 up (pid 1147645)
+19:44:25 clean after 13 s
+19:44:32 clean after 6 s
+19:44:58 deep-scrubbed 32 PGs in 26 s
+19:45:05 clean after 7 s
+run 10: PASS  [1=ok 2=ok 3=skip 4=ok]
+s12-retainer-misses-delete [vanilla]: 10/10 runs passed -> /users/vlad777/research/replicavault/results/s12-retainer-misses-delete-20260926T193325.json
+19:45:12 clean after 6 s
+19:45:14 installed rv (17451c9003d3e9b5e72d1d1a09b2397cf33eab1f)
+19:45:18 osd.0 (pid 1142761) down and exited
+19:45:26 osd.0 up (pid 1150037)
+19:45:40 clean after 14 s
+19:45:42 osd.1 (pid 1130523) down and exited
+19:45:49 osd.1 up (pid 1150857)
+19:46:02 clean after 13 s
+19:46:05 osd.2 (pid 1147645) down and exited
+19:46:12 osd.2 up (pid 1151692)
+19:46:26 clean after 14 s
+19:46:28 osd.3 (pid 1132927) down and exited
+19:46:35 osd.3 up (pid 1152489)
+19:46:49 clean after 14 s
+19:46:52 osd.4 (pid 1124268) down and exited
+19:47:00 osd.4 up (pid 1153313)
+19:47:14 clean after 14 s
+19:47:14 all OSDs running rv
+19:47:15 scenario s12-retainer-misses-delete: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=10 pool=rvtest
+19:47:21 clean after 6 s
+19:47:22 --- s12-retainer-misses-delete run 1 {}
+19:47:26 osd.1 (pid 1150857) down and exited
+19:47:36 osd.1 up (pid 1154725)
+19:47:47 clean after 11 s
+19:47:54 clean after 6 s
+19:48:22 deep-scrubbed 32 PGs in 28 s
+19:49:08 clean after 10 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:49:09 --- s12-retainer-misses-delete run 2 {}
+19:49:14 osd.0 (pid 1150037) down and exited
+19:49:24 osd.0 up (pid 1160147)
+19:49:35 clean after 11 s
+19:49:41 clean after 6 s
+19:50:09 deep-scrubbed 32 PGs in 28 s
+19:50:59 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:51:00 --- s12-retainer-misses-delete run 3 {}
+19:51:03 osd.0 (pid 1162963) down and exited
+19:51:15 osd.0 up (pid 1165568)
+19:51:29 clean after 14 s
+19:51:35 clean after 6 s
+19:52:02 deep-scrubbed 32 PGs in 27 s
+19:52:52 clean after 12 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:52:52 --- s12-retainer-misses-delete run 4 {}
+19:52:56 osd.0 (pid 1168402) down and exited
+19:53:08 osd.0 up (pid 1171035)
+19:53:21 clean after 13 s
+19:53:28 clean after 6 s
+19:53:58 deep-scrubbed 32 PGs in 30 s
+19:54:48 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:54:49 --- s12-retainer-misses-delete run 5 {}
+19:54:53 osd.3 (pid 1159018) down and exited
+19:55:05 osd.3 up (pid 1176529)
+19:55:18 clean after 13 s
+19:55:25 clean after 6 s
+19:55:54 deep-scrubbed 32 PGs in 29 s
+19:56:45 clean after 14 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:56:45 --- s12-retainer-misses-delete run 6 {}
+19:56:50 osd.3 (pid 1180846) down and exited
+19:57:01 osd.3 up (pid 1182028)
+19:57:15 clean after 14 s
+19:57:22 clean after 6 s
+19:57:48 deep-scrubbed 32 PGs in 26 s
+19:58:37 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:58:38 --- s12-retainer-misses-delete run 7 {}
+19:58:42 osd.3 (pid 1186342) down and exited
+19:58:53 osd.3 up (pid 1187499)
+19:59:07 clean after 14 s
+19:59:13 clean after 6 s
+19:59:40 deep-scrubbed 32 PGs in 27 s
+20:00:26 clean after 9 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:00:26 --- s12-retainer-misses-delete run 8 {}
+20:00:31 osd.3 (pid 1191819) down and exited
+20:00:42 osd.3 up (pid 1192947)
+20:00:55 clean after 13 s
+20:01:02 clean after 6 s
+20:01:30 deep-scrubbed 32 PGs in 28 s
+20:02:23 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:02:24 --- s12-retainer-misses-delete run 9 {}
+20:02:28 osd.0 (pid 1190336) down and exited
+20:02:40 osd.0 up (pid 1198441)
+20:02:53 clean after 13 s
+20:03:00 clean after 7 s
+20:03:26 deep-scrubbed 32 PGs in 26 s
+20:04:19 clean after 13 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:04:20 --- s12-retainer-misses-delete run 10 {}
+20:04:24 osd.0 (pid 1201275) down and exited
+20:04:35 osd.0 up (pid 1203908)
+20:04:48 clean after 13 s
+20:04:55 clean after 6 s
+20:05:26 deep-scrubbed 32 PGs in 31 s
+20:06:18 clean after 10 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+s12-retainer-misses-delete [rv]: 10/10 runs passed -> /users/vlad777/research/replicavault/results/s12-retainer-misses-delete-20260926T194714.json
