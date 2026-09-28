@@ -36,7 +36,8 @@ scenario_init() {
   done
   TS=$(date +%Y%m%dT%H%M%S)
   WORK=$(mktemp -d)
-  RESULTS=$RV_ROOT/results
+  # phase 2 results go to results/phase2 (pilot results are frozen)
+  RESULTS=$RV_ROOT/results${RV_RESULTS_SUBDIR:+/$RV_RESULTS_SUBDIR}
   mkdir -p "$RESULTS"
   OUT=$RESULTS/$SCENARIO-$TS.json
   RUNS_FILE=$WORK/runs.jsonl
@@ -241,4 +242,31 @@ names_in_pg() {
   pid=$(ceph osd pool ls detail -f json | python3 -c "import json,sys; print([p['pool_id'] for p in json.load(sys.stdin) if p['pool_name']=='$pool'][0])")
   pgn=$(ceph osd pool get "$pool" pg_num -f json | python3 -c 'import json,sys; print(json.load(sys.stdin)["pg_num"])')
   python3 "$SCEN_DIR/../pgmap.py" find "$pid" "$pgn" "$pgid" "$prefix" "$count" --ns "$ns"
+}
+
+# pg_up_acting PGID -> "up=[..] acting=[..] primary=N" (from the osdmap)
+pg_up_acting() {
+  ceph pg map "$1" -f json | python3 -c 'import json,sys
+d=json.load(sys.stdin); print("up=%s acting=%s primary=%s" % (d["up"], d["acting"], d.get("acting_primary")))'
+}
+
+# pg_state PGID -> the PG state string
+pg_state() {
+  ceph pg "$1" query 2>/dev/null | python3 -c 'import json,sys; print(json.load(sys.stdin)["state"])'
+}
+
+# vault_copies_json NAME... -> JSON {"copies": {name: n}, "bytes": vaulted bytes} for this run
+vault_copies_json() {
+  local n name
+  for n in $(osd_ids); do
+    tail -c +"$(( $(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get(sys.argv[2], 0))' "$WORK/offsets-$RUN.json" "$n") + 1 ))" \
+      "$CEPH_BUILD/out/osd.$n.log" 2>/dev/null | grep 'replicavault: vaulted' || true
+  done | python3 -c '
+import json, re, sys
+names = set(sys.argv[1:]); copies = {n: 0 for n in names}; nbytes = 0
+for l in sys.stdin:
+    m = re.search(r" oid=(\S*) ns=.* size=(\d+) ", l)
+    if m and m.group(1) in names:
+        copies[m.group(1)] += 1; nbytes += int(m.group(2))
+print(json.dumps({"copies": copies, "bytes": nbytes}))' "$@"
 }
