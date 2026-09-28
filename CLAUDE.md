@@ -1,168 +1,155 @@
-# ReplicaVault pilot — instructions for Claude Code
+# ReplicaVault — phase 2 instructions for Claude Code
 
-You are helping Vlad (PhD student, GSU) run a three-week feasibility pilot for **ReplicaVault**, a research prototype that makes Ceph keep a hidden, bounded-lifetime copy of deleted objects on one replica without disturbing Ceph's correctness. The full proposal is `docs/ReplicaVault-proposal-v2.md`. Read §1, §4.1–4.2, and §6 before doing anything else.
+You are helping Vlad (PhD student, GSU) continue **ReplicaVault**, a Ceph prototype that keeps a hidden, bounded-lifetime copy of deleted objects so that an attacker with Ceph admin credentials cannot destroy data irrecoverably. The feasibility pilot is finished: see `results/GATE_REPORT.md` (pass with revised hypotheses). This phase fixes what the pilot exposed before the full evaluation.
 
-The pilot answers one question: **can a replica hold hidden pre-deletion data without breaking peering, backfill, scrub, or object recreation?** It is a go/no-go gate, not a product. Favor evidence over polish, and stop early if the evidence says no.
+Read these first, in order:
+
+1. `docs/ReplicaVault-proposal-v2.md`: §1, §3 (threat model), §4.1 (protected-delete contract).
+2. `docs/revision-1-copying-vault.md`: the mechanism the pilot adopted.
+3. `docs/revision-1a-ordered-vault.md`: corrections and the new requirements B1–B4. **This phase implements B1, B3 and B4, and probes A3.**
+4. `results/GATE_REPORT.md` §3 (caveats) and `notes/design-note.md` §§1, 4, 7.
+
+Phase 2 has four goals:
+- **(B4)** Make the prototype reproducible from this repository.
+- **(B1)** Show that the coverage gap is real and attacker-triggerable, then close it.
+- **(B3)** Test crash consistency and read-after-queue instead of arguing them.
+- **(A3)** Get an early, honest signal on the apply-path read cost.
 
 ---
 
 ## Ground rules
 
-1. **Only touch the development cluster.** Before any destructive command, confirm you are talking to the vstart cluster in this workspace (check `fsid` against `notes/environment.md`). Never run `ceph orch` commands, never zap devices, never touch any other cluster or host.
-2. **Pre-registration is immutable.** Phase 0 commits `PILOT_CRITERIA.md`. After that commit, never edit it. If you think a criterion is wrong, say so to Vlad in your report; do not change the file.
-3. **Do not change how peering decides authority.** Do not modify PG log semantics, peering, scrub, or backfill code. If making a scenario pass seems to require it, stop immediately and report — that is a gate-fail signal, not a bug to work around.
-4. **Stop at checkpoints.** Each phase ends with a report and, where marked **STOP**, wait for Vlad before continuing.
-5. **Cite code, don't paraphrase it from memory.** Every claim about Ceph behavior in the notes carries a `path:line` reference into the pinned source tree, plus the commit hash. If you have not read it, say "unverified."
-6. **Git discipline.** Work on branch `replicavault-pilot` in the Ceph tree and on `main` in this workspace repo. Small commits with descriptive messages. Never force-push, never push upstream.
-7. **Record everything reproducibly.** Every scenario is a script; every result is a file under `results/` with timestamp, git hash of the Ceph build, and the command that produced it.
+1. **Only touch the vstart development cluster** described in `notes/environment.md`. The cephadm cluster whose configuration is in `/etc/ceph` on node0 is not yours: never run commands against it. Before any destructive command, check the `fsid`.
+2. **Frozen files stay frozen.** Never edit these: `PILOT_CRITERIA.md`, `docs/revision-1-copying-vault.md`, `docs/revision-1a-ordered-vault.md` once committed, `PHASE2_CRITERIA.md` once committed, or any existing file under `results/` from the pilot. New results go under `results/phase2/`. If you think a frozen criterion is wrong, say so in your report.
+3. **Do not change how peering decides authority.** Do not change PG log contents, peering, scrub, or backfill logic. Replication-message changes (for example a new field in `MOSDRepOp` or `MOSDRepOpReply`) are allowed **only** if Vlad approves them at the Phase 2 STOP. If a fix seems to need anything outside these limits, stop and report.
+4. **Stop at every STOP.** Write your report to `notes/log.md` and wait for Vlad.
+5. **Cite code.** Every claim about Ceph behavior carries a `path:line` into the pinned tree and is marked **verified** (you read it) or **inferred**.
+6. **Git.** Ceph changes go on a new branch, `replicavault-p2`, based on `replicavault-pilot`. Workspace changes go to `main`. Small commits, no force-push. **Do not push anything to any remote without Vlad's explicit OK in this session.**
+7. **Reproducibility.** Every scenario is a script, and every result is a JSON file recording its command, timestamp, OSD build and Ceph commit. Every scenario runs on vanilla first, as in the pilot.
+8. **Protect the time.** Vlad's proposal defense is in mid-October. Anything that will take more than a day beyond its phase's estimate is reported, not quietly absorbed.
 
-## Workspace layout (create if missing)
+---
+
+## Phase 0 — housekeeping and pre-registration (half a day)
+
+1. **Publish the patch (B4).** Run `git format-patch c92aebb2..replicavault-pilot` into `ceph-patch/pilot/`. Add `ceph-patch/README.md` explaining how to apply the patches to a clean v19.2.3 checkout and build both binaries, including `-DENABLE_GIT_VERSION=OFF`. Verify the whole path: fresh clone, apply, build `ceph-osd`, and confirm the build's commit hash and the patch contents match `17451c9`. Commit.
+2. **Commit Revision 1a** only after Vlad has confirmed its two *proposed* thresholds (§A3). Ask him if he hasn't already.
+3. **Pre-register this phase.** Create `PHASE2_CRITERIA.md` containing the criteria below, today's date, and the Ceph commit. Commit it before writing any phase 2 code. Never edit it afterwards.
 
 ```
-docs/ReplicaVault-proposal-v2.md
-PILOT_CRITERIA.md          # Phase 0, then frozen
-notes/
-  environment.md           # Phase 0
-  step1-primitive.md       # Phase 1
-  design-note.md           # Phase 3
-  destructive-paths.md     # Phase 3 (inventory table)
-  log.md                   # running daily log: date, what was done, what's blocked
-scripts/
-  lib.sh                   # cluster helpers (kill/restart OSD, acting set, wait-for-clean)
-  smoke.sh                 # Phase 2
-  scenarios/               # Phase 5, one script per scenario
-  vault-inspect.sh         # list/extract vault entries via ceph-objectstore-tool
-results/
-  GATE_REPORT.md           # Phase 6
+Phase 2 criteria
+
+Coverage (B1): pass if, on the phase 2 prototype, across pilot scenarios s01–s12
+and adversarial scenarios a01–a05, every acknowledged delete has at least one
+intact vault entry, and pilot invariants 1, 2 and 4 hold in every run.
+
+Crash consistency (B3): pass if, across at least 100 crash runs (c01), no
+acknowledged delete lacks an intact vault entry after restart, and BlueStore
+fsck is clean on every OSD. Duplicate entries are counted and reported, not
+failures.
+
+Read-after-queue (B3): pass if, across at least 200 runs (c02), the vault
+entry's content always equals the last write acknowledged or queued before the
+delete.
+
+Limits: fail if closing the coverage gap requires changing how peering decides
+authority, PG log contents, scrub, or backfill logic.
+
+Cost probe (A3): no pass/fail. Report only.
 ```
 
 ---
 
-## Phase 0 — environment inventory and pre-registration (day 1)
+## Phase 1 — demonstrate the coverage gap on the pilot prototype (1–2 days)
 
-Vlad has already set up a cluster. Find out exactly what it is and record it in `notes/environment.md`:
+Write adversarial scenarios in `scripts/scenarios/`. They use the pilot harness (`common.sh`, `rvcheck.py`), with invariant 3 as defined in the pilot. Run each **on vanilla** (invariant 3 skipped, to validate the script) and **on the pilot prototype** (`17451c9`). Each timing-dependent scenario runs at least 10 times.
 
-- Ceph version and git commit (`ceph --version`, `git -C <ceph-src> rev-parse HEAD`), build type (Debug vs RelWithDebInfo), build directory path.
-- How the cluster was started. **The pilot requires a source build run with `vstart.sh`**, because Phase 4 modifies the OSD. If the cluster is a package or cephadm install, stop and tell Vlad before going further.
-- Number of MONs, MGRs, OSDs; object store (must be BlueStore); `fsid`; how to kill and restart a single OSD in this setup (e.g. `out/osd.N.pid`, `bin/init-ceph`, or re-running `bin/ceph-osd -i N -c ceph.conf`). Verify the restart method actually works and write down the exact commands.
-- Disk, RAM, and cores available, and how long an incremental rebuild of `ceph-osd` takes.
+- **a01 — rank 1 marked out.** For a target PG, `ceph osd out` its rank-1 OSD so that the new rank 1 is a backfill target. Throttle backfill (`osd_max_backfills 1`, `osd_recovery_sleep`) so the window stays open, and delete objects the backfill target has not received yet.
+- **a02 — upmap to an empty OSD.** `ceph osd pg-upmap-items` moves the PG's rank-1 slot to an OSD holding no copy of it; delete during backfill. Needs `ceph osd set-require-min-compat-client luminous`, or whatever v19 requires; record it.
+- **a03 — size 1.** Set pool `min_size 1` and `size 1`, then delete. Only deletes are checked here. The replicas removed by the size change are a PG-level path, which is out of scope in v1.
+- **a04 — primary-temp.** Use `ceph osd primary-temp` (or primary affinity) so the acting set's primary is not the up set's first OSD. Delete, and check which OSD vaults.
+- **a05 — duplicate inflation (B2).** Repeatedly mark the rank-1 OSD down and up while deleting a stream of objects. Report vault copies per delete and retained bytes per deleted byte. No pass/fail.
 
-Then create a test pool if none exists: replicated, `size 3`, `min_size 2`, `pg_num 32`, autoscaler **off** (it is turned on only in the split/merge scenario).
-
-Create `PILOT_CRITERIA.md` containing, verbatim, the **Gate** and **Decision rule** paragraphs from §6 of the proposal, plus today's date and the Ceph commit hash. Commit it with the message `pre-register pilot criteria`. Do not edit it again.
-
-Report: a summary of the environment and anything that blocks the pilot.
+**Expected:** a01–a03 fail invariant 3 on the pilot prototype. That is the point. Record exactly which deletes went unvaulted and why, with the log lines. If any of them *passes*, explain why before moving on: it means the model in `design-note.md` is wrong somewhere.
 
 ---
 
-## Phase 1 — primitive check (days 1–2, from source) — **STOP after this phase**
+## Phase 2 — design the fix (1 day) — **STOP after this phase**
 
-This is the cheapest question that could end or reshape the project, so it comes first. It needs only the source tree.
+Write `notes/b1-design.md`.
 
-**Question:** can BlueStore move or clone an object into a collection *outside its PG* without copying the data?
+**Verify these in code first (cite and mark verified or inferred):**
 
-Read and cite:
+1. A primary never applies a client delete to an object that it is itself missing. It recovers the object first, or it blocks the op. Find the check.
+2. At `issue_op` time the primary knows, for each acting peer, whether the peer will receive an empty transaction (`should_send_op`, `last_backfill`) and whether the peer is missing the object (`peer_missing`). This must be the same condition that determines what the peer actually applies.
+3. Whether the client ack waits for the primary's own local transactions, including a vault transaction queued before the PG transaction on the same sequencer.
 
-- `src/os/Transaction.h` — `OP_COLL_MOVE_RENAME`, `OP_TRY_RENAME`, `OP_CLONE`, `OP_CLONERANGE2`, `OP_SPLIT_COLLECTION2`, `OP_MERGE_COLLECTION`, `OP_MKCOLL`.
-- `src/os/bluestore/BlueStore.cc` — `_txc_add_transaction` (look for assertions that source and destination collections match), `_rename`, `_clone`, `_do_clone_range`, `_split_collection`, `_merge_collection`, `_create_collection`.
-- `src/os/bluestore/BlueStore.h` — how `SharedBlob` / `SharedBlobSet` are scoped (per collection? per cache shard?), and what a cross-collection reference would break.
-- `src/osd/osd_types.h` — `coll_t` types (meta, PG, temp) and what a vault collection could be.
-- `src/osd/OSD.cc` — what the OSD does at boot with every collection it finds (`load_pgs`, temp-object cleanup, anything that deletes or asserts on unrecognized collections). Consider whether the vault is safer as a new collection type or as a namespace inside the existing meta collection.
+**Then compare these designs**, including any better one you find:
 
-Write `notes/step1-primitive.md` with:
+- **(i) Primary fallback.** The primary vaults locally whenever, in its own view, the rule's retainer will not apply the delete with the object present. No message change.
+- **(ii) Retainer confirmation.** Retainers set a flag in `MOSDRepOpReply`, and the primary vaults locally, or delays the ack, when no flag arrives. This needs a message change and Vlad's approval.
+- **(iii) Vault on every replica holding the object.** Simplest. It multiplies H1 and H3 costs.
 
-1. A direct answer to the question, with citations.
-2. Which option from proposal §4.2 follows: **(a)** copying move, **(b)** extending BlueStore, **(c)** vault as a hidden namespace inside the PG collection — or any other mechanism you find (for example, a split/merge-style collection operation, or reusing snapshot clones within the PG), with its trade-offs.
-3. For the recommended mechanism: what the OSD would do at boot, during scrub, and during backfill with vault data present, and which of those you have verified in code versus inferred.
-4. Your confidence and what would change the answer.
+For each design, give:
+- whether it enforces contract item 5 ("acknowledged delete implies a durable vault copy") under a01–a04 and under s01–s12;
+- the cases where it produces duplicates;
+- the files and functions it touches;
+- a rough size.
 
-**STOP.** Report the verdict to Vlad and wait for his decision on the mechanism before Phase 4. (Phases 2 and 3 may proceed while waiting.)
+Also cover the recovery-delete path, where the primary applies a delete through `remove_missing_object`, and the whiteout path.
 
----
-
-## Phase 2 — environment smoke test (days 1–3)
-
-Write `scripts/lib.sh` with helpers: `acting_set <pool> <obj>` (from `ceph osd map`), `kill_osd N`, `restart_osd N`, `wait_clean` (poll until all PGs `active+clean`, with a timeout), `deep_scrub_all <pool>` (issue scrubs and wait until they complete, not just start), `check_inconsistent <pool>` (`rados list-inconsistent-pg` and `ceph health detail`).
-
-Write `scripts/smoke.sh` on the **unmodified** build: put objects of several sizes, read them back with checksums, delete some, kill and restart an OSD, wait for clean, deep-scrub every PG, assert zero inconsistencies. It must pass cleanly on vanilla Ceph before any scenario result means anything.
+**STOP.** Recommend one design and wait for Vlad.
 
 ---
 
-## Phase 3 — trace the destructive paths (days 3–7)
+## Phase 3 — implement and rerun everything (2–3 days)
 
-Follow an object delete end to end and write `notes/design-note.md`:
+Implement the approved design on `replicavault-p2`. Keep `RETAIN_RANK` and the log format. Add a `path=fallback` (or equivalent) value to the `replicavault: vaulted` log line, so scenarios can see which mechanism made each copy.
 
-- `PrimaryLogPG` (`do_osd_ops` for `CEPH_OSD_OP_DELETE`, `_delete_oid`, whiteouts when snapshots exist) → `PGTransaction` → `ReplicatedBackend::submit_transaction` / `generate_transaction` → `MOSDRepOp` → `ReplicatedBackend::do_repop` on replicas → `ObjectStore::Transaction` applied by BlueStore.
-- Where exactly a single OSD — primary or replica — could rewrite *its own* local remove into a vault move, leaving the PG log entry and the transaction sent to other replicas unchanged.
-- How snapshot clones are retained and trimmed (`SnapTrimmer`), how scrub builds its per-replica object map (and whether it could ever list the vault), how backfill enumerates objects, how stray PGs are deleted after remapping (`PG::do_delete_work` or equivalent), and how PG split/merge rewrite collections.
+Rebuild, then run `smoke.sh`, **all of s01–s12**, and **all of a01–a05**, on both vanilla and the phase 2 build. Write results to `results/phase2/`. Every scenario that passed in the pilot must still pass. a01–a04 must now pass invariant 3.
 
-Begin `notes/destructive-paths.md` as a table: *path | entry point (command/op) | code location | removes data how | routed through vault in v1? | notes*. Include object delete, `purge`, pool deletion, pool size reduction, stray PG removal, snap trim, PG merge. Completeness matters more than depth here.
+Then export the phase 2 patch series to `ceph-patch/p2/`, the same way as in Phase 0.
 
 ---
 
-## Phase 4 — minimal prototype (week 2) — only after Vlad approves the Phase 1 mechanism
+## Phase 4 — crash consistency and read-after-queue (1–2 days)
 
-Scope: **object deletes only**, on a replicated pool. No PG-level paths, no overwrites, no reclaimer daemon, no policy file.
+- **c01 — crash under deletes.** Stream deletes of objects from 4 KiB to 8 MiB against a PG, and SIGKILL the retaining OSD after a random delay. Restart it, wait for clean, run `ceph-bluestore-tool fsck` while the OSD is stopped, and check invariants 1–4. At least 100 runs. Record: acknowledged deletes, vault entries found, duplicates, and any delete in flight at kill time that was *not* acknowledged. Check whether BlueStore offers a debug option that stops between KV submissions. If one exists, add runs that use it. Do not invent option names; cite the option from the source.
+- **c02 — read-after-queue.** With librados AIO (Python `rados` bindings are fine), issue `aio_write_full(obj, new_bytes)` and then immediately `aio_remove(obj)`, without waiting for the write to complete. Check that the vault entry holds `new_bytes`. At least 200 runs, varying object size and the number of in-flight writes.
 
-- Retention rule for the pilot: the OSD at **acting-set rank 1** at the time it applies the delete retains the object. Rank 0 (primary) and rank 2 delete normally. Make the rank a compile-time or hard-coded constant; do not add a `ceph config` option.
-- Rewrite only that OSD's local transaction: the remove becomes a move into the vault, using the mechanism Vlad approved. Vault entry name encodes pool, PG, object name (including namespace and locator), object version, and deletion time, so repeated delete-and-recreate of one name produces distinct entries.
-- Record a checksum of the data at vault time (in an xattr or omap on the vault entry).
-- Log every vault move at a fixed debug level with a greppable prefix: `replicavault: vaulted pool=… pg=… oid=… v=… osd=…`. The scenarios use these lines as ground truth for where copies should be.
-- Do not add any command that releases or deletes vault data.
-- Rebuild only what changed; rerun `scripts/smoke.sh` after each rebuild.
-
-Write `scripts/vault-inspect.sh`: stop an OSD, use `ceph-objectstore-tool` to list vault entries and extract one entry's bytes, restart the OSD. For the pilot, restore is manual: extract bytes, verify checksum, `rados put` under the original name, and confirm the result is a new object version.
+If c01 or c02 finds a missing or wrong vault copy, stop and report with logs before changing anything.
 
 ---
 
-## Phase 5 — scenario suite (week 3)
+## Phase 5 — cost probe (1 day, indicative only)
 
-One script per scenario in `scripts/scenarios/`. Each script:
+This is not the H1 evaluation. It is an early warning for A3.
 
-- runs against a fresh or known state, writes objects with known checksums, and records acting sets before acting;
-- repeats **at least 10 times** where timing matters (kills "during" a delete are racy; vary the delay);
-- after each run: waits for clean, deep-scrubs every PG, and checks the invariants below;
-- writes `results/<scenario>-<timestamp>.json` with pass/fail per invariant, per run.
-
-**Run every scenario first on the vanilla build** (vault checks skipped) to confirm the script itself is sound, then on the prototype.
-
-Invariants checked after every run:
-
-1. **No resurrection:** every acknowledged-deleted object returns `ENOENT` (`rados stat`), and never reappears in `rados ls`.
-2. **No inconsistency:** deep-scrub reports zero inconsistent objects or PGs.
-3. **Vault present and intact:** for every acknowledged delete, at least one vault entry exists on an OSD whose log shows a `replicavault: vaulted` line for it, and its checksum matches the checksum recorded at write time.
-4. **Live data unaffected:** every object that was not deleted reads back with the correct checksum.
-
-Scenarios (from proposal §6, step 5):
-
-1. Primary killed **before** a delete (delete lands on the new primary).
-2. Primary killed **during** a delete (racy; many runs).
-3. Primary killed **after** a delete, then restarted.
-4. `ceph osd out` of a non-retaining OSD → backfill; then of the retaining OSD → backfill. The vault must stay on the retaining OSD's disk and must not be backfilled anywhere.
-5. Deep-scrub of every PG with vault entries present.
-6. Same object name recreated after deletion; content of the new object is correct and independent of the vault.
-7. Repeated delete-and-recreate of one object name (e.g. 20 cycles): one distinct vault entry per cycle.
-8. **OSD restart** of the retaining OSD with vault entries on disk: vault not deleted, not treated as a stray or temp collection, no assert; entries intact.
-9. **pg_num change** with the autoscaler on (or set directly): split, then merge, while vault entries exist for the affected PGs.
-10. **Delete of an object with snapshot clones** (pool snapshot via `rados mksnap`, then delete the head): document what the prototype does and whether invariants hold; do not change snapshot semantics.
-11. **Manual restore** of a sample of vault entries via `scripts/vault-inspect.sh`: content matches, and the restored object has a new version.
-
-If a scenario fails, diagnose before touching code. Classify each failure as: *script bug*, *prototype bug*, or *design problem*. A design problem that would require changing peering authority is a **gate fail — stop and report**.
+- On the vstart cluster, keep reading and writing 4 KiB objects in one pool, while deleting objects of 1, 4, 16, 64 and 128 MiB in the same pool, on vanilla and on the phase 2 build. Report p50 and p99 of the 4 KiB ops on the retaining OSDs, per deleted-object size, plus delete latency itself. Use `ceph daemon osd.N perf dump` counters where they help.
+- The Debug build and file-backed OSDs distort absolute numbers. If building a RelWithDebInfo pair takes less than half a day, use it and say so. Either way, label the numbers "indicative, single host".
+- If 64–128 MiB deletes visibly stall 4 KiB ops, note possible mitigations (for example, chunked reads or moving the read off the op shard) in `notes/b1-design.md` §"Future work", without implementing them.
 
 ---
 
-## Phase 6 — gate report
+## Phase 6 — report
 
-Write `results/GATE_REPORT.md`:
+Write `results/phase2/PHASE2_REPORT.md`:
 
-- For each criterion in `PILOT_CRITERIA.md`: pass/fail, the evidence (result files, run counts), and any caveat.
-- The mechanism used and how it differs from the proposal's §4.2 description.
-- Surprises, and anything that affects the proposal's hypotheses (H1 overhead, H2 coverage, H3 capacity) or open questions in §10.
-- Your recommendation: **pass**, **pass with revised hypotheses**, or **fail**, per the decision rule — stated plainly. Vlad makes the call.
+- Each criterion in `PHASE2_CRITERIA.md`: pass or fail, evidence (result files, run counts), and caveats.
+- The design implemented, how it differs from `b1-design.md`, and the exact files touched.
+- a01–a05 before and after the fix, side by side.
+- Crash and read-after-queue findings, and duplicate counts.
+- The cost probe, with its limits stated plainly.
+- Anything that changes the proposal's H1, H2 or H3, or needs a Revision 1b. Draft the revision text in the report; don't create the revision file.
+
+Vlad makes the call.
 
 ---
 
 ## Out of scope for you
 
-- Step 6 (capacity analysis from traces) and step 7 (prior-art reading) of the proposal. Vlad runs these separately; do not start them unless asked.
-- Pool deletion, size reduction, and stray-PG vaulting; overwrites; erasure-coded pools; the reclaimer daemon; the policy file; performance measurement beyond noting anything obviously slow.
+- Verifying pilot claims *for* Vlad's defense. He does that himself; answer his questions when asked.
+- Proposal steps 6 and 7 (the capacity trace analysis and the prior-art reading).
+- The full H1 evaluation on the multi-host testbed.
+- PG-level retention (pool deletion, size reduction, stray-PG removal, backfill-remove).
+- Overwrites, erasure-coded pools, the reclaimer daemon, the policy file, and an online vault reader.
