@@ -1,0 +1,72 @@
+From 17451c9003d3e9b5e72d1d1a09b2397cf33eab1f Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Sat, 26 Sep 2026 13:55:16 -0600
+Subject: [PATCH 2/2] replicavault: queue vault copy as its own txc on the PG
+ sequencer
+
+Staging the vault copy inside the PG's transaction made BlueStore charge
+the vault bytes to the PG's pool (txc->osd_pool_id) while fsck recomputes
+them under meta, so every retaining OSD failed fsck with a per-pool statfs
+mismatch. A meta-only txc is charged to META_POOL_ID. Queuing it on the same
+collection handle keeps it on the same OpSequencer, and _txc_finish_io
+submits that sequencer's txcs to the kv store in order, so the remove never
+becomes durable before the vault copy.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/PrimaryLogPG.cc      | 11 ++++++++---
+ src/osd/ReplicatedBackend.cc | 13 ++++++++-----
+ 2 files changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/src/osd/PrimaryLogPG.cc b/src/osd/PrimaryLogPG.cc
+index aca5ea3..d445885 100644
+--- a/src/osd/PrimaryLogPG.cc
++++ b/src/osd/PrimaryLogPG.cc
+@@ -12418,9 +12418,14 @@ void PrimaryLogPG::remove_missing_object(const hobject_t &soid,
+     int rank = replicavault::acting_rank(
+       *get_osdmap(), info.pgid.pgid, osd->whoami, &acting);
+     if (rank == replicavault::RETAIN_RANK) {
+-      replicavault::vault_object(
+-	cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
+-	replicavault::Path::RECOVERY, &t);
++      ObjectStore::Transaction vt;
++      if (replicavault::vault_object(
++	    cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
++	    replicavault::Path::RECOVERY, &vt) == 0) {
++	// own txc (meta-pool accounting), same sequencer as the remove below
++	int r = osd->store->queue_transaction(ch, std::move(vt), nullptr);
++	ceph_assert(r == 0);
++      }
+     }
+   }
+   remove_snap_mapped_object(t, soid);
+diff --git a/src/osd/ReplicatedBackend.cc b/src/osd/ReplicatedBackend.cc
+index 0050f70..dfb1122 100644
+--- a/src/osd/ReplicatedBackend.cc
++++ b/src/osd/ReplicatedBackend.cc
+@@ -1179,13 +1179,16 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+   rm->opt.register_on_commit(
+     parent->bless_context(
+       new C_OSD_RepModifyCommit(this, rm)));
+-  vector<ObjectStore::Transaction> tls;
+-  tls.reserve(3);
+   if (!vault_t.empty()) {
+-    // same BlueStore txc as the remove below: vault copy and remove commit
+-    // atomically
+-    tls.push_back(std::move(vault_t));
++    // Own txc, so BlueStore charges the vault bytes to the meta pool rather
++    // than this PG's pool. Same collection handle, hence same OpSequencer:
++    // BlueStore submits its txcs to the kv store in queue order
++    // (_txc_finish_io), so the remove below never commits before this copy.
++    int r = store->queue_transaction(ch, std::move(vault_t));
++    ceph_assert(r == 0);
+   }
++  vector<ObjectStore::Transaction> tls;
++  tls.reserve(2);
+   tls.push_back(std::move(rm->localt));
+   tls.push_back(std::move(rm->opt));
+   parent->queue_transactions(tls, op);
+-- 
+2.43.0
+

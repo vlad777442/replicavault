@@ -25,3 +25,9 @@
 - Prototype suite: all 11 scenarios pass (results/*-20260926T1645..1921*.json). Added s12 (rank-1 OSD misses a delete → recovery-path vault); running vanilla then rv.
 - s12: vanilla 10/10, rv 10/10 (recovery-path vault fires; 2 copies per missed delete). Final fsck on all 5 OSDs clean with 601 vault entries (results/final-fsck-*.json). Phase 5 complete.
 - Phase 6: results/GATE_REPORT.md written. Recommendation: pass with revised hypotheses. (Caught and fixed two wrong numbers while cross-checking the report against result files: vault-check total 646, not 814; s02 prototype timing split 10/2/8.)
+
+## 2026-09-28 — Phase 2 (project phase 2), Phase 0
+- Committed `CLAUDE.md` (phase 2 instructions) and Revision 1a (Vlad confirmed H1b 1.5×, H1e 50%; only the status line was edited before commit).
+- Pre-registered `PHASE2_CRITERIA.md` (verbatim from CLAUDE.md, diff-checked) at `1a01660`, before any phase 2 code. Created Ceph branch `replicavault-p2` at `17451c9` (no changes yet).
+- B4: `git format-patch c92aebb2..replicavault-pilot` → `ceph-patch/pilot/0001,0002`; `ceph-patch/README.md` explains apply and build, including `-DENABLE_GIT_VERSION=OFF` and `-DWITH_PYTHON3=3.12`.
+- B4 verification from scratch (`/data/verify-ceph`): fresh `--depth 1` clone of v19.2.3 + `git am --committer-date-is-author-date` gives HEAD **`17451c9003d3e9b5e72d1d1a09b2397cf33eab1f`**, identical commit hash and tree (`601bacda…`) to the pilot branch; 5 files, +387 lines. Clone+apply 161 s; cmake + `ninja ceph-osd` done at 673 s total. The build reports version "Development" and contains the `replicavault: ` log strings. The binary is not byte-identical to `bin/ceph-osd.rv`: Debug binaries embed absolute source paths (2,202 `/data/verify-ceph/` strings vs 1,925 `/data/ceph/src` ones), so this is expected; the source is identical.
