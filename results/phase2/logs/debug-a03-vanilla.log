@@ -1,0 +1,11 @@
+14:19:56 scenario a03-size-one: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+14:20:02 clean after 6 s
+14:20:21 clean after 14 s
+14:20:21 --- a03-size-one run 1 {"mon_allow_pool_size_one": "true"}
+14:20:41 clean after 14 s
+14:21:01 clean after 16 s
+14:21:08 clean after 6 s
+14:21:19 deep-scrubbed 8 PGs in 11 s
+14:21:26 clean after 7 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+a03-size-one [vanilla]: 1/1 runs passed -> /users/vlad777/research/replicavault/results/phase2/a03-size-one-20260928T141955.json

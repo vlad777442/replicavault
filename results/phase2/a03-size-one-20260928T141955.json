@@ -1,0 +1,84 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20260928T141955",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 90,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 1
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "up=[4] acting=[4] primary=None"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 65,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T141955-r1-4": 0,
+     "a03-size-one-20260928T141955-r1-8": 0,
+     "a03-size-one-20260928T141955-r1-6": 0,
+     "a03-size-one-20260928T141955-r1-0": 0,
+     "a03-size-one-20260928T141955-r1-10": 0,
+     "a03-size-one-20260928T141955-r1-2": 0,
+     "a03-size-one-20260928T141955-r1-14": 0,
+     "a03-size-one-20260928T141955-r1-12": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  }
+ ]
+}

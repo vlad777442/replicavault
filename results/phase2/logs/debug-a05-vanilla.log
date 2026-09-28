@@ -1,0 +1,17 @@
+14:26:10 scenario a05-duplicate-inflation: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+14:26:17 clean after 7 s
+14:26:17 --- a05-duplicate-inflation run 1 {"rounds": 3, "deletes_per_round": 4}
+14:26:25 osd.0 (pid 1336508) down and exited
+14:26:36 osd.0 up (pid 1354956)
+14:26:50 clean after 14 s
+14:26:51 osd.0 (pid 1354956) down and exited
+14:27:01 osd.0 up (pid 1355996)
+14:27:16 clean after 15 s
+14:27:18 osd.0 (pid 1355996) down and exited
+14:27:28 osd.0 up (pid 1357054)
+14:27:39 clean after 11 s
+14:27:46 clean after 6 s
+14:28:13 deep-scrubbed 32 PGs in 27 s
+14:28:20 clean after 7 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+a05-duplicate-inflation [vanilla]: 1/1 runs passed -> /users/vlad777/research/replicavault/results/phase2/a05-duplicate-inflation-20260928T142610.json

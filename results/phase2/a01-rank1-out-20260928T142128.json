@@ -1,0 +1,85 @@
+{
+ "scenario": "a01-rank1-out",
+ "timestamp": "20260928T142128",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/a01-rank1-out.sh ",
+ "pool": "rvtest",
+ "duration_s": 177,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 1
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "pg": "1.4",
+    "before": "up=[3, 0, 1] acting=[3, 0, 1] primary=None",
+    "at_delete": "up=[3, 1, 2] acting=[3, 1, 0] primary=None",
+    "state_at_delete": "active+remapped+backfill_wait"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 164,
+   "out_osd": 0,
+   "vault_copies": {
+    "copies": {
+     "a01-rank1-out-20260928T142128-r1-o-103": 0,
+     "a01-rank1-out-20260928T142128-r1-o-182": 0,
+     "a01-rank1-out-20260928T142128-r1-o-82": 0,
+     "a01-rank1-out-20260928T142128-r1-o-350": 0,
+     "a01-rank1-out-20260928T142128-r1-o-337": 0,
+     "a01-rank1-out-20260928T142128-r1-o-229": 0,
+     "a01-rank1-out-20260928T142128-r1-o-280": 0,
+     "a01-rank1-out-20260928T142128-r1-o-55": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  }
+ ]
+}

@@ -244,10 +244,11 @@ names_in_pg() {
   python3 "$SCEN_DIR/../pgmap.py" find "$pid" "$pgn" "$pgid" "$prefix" "$count" --ns "$ns"
 }
 
-# pg_up_acting PGID -> "up=[..] acting=[..] primary=N" (from the osdmap)
-pg_up_acting() {
-  ceph pg map "$1" -f json | python3 -c 'import json,sys
-d=json.load(sys.stdin); print("up=%s acting=%s primary=%s" % (d["up"], d["acting"], d.get("acting_primary")))'
+# obj_up_acting POOL OBJ -> "pg=P up=[..] acting=[..] primary=N" from the osdmap
+# (`ceph pg map` has no primary field; `ceph osd map` has acting_primary)
+obj_up_acting() {
+  ceph osd map "$1" "$2" -f json | python3 -c 'import json,sys
+d=json.load(sys.stdin); print("pg=%s up=%s acting=%s primary=%s" % (d["pgid"], d["up"], d["acting"], d["acting_primary"]))'
 }
 
 # pg_state PGID -> the PG state string

@@ -32,7 +32,7 @@ for run in $(seq 1 "$RUNS"); do
   ceph osd pool set "$SZ_POOL" size 1 --yes-i-really-mean-it >/dev/null || die "size 1 refused"
   wait_clean 900 || die "not clean at size 1"
   note size_at_delete "$(ceph osd pool get "$SZ_POOL" size -f json | python3 -c 'import json,sys; print(json.load(sys.stdin)["size"])')"
-  note example_acting "\"$(pg_up_acting "$(pg_of "$SZ_POOL" "$RUN_PREFIX-0")")\""
+  note example_acting "\"$(obj_up_acting "$SZ_POOL" "$RUN_PREFIX-0")\""
   names=()
   for i in $(seq 0 15); do (( i % 2 == 0 )) && { del_obj "$RUN_PREFIX-$i" || die "rm"; names+=("$RUN_PREFIX-$i"); }; done
   restore_size

@@ -22,7 +22,7 @@ for run in $(seq 1 "$RUNS"); do
   read -r -a acting <<<"$(acting_set "$POOL" "$seed")"
   R=${acting[1]}
   note pg "\"$pg\""
-  note before "\"$(pg_up_acting "$pg")\""
+  note before "\"$(obj_up_acting "$POOL" "$seed")\""
   mapfile -t objs < <(names_in_pg "$RUN_PREFIX-o" "$pg" 12)
   for o in "${objs[@]}"; do put_obj "$o" $(( 65536 + RANDOM )); done
 
@@ -30,7 +30,7 @@ for run in $(seq 1 "$RUNS"); do
   ceph osd out "$R" >/dev/null
   for i in $(seq 1 60); do [[ $(pg_state "$pg") == active* ]] && break; sleep 1; done
   sleep 2
-  note at_delete "\"$(pg_up_acting "$pg")\""
+  note at_delete "\"$(obj_up_acting "$POOL" "$seed")\""
   note state_at_delete "\"$(pg_state "$pg")\""
   for o in "${objs[@]:0:8}"; do del_obj "$o" || die "rm $o"; done
   ceph osd unset nobackfill >/dev/null

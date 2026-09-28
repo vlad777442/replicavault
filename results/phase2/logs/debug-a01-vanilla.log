@@ -1,0 +1,10 @@
+14:21:29 scenario a01-rank1-out: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+14:21:42 clean after 13 s
+14:21:42 --- a01-rank1-out run 1 {}
+14:22:46 clean after 48 s
+14:23:46 clean after 59 s
+14:23:53 clean after 6 s
+14:24:20 deep-scrubbed 32 PGs in 27 s
+14:24:26 clean after 6 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+a01-rank1-out [vanilla]: 1/1 runs passed -> /users/vlad777/research/replicavault/results/phase2/a01-rank1-out-20260928T142128.json

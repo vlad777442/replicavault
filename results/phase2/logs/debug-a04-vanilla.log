@@ -1,0 +1,3 @@
+14:18:17 scenario a04-primary-temp: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+14:18:23 clean after 6 s
+14:18:23 --- a04-primary-temp run 1 {"primary_temp_slot": 1}

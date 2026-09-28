@@ -20,7 +20,7 @@ for run in $(seq 1 "$RUNS"); do
   read -r -a acting <<<"$(acting_set "$POOL" "$seed")"
   R=${acting[1]}
   note pg "\"$pg\""
-  note before "\"$(pg_up_acting "$pg")\""
+  note before "\"$(obj_up_acting "$POOL" "$seed")\""
   mapfile -t objs < <(names_in_pg "$RUN_PREFIX-o" "$pg" $(( ROUNDS * PER_ROUND )))
   deleted_bytes=0
   for o in "${objs[@]}"; do sz=$(( 131072 + RANDOM )); put_obj "$o" "$sz"; done
