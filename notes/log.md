@@ -54,3 +54,11 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - (b) Under primary-temp the retainer becomes acting[0] rather than acting[1]; acceptable?
 - (c) Correct the wrong gap description in a Revision 1b note (GATE_REPORT is frozen)?
 - (d) Revision 1a B1's listed attacks (out, upmap, pg-temp) do not open a gap; size 1 and primary-temp do.
+
+## 2026-09-28/29 — phase 2, Phase 3
+- Vlad approved design (i), with acting[0] as the retainer under primary-temp, and asked for a Revision 1b correction to be drafted (it goes into the phase 2 report).
+- Implemented on `replicavault-p2` as `ef0be10`: `retainer_osd()` (primary-first acting order; the primary itself if the acting set has no other member), a primary hook in `ReplicatedBackend::submit_transaction` (after `issue_op`, before `log_operation`, own txc queued ahead of `op_t`, `path=fallback`), and `do_repop` / `remove_missing_object` switched to the retainer function. The CRUSH mapping runs only for transactions that delete a head. 4 files; no message, peering, PG log, scrub or backfill change.
+- Harness: `p2` build mode (`use-build.sh p2`, rvcheck, `vault_mode`); new result files now default to `results/phase2/` (smoke, negative-control, scenarios), so nothing can land beside the frozen pilot results.
+- Full matrix (smoke, s01–s12, a01–a05) on vanilla, then p2: **34/34 scenario results pass, both smoke runs pass** (`results/phase2/`, log `results/phase2/logs/phase3-full-20260928T*.log`). On p2, a03 3/3 (every delete vaulted `path=fallback` by the single acting OSD) and a04 10/10 (primary at acting[1] → acting[0] vaults via `repop`). a05 on p2: 2 copies per missed delete, retained/deleted 2.00, unchanged from the pilot.
+- B4 for p2: `ceph-patch/p2/` (3 patches) applied on the fresh clone reproduces `ef0be10b…` exactly (commit and tree `2ad62347…`); incremental `ninja ceph-osd` 104 s; the binary contains `retainer_osd` and `vault_deleted_heads`.
+- Harness bug noticed: this node's `grep` is ugrep, which rejects backreferences, so my "not all runs passed" filter in the overnight failure watcher never worked. The results were checked afterwards in python instead; no failures.
