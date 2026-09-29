@@ -43,17 +43,16 @@ print("| scenario | mode | runs passed | inv 1 | inv 2 | inv 3 | inv 4 | objects
 print("|---|---|---|---|---|---|---|---|---|---|")
 superseded = []
 for s in scen:
-    for mode in ("vanilla", "rv"):
+    for mode in ("vanilla", "rv", "p2"):
         rows = sorted(by.get((s, mode), []))
         if not rows:
-            print(f"| {s} | {mode} | — | | | | | | | not run |")
             continue
         *old, (ts, fn, r) = rows
         superseded += [(s, mode, o[1], o[2]["summary"]["runs_passed"], o[2]["summary"]["runs"]) for o in old]
         sm = r["summary"]
         print(f"| {s} | {mode} | {sm['runs_passed']}/{sm['runs']} | " +
               " | ".join(cell(sm, k) for k in INV) +
-              f" | {deletes_checked(r)} | {vault_checked(r) if mode == 'rv' else '—'} | `{fn}` |")
+              f" | {deletes_checked(r)} | {vault_checked(r) if mode in ('rv', 'p2') else '—'} | `{fn}` |")
 if superseded:
     print("\nSuperseded result files (earlier runs of the same scenario and mode):\n")
     for s, mode, fn, p, n in superseded:

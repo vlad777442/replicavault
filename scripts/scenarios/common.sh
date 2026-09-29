@@ -36,8 +36,9 @@ scenario_init() {
   done
   TS=$(date +%Y%m%dT%H%M%S)
   WORK=$(mktemp -d)
-  # phase 2 results go to results/phase2 (pilot results are frozen)
-  RESULTS=$RV_ROOT/results${RV_RESULTS_SUBDIR:+/$RV_RESULTS_SUBDIR}
+  # phase 2 results go to results/phase2 by default: the pilot's files directly
+  # under results/ are frozen and must not gain neighbours from later runs
+  RESULTS=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-phase2}
   mkdir -p "$RESULTS"
   OUT=$RESULTS/$SCENARIO-$TS.json
   RUNS_FILE=$WORK/runs.jsonl
@@ -270,4 +271,9 @@ for l in sys.stdin:
     if m and m.group(1) in names:
         copies[m.group(1)] += 1; nbytes += int(m.group(2))
 print(json.dumps({"copies": copies, "bytes": nbytes}))' "$@"
+}
+
+# vault_mode: true iff the installed OSD build vaults (pilot "rv" or phase 2 "p2")
+vault_mode() {
+  [[ $MODE == rv || $MODE == p2 ]]
 }

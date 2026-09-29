@@ -23,7 +23,7 @@ for run in $(seq 1 "$RUNS"); do
   done
   restores=$WORK/restores-$run.jsonl
   : > "$restores"
-  if [[ $MODE == rv ]]; then
+  if vault_mode; then
     for entry in "${names[@]:1:5}" "${names[7]}"; do
       IFS='|' read -r name ns loc <<<"$entry"
       line=$(vault_lines_for "$name" | head -1)

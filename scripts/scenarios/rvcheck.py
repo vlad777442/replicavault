@@ -108,7 +108,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--state", required=True)
     ap.add_argument("--offsets", required=True)
-    ap.add_argument("--mode", required=True, choices=["vanilla", "rv", "unknown"])
+    ap.add_argument("--mode", required=True, choices=["vanilla", "rv", "p2", "unknown"])
     ap.add_argument("--inspect", required=True, help="path to vault-inspect.sh")
     ap.add_argument("--no-vault-inspect", action="store_true",
                     help="check vault log lines only, not the on-disk entries")
@@ -181,7 +181,7 @@ def main():
     c.shutdown()
 
     # 3: vault present and intact
-    if a.mode != "rv":
+    if a.mode not in ("rv", "p2"):
         result["vault_intact"] = {"pass": None, "skipped": f"mode={a.mode}"}
     else:
         lines = vault_lines(build, offsets)

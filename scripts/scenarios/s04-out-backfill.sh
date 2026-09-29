@@ -55,7 +55,7 @@ for run in $(seq 1 "$RUNS"); do
   : > "$logged"
   for o in "${objs[@]:0:15}"; do vault_lines_for "$o" >> "$logged"; done
   copied=()
-  if [[ $MODE == rv ]]; then
+  if vault_mode; then
     for n in $(osd_ids); do
       "$INSPECT" names "$n" > "$WORK/names-$n" 2>/dev/null
       while read -r lo vn; do
@@ -65,7 +65,7 @@ for run in $(seq 1 "$RUNS"); do
     wait_clean 900 || true
   fi
   nc_pass=$([[ ${#copied[@]} -eq 0 ]] && echo true || echo false)
-  [[ $MODE == rv ]] || nc_pass=null
+  vault_mode || nc_pass=null
   run_end "{\"vault_not_copied\": {\"pass\": $nc_pass, \"vault_lines\": $(wc -l < "$logged"), \"copies_found\": $(printf '%s\n' "${copied[@]:-}" | python3 -c 'import json,sys; print(json.dumps([l for l in sys.stdin.read().split() if l]))')}, \"retainer\": $R, \"nonretainer\": $N, \"primary\": $P}"
 done
 scenario_finish

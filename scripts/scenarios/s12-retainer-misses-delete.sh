@@ -31,7 +31,7 @@ for run in $(seq 1 "$RUNS"); do
   paths=$(vault_lines_for "$target" | while read -r o v; do grep -h "vname=$v" "$CEPH_BUILD/out/osd.$o.log" | sed -E 's/.* osd=([0-9]+) path=([a-z]+) .*/\1:\2/'; done | sort -u | tr '\n' ' ')
   note vault_paths "\"$paths\""
   recovery_seen=$([[ $paths == *":recovery"* ]] && echo true || echo false)
-  [[ $MODE == rv ]] || recovery_seen=null
+  vault_mode || recovery_seen=null
   run_end "{\"retainer_killed\": $R, \"recovery_path_vaulted\": {\"pass\": $recovery_seen, \"paths\": \"$paths\"}}"
   python3 - "$RUNS_FILE" <<'EOF'
 import json, sys

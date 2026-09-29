@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Switch every OSD of the vstart cluster to the vanilla or the prototype ceph-osd.
+# Switch every OSD of the vstart cluster to the vanilla, pilot (rv) or phase 2 (p2) ceph-osd.
 #
-#   scripts/use-build.sh vanilla|rv
+#   scripts/use-build.sh vanilla|rv|p2   (pilot = rv, phase 2 = p2)
 #
 # Installs bin/ceph-osd.<build> as bin/ceph-osd (by rename, so running daemons are
 # unaffected until restarted), records the build in bin/ceph-osd.build, then restarts
@@ -14,7 +14,8 @@ build=${1:-}
 case $build in
   vanilla) commit=c92aebb279828e9c3c1f5d24613efca272649e62 ;;
   rv)      commit=$(git -C "$CEPH_BUILD/.." rev-parse replicavault-pilot) ;;
-  *) die "usage: $0 vanilla|rv" ;;
+  p2)      commit=$(git -C "$CEPH_BUILD/.." rev-parse replicavault-p2) ;;
+  *) die "usage: $0 vanilla|rv|p2" ;;
 esac
 src=$CEPH_BUILD/bin/ceph-osd.$build
 [[ -x $src ]] || die "$src not built"

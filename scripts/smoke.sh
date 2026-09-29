@@ -8,17 +8,17 @@
 # absent from `rados ls`, survivors intact.
 #
 # Usage: scripts/smoke.sh [pool]      (default pool: rvtest)
-# Writes results/smoke-<timestamp>.json; exit status 0 iff every check passes.
+# Writes results/phase2/smoke-<timestamp>.json; exit status 0 iff every check passes.
 set -euo pipefail
 source "$(dirname "$0")/lib.sh"
 
 POOL=${1:-rvtest}
 TS=$(date +%Y%m%dT%H%M%S)
 RUN_ID=smoke-$TS
-OUT=$RV_ROOT/results/$RUN_ID.json
+OUT=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-phase2}/$RUN_ID.json   # pilot results/ is frozen
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
-mkdir -p "$RV_ROOT/results"
+mkdir -p "$(dirname "$OUT")"
 
 rv_require_cluster
 CEPH_GIT=$(rv_ceph_git)
