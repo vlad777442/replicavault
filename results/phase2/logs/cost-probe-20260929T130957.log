@@ -1,0 +1,46 @@
+13:10:15 osd.0 (pid 1254953) down and exited
+13:10:22 osd.0 up (pid 1258554)
+13:10:37 clean after 15 s
+13:10:39 osd.1 (pid 1256231) down and exited
+13:10:44 osd.1 up (pid 1259360)
+13:10:56 clean after 12 s
+13:10:58 osd.2 (pid 1257619) down and exited
+13:11:04 osd.2 up (pid 1260138)
+13:11:16 clean after 12 s
+13:11:17 probe vanilla rep 1 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-vanilla-20260929T131117-r1.json
+1 MiB: {'n': 6, 'p50_ms': 161.502, 'p99_ms': 186.79, 'mean_ms': 157.814} 4k during: {'n': 40, 'p50_ms': 85.467, 'p99_ms': 208.456, 'mean_ms': 90.941}
+4 MiB: {'n': 6, 'p50_ms': 177.272, 'p99_ms': 203.573, 'mean_ms': 168.121} 4k during: {'n': 34, 'p50_ms': 167.483, 'p99_ms': 224.984, 'mean_ms': 112.991}
+16 MiB: {'n': 6, 'p50_ms': 184.043, 'p99_ms': 206.531, 'mean_ms': 183.221} 4k during: {'n': 37, 'p50_ms': 168.257, 'p99_ms': 220.715, 'mean_ms': 106.668}
+64 MiB: {'n': 6, 'p50_ms': 180.908, 'p99_ms': 198.278, 'mean_ms': 177.804} 4k during: {'n': 32, 'p50_ms': 190.488, 'p99_ms': 229.665, 'mean_ms': 118.908}
+128 MiB: {'n': 6, 'p50_ms': 187.936, 'p99_ms': 242.163, 'mean_ms': 192.992} 4k during: {'n': 39, 'p50_ms': 46.877, 'p99_ms': 237.75, 'mean_ms': 101.449}
+13:14:35 clean after 7 s
+13:14:35 probe vanilla rep 2 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-vanilla-20260929T131435-r2.json
+1 MiB: {'n': 6, 'p50_ms': 259.123, 'p99_ms': 325.606, 'mean_ms': 271.847} 4k during: {'n': 38, 'p50_ms': 233.316, 'p99_ms': 384.631, 'mean_ms': 158.209}
+4 MiB: {'n': 6, 'p50_ms': 257.98, 'p99_ms': 293.137, 'mean_ms': 239.283} 4k during: {'n': 38, 'p50_ms': 194.904, 'p99_ms': 363.034, 'mean_ms': 142.575}
+16 MiB: {'n': 6, 'p50_ms': 244.72, 'p99_ms': 317.33, 'mean_ms': 252.214} 4k during: {'n': 33, 'p50_ms': 250.003, 'p99_ms': 325.211, 'mean_ms': 171.4}
+64 MiB: {'n': 6, 'p50_ms': 250.097, 'p99_ms': 334.833, 'mean_ms': 246.524} 4k during: {'n': 33, 'p50_ms': 40.0, 'p99_ms': 345.813, 'mean_ms': 140.466}
+128 MiB: {'n': 6, 'p50_ms': 250.743, 'p99_ms': 265.145, 'mean_ms': 236.914} 4k during: {'n': 38, 'p50_ms': 222.893, 'p99_ms': 317.718, 'mean_ms': 159.786}
+13:18:04 clean after 8 s
+13:18:17 osd.0 (pid 1258554) down and exited
+13:18:25 osd.0 up (pid 1265686)
+13:18:39 clean after 14 s
+13:18:42 osd.1 (pid 1259360) down and exited
+13:18:49 osd.1 up (pid 1266505)
+13:19:01 clean after 12 s
+13:19:04 osd.2 (pid 1260138) down and exited
+13:19:12 osd.2 up (pid 1267313)
+13:19:26 clean after 14 s
+13:19:27 probe p2 rep 1 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-p2-20260929T131927-r1.json
+1 MiB: {'n': 6, 'p50_ms': 257.668, 'p99_ms': 319.255, 'mean_ms': 259.554} 4k during: {'n': 45, 'p50_ms': 124.855, 'p99_ms': 228.489, 'mean_ms': 102.659}
+4 MiB: {'n': 6, 'p50_ms': 333.575, 'p99_ms': 415.288, 'mean_ms': 350.494} 4k during: {'n': 50, 'p50_ms': 163.914, 'p99_ms': 341.533, 'mean_ms': 130.164}
+16 MiB: {'n': 6, 'p50_ms': 796.564, 'p99_ms': 918.338, 'mean_ms': 781.526} 4k during: {'n': 73, 'p50_ms': 190.822, 'p99_ms': 599.564, 'mean_ms': 182.48}
+64 MiB: {'n': 6, 'p50_ms': 1662.031, 'p99_ms': 2017.353, 'mean_ms': 1651.815} 4k during: {'n': 133, 'p50_ms': 114.099, 'p99_ms': 999.329, 'mean_ms': 226.864}
+128 MiB: {'n': 6, 'p50_ms': 3500.723, 'p99_ms': 3866.474, 'mean_ms': 3483.269} 4k during: {'n': 198, 'p50_ms': 156.05, 'p99_ms': 3421.143, 'mean_ms': 344.017}
+13:23:20 clean after 7 s
+13:23:20 probe p2 rep 2 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-p2-20260929T132320-r2.json
+1 MiB: {'n': 6, 'p50_ms': 363.49, 'p99_ms': 438.985, 'mean_ms': 345.786} 4k during: {'n': 46, 'p50_ms': 45.811, 'p99_ms': 368.708, 'mean_ms': 134.677}
+4 MiB: {'n': 6, 'p50_ms': 457.214, 'p99_ms': 513.226, 'mean_ms': 450.36} 4k during: {'n': 55, 'p50_ms': 259.797, 'p99_ms': 342.983, 'mean_ms': 165.662}
+16 MiB: {'n': 6, 'p50_ms': 864.596, 'p99_ms': 1026.506, 'mean_ms': 891.897} 4k during: {'n': 63, 'p50_ms': 267.363, 'p99_ms': 725.739, 'mean_ms': 250.573}
+64 MiB: {'n': 6, 'p50_ms': 1872.51, 'p99_ms': 2192.15, 'mean_ms': 1874.351} 4k during: {'n': 102, 'p50_ms': 80.961, 'p99_ms': 1486.502, 'mean_ms': 268.827}
+128 MiB: {'n': 6, 'p50_ms': 3345.48, 'p99_ms': 3988.991, 'mean_ms': 3416.14} 4k during: {'n': 113, 'p50_ms': 217.944, 'p99_ms': 2304.546, 'mean_ms': 387.65}
+13:27:20 clean after 7 s

@@ -1,0 +1,32 @@
+13:27:31 osd.0 (pid 1265686) down and exited
+13:27:39 osd.0 up (pid 1272609)
+13:27:51 clean after 12 s
+13:27:54 osd.1 (pid 1266505) down and exited
+13:28:00 osd.1 up (pid 1273436)
+13:28:15 clean after 15 s
+13:28:17 osd.2 (pid 1267313) down and exited
+13:28:25 osd.2 up (pid 1274243)
+13:28:37 clean after 12 s
+13:28:37 probe vanilla rep 1 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-vanilla-20260929T132837-r1.json
+1 MiB: {'n': 20, 'p50_ms': 210.443, 'p99_ms': 268.816, 'mean_ms': 203.436} 4k during: {'n': 489, 'p50_ms': 191.712, 'p99_ms': 311.858, 'mean_ms': 133.544}
+4 MiB: {'n': 20, 'p50_ms': 185.5, 'p99_ms': 405.054, 'mean_ms': 195.974} 4k during: {'n': 464, 'p50_ms': 192.473, 'p99_ms': 352.734, 'mean_ms': 137.485}
+16 MiB: {'n': 20, 'p50_ms': 207.62, 'p99_ms': 457.733, 'mean_ms': 228.279} 4k during: {'n': 474, 'p50_ms': 199.977, 'p99_ms': 500.16, 'mean_ms': 151.572}
+64 MiB: {'n': 20, 'p50_ms': 241.081, 'p99_ms': 443.251, 'mean_ms': 253.907} 4k during: {'n': 568, 'p50_ms': 138.532, 'p99_ms': 348.306, 'mean_ms': 134.617}
+128 MiB: {'n': 20, 'p50_ms': 222.321, 'p99_ms': 424.473, 'mean_ms': 248.573} 4k during: {'n': 515, 'p50_ms': 229.064, 'p99_ms': 431.826, 'mean_ms': 166.923}
+13:36:25 clean after 7 s
+13:36:32 osd.0 (pid 1272609) down and exited
+13:36:40 osd.0 up (pid 1278108)
+13:36:52 clean after 12 s
+13:36:55 osd.1 (pid 1273436) down and exited
+13:37:03 osd.1 up (pid 1278913)
+13:37:18 clean after 15 s
+13:37:20 osd.2 (pid 1274243) down and exited
+13:37:28 osd.2 up (pid 1279718)
+13:37:43 clean after 15 s
+13:37:43 probe p2 rep 1 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-p2-20260929T133743-r1.json
+1 MiB: {'n': 20, 'p50_ms': 286.795, 'p99_ms': 383.517, 'mean_ms': 285.282} 4k during: {'n': 548, 'p50_ms': 192.501, 'p99_ms': 340.491, 'mean_ms': 142.503}
+4 MiB: {'n': 20, 'p50_ms': 393.628, 'p99_ms': 726.276, 'mean_ms': 404.741} 4k during: {'n': 680, 'p50_ms': 192.622, 'p99_ms': 607.986, 'mean_ms': 159.258}
+16 MiB: {'n': 20, 'p50_ms': 824.492, 'p99_ms': 1065.382, 'mean_ms': 823.159} 4k during: {'n': 873, 'p50_ms': 216.401, 'p99_ms': 624.405, 'mean_ms': 193.902}
+64 MiB: {'n': 20, 'p50_ms': 1731.242, 'p99_ms': 2176.111, 'mean_ms': 1719.612} 4k during: {'n': 1353, 'p50_ms': 201.652, 'p99_ms': 1231.186, 'mean_ms': 299.065}
+128 MiB: {'n': 20, 'p50_ms': 2934.252, 'p99_ms': 3581.604, 'mean_ms': 2974.707} 4k during: {'n': 1871, 'p50_ms': 240.112, 'p99_ms': 2056.539, 'mean_ms': 395.657}
+13:47:09 clean after 7 s

@@ -133,4 +133,25 @@ Design (i) closes both without any message change.
 
 ## Future work
 
-(filled in after the Phase 5 cost probe)
+### Apply-path read cost (Phase 5 cost probe; not implemented)
+
+The phase 2 probe (RelWithDebInfo, single host, indicative only; `results/phase2/cost-probe-*.json`, larger-sample run `…T132837` vanilla and `…T133743` p2, 20 deletes per size, 16 threads) shows that 64 and 128 MiB deletes visibly stall other ops.
+
+- **128 MiB:** a p2 delete takes 2.9 s at p50 (vanilla 0.22 s). 4 KiB ops that start during it reach p99 2.06 s (vanilla 0.43 s).
+- **64 MiB:** 1.73 s vs 0.24 s; 4 KiB p99 1.23 s vs 0.35 s.
+- **4 MiB:** 4 KiB p99 is 1.7× vanilla (608 vs 353 ms). The cause is inferred: `vault_object` reads the whole object and stages a copy of the same size synchronously on the retainer's op path, in `do_repop` or `submit_transaction`. The op shard is busy for the whole read, and BlueStore then has to write the whole copy.
+
+Possible mitigations, in rough order of effort:
+
+1. **Chunked copy.** Read and write the object in bounded chunks (for example 4 MiB) inside the same vault transaction. This bounds memory. It does not shorten the time the op shard is busy, so it only matters combined with 2 or 3.
+2. **Move the read off the op shard.** Queue the vault read to a separate thread pool. Hold only this OSD's local apply of the delete (not the client op on the primary) until the vault copy is staged, then queue both transactions in order on the same sequencer as today. The shard is freed; the delete's latency is unchanged.
+3. **Two-stage vault.** Take a zero-copy BlueStore clone inside the PG collection as the staging step, then copy it to meta in the background and remove the clone. This makes the apply path O(1). But the staging object sits in the PG collection, so it must survive boot temp cleanup, scrub and stray-PG removal (`step1-primitive.md` §2). That is the same obstacle that ruled out option (c), so it needs design work first.
+4. **Size-dependent policy.** Vault synchronously up to a threshold, for example 4 MiB (the RBD/RGW default object size), and via 2 above that.
+
+### Contract item 5 under a retainer crash (Phase 4 finding)
+
+c01 showed that a delete in flight when the retainer crashes is acknowledged by the new acting set (primary plus the old rank 2) without any durable vault copy. The pre-delete bytes survive only on the crashed retainer's disk, as its vault entry or as the not-yet-removed object, and are vaulted when it returns (`notes/log.md`, 2026-09-29). To enforce item 5 in this window, a second OSD must hold the bytes before the non-retainers remove them. Options, none chosen:
+
+- **(a)** The primary also vaults every delete: 2 copies, doubling H1 and H3.
+- **(b)** The primary delays its own remove until the retainer's commit is known. That needs the confirmation of design (ii), and a message change.
+- **(c)** The non-retainers stage a vault copy and release it once the retainer commits. This leaves a transient second copy, and the release needs its own protocol.
