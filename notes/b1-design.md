@@ -131,6 +131,44 @@ The model in `design-note.md` §§1 and 4, and `GATE_REPORT.md` caveat 2, was wr
 
 Design (i) closes both without any message change.
 
+## 6. Finding 2: loss of the retainer mid-delete (phase 2 c01, c03) — fix proposals, NOT implemented
+
+### What happens (verified in code; observed)
+
+1. The primary sends a delete to both replicas. Each OSD applies it in its own transaction; only the retainer R vaults first.
+2. R is killed after the other two have applied the remove, but before R's vault copy commits.
+3. On the interval change, the primary requeues the in-flight client op (`apply_and_flush_repops`, `PrimaryLogPG.cc:12825–12865`). The resent op is a duplicate (`:2230–2244`) and is acknowledged once `already_complete` holds (`:15453–15478`). The new acting set does not include R, and nobody in it vaulted.
+4. At that moment the pre-delete bytes are durable only on R, as its unremoved object.
+   - **R returns as an acting member** (c01, noout): it applies the delete through log recovery, `remove_missing_object` vaults it (`path=recovery`), and nothing is lost (c01: 993 of 1,600 deletes).
+   - **R's PGs were remapped** (`out`, or down past `mon_osd_down_out_interval`): R returns as a stray. It receives no log (`activate` sends logs only to `acting_recovery_backfill`, `PeeringState.cc:2748–2850`). It is added to `stray_set` (`:340–346`) and purged (`purge_strays`, `:241–270`, then `MOSDPGRemove`, then `do_delete_work`, `PG.cc:2716–2762`). That removes every object directly, so **the bytes are gone** (c03, §6.1).
+
+So contract item 5 fails in the strongest sense: an acknowledged delete with no copy anywhere. It needs a single OSD failure plus the OSD staying out long enough for recovery to finish, which is the default after 10 minutes down.
+
+### 6.1 c03 evidence
+
+Filled in from `results/phase2/c03-retainer-out-during-deletes-*.json` when the 20 p2 runs finish. Run 1 (p2 `25b9d8d`): retainer osd.0 killed at 1.08 s; 11 of 16 deletes were acknowledged after the kill; after recovery without osd.0 and stray purge, **10 of 16 acknowledged deletes have no vault copy anywhere**. The 6 that survived were vaulted by osd.0 before the crash. With the log fix, `vaulted` lines are durable copies, and none exists for the 10.
+
+### 6.2 Fix options
+
+The root cause: between the non-retainers applying the remove and the retainer's vault commit, one OSD holds the only copy, and the acknowledgement does not wait for it. Any fix must keep a second durable copy until the retainer's copy is durable, or make the acknowledgement wait for it.
+
+| | Mechanism | Closes c03? | Copies per delete (steady state) | Message / peering change | Rough size |
+|---|---|---|---|---|---|
+| **F1** | **Primary also vaults every delete** (two retainers: the primary and `retainer_osd`). Uses the same `path=fallback` hook in `submit_transaction` with the condition dropped; the primary's copy is queued ahead of its `op_t`, and the ack waits for the primary's commit (§1.3). | Yes, for any single OSD failure (**inferred, not tested**). If R dies, the primary's copy is durable before the ack. If the primary dies after R received the repop, R's copy is durable before R's commit. If the primary dies before R received it, R later applies the delete through recovery and vaults; until then its unremoved object is the only copy. That window needs a second failure (R lost too) to lose data. | 2 | None | ~10 lines on top of `ef0be10` |
+| **F2** | **Rank 2 also vaults** (two replica retainers). | Yes for acting size 3. With acting size 2 (one OSD already down) it falls back to one copy. | 2 | None | ~10 lines |
+| **F3** | **Provisional copy on the primary, released on confirmation.** Primary vaults as in F1; R sets a "vaulted" flag in `MOSDRepOpReply`; the primary drops its provisional copy when the flag arrives. | Yes | 1 (2 transiently) | **Yes**: a new `MOSDRepOpReply` field, plus an internal release of the provisional copy, which must be kept distinct from vault release (no admin-reachable release path). | ~150–250 lines |
+| **F4** | **Vault on stray purge.** In `do_delete_work`, vault the objects being removed. | Only this path; not a primary loss, and not any other way the only copy disappears. | 1 | None, but every stray purge vaults the whole PG. That is PG-level retention, out of v1 scope, at a cost of the whole PG per remap. | Large |
+| **F5** | **Replay deletes to strays before purging.** The primary sends the stray its log delta so it applies the deletes through `remove_missing_object` (and vaults) before `MOSDPGRemove`. | This path | 1 | **Yes: peering/stray handling.** Outside the phase 2 limits. | Large |
+
+**Recommendation: F1 (primary plus retainer).**
+- **Coverage:** closes c03 under any single OSD failure.
+- **Scope:** no message, peering, PG log, scrub or backfill change, and it reuses the phase 2 hook.
+- **Cost:** doubles H1's copy cost and H3's retained bytes.
+
+It also fits the proposal's asymmetric retention (§4.2: "rank 0 reclaims immediately, rank 1 retains 30 minutes, rank 2 retains 24 hours"). The primary's copy can have a short window, just long enough to cover the retainer's commit, and the retainer keeps the long one. The window is a reclaimer-policy question, not a v1 one. F3 is the steady-state 1-copy version, if the doubled cost matters more than a message change. F4 and F5 are listed for completeness; neither fits the limits.
+
+**Not yet measured:** F1's cost. The primary's vault read and write sit on the same op path as the retainer's, so the §5 cost ratios would apply on two OSDs per delete.
+
 ## Future work
 
 ### Apply-path read cost (Phase 5 cost probe; not implemented)
