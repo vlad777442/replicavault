@@ -1,0 +1,216 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20260928T202328",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 177,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.6 up=[0] acting=[0] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "5413'25",
+         "acting": "0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-2",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "5413'26",
+         "acting": "0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-4",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "5413'28",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "5413'29",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-8",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "5413'27",
+         "acting": "0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-10",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "5413'28",
+         "acting": "0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-12",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "5413'32",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T202328-r1-14",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "5413'30",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 153,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T202328-r1-14": 1,
+     "a03-size-one-20260928T202328-r1-4": 1,
+     "a03-size-one-20260928T202328-r1-0": 1,
+     "a03-size-one-20260928T202328-r1-6": 1,
+     "a03-size-one-20260928T202328-r1-8": 1,
+     "a03-size-one-20260928T202328-r1-12": 1,
+     "a03-size-one-20260928T202328-r1-2": 1,
+     "a03-size-one-20260928T202328-r1-10": 1
+    },
+    "bytes": 375832
+   },
+   "pass": true
+  }
+ ]
+}
