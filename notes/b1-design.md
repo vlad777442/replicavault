@@ -146,7 +146,15 @@ So contract item 5 fails in the strongest sense: an acknowledged delete with no 
 
 ### 6.1 c03 evidence
 
-Filled in from `results/phase2/c03-retainer-out-during-deletes-*.json` when the 20 p2 runs finish. Run 1 (p2 `25b9d8d`): retainer osd.0 killed at 1.08 s; 11 of 16 deletes were acknowledged after the kill; after recovery without osd.0 and stray purge, **10 of 16 acknowledged deletes have no vault copy anywhere**. The 6 that survived were vaulted by osd.0 before the crash. With the log fix, `vaulted` lines are durable copies, and none exists for the 10.
+`results/phase2/c03-retainer-out-during-deletes-20260929T153224.json` (p2 `25b9d8d`, 20 runs) and `…-20260929T150311.json` (vanilla, 5 runs, script validation):
+
+- **p2: 1/20 runs pass. 261 of 320 acknowledged deletes have no vault copy anywhere after the run**; 19 of 20 runs lost data.
+- **The losses are the deletes acknowledged after the retainer was killed:** 261 of those 263. None acknowledged before the kill was lost.
+  - The kill landed 0.29–1.41 s into a stream of 16 simultaneous removes. Most were still queued behind the retainer's vault copies of objects up to 8 MiB.
+  - The one clean run (run 6) had all 16 acknowledged before the kill.
+- **Strays were purged in 20/20 runs**, and invariants 1, 2 and 4 held in 20/20.
+- **Run 1 in detail:** retainer osd.0 killed at 1.08 s; 11 of 16 deletes acknowledged after the kill; 10 of 16 without any copy. The 6 that survived were vaulted by osd.0 before the crash. With the log fix, `vaulted` lines are durable copies, and none exists for the lost deletes.
+- **Vanilla:** 5/5 pass, but vanilla deletes all finish before the kill (no vault work), so vanilla does not exercise the window.
 
 ### 6.2 Fix options
 

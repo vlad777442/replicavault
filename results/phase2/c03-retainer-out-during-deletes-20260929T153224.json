@@ -1,0 +1,5471 @@
+{
+ "scenario": "c03-retainer-out-during-deletes",
+ "timestamp": "20260929T153224",
+ "mode": "p2",
+ "ceph_git": "25b9d8d1a772582fcf826d41536a57b0fbf3e5ab",
+ "osd_build_marker": "p2 25b9d8d1a772582fcf826d41536a57b0fbf3e5ab 7345d8f5444d57b1",
+ "command": "scripts/scenarios/c03-retainer-out-during-deletes.sh ",
+ "pool": "rvtest",
+ "duration_s": 7176,
+ "summary": {
+  "runs": 20,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 1,
+   "fail": 19,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "fail",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "kill_delay_s": 1.077
+   },
+   "notes": {
+    "pg": "1.16",
+    "acting_before": "pg=1.16 up=[1, 0, 4] acting=[1, 0, 4] primary=1",
+    "retainer": 0,
+    "acting_without_r": "pg=1.16 up=[1, 4, 2] acting=[1, 4, 2] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.0776,
+     "acked": 16,
+     "acked_after_kill": 11,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-208",
+       "expected_sha": "82b2bcff62aa4f0bf19e6d664ee0ea73ada4793470412665c7849c4518895412",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-209",
+       "expected_sha": "93e068d07aac438fbd43a816ac640b3ceb9cd43cd16b8b7eeb5b2c91f34b3b57",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-241",
+       "expected_sha": "fadd3d81be6cde6b0b8124f5d451d0c4966690423e7e023a34e66a3833910fca",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-248",
+       "expected_sha": "43f8a856686eae2e59af42ff6b4b3f701067a42e047825ab1989d8d72dcb9340",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-335",
+       "expected_sha": "bfce359e95c97afdfd0b25b7bec9c5eb69a3ece534743f933aabc933a5b9b2e4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-351",
+       "expected_sha": "8e33712b9f18efffcc2c94da4cafb003dca6bcd60774dc2ab2ebee6a23a4c644",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-352",
+       "expected_sha": "c5351eb7bec55033d3f906327ae3f66307a02bba228abda670861e0f226dfe16",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-382",
+       "expected_sha": "07d577864063fc515a71796e36f20d7f269984c72020dddf2a74797d2ca77ee3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-490",
+       "expected_sha": "53293e233abf597a4078e280c20743d042b1a16a0bd993651532b90f85ca599b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-503",
+       "expected_sha": "7993a60c9f321862e07cfc535bb5d18f8052a1075a5548e9e35bce17e5befa4f",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-7",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'478",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-26",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'479",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-77",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'480",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-115",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'481",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-161",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'482",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-186",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "13434'483",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-208",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-209",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-241",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-248",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-335",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-351",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-352",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-382",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-490",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r1-o-503",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 6
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 386,
+   "crash": {
+    "kill_at_s": 1.0776,
+    "acked": 16,
+    "acked_after_kill": 11,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-208": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-382": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-161": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-209": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-352": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-77": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-490": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-115": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-26": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-248": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-7": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-335": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-503": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-186": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-241": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r1-o-351": 0
+    },
+    "bytes": 13766656
+   },
+   "pass": false
+  },
+  {
+   "run": 2,
+   "params": {
+    "kill_delay_s": 0.543
+   },
+   "notes": {
+    "pg": "1.a",
+    "acting_before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "retainer": 2,
+    "acting_without_r": "pg=1.a up=[1, 4, 0] acting=[1, 4, 0] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 7
+    },
+    "outcome": {
+     "kill_at_s": 0.5437,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-18",
+       "expected_sha": "1595df100cbaa61d70d84b5c28b3662f6759e681dcb3e4226f137875fd3f1201",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-44",
+       "expected_sha": "b6b742a3ae47400be77629684166903c07b77a2b3cbea40663f88ab68bdb8337",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-55",
+       "expected_sha": "f8a31a65575137e9b5d3ce806b04e66b1c12f7added7896035b0615e8f588549",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-62",
+       "expected_sha": "f3453f66b05b059cd5931759c7b0d419072799c1ec569b31ce69ffa7edb6a089",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-119",
+       "expected_sha": "9bc23a6d0b0617f1eb054439b9adcac398dc777e044c43a8eae1a39df4161636",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-176",
+       "expected_sha": "f531e364cfb0cc42bf34b85381d1f4ad63043657a0150a296cf98e341bc82d80",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-192",
+       "expected_sha": "7e267cb3660b4d9d82e95f65a16ea78128a4ca57d6ce1ded79ec4c2e47ac90df",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-216",
+       "expected_sha": "c1254d151d03b4e2f24bbe1a2fb8921d9656804f88cfdb34c6b1a0eb3e3718a4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-257",
+       "expected_sha": "cde3bfd91bfdfdaa5c8d026905739fb68366fad8e3ee066ec18bef4ca2b2ba58",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-349",
+       "expected_sha": "eebdb8b63307f69412acf15289590557eec234e3e15dd17a00d445a628771db4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-359",
+       "expected_sha": "c5c010fd8759476ce04f0fdb129c7e626a70084c5fc920365673583ed924fccc",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-405",
+       "expected_sha": "2baa2946ce3cb0a9aeea91dc05b56653c9764f42593373d2ec564c20a041566a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-427",
+       "expected_sha": "ecbf1ca4320670a67ade077d6d101c18437a1d9432053fa462a7724930335030",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-487",
+       "expected_sha": "a84608050e0368e3627094730a4314933e4299f3e1c944ebff6c9e851ed37228",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-493",
+       "expected_sha": "92a2a8aea223daccb06ee8f55c5af6c5867f4fc63641c9f49b1031936e2f2bf4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-517",
+       "expected_sha": "a330c58976d11edf7b48c08611d77a3f5bc20973cabcc7a0275e623bdf461a04",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-18",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-44",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-55",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-62",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-119",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-176",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-192",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-216",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-257",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-349",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-359",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-405",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-427",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-487",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-493",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r2-o-517",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 261,
+   "crash": {
+    "kill_at_s": 0.5437,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-493": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-62": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-176": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-427": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-18": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-119": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-517": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-349": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-44": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-192": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-216": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-359": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-487": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-405": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-257": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r2-o-55": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 3,
+   "params": {
+    "kill_delay_s": 1.216
+   },
+   "notes": {
+    "pg": "1.d",
+    "acting_before": "pg=1.d up=[2, 4, 1] acting=[2, 4, 1] primary=2",
+    "retainer": 4,
+    "acting_without_r": "pg=1.d up=[2, 1, 3] acting=[2, 1, 3] primary=2",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.2167,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-15",
+       "expected_sha": "840a20e37db96c7d73b4ecbc70d7b65010054d470a8341fa9f8274e74e7639cd",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-27",
+       "expected_sha": "0a7ea3a5acd66960dff15bb88244819042fa4a615056ab2253924364f498bd2f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-34",
+       "expected_sha": "249a2b8fb92cb19e0b595e3220193bd81094480fceb96948885ee9f7eda2dba1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-39",
+       "expected_sha": "ae5139a80ec30e79baf153babf008714f00ed0122a577616112f515fd00746d0",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-87",
+       "expected_sha": "d17e190a61aab9f7f80485356ccc92b334f99851f94172d03859e34965fdda1e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-109",
+       "expected_sha": "1819e1a5a17aec9ed9308cf402c45fd7f417d0a8a00b111a7a65f3762d4d9b21",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-117",
+       "expected_sha": "d8786f4ec4adcf563d6fa956c4039819e51f912793e0fe7b272c81691c9c10b6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-126",
+       "expected_sha": "74623fdf35d3d2307b9ef84c80f267f541cba24118c6a2ec15f7f9c6fa49f81b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-199",
+       "expected_sha": "8caf019e45d27d25cb16541b0ca1f1c9464da7338d950ea8e2d05b194db2d0f1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-213",
+       "expected_sha": "f688a9dca224014802cd3a07bedecbd17aaccba7e432e3d4ef0606682e12bff2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-237",
+       "expected_sha": "b565a7156fdd413c5d48a58a942bd1995c59f6315f04cbb33593dd7ff4a150ce",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-262",
+       "expected_sha": "03f5b29a93e83761c6989c0cc582199ee7d95dcb37792d48b05c52a77c4a9d5e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-265",
+       "expected_sha": "36ef056e0b1899c66bdac89c8fd06c9993a2b406114f9eec0f7e8a2067cf6e89",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-269",
+       "expected_sha": "4ff12cb96501e3469103bcfd0d2f8b12968a2d7bb8043a74b7e5bdbb17ef36ae",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-305",
+       "expected_sha": "693a36d989cd56a3025fb74951387a2ec17133a7a154744839a6006d61b593c2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-318",
+       "expected_sha": "613344728928b91d76be2a8ae0f29a95d7c0f31b8de91d4f156b3500e78fd77a",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-15",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-27",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-34",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-39",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-87",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-109",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-117",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-126",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-199",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-213",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-237",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-262",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-265",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-269",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-305",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r3-o-318",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 336,
+   "crash": {
+    "kill_at_s": 1.2167,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-15": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-237": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-34": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-213": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-126": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-269": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-305": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-27": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-109": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-262": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-87": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-39": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-199": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-265": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-318": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r3-o-117": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 4,
+   "params": {
+    "kill_delay_s": 0.545
+   },
+   "notes": {
+    "pg": "1.12",
+    "acting_before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "retainer": 1,
+    "acting_without_r": "pg=1.12 up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.5461,
+     "acked": 16,
+     "acked_after_kill": 14,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-79",
+       "expected_sha": "3f82c12bdb6e2a03941e48483982ee6057eb1d3cab9c05ee213c14b9796b146a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-104",
+       "expected_sha": "fe827100ad5ed286350b2e94a6d9f6096aed5111a72ad9e8fc5aac4738db1d7b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-127",
+       "expected_sha": "aeef17e28e338cc0f96648517bffb5d6f97c00bf75473b95b77a55a030fbe8b8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-222",
+       "expected_sha": "31509654dd57e50982e92174a72b53470b0f4d602aec94ad91213426ccad6ad3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-268",
+       "expected_sha": "3a980f8af651cd3dcf7c961507595b19dec87833f8d61e2b5f614cc0e82a1181",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-294",
+       "expected_sha": "5731cc36db349d6d201e68364665494327e795ae29fd08c0f65fbd42a9c9ad6f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-301",
+       "expected_sha": "5ecdd12c614b29c959830ed5a43e66ac03a96e418282119c3df1d1adbe9856b0",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-334",
+       "expected_sha": "cff257c513c7ad58f8a83482e38157d995f9d1cdac7f4718189d59954b876195",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-336",
+       "expected_sha": "eea4e373b9b6fcf28f3ef1ade24f6bff642d1ad43cabdadacb01ed0779d22a93",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-358",
+       "expected_sha": "91be9a758f297bcf578061b5199750c99290559a2bbdbb13e080f967e896074c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-433",
+       "expected_sha": "038d51b2a69b887c0d895c01efdbbf60108b1718bddd872b52b0baa407f47cdc",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-534",
+       "expected_sha": "57b6c2f0b1273d65bdefc2a15cd6ae282aea971679c82e80cfee6118d5a5f292",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-552",
+       "expected_sha": "c703ddacf2461f613f7dae17d901be9222042c8fd19183ef3929e983afcfd315",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-557",
+       "expected_sha": "78142fa6717cbfcf8c3a42a2c58128add25bfcb65060e41b68153f21d57395ec",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13680'658",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-63",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13680'659",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-79",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-104",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-127",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-222",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-268",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-294",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-301",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-334",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-336",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-358",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-433",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-534",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-552",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r4-o-557",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 384,
+   "crash": {
+    "kill_at_s": 0.5461,
+    "acked": 16,
+    "acked_after_kill": 14,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-358": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-104": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-6": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-336": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-268": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-552": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-557": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-127": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-222": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-294": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-433": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-334": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-63": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-79": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-534": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r4-o-301": 0
+    },
+    "bytes": 8392704
+   },
+   "pass": false
+  },
+  {
+   "run": 5,
+   "params": {
+    "kill_delay_s": 0.358
+   },
+   "notes": {
+    "pg": "1.8",
+    "acting_before": "pg=1.8 up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "retainer": 4,
+    "acting_without_r": "pg=1.8 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.3587,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-65",
+       "expected_sha": "f634f238856397b343b24e11c74bab7641526b8c3d184531aa63e80e9a4dbecc",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-103",
+       "expected_sha": "aa559ac0cb97f6a5886c37e01cc4bd9d540b178655c5f110c039911d41c91f42",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-109",
+       "expected_sha": "2a0795b5f84dd6799d161291d27fab5b1998ef1c62e04086e9b8f61edd28eb1b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-117",
+       "expected_sha": "c93ba9cdf7a3cc3d2ce1e829de06e3ed73f6f965e030988e96c956c240ca55b5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-147",
+       "expected_sha": "f7d587e906a64708134cefa90d8dca2c4807c54da5d09bfc1c6f90fedc758995",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-169",
+       "expected_sha": "86cac335186bde6f00f6d76d70a9c7b0f2b8c70ac49cda31a8a1a42cfb759e32",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-365",
+       "expected_sha": "1ea8d03db33b54c9d180fa023eb85f0eacc12fc42a2ac1cc30baf14394cce57d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-376",
+       "expected_sha": "c85d3f5e9c71cc367ba6b93f35da6408d58742ffb793b024e65b5ca5564d9fcf",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-542",
+       "expected_sha": "e1d316eba9e41d99f6e60af3e557d4e13b9f0db049a6a76b76f18c9c8a498589",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-581",
+       "expected_sha": "f8b9a79711a0880c3fe16f6bb27caa6486ef8da405909692a70918a366824449",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-598",
+       "expected_sha": "f2568740f71c97ecf4a0c42bc5def06df9159ef02575e93de503a31af9c6ea43",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-605",
+       "expected_sha": "01edc56e60b52cb0c6f66f6abe8cec0132e39ad1f8ab27199396833d1aec7835",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-616",
+       "expected_sha": "57fcb375dca65a937e13b5e07918a437acc8460273704fef55a57a8df24c18d6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-621",
+       "expected_sha": "547cf6c574f05d676ece580a6410c13859f4ebf1c43949a9144c6b261e854902",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-636",
+       "expected_sha": "9ecbaeab8583c7519b3d63e09094e016cd9576870e00b803cc11747771f23da5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-679",
+       "expected_sha": "09eed653ceb4ef79274e063cd218c88cd5277eba0e2e7ebfb3b9e6daea70b126",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-65",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-103",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-109",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-117",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-147",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-169",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-365",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-376",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-542",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-581",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-598",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-605",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-616",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-621",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-636",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r5-o-679",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 333,
+   "crash": {
+    "kill_at_s": 0.3587,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-636": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-117": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-109": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-147": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-605": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-621": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-169": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-376": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-365": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-598": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-103": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-616": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-679": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-65": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-542": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r5-o-581": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 6,
+   "params": {
+    "kill_delay_s": 1.324
+   },
+   "notes": {
+    "pg": "1.1b",
+    "acting_before": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "retainer": 1,
+    "acting_without_r": "pg=1.1b up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.3248,
+     "acked": 16,
+     "acked_after_kill": 0,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-11",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'510",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-33",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'511",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-54",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'512",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-62",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'513",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-80",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'514",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-88",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'515",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-90",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'516",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-103",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'517",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-131",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'518",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-170",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'519",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-184",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'520",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-186",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'521",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-207",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'522",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-208",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'523",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-275",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'524",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r6-o-345",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "13864'525",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 446,
+   "crash": {
+    "kill_at_s": 1.3248,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-207": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-345": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-184": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-90": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-170": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-208": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-131": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-275": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-186": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-88": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-54": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-62": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-80": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-11": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-33": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r6-o-103": 1
+    },
+    "bytes": 29638656
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "kill_delay_s": 0.689
+   },
+   "notes": {
+    "pg": "1.b",
+    "acting_before": "pg=1.b up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "acting_without_r": "pg=1.b up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 13
+    },
+    "outcome": {
+     "kill_at_s": 0.6897,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-13",
+       "expected_sha": "975165ca2529291eb91e4daf2ce58a6ce420506a00dbb89c41123c958e3eb9d7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-29",
+       "expected_sha": "e50a22a7b411d8791150d80fa41e9974f00a18c68b05bbb1d2d3136bbbb6f73a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-34",
+       "expected_sha": "a4087efca701d56b4c31913b020a1493fde046e0de733b427d9be097ea9344ac",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-65",
+       "expected_sha": "1634eb6b86edfe5d746d6ee8c0d534f8c6d7cbff9d5c4959ba6c679f11692180",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-84",
+       "expected_sha": "697c629e258de63d5805ecbfd69d4992c94a568b074b2bbee85450492ec383c8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-146",
+       "expected_sha": "abeb2924d505af04d599415529b2f7eef0d04abfdb49459132fd9d2780b6f25c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-156",
+       "expected_sha": "0dbb092e0c41a10a9851cc1989a0377712809e4a0035dd00f38bbf33fe184f6e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-158",
+       "expected_sha": "a75cdba97de08a95b523bdd89a9d6ff5f27cf6035c138bc304d313c3bfc9bf93",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-181",
+       "expected_sha": "4dfb7f23f0e307ce16495d2eabcdd5e80eadc4384e01f2b091606e13f99ac9d8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-226",
+       "expected_sha": "c59393152f6509bcfa868a16e4dbdce11aec697d27725f385f5fa93b53f137a9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-260",
+       "expected_sha": "e1095fb852a3175a4f3edd1f48610bb4a579150a59babdd167adfb03fe8d112d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-338",
+       "expected_sha": "026ec935322e8706a3eee47bc451cdfb9439cbcb4f423c78c058031686106d57",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-371",
+       "expected_sha": "6fc0ba6f66876044e8c63e4d6006b274d3687d5aecfdb4e8377adc88aee34326",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-372",
+       "expected_sha": "28eedced0d2e215f6c653f3b7494ea2bcb4448a52190fcb5bd3c8b5574c292e9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-385",
+       "expected_sha": "b170b6c98255dd108f6900fdea1fdd6d68184c59ecd3ca24c1b65d352434f488",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-463",
+       "expected_sha": "e77ca3df2ba60fdb5c937380035fbd7627f3aec89214efe1546c551f33004fdb",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-13",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-29",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-34",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-65",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-84",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-146",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-156",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-158",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-181",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-226",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-260",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-338",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-371",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-372",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-385",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r7-o-463",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 332,
+   "crash": {
+    "kill_at_s": 0.6897,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-372": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-29": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-34": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-338": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-385": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-13": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-181": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-158": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-226": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-65": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-260": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-463": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-146": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-84": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-156": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r7-o-371": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 8,
+   "params": {
+    "kill_delay_s": 0.822
+   },
+   "notes": {
+    "pg": "1.1b",
+    "acting_before": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "retainer": 1,
+    "acting_without_r": "pg=1.1b up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.8226,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-1",
+       "expected_sha": "2d6085ab79b4b8c85f781944151d714dcf3a2823fd27c53410827cded8243b69",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-62",
+       "expected_sha": "06eff2302656ae18d1c2d4f97ac791875d1c4443994f3e8844c44619dd21ee1e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-90",
+       "expected_sha": "7d370796f09d952451920814c52dbdb43ca3e9fd2f3404f052a50cbe061aefb7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-98",
+       "expected_sha": "22ea782936f5ad5bdd7f963354f9b991b9756095e62b816dc91513b9d40d51a3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-119",
+       "expected_sha": "2a6d522e83e664bc5ccfe3981b8d4f0feb41af99b7b33f4579957e5cf6d74896",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-147",
+       "expected_sha": "3bf3d72df68a601f51b0d25513d0ae0f9e1a9d142b2bb512fdcd26efb2e490b9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-167",
+       "expected_sha": "336ee063229d9352667748f00da9b792491c8053bee3b61d4ab49b8eb237b56b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-174",
+       "expected_sha": "ab7ac7fbd8a352136739de395834f13175b5c2dca49b6061308084ab56111b38",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-292",
+       "expected_sha": "7d0df0788158e349ddc9f2c9490d4139746721b33012312a100817d784a14660",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-298",
+       "expected_sha": "3100373c0814d613e56fbb4ab159f3d34c7b41fde9433cba5e98e7b989179b92",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-299",
+       "expected_sha": "c09f1977334689958195af9be99815f60c0ff37668141dfa5a3cff18f5da7b57",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-329",
+       "expected_sha": "2728c4ee6a612ffa3f20690d7c69102d95f37236956d55280200bc39c56a51a7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-349",
+       "expected_sha": "36810beb5a2366d10efc4c3e3a112e19531d89e10dc8bb0fe7029a3bce938c9c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-390",
+       "expected_sha": "b40584557274da86634cbb3f16057f2a4d285386021fd9a4cca9ea5769f29398",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-396",
+       "expected_sha": "d24503d67cb8af74d4db3f1ec78c9f0faa98a7570789186d0bd69a6e9d4b3918",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-405",
+       "expected_sha": "b19d5aae4d04d0799b6159d172360103ce6e4195f4952448b7b979ae197e3e0d",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-1",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-62",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-90",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-98",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-119",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-147",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-167",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-174",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-292",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-298",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-299",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-329",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-349",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-390",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-396",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r8-o-405",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 354,
+   "crash": {
+    "kill_at_s": 0.8226,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-1": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-98": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-298": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-396": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-292": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-329": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-349": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-390": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-405": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-167": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-119": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-62": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-299": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-174": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-147": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r8-o-90": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 9,
+   "params": {
+    "kill_delay_s": 0.285
+   },
+   "notes": {
+    "pg": "1.f",
+    "acting_before": "pg=1.f up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "retainer": 0,
+    "acting_without_r": "pg=1.f up=[3, 4, 1] acting=[3, 4, 1] primary=3",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.2858,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-47",
+       "expected_sha": "961c067ceabd36e03b130d3c3c12a6774682571da42d7078c3232e80e90e76fa",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-92",
+       "expected_sha": "fe3c63fdd9d8b33c5a0a1a6814f41228f3bcb3c746c0b42fd9a4eb81e3c0be97",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-123",
+       "expected_sha": "baad9d3b77b11b75add96fa25e0dfefde54855ebd962a28880b1edd3888b6315",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-239",
+       "expected_sha": "644a749472160bb5c8fbae09ca4835773f31c206622f754bd742a6a53c7e6a2f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-243",
+       "expected_sha": "fbe51bb41bc1195186c75878a2055ad55bffe028502a10aebfa2a22aa12116ae",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-260",
+       "expected_sha": "0bc769d395fceb48bd7897698a80a854f819bc284d34b01881dc5bd2e4c9386c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-314",
+       "expected_sha": "2e49fe3bb2c9e5d331699b80e6335ed99bd43a746436c8aa8ff7dfa0b2cc5dd5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-331",
+       "expected_sha": "9f08a57f7c2fe5291ba5e8eecf69baa3d036ea307433468a636d6dd5368ba65a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-356",
+       "expected_sha": "c680ca0a0a3ac59a0a32fde076e964ffeac56918a2b990e879a713c3e5641ed8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-371",
+       "expected_sha": "564c3fdca69b94a6af611959f9a3ec10c5113ffd97111b06c5ed5844f3bdaa6c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-429",
+       "expected_sha": "c31b294b16ea450b33afd825871dc15c25e616d379e94983910d64dc78b36397",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-435",
+       "expected_sha": "6f727c1510d694532f9b9771a8cc6e8c6089738d994cae2c5e1701af7ed9ced3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-439",
+       "expected_sha": "49f9174f255cbd8f6d50b525ec03a3f1227fb453a5262f19a5f549c908e63086",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-483",
+       "expected_sha": "056f7b6bde36debaa0826f947574090a0b10bf049ae6329e0e4a38503bbdc6c8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-514",
+       "expected_sha": "cfc326a854363003dee5020656e3ab27bd28f5d4bd7ff5043b0eda73eaad32c4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-519",
+       "expected_sha": "c34308282d449e2794b3b58b383727f2d3d5259c60e6a74a5e9945d98f5fe5c4",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-47",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-92",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-123",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-239",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-243",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-260",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-314",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-331",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-356",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-371",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-429",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-435",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-439",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-483",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-514",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r9-o-519",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 350,
+   "crash": {
+    "kill_at_s": 0.2858,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-356": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-514": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-239": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-123": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-92": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-331": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-483": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-439": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-519": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-47": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-435": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-260": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-429": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-243": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-371": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r9-o-314": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 10,
+   "params": {
+    "kill_delay_s": 1.314
+   },
+   "notes": {
+    "pg": "1.d",
+    "acting_before": "pg=1.d up=[2, 4, 1] acting=[2, 4, 1] primary=2",
+    "retainer": 4,
+    "acting_without_r": "pg=1.d up=[2, 1, 3] acting=[2, 1, 3] primary=2",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.3148,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-72",
+       "expected_sha": "e724e78f5b295f472fb31bf7e0272e85fa475f7b2d692cfbe68f61960109adb0",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-100",
+       "expected_sha": "79852c4be96a92c7b28903ca2cea5ead7e3aad5565cd83e721d81b025eec9376",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-142",
+       "expected_sha": "5cc2ce7489d3b8a261dc7d24eae2b0d3e9a6705c14445a73f3eb62c161f8ddef",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-168",
+       "expected_sha": "dd60dbd312d4083ad90394b74f5c502f75075575c3e35b03bbfd2d5e644515cc",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-183",
+       "expected_sha": "af95e96faa4b80a60a3f86027daed55011885e8dcc57c80e4a0dce9921c86f16",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-199",
+       "expected_sha": "d4a5211dffa4744720857aa019c370d864efdf7f34f29420d951b5c9f242a01f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-289",
+       "expected_sha": "5328fa05291b24c08bfb1f1c70de3e6e57034423bb9a2d1bf4b4773634b12c07",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-307",
+       "expected_sha": "d6d2eaf6eabf2f4f0e2ef69490337e45ab94db43afde4b118c5b3ffa1810a317",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-338",
+       "expected_sha": "8dbcc54abeb7304d7ada2f382e26fe340de3c3fdbf168708154f313187f0cac7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-347",
+       "expected_sha": "d17b41294f526ed97e5fca857da40007f3b539166d166db9728bf98ab604368c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-349",
+       "expected_sha": "34c16d96afe22417112ae71c1eb663ee07590ef13e78d9c7981060a23f2b184d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-369",
+       "expected_sha": "855232a7349e82a44c8ca4198463c7b290f2172eb0b7907a232534e6263c5296",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-377",
+       "expected_sha": "ad69bd1eca38c06efb9972d38ab0d67a47b742e0ffeaf9a84f1fb82d4b92bbff",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-415",
+       "expected_sha": "7c083ad019f62fe639da6a17e34f33acdd5edd6e62a6d59cd8bffa8029335177",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-417",
+       "expected_sha": "350833f13983405dff77f1973a0285c584a23d022a0b2d1833acfdae81e22ba1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-455",
+       "expected_sha": "c93d17c88e2cbf78bc6a4d261366575d7413bfb42779fb87b823130c552a76f5",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-72",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-100",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-142",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-168",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-183",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-199",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-289",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-307",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-338",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-347",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-349",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-369",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-377",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-415",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-417",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r10-o-455",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 345,
+   "crash": {
+    "kill_at_s": 1.3148,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-72": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-100": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-289": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-338": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-142": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-369": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-349": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-415": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-455": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-377": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-347": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-307": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-168": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-183": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-199": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r10-o-417": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 11,
+   "params": {
+    "kill_delay_s": 0.796
+   },
+   "notes": {
+    "pg": "1.c",
+    "acting_before": "pg=1.c up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "retainer": 0,
+    "acting_without_r": "pg=1.c up=[3, 4, 2] acting=[3, 4, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.7967,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-0",
+       "expected_sha": "f60adb0c32e1f585ddacaa475ca3e84b546f6b63c5cf716fef5c94b1d6dfb1a9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-2",
+       "expected_sha": "336d5ff8dd7c315947d0f795e5467533fe9c485bbece4c35885e30f03706afe4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-99",
+       "expected_sha": "e7417e54160d3e5b9eab9d9a18364411c1de4b32071bb9aa9dc24c30a37aac3b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-160",
+       "expected_sha": "2e59bb52215ae59e8e4f2dadc78f02673389afab5fba07aa32db8d83ed8c5da2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-175",
+       "expected_sha": "9717a59c5125afb29a2dda8a00cc647ad82386873ed2c82da734bc0f974f3364",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-220",
+       "expected_sha": "a90856c1b7d8a6983497d71a13a65510f575a22fab432c88c432419f94cfa836",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-239",
+       "expected_sha": "c49f9fe8ebb5c20bccd73604b9b97ca7e5a72b51e651b292f06238a1b20fa589",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-263",
+       "expected_sha": "af102432c1a184794601794397346bc0d40532839583db84aa7b206c3ae221e6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-341",
+       "expected_sha": "bed362d387fb9143e4457f527165425f6ecb2a3d3c5c06352f41fcc40e10dab2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-404",
+       "expected_sha": "aa29a507cb6801490eb42c7cd5325e512ef5dfcd5be5e3180f914088b388edbd",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-406",
+       "expected_sha": "6c44210a740ebd0b9673bc03e872f60a93e9e7b91143f483835d7f4d14b48558",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-434",
+       "expected_sha": "8b20f3ab9f2305769083fc598f61c6878b25b6c1bdaced42ffec51c90d033528",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-449",
+       "expected_sha": "e0a456f146916f05da07d1dd945f3e55aef372034615b3cfc5f9fafb0b0bd2f5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-542",
+       "expected_sha": "1d6954d126e00b1ae71e3e2176642f2b93552e4ac8603df56e8fc1cf4d88ee0f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-546",
+       "expected_sha": "34032c8a4aaa3f44bc916798fb5406334ddff8f49e0a8bd8024850205ecf6d3a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-547",
+       "expected_sha": "75d80b2dfd90da0270843c85577e7ee2268914a79042ec65d7dec74082ba92aa",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-0",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-2",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-99",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-160",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-175",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-220",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-239",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-263",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-341",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-404",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-406",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-434",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-449",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-542",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-546",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r11-o-547",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 351,
+   "crash": {
+    "kill_at_s": 0.7967,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-2": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-239": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-546": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-160": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-341": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-404": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-175": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-542": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-434": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-263": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-547": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-406": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-0": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-99": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-449": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r11-o-220": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 12,
+   "params": {
+    "kill_delay_s": 0.999
+   },
+   "notes": {
+    "pg": "1.12",
+    "acting_before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "retainer": 1,
+    "acting_without_r": "pg=1.12 up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 13
+    },
+    "outcome": {
+     "kill_at_s": 1.0001,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-77",
+       "expected_sha": "3ad03d67e476bb6efc6375c2142c3c9aec0b629697e4afac852e20a5e0447fa6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-81",
+       "expected_sha": "0a1240fbe13edc9d46278a9c1e7e61a59ce7d60a25920f1b02d213a8eb04e2e1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-92",
+       "expected_sha": "a4be6ff84775532f5d45801d01ce061672b1fdb63761caf79d08f65e5c492ce1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-145",
+       "expected_sha": "2fea7c0627b1adda199cea437848ce2e354c7f5cd59eedbb0b2792441da54f49",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-168",
+       "expected_sha": "e031d0fa000744fc5d98a5c31732950672bfae8617756f22d71d351d85db0fe1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-229",
+       "expected_sha": "bf9ab3f5be95478967906841d1a50eaea021f2bee08486090109d2ad3edd8d7b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-245",
+       "expected_sha": "5f65047797a94c2b7fcf80d6a56b4af10b1687bf23e0e624b48e2fe204b0d113",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-284",
+       "expected_sha": "c3720ea3ff3b462566ae0e0a2313c6d852f896dd2403441dfc1b570e9ad6afa2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-285",
+       "expected_sha": "8978b01fdf6c1897a78b8a3946f494607569396ce0dc0fb1a8e90f1707af38f4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-293",
+       "expected_sha": "fbd5b87272652177ffc2c2d32e975d3b1872a2b821de9f3f62839e9f79a9c397",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-330",
+       "expected_sha": "e5e979b489e42645be9ad5083a0c9b8b7a85107bb5d09b4219c567b287269862",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-354",
+       "expected_sha": "13fee890aa288a791acc77900558ca9a47fd8766f3eff2146100208122ee1e9e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-370",
+       "expected_sha": "a585948c4bb1150f2dc424201ced57c1f7a93edf1ab9a2a229a4b76e64b9c5f2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-398",
+       "expected_sha": "43d8f3ea4566d71e31e152a9a0c848bdc70ba050592de09da885676140636636",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-401",
+       "expected_sha": "cb9422551e0174f3aa0c1a3381b844d645d7fa41e93572bc42fe847bd7b61799",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-503",
+       "expected_sha": "e9921b9d70504bf72b68110dd0c42e4e503e1fd5cbd620191637a435804065b2",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-77",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-81",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-92",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-145",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-168",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-229",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-245",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-284",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-285",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-293",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-330",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-354",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-370",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-398",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-401",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r12-o-503",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 384,
+   "crash": {
+    "kill_at_s": 1.0001,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-354": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-330": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-370": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-398": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-229": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-145": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-284": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-293": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-401": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-503": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-168": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-285": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-81": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-92": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-245": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r12-o-77": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 13,
+   "params": {
+    "kill_delay_s": 1.083
+   },
+   "notes": {
+    "pg": "1.f",
+    "acting_before": "pg=1.f up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "retainer": 0,
+    "acting_without_r": "pg=1.f up=[3, 4, 1] acting=[3, 4, 1] primary=3",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.0837,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-6",
+       "expected_sha": "6c888cd25e85457ce5f415cd0afc2ffec8bfbed86518aaa8e0d6f8c76a676d79",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-25",
+       "expected_sha": "b16456bfaff3f919a831095f35d3c2d6450f00cac346c497a4dfd8fe1bd45846",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-70",
+       "expected_sha": "34e04d02a30475a1db7c66f58e52b6a8546dc1cc3cf1120f9fa2e11236d3a5d6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-85",
+       "expected_sha": "9d8efa0f7f99ab6c24289b212e7ee1dc070edb76da7622488917843f59adf8c8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-87",
+       "expected_sha": "5891cd2c05c572c5cf7248ea1d61d5ee5f4eca929762ffd15138d656e7b2dce5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-156",
+       "expected_sha": "736aa525d2461590d1840880253e85cfb625f13cd703e054339d692a02c42bd7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-172",
+       "expected_sha": "685660ee8ffb7625b08e931e66fd1eb468815e896259881a6c1129dcf44217d5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-235",
+       "expected_sha": "1f614acf8b07378f854c160a708b7acb17b21fe064c7e9359b6341f8587a2c89",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-321",
+       "expected_sha": "1d85c51fb68898fe83b43ca813d38f9d19eb602aeb2994f97a5bc66ccb9f8fe5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-358",
+       "expected_sha": "77f3c7d2386889eaa53211bc0a090a591b8ebdef50abee832be50f5411c1af1e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-381",
+       "expected_sha": "f929e400b6cfc37446c9949e5e87e0f15586434444bf8d34126859b07acad61e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-426",
+       "expected_sha": "57ab621d0bf6978dba1bf037b5c263a10c7ce4d23b1d9c2dbbcd18a642f623da",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-487",
+       "expected_sha": "b9b3a9fe7de58ed532e476b7f9948e85c7305a199bc74f8c4968fa0c109aa4b0",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-492",
+       "expected_sha": "dc06d4d53eb5ccdceed6411553c7e66c0e8f9767ebb437a7ef206c6a55e38452",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-550",
+       "expected_sha": "1092f36e9f3e3a59cccb014382b855de4e1301c03b2c3889ce045d31741667e9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-660",
+       "expected_sha": "eb38c44a64af3ee0ee238800307bab6babd30cfdfa5bfe72bc6d4a0f3070ceeb",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-6",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-25",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-70",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-85",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-87",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-156",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-172",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-235",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-321",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-358",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-381",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-426",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-487",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-492",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-550",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r13-o-660",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 361,
+   "crash": {
+    "kill_at_s": 1.0837,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-87": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-358": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-6": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-381": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-660": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-235": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-70": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-487": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-172": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-550": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-492": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-321": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-85": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-426": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-25": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r13-o-156": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 14,
+   "params": {
+    "kill_delay_s": 0.341
+   },
+   "notes": {
+    "pg": "1.a",
+    "acting_before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "retainer": 2,
+    "acting_without_r": "pg=1.a up=[1, 4, 0] acting=[1, 4, 0] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 8
+    },
+    "outcome": {
+     "kill_at_s": 0.342,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-67",
+       "expected_sha": "33042d30fd8e8ecb2c9fcd260b97536fca07e76e0f5d82352a942792c55b9e71",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-135",
+       "expected_sha": "206ed8af641cad707d41a737b6834e34d755f0907145463cc490b24efcd5dbf2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-159",
+       "expected_sha": "11ef3cbc8bc80c2fcb5915e51d4f61872547a9f60c9785a7c5770a7014c5d290",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-160",
+       "expected_sha": "ef7fa550e516b479be853fffd1cec46e428a7105a920ebb3c726c812d202b200",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-214",
+       "expected_sha": "f69f2bee44efa60a92ae57b7f6d2aa758d20e41bf0336acadc03ff319a22c5a3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-217",
+       "expected_sha": "092d4b1aa392a30fc85748f3c1a4450c0d47def46a6864cd27982ba2f56bc214",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-225",
+       "expected_sha": "985fc7dccb7937f55a3b3360e51dc61c3f15cb3007b45443612d96c54fc5426d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-228",
+       "expected_sha": "e3518a93f30f8fcfc153e9497e9f1f5029b79927d4f3c50c41dbf27250ac76a7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-251",
+       "expected_sha": "219f19abc9954cd8f5121e795368a400017f61e815fe518947c067c83fc612db",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-253",
+       "expected_sha": "cbbcca4cf1837bec8ff8357c19eef79b4d6f64ea0eb5fa6b40d7a53f021f37dd",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-404",
+       "expected_sha": "5bd64edcc727bba51dd98b246e7d0b2cd9cd22986bb527807388baded03d53bb",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-416",
+       "expected_sha": "1786ba3d6a399a578aab84fae3fab003cc518865427b7fcb68d3218485cc7936",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-435",
+       "expected_sha": "522fffb3f494a3bbfcdd44711b468c08257bf56e9ad423a5329a2a89d8cd5682",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-461",
+       "expected_sha": "8356fa2fe7c098b8a31b96873f63846ba12856a803695d30cd8530e9de41e6f3",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-493",
+       "expected_sha": "1bcbc4fdb9f61c5c5095681aa39a9cc90622abb92289080a614a79d04292113b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-538",
+       "expected_sha": "0af2cccbf9b8a7216c65ce2beec2b1dbf3a4ed3bfc9585eb5a9fbfc91f948afc",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-67",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-135",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-159",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-160",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-214",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-217",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-225",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-228",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-251",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-253",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-404",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-416",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-435",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-461",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-493",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r14-o-538",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 299,
+   "crash": {
+    "kill_at_s": 0.342,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-135": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-461": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-225": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-217": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-404": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-493": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-538": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-160": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-67": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-253": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-228": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-435": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-159": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-214": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-416": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r14-o-251": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 15,
+   "params": {
+    "kill_delay_s": 1.316
+   },
+   "notes": {
+    "pg": "1.a",
+    "acting_before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "retainer": 2,
+    "acting_without_r": "pg=1.a up=[1, 4, 0] acting=[1, 4, 0] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 8
+    },
+    "outcome": {
+     "kill_at_s": 1.3167,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-38",
+       "expected_sha": "120fc336c23e104278782c95ee7be51182829ddd6693dc39bdad9d5893d81a1e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-63",
+       "expected_sha": "09af680d4466489d153c4fb24facd2dfa2298ee9c1b416843f8081948c58e57d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-83",
+       "expected_sha": "80d0e5872522279c2fa04b6813fd88e49ce20b3ac47c3e964084064be0e20466",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-105",
+       "expected_sha": "c6dd4a7a83d24a9e188948e4c97b4eb808512b8d217f9c61cb9b2259066dd734",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-134",
+       "expected_sha": "1aca73c8ecd71a4de42cdea9a4b7531468b07abf89896f71d7eff14d40643649",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-165",
+       "expected_sha": "24701ee1763409ae7edfa4a4b4ed08a833f2f8ea7b9fddf5780a7dc7a786307b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-167",
+       "expected_sha": "9dd83f4d8dc204fb4d42f220c4f6bf442a34631e74d983dc32808b102698d7fe",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-175",
+       "expected_sha": "d0350aecfa751d077711599a728b5839cc16426c3bc541e9f2b93b9e71086fde",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-176",
+       "expected_sha": "e93e64ba7ec314eb32f134f002897f8501f4d0d0bd0ef8efe15384946285789d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-274",
+       "expected_sha": "3f763bb9f6a9d694071cf581eb29d35e98e2aaec10b3c19bbece04a25b5f4c38",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-279",
+       "expected_sha": "ea5ee3a038f63aeb8664b70a52cc75ca1c911b18af83fcb102f22c5dcd29fe3c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-283",
+       "expected_sha": "1851a7bdb86be886539af96009e6a2e4cb4ac630ded17b89ec7c9e8be0bb6482",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-294",
+       "expected_sha": "ada3b2f3a0180ff7f7dc4fd5007878408b0bdc4132ca897aef11864a653a4e08",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-332",
+       "expected_sha": "b5d19e96692e9aacb1f2e2550db8d10818d449586477f1edd5ac1d4149671ff5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-336",
+       "expected_sha": "6cb45fe3b3e5c6ac8cb335d6af4ef56d1472ff61234fe13345ff1452c33ca73d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-353",
+       "expected_sha": "f59715f1c2f78d46f71cd86fcde1f9c18c7566b4f0e31e369c3e8271e50b9a90",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-38",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-63",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-83",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-105",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-134",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-165",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-167",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-175",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-176",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-274",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-279",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-283",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-294",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-332",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-336",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r15-o-353",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 288,
+   "crash": {
+    "kill_at_s": 1.3167,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-165": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-294": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-105": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-332": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-134": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-336": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-274": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-353": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-63": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-83": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-175": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-283": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-167": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-38": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-279": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r15-o-176": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 16,
+   "params": {
+    "kill_delay_s": 1.269
+   },
+   "notes": {
+    "pg": "1.12",
+    "acting_before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "retainer": 1,
+    "acting_without_r": "pg=1.12 up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 1.2697,
+     "acked": 16,
+     "acked_after_kill": 9,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-213",
+       "expected_sha": "92eacb39ddd6c5cece8eb224b0c4edeeb21feba3c46df6e6e6fd504d57c99947",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-238",
+       "expected_sha": "d460aa1dcacb81cde9e83846698c6918df9e3450f0e4e045f0e422936eadad16",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-325",
+       "expected_sha": "d33d563721d6050dbe5c9d091c57b4506013267a20e7818c5b3d769e49d0431e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-363",
+       "expected_sha": "37090d1a8c10d0653a345aa57bf9df4a715135594c3e1b61ddddacd650c51b38",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-367",
+       "expected_sha": "e39c5169f8b19118fdbbfb98bb343361ee1e52224a2c302d3d7898ecab79d1d2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-403",
+       "expected_sha": "f0c4e1bcde0c6b9b61a3f391e0c1e5b28051f13195c0ea48d0946696504b84bf",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-404",
+       "expected_sha": "a2961c3bc4f35c566ab7164d2336fdf4c7919d95fb6dd1261d6c5e68b1baed71",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-407",
+       "expected_sha": "07a361b7b62a842ffa8180112d2fbaf8f94c56e05decee00a4b77e11ac3b487d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-418",
+       "expected_sha": "befb39af955b87139eb7f53f42bec785c26d815c119dde1809c8de8b00647a9b",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-26",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'728",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-47",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'729",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-144",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'730",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-175",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'731",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-190",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'732",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-194",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'733",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-209",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "14731'734",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-213",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-238",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-325",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-363",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-367",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-403",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-404",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-407",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r16-o-418",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 7
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 431,
+   "crash": {
+    "kill_at_s": 1.2697,
+    "acked": 16,
+    "acked_after_kill": 9,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-194": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-367": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-47": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-144": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-325": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-363": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-190": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-238": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-209": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-407": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-418": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-175": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-26": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-403": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-213": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r16-o-404": 0
+    },
+    "bytes": 14688256
+   },
+   "pass": false
+  },
+  {
+   "run": 17,
+   "params": {
+    "kill_delay_s": 1.047
+   },
+   "notes": {
+    "pg": "1.10",
+    "acting_before": "pg=1.10 up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "retainer": 2,
+    "acting_without_r": "pg=1.10 up=[0, 4, 3] acting=[0, 4, 3] primary=0",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 7
+    },
+    "outcome": {
+     "kill_at_s": 1.0478,
+     "acked": 16,
+     "acked_after_kill": 16,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-15",
+       "expected_sha": "12bf3eb8ad1a9c707d82f7b42c53979018db9ea4a4f8d1c872bd0e3fe3c560d8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-131",
+       "expected_sha": "49f6554704a8c31041126bf7da5a18e9132facafcea81532f4e00dc5abd6d049",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-164",
+       "expected_sha": "ffff20fa4991c68efc5c8b8cc6b3ac519f667a1a5fef1adc5a1285aba4aec6e5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-178",
+       "expected_sha": "64be32f9cdf860fdda2f4ffc5ac48279a62a41b1610aba07c0ec2996c643e9e0",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-182",
+       "expected_sha": "18b8c485557919bb2ea8edc3ce4e37943011fa3985baa02a7830d749fdd2328f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-218",
+       "expected_sha": "47bf17bf75e097c20fbb6e0372ab55ee6078ef55f7be00ae6d89c3e83b887892",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-310",
+       "expected_sha": "449fd11b5a655e299c65a58f456ef064583bb4f1e2159e523a7b32883d05d08d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-361",
+       "expected_sha": "994c25e831426c44a5da6f97f6990ec8095677d1788de536ce14918fa3f996d9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-367",
+       "expected_sha": "c04b1d34bf83531e74e0bf9d6bf16acbb1b58ccc80c84a88af2a550e1d2d8daf",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-409",
+       "expected_sha": "b829fd350bb7a5f15f0aa1f6cf791b3df62d76d9887c52ad05b76265ca4231f2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-445",
+       "expected_sha": "b45529ba6bd5affa556213f7118df48244c886cf337700b2a3906f2636fa8b42",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-473",
+       "expected_sha": "b7749153c4989ccde322b9e7563b1c55969de425fc613416a28317738c9d979f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-482",
+       "expected_sha": "015a8332382342f2285a0780257ab68cee8dd8a3c40d0cd53e1a7b85c7f8d73c",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-489",
+       "expected_sha": "c5b11551094bcd6332f354982eb647557ac3c7b7ecb16c57870de645a4535e05",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-556",
+       "expected_sha": "7f6a5983bc80a30a5204c0647e259fe33ec40fc67c30651e6e2130205cc02244",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-566",
+       "expected_sha": "74a4562a509d65a74c2a64f486d6e39517b57cb6c43ade5a55616024b0e91e68",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-15",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-131",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-164",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-178",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-182",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-218",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-310",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-361",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-367",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-409",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-445",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-473",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-482",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-489",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-556",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r17-o-566",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 286,
+   "crash": {
+    "kill_at_s": 1.0478,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-218": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-178": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-482": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-361": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-409": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-164": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-182": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-473": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-489": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-566": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-367": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-445": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-15": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-556": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-310": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r17-o-131": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 18,
+   "params": {
+    "kill_delay_s": 0.782
+   },
+   "notes": {
+    "pg": "1.1a",
+    "acting_before": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "retainer": 4,
+    "acting_without_r": "pg=1.1a up=[1, 3, 2] acting=[1, 3, 2] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 12
+    },
+    "outcome": {
+     "kill_at_s": 0.7827,
+     "acked": 16,
+     "acked_after_kill": 2,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-748",
+       "expected_sha": "a91150e9ffda838dce93097cb95f39f2ccaa7693257bf78c725bdde27664d14d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-749",
+       "expected_sha": "7abfb207d1509bae28b8ae879cc94eaa479a1dd187f2e9afe9cf0014daa16d81",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-22",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'626",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-83",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'627",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-88",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'628",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-93",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'629",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-94",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'630",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-210",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'631",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-251",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'632",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-277",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'633",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-364",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'634",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-389",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'635",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-449",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'636",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-535",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'637",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-667",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'638",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-745",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14901'639",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-748",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r18-o-749",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 14
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 432,
+   "crash": {
+    "kill_at_s": 0.7827,
+    "acked": 16,
+    "acked_after_kill": 2,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-389": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-83": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-449": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-535": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-94": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-251": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-748": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-93": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-749": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-667": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-210": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-745": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-277": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-22": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-88": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r18-o-364": 1
+    },
+    "bytes": 17051648
+   },
+   "pass": false
+  },
+  {
+   "run": 19,
+   "params": {
+    "kill_delay_s": 1.302
+   },
+   "notes": {
+    "pg": "1.1a",
+    "acting_before": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "retainer": 4,
+    "acting_without_r": "pg=1.1a up=[1, 3, 2] acting=[1, 3, 2] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 13
+    },
+    "outcome": {
+     "kill_at_s": 1.303,
+     "acked": 16,
+     "acked_after_kill": 10,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-305",
+       "expected_sha": "1b681771b4a7d0fae5294c0837fb28597ef491aec6b4176a0f80c84bc9584caf",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-316",
+       "expected_sha": "06eb6d2f88638287a1dffca1fdba730ed14bf788306379073105bfbb7dd38872",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-472",
+       "expected_sha": "d80101d16998bdf8672c5d3648b1f1b7e3e5c9c4424c75a4269ba0b78eb8c8b1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-494",
+       "expected_sha": "836891b35ebe30bf35858d45e7878f6cf5ea5e780bb1fc6248129ec8878622d9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-511",
+       "expected_sha": "d9db0552e37e3a591949f6715e34ef7477574893311bc68d6ef6491e5d21cf8b",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-529",
+       "expected_sha": "61e46cd538a6e1c259ac69217b0834afe9a1e810a3aa69a95a866e5b1c98f67a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-546",
+       "expected_sha": "2985f99a4d40ef39c359fc2b088cbe4ed47a01225fed7149c480fa6dd39690ee",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-579",
+       "expected_sha": "c85835e5bd611d0485d7604abf440d5b66e87750283daaefffc51b72e233ff75",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-580",
+       "expected_sha": "e8f139cc72709803f4e17cafb433e6cb3fc65fda5967618e806f2af4acea40a8",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-593",
+       "expected_sha": "6208193b697cb3d0960f14046bbe9a5c8fdeadf6bae8af7cbb2e54e1be4ff187",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-2",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'665",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-58",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'666",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-192",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'667",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-213",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'668",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-232",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'669",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-246",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "14997'670",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-305",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-316",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-472",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-494",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-511",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-529",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-546",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-579",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-580",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r19-o-593",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 6
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 398,
+   "crash": {
+    "kill_at_s": 1.303,
+    "acked": 16,
+    "acked_after_kill": 10,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-580": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-472": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-494": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-192": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-593": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-316": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-213": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-305": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-579": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-511": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-546": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-58": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-529": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-2": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-246": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r19-o-232": 1
+    },
+    "bytes": 22089728
+   },
+   "pass": false
+  },
+  {
+   "run": 20,
+   "params": {
+    "kill_delay_s": 1.411
+   },
+   "notes": {
+    "pg": "1.0",
+    "acting_before": "pg=1.0 up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "acting_without_r": "pg=1.0 up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "stray_removal": {
+     "pgs_on_r_before_restart": "down",
+     "pgs_on_r_after": "0",
+     "wait_s": 13
+    },
+    "outcome": {
+     "kill_at_s": 1.4117,
+     "acked": 16,
+     "acked_after_kill": 9,
+     "not_acked": 0,
+     "strays_removed": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 16,
+     "failures": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-236",
+       "expected_sha": "2f14dca0cb46059af3539e967999a875358b2a718e34baafe99d9d33a036c433",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-350",
+       "expected_sha": "9d9780469b3d8f2ab0d96afc43e435cb001db1924147d20659ec50270c0d7612",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-385",
+       "expected_sha": "150581bbeb48e88b085a06811d1b79d658a38091a05e73579013c11fbf589531",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-392",
+       "expected_sha": "68e75e2ad65402076ce7c28f52a696910d0cd44c8b9002456dea2521ec314904",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-417",
+       "expected_sha": "cac347e68159b0964c40a8a02bedf71d5cc57eab15d0090fd45089e915e77144",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-426",
+       "expected_sha": "f89244f5139909ff1d5919b9e5f58974ca37319bcdfca4c7e1e9e7a3dcd07949",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-493",
+       "expected_sha": "75b5115bf3dba0ea496a1899c68acce5fa2dd24bcc7b289bd270f871f010e55f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-501",
+       "expected_sha": "6dcfde5ac59481c04145f98235065b08d26bd17ebee0e3a5376c6ca38383231a",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-7",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'609",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-85",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'610",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-139",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'611",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-148",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'612",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-159",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'613",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-177",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'614",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-193",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'615",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-218",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "15094'616",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-236",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-350",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-385",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-392",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-417",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-426",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-493",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:c03-retainer-out-during-deletes-20260929T153224-r20-o-501",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 411,
+   "crash": {
+    "kill_at_s": 1.4117,
+    "acked": 16,
+    "acked_after_kill": 9,
+    "not_acked": 0,
+    "strays_removed": true
+   },
+   "vault_copies": {
+    "copies": {
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-501": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-159": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-177": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-350": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-139": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-85": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-417": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-193": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-148": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-493": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-426": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-7": 1,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-392": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-236": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-385": 0,
+     "c03-retainer-out-during-deletes-20260929T153224-r20-o-218": 1
+    },
+    "bytes": 23076864
+   },
+   "pass": false
+  }
+ ]
+}
