@@ -31,3 +31,26 @@
 - Pre-registered `PHASE2_CRITERIA.md` (verbatim from CLAUDE.md, diff-checked) at `1a01660`, before any phase 2 code. Created Ceph branch `replicavault-p2` at `17451c9` (no changes yet).
 - B4: `git format-patch c92aebb2..replicavault-pilot` → `ceph-patch/pilot/0001,0002`; `ceph-patch/README.md` explains apply and build, including `-DENABLE_GIT_VERSION=OFF` and `-DWITH_PYTHON3=3.12`.
 - B4 verification from scratch (`/data/verify-ceph`): fresh `--depth 1` clone of v19.2.3 + `git am --committer-date-is-author-date` gives HEAD **`17451c9003d3e9b5e72d1d1a09b2397cf33eab1f`**, identical commit hash and tree (`601bacda…`) to the pilot branch; 5 files, +387 lines. Clone+apply 161 s; cmake + `ninja ceph-osd` done at 673 s total. The build reports version "Development" and contains the `replicavault: ` log strings. The binary is not byte-identical to `bin/ceph-osd.rv`: Debug binaries embed absolute source paths (2,202 `/data/verify-ceph/` strings vs 1,925 `/data/ceph/src` ones), so this is expected; the source is identical.
+
+## 2026-09-28 — phase 2, Phases 1–2 — **STOP: waiting for Vlad**
+
+**Phase 1 (coverage gap).** a01–a05 written, and all five pass on vanilla (results in `results/phase2/`). On the pilot prototype `17451c9`:
+- a01 10/10 pass, a02 10/10 pass. **Not the expected failures.** Backfill targets never enter the acting set (`PeeringState.cc:1742–1747`); the out or upmapped OSD's old copy stays in acting through `pg_temp`, and the next complete OSD becomes rank 1 and vaults (80/80 each).
+- a03 **0/3**: acting size 1, 24/24 deletes unvaulted.
+- a04 **5/10**: when primary-temp puts the primary at acting[1], 25/25 unvaulted, because the retainer is the unhooked primary. When it puts it at acting[2], all vaulted.
+- a05: exactly 2 copies per missed delete, retained/deleted = 2.00.
+
+So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named the wrong gap. The real gaps are **G1** (acting has no rank 1) and **G2** (rank 1 is the primary). Details and log evidence: `notes/b1-design.md` §5.
+
+**Phase 2 (design).** All three facts verified in code (`b1-design.md` §1):
+1. The primary never applies a delete to an object it is missing.
+2. `should_send_op` sends empty transactions only to backfill targets or async-recovery targets missing the object, and neither is ever in the acting set.
+3. The client ack waits for the primary's own commit, so a vault transaction queued first on the same sequencer is durable before the ack.
+
+**Recommendation: design (i), primary fallback, with a primary-first retainer function.** retainer = first acting OSD that is not the primary, else the primary. The primary vaults locally only when it is the retainer (acting size 1). No message, peering, PG log, scrub or backfill change; about 60–90 lines; closes G1 and G2.
+
+**Decisions for Vlad:**
+- (a) Approve (i).
+- (b) Under primary-temp the retainer becomes acting[0] rather than acting[1]; acceptable?
+- (c) Correct the wrong gap description in a Revision 1b note (GATE_REPORT is frozen)?
+- (d) Revision 1a B1's listed attacks (out, upmap, pg-temp) do not open a gap; size 1 and primary-temp do.

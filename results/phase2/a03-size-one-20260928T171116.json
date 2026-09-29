@@ -1,0 +1,457 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20260928T171116",
+ "mode": "rv",
+ "ceph_git": "17451c9003d3e9b5e72d1d1a09b2397cf33eab1f",
+ "osd_build_marker": "rv 17451c9003d3e9b5e72d1d1a09b2397cf33eab1f ba232fcc6f3cc4dd",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 237,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 0,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 3,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "fail",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.7 up=[4] acting=[4] primary=4"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 8,
+     "failures": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-0",
+       "expected_sha": "d33cd934b82b80f32d52d0f7078e9caa23591d60149349bbc68e127cc47bb2a6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-2",
+       "expected_sha": "93ae85383309cde2335ac36500e76e38b86a5aa770b23e5ed5ec4cd77ed0cbce",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-4",
+       "expected_sha": "5ace72e4f892a5068d82cc775777079103f8f52b4a52301c37d5c31c9c0cd434",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-6",
+       "expected_sha": "484169471a2f151cb761417bf7721ba622c320954474a6379ecdca4ff091ea6a",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-8",
+       "expected_sha": "b6049ba0dc4ee8c8060ffeab17199bbcc0d93e02ba8e6f08478806d4170bc886",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-10",
+       "expected_sha": "dc1f3a8b75c400cf20038f7b51f910e21d360187fd0dfbb0a72c34b47abca5fd",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-12",
+       "expected_sha": "658a2e5bf90b5e11d5c73bd7b2618840d276dad75512a8089c39f2b859548236",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-14",
+       "expected_sha": "336026e8bce7b1ffb229f789cafee5c513e58072eac933b81a9a51acd716e916",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-0",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-2",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-4",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-6",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-8",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-10",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-12",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r1-14",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 70,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T171116-r1-0": 0,
+     "a03-size-one-20260928T171116-r1-2": 0,
+     "a03-size-one-20260928T171116-r1-6": 0,
+     "a03-size-one-20260928T171116-r1-8": 0,
+     "a03-size-one-20260928T171116-r1-12": 0,
+     "a03-size-one-20260928T171116-r1-14": 0,
+     "a03-size-one-20260928T171116-r1-4": 0,
+     "a03-size-one-20260928T171116-r1-10": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 2,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.6 up=[0] acting=[0] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 8,
+     "failures": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-0",
+       "expected_sha": "00518b3dddd20781d28ff8aba3e6b504448f7708d0b5522af386e8755df61137",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-2",
+       "expected_sha": "10faef1fb2ab83c4e7ffed3b79ae27b379c4af74dee6ccdd937e08cae89f9855",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-4",
+       "expected_sha": "2a806d9f3682fdfabc0c74de89af0562e00db07446d4269fa189a011fd01c144",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-6",
+       "expected_sha": "0ff14abcf467c392f94c72eb893b530d63b44bc69ea349aa37ca940e8fe64473",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-8",
+       "expected_sha": "f53324ea277c9a781221231b2529bb0c25fe5f366bc98776360a847be9a3de7e",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-10",
+       "expected_sha": "6d908425e1d8bd901d396d5233b7702aa7e37c7658e9ecd878a47d20342befa6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-12",
+       "expected_sha": "abc62807094c10775c32146af50e3b93f1dfea9b6dd24d2ea83ef1f5e6de06d4",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-14",
+       "expected_sha": "b44ae77b8f9215580c0620849185b74fd57798042540f51342ab9efbe182acea",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-0",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-2",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-4",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-6",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-8",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-10",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-12",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r2-14",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 74,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T171116-r2-10": 0,
+     "a03-size-one-20260928T171116-r2-6": 0,
+     "a03-size-one-20260928T171116-r2-8": 0,
+     "a03-size-one-20260928T171116-r2-12": 0,
+     "a03-size-one-20260928T171116-r2-2": 0,
+     "a03-size-one-20260928T171116-r2-0": 0,
+     "a03-size-one-20260928T171116-r2-4": 0,
+     "a03-size-one-20260928T171116-r2-14": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 3,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.7 up=[4] acting=[4] primary=4"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 8,
+     "failures": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-0",
+       "expected_sha": "432d708900d495741be21f16dedef2a0f7c2e258e7836502957fcc5a5561cb68",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-2",
+       "expected_sha": "d1d824aaff829abe2206b561e848db1cdfdddbe68316a3a0545dcfa7bc95ef80",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-4",
+       "expected_sha": "0ed9b79c468b47256a5c79530c0f4722ca08426d304712cf61513316952c2b5f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-6",
+       "expected_sha": "c37493dbf8f3ffd5e00b80b572106e3e1e815b959dbe021d606c2e1f9c5a3fd2",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-8",
+       "expected_sha": "d8b1263b4cf8722e3c97cfd42f6acb9169195daef3471a74b0794ceb4169e805",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-10",
+       "expected_sha": "a136ed280eea01e3f22f8f094b2e457608cdfa5f00e078d867cc440b07a86f71",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-12",
+       "expected_sha": "2244117a923ea28c0517506323e4a98f7bcc3441abae7696afdd92661efd430d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-14",
+       "expected_sha": "07239d458f2c6fa0c3108b10a691f4995a7e3ce674914bcec0307b5e7047b435",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-0",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-2",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-4",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-6",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-8",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-10",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-12",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260928T171116-r3-14",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 71,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T171116-r3-4": 0,
+     "a03-size-one-20260928T171116-r3-0": 0,
+     "a03-size-one-20260928T171116-r3-12": 0,
+     "a03-size-one-20260928T171116-r3-14": 0,
+     "a03-size-one-20260928T171116-r3-8": 0,
+     "a03-size-one-20260928T171116-r3-10": 0,
+     "a03-size-one-20260928T171116-r3-6": 0,
+     "a03-size-one-20260928T171116-r3-2": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  }
+ ]
+}

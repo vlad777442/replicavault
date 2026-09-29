@@ -1,0 +1,1217 @@
+{
+ "scenario": "a04-primary-temp",
+ "timestamp": "20260928T171516",
+ "mode": "rv",
+ "ceph_git": "17451c9003d3e9b5e72d1d1a09b2397cf33eab1f",
+ "osd_build_marker": "rv 17451c9003d3e9b5e72d1d1a09b2397cf33eab1f ba232fcc6f3cc4dd",
+ "command": "scripts/scenarios/a04-primary-temp.sh ",
+ "pool": "rvtest",
+ "duration_s": 833,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 5,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 5,
+   "fail": 5,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "fail",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "primary_temp_slot": 1
+   },
+   "notes": {
+    "pg": "1.17",
+    "before": "pg=1.17 up=[0, 4, 1] acting=[0, 4, 1] primary=0",
+    "at_delete": "pg=1.17 up=[0, 4, 1] acting=[0, 4, 1] primary=4"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 5,
+     "failures": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-80",
+       "expected_sha": "daad3a940bf781805d74a9eb9cc88e192733ae0f76480a0dcb184699aa61bfda",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-155",
+       "expected_sha": "fe62aaf9ba438cdab7198e9b8a77914295b87c9411316d4d7a231135ac8a28c7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-157",
+       "expected_sha": "487aa52ec6db96045cd1d863a8c13ddc3cbdb3b81421b902e0540b008fc9818d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-221",
+       "expected_sha": "eb61afd4dab085f34f775c639af63bcbe5c1911e71bc2cdbf9fda3f8f4b90d9d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-283",
+       "expected_sha": "f64d88d9872b5bcc8120e7e65eb7a6d1f96ca538a5e64d6d08449640353ea845",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-80",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-155",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-157",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-221",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r1-o-283",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 58,
+   "primary_temp": 4,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r1-o-155": 0,
+     "a04-primary-temp-20260928T171516-r1-o-221": 0,
+     "a04-primary-temp-20260928T171516-r1-o-80": 0,
+     "a04-primary-temp-20260928T171516-r1-o-283": 0,
+     "a04-primary-temp-20260928T171516-r1-o-157": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 2,
+   "params": {
+    "primary_temp_slot": 2
+   },
+   "notes": {
+    "pg": "1.1b",
+    "before": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "at_delete": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=2"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r2-o-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5021'140",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r2-o-2",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5021'141",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r2-o-22",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5021'142",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r2-o-34",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5021'143",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r2-o-35",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5021'144",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 5
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 105,
+   "primary_temp": 2,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r2-o-34": 1,
+     "a04-primary-temp-20260928T171516-r2-o-2": 1,
+     "a04-primary-temp-20260928T171516-r2-o-22": 1,
+     "a04-primary-temp-20260928T171516-r2-o-1": 1,
+     "a04-primary-temp-20260928T171516-r2-o-35": 1
+    },
+    "bytes": 344874
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "primary_temp_slot": 1
+   },
+   "notes": {
+    "pg": "1.14",
+    "before": "pg=1.14 up=[2, 0, 4] acting=[2, 0, 4] primary=2",
+    "at_delete": "pg=1.14 up=[2, 0, 4] acting=[2, 0, 4] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 5,
+     "failures": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-33",
+       "expected_sha": "d40ec030312e1ab33039e1351e92ada78656d59847542e460b03622479c8d106",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-75",
+       "expected_sha": "1df4168563deb87dc22c75c0162b2928b0adbac0580f6251fa7ceebf9c89ded9",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-86",
+       "expected_sha": "4e76c0c06b4b958f154215b7fb966484d763f8b967e121d603653e70f36d07ad",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-94",
+       "expected_sha": "bdfa291c63637b218d09c3cbcb9262bee68001bb6f08fe40f0ab8dbc8f50d754",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-99",
+       "expected_sha": "154cf126a168648127e492895e8de597dba3222583939338dfaee1c0058e6212",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-33",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-75",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-86",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-94",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r3-o-99",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 61,
+   "primary_temp": 0,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r3-o-86": 0,
+     "a04-primary-temp-20260928T171516-r3-o-33": 0,
+     "a04-primary-temp-20260928T171516-r3-o-94": 0,
+     "a04-primary-temp-20260928T171516-r3-o-75": 0,
+     "a04-primary-temp-20260928T171516-r3-o-99": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 4,
+   "params": {
+    "primary_temp_slot": 2
+   },
+   "notes": {
+    "pg": "1.c",
+    "before": "pg=1.c up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "at_delete": "pg=1.c up=[3, 0, 4] acting=[3, 0, 4] primary=4"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r4-o-42",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "5036'108",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r4-o-69",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "5036'109",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r4-o-95",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "5036'110",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r4-o-97",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "5036'111",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r4-o-127",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "5036'112",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 5
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 102,
+   "primary_temp": 4,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r4-o-42": 1,
+     "a04-primary-temp-20260928T171516-r4-o-97": 1,
+     "a04-primary-temp-20260928T171516-r4-o-127": 1,
+     "a04-primary-temp-20260928T171516-r4-o-95": 1,
+     "a04-primary-temp-20260928T171516-r4-o-69": 1
+    },
+    "bytes": 337440
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "primary_temp_slot": 1
+   },
+   "notes": {
+    "pg": "1.7",
+    "before": "pg=1.7 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "at_delete": "pg=1.7 up=[1, 3, 0] acting=[1, 3, 0] primary=3"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 5,
+     "failures": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-13",
+       "expected_sha": "b4280a06b4109d4fcb05ddb4ba876ff9b7339434e0772d69736d2d0623a8253d",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-24",
+       "expected_sha": "d5769bc42a0c8bdedcee10e119d0db36e4610cbe49d1379cf147ab6b419b54c5",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-40",
+       "expected_sha": "0874aa9cbc021e35aabcf70fab91442debfa446da0889f724553e81db10a1bed",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-41",
+       "expected_sha": "5dbaf09e65376c1922e1a8f594a6d60e9ff255582826d21270b810c1f16aafb1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-49",
+       "expected_sha": "8d6b80d41c6b78404598cab118f86b088f92d4aa11b6b35a15f433c86f4e4a61",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-13",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-24",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-40",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-41",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r5-o-49",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 59,
+   "primary_temp": 3,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r5-o-49": 0,
+     "a04-primary-temp-20260928T171516-r5-o-24": 0,
+     "a04-primary-temp-20260928T171516-r5-o-41": 0,
+     "a04-primary-temp-20260928T171516-r5-o-40": 0,
+     "a04-primary-temp-20260928T171516-r5-o-13": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 6,
+   "params": {
+    "primary_temp_slot": 2
+   },
+   "notes": {
+    "pg": "1.11",
+    "before": "pg=1.11 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "at_delete": "pg=1.11 up=[0, 1, 3] acting=[0, 1, 3] primary=3"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r6-o-16",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5051'180",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r6-o-95",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5051'181",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r6-o-104",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5051'182",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r6-o-110",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5051'183",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r6-o-129",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "5051'184",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 5
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 103,
+   "primary_temp": 3,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r6-o-16": 1,
+     "a04-primary-temp-20260928T171516-r6-o-104": 1,
+     "a04-primary-temp-20260928T171516-r6-o-129": 1,
+     "a04-primary-temp-20260928T171516-r6-o-95": 1,
+     "a04-primary-temp-20260928T171516-r6-o-110": 1
+    },
+    "bytes": 360066
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "primary_temp_slot": 1
+   },
+   "notes": {
+    "pg": "1.1f",
+    "before": "pg=1.1f up=[0, 2, 1] acting=[0, 2, 1] primary=0",
+    "at_delete": "pg=1.1f up=[0, 2, 1] acting=[0, 2, 1] primary=2"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 5,
+     "failures": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-14",
+       "expected_sha": "24711edadd072fb614ce0ecd2e2a96d9b4f3eb8047ddd5e13ed3dc5cb16ae7a7",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-24",
+       "expected_sha": "a8ef06e5928ecda90073019640fee3a2abbb3d6c024be113ca9d4bfacd6afa13",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-110",
+       "expected_sha": "82265cda2318e0ead84941a0ad477d381f656fa5d6c3fd66b5b06ce14c72bb00",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-139",
+       "expected_sha": "127d8a847a5aa744105d5805a976302b8c284f5ddca329600b728b8a12b968a6",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-140",
+       "expected_sha": "b8acf49539e9fddc555c134747a07749127161a6ae280195a4e02e92f6afe3e5",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-14",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-24",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-110",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-139",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r7-o-140",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 66,
+   "primary_temp": 2,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r7-o-110": 0,
+     "a04-primary-temp-20260928T171516-r7-o-139": 0,
+     "a04-primary-temp-20260928T171516-r7-o-24": 0,
+     "a04-primary-temp-20260928T171516-r7-o-14": 0,
+     "a04-primary-temp-20260928T171516-r7-o-140": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 8,
+   "params": {
+    "primary_temp_slot": 2
+   },
+   "notes": {
+    "pg": "1.1d",
+    "before": "pg=1.1d up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "at_delete": "pg=1.1d up=[1, 3, 0] acting=[1, 3, 0] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r8-o-17",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "5065'164",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r8-o-46",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "5065'165",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r8-o-54",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "5065'166",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r8-o-74",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "5065'167",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r8-o-145",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "5065'168",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 5
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 101,
+   "primary_temp": 0,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r8-o-46": 1,
+     "a04-primary-temp-20260928T171516-r8-o-145": 1,
+     "a04-primary-temp-20260928T171516-r8-o-17": 1,
+     "a04-primary-temp-20260928T171516-r8-o-54": 1,
+     "a04-primary-temp-20260928T171516-r8-o-74": 1
+    },
+    "bytes": 323584
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "primary_temp_slot": 1
+   },
+   "notes": {
+    "pg": "1.f",
+    "before": "pg=1.f up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "at_delete": "pg=1.f up=[3, 0, 4] acting=[3, 0, 4] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 5,
+     "failures": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-5",
+       "expected_sha": "e8e7f72ee71f2e627f7f1f77f8fa20883dc719bcd99e2627bd4cfc4398266f79",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-13",
+       "expected_sha": "1cef28d8e24818f565f9eff9e13a95c660e8f4a194caeea43e29550ead43f9d1",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-37",
+       "expected_sha": "37f5a48106f6bdb783834d3e42f5be9122b56bfdb3372ca6b772f36611cdec67",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-62",
+       "expected_sha": "b27b0112822959d98f338e9e52b592764452615200e69c77840f9c1deaebb64f",
+       "candidates": [],
+       "problem": "no vault line"
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-68",
+       "expected_sha": "5e0f47330cfb8e767c8b24fab74f804de1c4b5894511174cfb4151b6eb273021",
+       "candidates": [],
+       "problem": "no vault line"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-5",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-13",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-37",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-62",
+       "vault": [],
+       "ok": false
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r9-o-68",
+       "vault": [],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 60,
+   "primary_temp": 0,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r9-o-13": 0,
+     "a04-primary-temp-20260928T171516-r9-o-68": 0,
+     "a04-primary-temp-20260928T171516-r9-o-62": 0,
+     "a04-primary-temp-20260928T171516-r9-o-37": 0,
+     "a04-primary-temp-20260928T171516-r9-o-5": 0
+    },
+    "bytes": 0
+   },
+   "pass": false
+  },
+  {
+   "run": 10,
+   "params": {
+    "primary_temp_slot": 2
+   },
+   "notes": {
+    "pg": "1.1f",
+    "before": "pg=1.1f up=[0, 2, 1] acting=[0, 2, 1] primary=0",
+    "at_delete": "pg=1.1f up=[0, 2, 1] acting=[0, 2, 1] primary=1"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r10-o-107",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "5080'212",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r10-o-171",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "5080'213",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r10-o-180",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "5080'214",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r10-o-207",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "5080'215",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a04-primary-temp-20260928T171516-r10-o-246",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "5080'216",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 5
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 105,
+   "primary_temp": 1,
+   "vault_copies": {
+    "copies": {
+     "a04-primary-temp-20260928T171516-r10-o-246": 1,
+     "a04-primary-temp-20260928T171516-r10-o-180": 1,
+     "a04-primary-temp-20260928T171516-r10-o-207": 1,
+     "a04-primary-temp-20260928T171516-r10-o-107": 1,
+     "a04-primary-temp-20260928T171516-r10-o-171": 1
+    },
+    "bytes": 327955
+   },
+   "pass": true
+  }
+ ]
+}

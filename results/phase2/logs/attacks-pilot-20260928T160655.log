@@ -1,0 +1,388 @@
+===== a01-rank1-out.sh (16:06:55)
+16:06:56 scenario a01-rank1-out: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=10 pool=rvtest
+16:07:02 clean after 6 s
+16:07:03 --- a01-rank1-out run 1 {}
+16:08:21 clean after 60 s
+16:09:46 clean after 84 s
+16:09:52 clean after 6 s
+16:10:19 deep-scrubbed 32 PGs in 27 s
+16:11:20 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:11:20 --- a01-rank1-out run 2 {}
+16:12:28 clean after 50 s
+16:13:29 clean after 59 s
+16:13:36 clean after 6 s
+16:14:01 deep-scrubbed 32 PGs in 25 s
+16:15:12 clean after 9 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:15:12 --- a01-rank1-out run 3 {}
+16:16:19 clean after 49 s
+16:17:29 clean after 69 s
+16:17:36 clean after 7 s
+16:18:01 deep-scrubbed 32 PGs in 25 s
+16:19:06 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:19:07 --- a01-rank1-out run 4 {}
+16:20:13 clean after 48 s
+16:21:25 clean after 71 s
+16:21:32 clean after 6 s
+16:21:59 deep-scrubbed 32 PGs in 27 s
+16:23:04 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:23:04 --- a01-rank1-out run 5 {}
+16:24:09 clean after 47 s
+16:25:12 clean after 62 s
+16:25:19 clean after 6 s
+16:25:46 deep-scrubbed 32 PGs in 27 s
+16:27:01 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:27:01 --- a01-rank1-out run 6 {}
+16:28:06 clean after 47 s
+16:29:06 clean after 60 s
+16:29:13 clean after 6 s
+16:29:40 deep-scrubbed 32 PGs in 27 s
+16:30:42 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:30:42 --- a01-rank1-out run 7 {}
+16:31:53 clean after 53 s
+16:33:08 clean after 74 s
+16:33:15 clean after 7 s
+16:33:44 deep-scrubbed 32 PGs in 29 s
+16:34:48 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:34:48 --- a01-rank1-out run 8 {}
+16:36:04 clean after 57 s
+16:37:11 clean after 66 s
+16:37:18 clean after 6 s
+16:37:43 deep-scrubbed 32 PGs in 25 s
+16:38:44 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:38:44 --- a01-rank1-out run 9 {}
+16:39:52 clean after 49 s
+16:40:58 clean after 64 s
+16:41:05 clean after 6 s
+16:41:31 deep-scrubbed 32 PGs in 26 s
+16:42:47 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:42:47 --- a01-rank1-out run 10 {}
+16:43:46 clean after 42 s
+16:44:37 clean after 50 s
+16:44:44 clean after 6 s
+16:45:09 deep-scrubbed 32 PGs in 25 s
+16:46:12 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+a01-rank1-out [rv]: 10/10 runs passed -> /users/vlad777/research/replicavault/results/phase2/a01-rank1-out-20260928T160655.json
+===== a02-upmap-empty.sh (16:46:15)
+16:46:16 scenario a02-upmap-empty: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=10 pool=rvtest
+16:46:22 clean after 6 s
+16:46:23 --- a02-upmap-empty run 1 {"require_min_compat_client": "luminous"}
+16:46:53 clean after 14 s
+16:47:10 clean after 16 s
+16:47:16 clean after 5 s
+16:47:43 deep-scrubbed 32 PGs in 27 s
+16:48:46 clean after 14 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:48:46 --- a02-upmap-empty run 2 {"require_min_compat_client": "luminous"}
+16:49:16 clean after 16 s
+16:49:36 clean after 19 s
+16:49:43 clean after 6 s
+16:50:09 deep-scrubbed 32 PGs in 26 s
+16:51:09 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:51:09 --- a02-upmap-empty run 3 {"require_min_compat_client": "luminous"}
+16:51:40 clean after 13 s
+16:52:00 clean after 19 s
+16:52:06 clean after 6 s
+16:52:36 deep-scrubbed 32 PGs in 30 s
+16:53:36 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:53:37 --- a02-upmap-empty run 4 {"require_min_compat_client": "luminous"}
+16:54:12 clean after 18 s
+16:54:31 clean after 18 s
+16:54:38 clean after 6 s
+16:55:05 deep-scrubbed 32 PGs in 27 s
+16:56:17 clean after 12 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:56:17 --- a02-upmap-empty run 5 {"require_min_compat_client": "luminous"}
+16:56:47 clean after 15 s
+16:57:07 clean after 18 s
+16:57:14 clean after 6 s
+16:57:41 deep-scrubbed 32 PGs in 27 s
+16:58:53 clean after 14 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+16:58:53 --- a02-upmap-empty run 6 {"require_min_compat_client": "luminous"}
+16:59:30 clean after 18 s
+16:59:51 clean after 19 s
+16:59:57 clean after 6 s
+17:00:25 deep-scrubbed 32 PGs in 28 s
+17:01:36 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:01:37 --- a02-upmap-empty run 7 {"require_min_compat_client": "luminous"}
+17:02:10 clean after 16 s
+17:02:29 clean after 18 s
+17:02:36 clean after 6 s
+17:03:00 deep-scrubbed 32 PGs in 24 s
+17:04:00 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:04:01 --- a02-upmap-empty run 8 {"require_min_compat_client": "luminous"}
+17:04:34 clean after 16 s
+17:04:54 clean after 19 s
+17:05:00 clean after 6 s
+17:05:29 deep-scrubbed 32 PGs in 29 s
+17:06:24 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:06:25 --- a02-upmap-empty run 9 {"require_min_compat_client": "luminous"}
+17:07:02 clean after 18 s
+17:07:22 clean after 19 s
+17:07:28 clean after 6 s
+17:07:56 deep-scrubbed 32 PGs in 28 s
+17:08:52 clean after 12 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:08:52 --- a02-upmap-empty run 10 {"require_min_compat_client": "luminous"}
+17:09:23 clean after 14 s
+17:09:43 clean after 20 s
+17:09:49 clean after 6 s
+17:10:18 deep-scrubbed 32 PGs in 29 s
+17:11:14 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+a02-upmap-empty [rv]: 10/10 runs passed -> /users/vlad777/research/replicavault/results/phase2/a02-upmap-empty-20260928T164615.json
+===== a03-size-one.sh (17:11:16)
+17:11:17 scenario a03-size-one: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=3 pool=rvtest
+17:11:23 clean after 6 s
+17:11:39 clean after 13 s
+17:11:39 --- a03-size-one run 1 {"mon_allow_pool_size_one": "true"}
+17:12:00 clean after 14 s
+17:12:25 clean after 21 s
+17:12:32 clean after 7 s
+17:12:42 deep-scrubbed 8 PGs in 10 s
+17:12:49 clean after 6 s
+run 1: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:12:49 --- a03-size-one run 2 {"mon_allow_pool_size_one": "true"}
+17:13:10 clean after 14 s
+17:13:35 clean after 20 s
+17:13:42 clean after 6 s
+17:13:56 deep-scrubbed 8 PGs in 14 s
+17:14:03 clean after 6 s
+run 2: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:14:04 --- a03-size-one run 3 {"mon_allow_pool_size_one": "true"}
+17:14:25 clean after 16 s
+17:14:53 clean after 23 s
+17:15:00 clean after 7 s
+17:15:07 deep-scrubbed 8 PGs in 7 s
+17:15:14 clean after 6 s
+run 3: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+a03-size-one [rv]: 0/3 runs passed -> /users/vlad777/research/replicavault/results/phase2/a03-size-one-20260928T171116.json
+===== a04-primary-temp.sh (17:15:16)
+17:15:17 scenario a04-primary-temp: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=10 pool=rvtest
+17:15:30 clean after 13 s
+17:15:30 --- a04-primary-temp run 1 {"primary_temp_slot": 1}
+17:15:47 clean after 6 s
+17:15:54 clean after 6 s
+17:16:21 deep-scrubbed 32 PGs in 27 s
+17:16:28 clean after 6 s
+run 1: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:16:29 --- a04-primary-temp run 2 {"primary_temp_slot": 2}
+17:16:46 clean after 6 s
+17:16:53 clean after 6 s
+17:17:23 deep-scrubbed 32 PGs in 30 s
+17:18:13 clean after 10 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:18:14 --- a04-primary-temp run 3 {"primary_temp_slot": 1}
+17:18:31 clean after 6 s
+17:18:38 clean after 6 s
+17:19:07 deep-scrubbed 32 PGs in 29 s
+17:19:14 clean after 6 s
+run 3: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:19:14 --- a04-primary-temp run 4 {"primary_temp_slot": 2}
+17:19:31 clean after 6 s
+17:19:38 clean after 6 s
+17:20:03 deep-scrubbed 32 PGs in 25 s
+17:20:56 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:20:56 --- a04-primary-temp run 5 {"primary_temp_slot": 1}
+17:21:14 clean after 7 s
+17:21:20 clean after 6 s
+17:21:48 deep-scrubbed 32 PGs in 28 s
+17:21:55 clean after 6 s
+run 5: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:21:55 --- a04-primary-temp run 6 {"primary_temp_slot": 2}
+17:22:12 clean after 6 s
+17:22:19 clean after 6 s
+17:22:47 deep-scrubbed 32 PGs in 28 s
+17:23:38 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:23:38 --- a04-primary-temp run 7 {"primary_temp_slot": 1}
+17:24:02 clean after 13 s
+17:24:09 clean after 6 s
+17:24:37 deep-scrubbed 32 PGs in 28 s
+17:24:44 clean after 6 s
+run 7: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:24:45 --- a04-primary-temp run 8 {"primary_temp_slot": 2}
+17:25:02 clean after 6 s
+17:25:09 clean after 6 s
+17:25:38 deep-scrubbed 32 PGs in 29 s
+17:26:25 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:26:25 --- a04-primary-temp run 9 {"primary_temp_slot": 1}
+17:26:43 clean after 6 s
+17:26:50 clean after 6 s
+17:27:18 deep-scrubbed 32 PGs in 28 s
+17:27:25 clean after 6 s
+run 9: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:27:26 --- a04-primary-temp run 10 {"primary_temp_slot": 2}
+17:27:44 clean after 6 s
+17:27:51 clean after 7 s
+17:28:20 deep-scrubbed 32 PGs in 29 s
+17:29:10 clean after 12 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+a04-primary-temp [rv]: 5/10 runs passed -> /users/vlad777/research/replicavault/results/phase2/a04-primary-temp-20260928T171516.json
+===== a05-duplicate-inflation.sh (17:29:10)
+17:29:10 scenario a05-duplicate-inflation: mode=rv ceph=17451c9003d3e9b5e72d1d1a09b2397cf33eab1f runs=10 pool=rvtest
+17:29:16 clean after 6 s
+17:29:17 --- a05-duplicate-inflation run 1 {"rounds": 3, "deletes_per_round": 4}
+17:29:24 osd.4 (pid 1650952) down and exited
+17:29:36 osd.4 up (pid 1764183)
+17:29:51 clean after 15 s
+17:29:53 osd.4 (pid 1764183) down and exited
+17:30:04 osd.4 up (pid 1765264)
+17:30:15 clean after 11 s
+17:30:17 osd.4 (pid 1765264) down and exited
+17:30:28 osd.4 up (pid 1766311)
+17:30:40 clean after 12 s
+17:30:46 clean after 6 s
+17:31:15 deep-scrubbed 32 PGs in 29 s
+17:33:35 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:33:36 --- a05-duplicate-inflation run 2 {"rounds": 3, "deletes_per_round": 4}
+17:33:42 osd.0 (pid 1737081) down and exited
+17:33:53 osd.0 up (pid 1785551)
+17:34:07 clean after 14 s
+17:34:09 osd.0 (pid 1785551) down and exited
+17:34:17 osd.0 up (pid 1786611)
+17:34:31 clean after 14 s
+17:34:33 osd.0 (pid 1786611) down and exited
+17:34:43 osd.0 up (pid 1787700)
+17:34:57 clean after 14 s
+17:35:04 clean after 7 s
+17:35:35 deep-scrubbed 32 PGs in 31 s
+17:37:50 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:37:51 --- a05-duplicate-inflation run 3 {"rounds": 3, "deletes_per_round": 4}
+17:37:58 osd.0 (pid 1797290) down and exited
+17:38:09 osd.0 up (pid 1807097)
+17:38:20 clean after 11 s
+17:38:22 osd.0 (pid 1807097) down and exited
+17:38:30 osd.0 up (pid 1808112)
+17:38:43 clean after 13 s
+17:38:45 osd.0 (pid 1808112) down and exited
+17:38:55 osd.0 up (pid 1809165)
+17:39:08 clean after 13 s
+17:39:15 clean after 6 s
+17:39:43 deep-scrubbed 32 PGs in 28 s
+17:41:58 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:41:58 --- a05-duplicate-inflation run 4 {"rounds": 3, "deletes_per_round": 4}
+17:42:06 osd.1 (pid 1745465) down and exited
+17:42:15 osd.1 up (pid 1828577)
+17:42:29 clean after 14 s
+17:42:31 osd.1 (pid 1828577) down and exited
+17:42:42 osd.1 up (pid 1829643)
+17:42:55 clean after 13 s
+17:42:57 osd.1 (pid 1829643) down and exited
+17:43:08 osd.1 up (pid 1830697)
+17:43:22 clean after 14 s
+17:43:29 clean after 7 s
+17:43:56 deep-scrubbed 32 PGs in 27 s
+17:46:39 clean after 14 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:46:40 --- a05-duplicate-inflation run 5 {"rounds": 3, "deletes_per_round": 4}
+17:46:46 osd.4 (pid 1827030) down and exited
+17:46:55 osd.4 up (pid 1850030)
+17:47:09 clean after 14 s
+17:47:09 osd.4 (pid 1850030) down and exited
+17:47:20 osd.4 up (pid 1851065)
+17:47:33 clean after 13 s
+17:47:35 osd.4 (pid 1851065) down and exited
+17:47:45 osd.4 up (pid 1852123)
+17:47:59 clean after 14 s
+17:48:06 clean after 6 s
+17:48:37 deep-scrubbed 32 PGs in 31 s
+17:51:04 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:51:04 --- a05-duplicate-inflation run 6 {"rounds": 3, "deletes_per_round": 4}
+17:51:12 osd.1 (pid 1840275) down and exited
+17:51:21 osd.1 up (pid 1871478)
+17:51:32 clean after 11 s
+17:51:34 osd.1 (pid 1871478) down and exited
+17:51:43 osd.1 up (pid 1872501)
+17:51:56 clean after 13 s
+17:51:58 osd.1 (pid 1872501) down and exited
+17:52:08 osd.1 up (pid 1873692)
+17:52:22 clean after 14 s
+17:52:29 clean after 6 s
+17:52:56 deep-scrubbed 32 PGs in 27 s
+17:55:20 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:55:21 --- a05-duplicate-inflation run 7 {"rounds": 3, "deletes_per_round": 4}
+17:55:28 osd.4 (pid 1869887) down and exited
+17:55:38 osd.4 up (pid 1893011)
+17:55:51 clean after 13 s
+17:55:53 osd.4 (pid 1893011) down and exited
+17:56:03 osd.4 up (pid 1894062)
+17:56:14 clean after 11 s
+17:56:14 osd.4 (pid 1894062) down and exited
+17:56:25 osd.4 up (pid 1895075)
+17:56:39 clean after 14 s
+17:56:46 clean after 7 s
+17:57:16 deep-scrubbed 32 PGs in 30 s
+17:59:34 clean after 10 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:59:35 --- a05-duplicate-inflation run 8 {"rounds": 3, "deletes_per_round": 4}
+17:59:41 osd.0 (pid 1818727) down and exited
+17:59:51 osd.0 up (pid 1914625)
+18:00:04 clean after 13 s
+18:00:06 osd.0 (pid 1914625) down and exited
+18:00:17 osd.0 up (pid 1915681)
+18:00:31 clean after 14 s
+18:00:32 osd.0 (pid 1915681) down and exited
+18:00:43 osd.0 up (pid 1916751)
+18:00:55 clean after 12 s
+18:01:02 clean after 7 s
+18:01:32 deep-scrubbed 32 PGs in 30 s
+18:03:55 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:03:56 --- a05-duplicate-inflation run 9 {"rounds": 3, "deletes_per_round": 4}
+18:04:02 osd.0 (pid 1926298) down and exited
+18:04:12 osd.0 up (pid 1936028)
+18:04:26 clean after 14 s
+18:04:27 osd.0 (pid 1936028) down and exited
+18:04:37 osd.0 up (pid 1937094)
+18:04:51 clean after 14 s
+18:04:52 osd.0 (pid 1937094) down and exited
+18:05:03 osd.0 up (pid 1938147)
+18:05:15 clean after 12 s
+18:05:21 clean after 6 s
+18:05:49 deep-scrubbed 32 PGs in 28 s
+18:08:20 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:08:20 --- a05-duplicate-inflation run 10 {"rounds": 3, "deletes_per_round": 4}
+18:08:26 osd.0 (pid 1947666) down and exited
+18:08:37 osd.0 up (pid 1957642)
+18:08:50 clean after 13 s
+18:08:50 osd.0 (pid 1957642) down and exited
+18:09:00 osd.0 up (pid 1958747)
+18:09:13 clean after 13 s
+18:09:15 osd.0 (pid 1958747) down and exited
+18:09:24 osd.0 up (pid 1959844)
+18:09:35 clean after 11 s
+18:09:41 clean after 6 s
+18:10:10 deep-scrubbed 32 PGs in 29 s
+18:12:44 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+a05-duplicate-inflation [rv]: 10/10 runs passed -> /users/vlad777/research/replicavault/results/phase2/a05-duplicate-inflation-20260928T172910.json
+===== summary
+a01: pass
+a02: pass
+a03: FAIL (rc=1)
+a04: FAIL (rc=1)
+a05: pass

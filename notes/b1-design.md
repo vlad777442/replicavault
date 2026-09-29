@@ -3,7 +3,7 @@
 Ceph v19.2.3 `c92aebb2`; pilot prototype `17451c9` (branch `replicavault-pilot`). Paths are relative to `/data/ceph/src`. Written 2026-09-28 (phase 2, Phase 2).
 **Verified** = I read the code at the cited lines. **Inferred** = reasoned, not read end to end.
 
-Status: DRAFT. §5 (the attack results on the pilot prototype) is filled in after the a01–a05 runs.
+Status: complete for the Phase 2 STOP (2026-09-28). The recommendation in §3 awaits Vlad.
 
 ## 1. The three facts CLAUDE.md asks to verify
 
@@ -112,7 +112,24 @@ Expected Phase 3 outcome: a03 and a04 pass invariant 3; a01, a02 and s01–s12 a
 
 ## 5. Attack results on the pilot prototype
 
-To be filled in after the a01–a05 runs.
+Every attack script passed first on vanilla (invariant 3 skipped), and was then run on the pilot prototype `17451c9`. Results are in `results/phase2/`.
+
+| Scenario | Vanilla | Pilot `17451c9` | Invariant 3 on pilot | What happened |
+|---|---|---|---|---|
+| a01 rank 1 marked out (`nobackfill` held the window) | 10/10 | **10/10 pass** | 80/80 deletes vaulted | The out OSD stayed in the acting set through `pg_temp`, moved to rank 2. The old rank-2 OSD became rank 1 and vaulted every delete via `repop`. The backfill target was in up, never in acting. Run 1: up [0, 2, 4], acting [0, 2, 1]; osd.2 vaulted 8/8. |
+| a02 upmap rank-1 slot to an empty OSD | 10/10 | **10/10 pass** | 80/80 | Same mechanism: the upmapped OSD is a backfill target outside the acting set. |
+| a03 pool size 1 (`rvsz1`) | 3/3 | **0/3 fail** | **24/24 unvaulted** | Acting is a single OSD (e.g. `acting=[4] primary=4`): no rank 1, no `vaulted` line anywhere. Invariants 1, 2 and 4 held. Gap **G1**. |
+| a04 primary-temp | 10/10 | **5/10** | Slot 1: **25/25 unvaulted**. Slot 2: 25/25 vaulted | Slot 1 moves the primary to acting[1] (e.g. `acting=[0, 4, 1] primary=4`): the rule's retainer is the primary, which the pilot never hooks. Slot 2 (`acting=[0, 1, 2] primary=2`): rank 1 is a replica and vaults. Gap **G2**. |
+| a05 duplicate inflation (3 rounds × 4 deletes, rank 1 killed each round) | 10/10 | 10/10 | 120/120 vaulted | Every missed delete got **exactly 2 copies**: the temporary rank 1 via `repop`, and the returning OSD via recovery. Retained / deleted bytes = **2.00** in every run. It does not compound. The upper bound is one copy per distinct OSD that applies the delete while it is the retainer, so at most 3 at size 3. **Inferred, not tested.** |
+
+**CLAUDE.md expected a01–a03 to fail.** a01 and a02 pass, for the reason in §1.2: backfill targets, and async-recovery targets, never enter the acting set (`PeeringState.cc:1742–1747`, `:2276–2285`). Any other acting peer missing the object blocks the write until it is recovered (`PrimaryLogPG.cc:636–671`, `:2178–2187`). So under the pilot rule, acting rank 1 always holds the object.
+
+The model in `design-note.md` §§1 and 4, and `GATE_REPORT.md` caveat 2, was wrong on this point. It is right that a backfill target past `last_backfill` gets an empty transaction. It is wrong that such an OSD can be rank 1. The real gaps are G1 (a03) and G2 (a04, odd runs), and both are attacker-triggerable with admin credentials:
+
+- G1: `ceph osd pool set <pool> size 1 --yes-i-really-mean-it`, which needs `mon_allow_pool_size_one`, itself settable by the same admin.
+- G2: `ceph osd primary-temp <pg> <acting[1]>`, which needs `require_min_compat_client` of firefly or later.
+
+Design (i) closes both without any message change.
 
 ## Future work
 
