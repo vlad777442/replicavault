@@ -1,0 +1,1617 @@
+{
+ "scenario": "c01-crash-under-deletes",
+ "timestamp": "20260929T061314",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/c01-crash-under-deletes.sh ",
+ "pool": "rvtest",
+ "duration_s": 2024,
+ "summary": {
+  "runs": 20,
+  "runs_passed": 20,
+  "1_no_resurrection": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 20
+  },
+  "4_live_intact": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.352
+   },
+   "notes": {
+    "pg": "1.19",
+    "acting": "pg=1.19 up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.3527,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.3527,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r1-o-461": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-454": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-147": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-65": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-524": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-61": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-334": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-75": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-297": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-235": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-638": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-184": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-146": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-340": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-595": 0,
+     "c01-crash-under-deletes-20260929T061314-r1-o-649": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.583
+   },
+   "notes": {
+    "pg": "1.1a",
+    "acting": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "retainer": 4,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.5837,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 98,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.5837,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r2-o-66": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-311": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-424": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-231": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-411": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-499": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-35": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-68": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-338": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-364": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-352": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-443": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-553": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-480": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-452": 0,
+     "c01-crash-under-deletes-20260929T061314-r2-o-230": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.875
+   },
+   "notes": {
+    "pg": "1.10",
+    "acting": "pg=1.10 up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "retainer": 2,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.8758,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.8758,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r3-o-61": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-294": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-313": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-62": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-425": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-424": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-114": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-89": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-45": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-204": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-174": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-463": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-458": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-150": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-426": 0,
+     "c01-crash-under-deletes-20260929T061314-r3-o-326": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.758
+   },
+   "notes": {
+    "pg": "1.b",
+    "acting": "pg=1.b up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.7586,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.7586,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r4-o-139": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-355": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-501": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-474": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-391": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-453": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-201": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-267": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-247": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-62": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-475": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-407": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-365": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-4": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-284": 0,
+     "c01-crash-under-deletes-20260929T061314-r4-o-113": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 1.441
+   },
+   "notes": {
+    "pg": "1.c",
+    "acting": "pg=1.c up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 1.4417,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 98,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 1.4417,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r5-o-466": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-226": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-149": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-477": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-576": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-194": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-325": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-213": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-368": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-294": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-460": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-289": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-190": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-148": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-310": 0,
+     "c01-crash-under-deletes-20260929T061314-r5-o-272": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.526
+   },
+   "notes": {
+    "pg": "1.18",
+    "acting": "pg=1.18 up=[2, 3, 1] acting=[2, 3, 1] primary=2",
+    "retainer": 3,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.5267,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 99,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.5267,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r6-o-257": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-28": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-309": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-391": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-121": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-78": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-93": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-33": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-107": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-95": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-199": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-393": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-22": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-128": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-112": 0,
+     "c01-crash-under-deletes-20260929T061314-r6-o-220": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 1.212
+   },
+   "notes": {
+    "pg": "1.9",
+    "acting": "pg=1.9 up=[1, 4, 2] acting=[1, 4, 2] primary=1",
+    "retainer": 4,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 1.2127,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 1.2127,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r7-o-429": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-60": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-13": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-26": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-85": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-99": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-385": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-539": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-272": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-64": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-345": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-477": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-377": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-367": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-125": 0,
+     "c01-crash-under-deletes-20260929T061314-r7-o-190": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.495
+   },
+   "notes": {
+    "pg": "1.10",
+    "acting": "pg=1.10 up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "retainer": 2,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.4957,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.4957,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r8-o-12": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-358": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-256": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-283": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-423": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-64": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-176": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-180": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-108": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-113": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-129": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-122": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-386": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-341": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-356": 0,
+     "c01-crash-under-deletes-20260929T061314-r8-o-121": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 1.273
+   },
+   "notes": {
+    "pg": "1.1a",
+    "acting": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "retainer": 4,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 1.2738,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 1.2738,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r9-o-298": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-499": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-224": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-156": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-478": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-46": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-493": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-201": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-487": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-341": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-122": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-405": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-365": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-62": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-148": 0,
+     "c01-crash-under-deletes-20260929T061314-r9-o-371": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.868
+   },
+   "notes": {
+    "pg": "1.5",
+    "acting": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "retainer": 2,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.8688,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 98,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.8688,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r10-o-286": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-220": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-293": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-458": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-455": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-284": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-191": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-170": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-124": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-331": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-169": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-238": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-309": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-474": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-553": 0,
+     "c01-crash-under-deletes-20260929T061314-r10-o-178": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 11,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.616
+   },
+   "notes": {
+    "pg": "1.0",
+    "acting": "pg=1.0 up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.6167,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.6167,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r11-o-43": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-26": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-263": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-460": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-244": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-339": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-203": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-149": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-347": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-241": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-136": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-463": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-140": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-289": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-325": 0,
+     "c01-crash-under-deletes-20260929T061314-r11-o-103": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 12,
+   "params": {
+    "submit_mode": "default",
+    "kill_delay_s": 0.733
+   },
+   "notes": {
+    "pg": "1.9",
+    "acting": "pg=1.9 up=[1, 4, 2] acting=[1, 4, 2] primary=1",
+    "retainer": 4,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.7338,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.7338,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r12-o-415": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-282": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-366": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-570": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-134": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-524": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-347": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-243": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-562": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-121": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-522": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-289": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-13": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-95": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-272": 0,
+     "c01-crash-under-deletes-20260929T061314-r12-o-577": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 13,
+   "params": {
+    "submit_mode": "sync",
+    "kill_delay_s": 1.047
+   },
+   "notes": {
+    "pg": "1.13",
+    "acting": "pg=1.13 up=[4, 3, 1] acting=[4, 3, 1] primary=4",
+    "retainer": 3,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 1.0478,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 98,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 1.0478,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r13-o-195": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-356": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-154": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-421": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-441": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-367": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-164": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-375": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-77": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-61": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-144": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-82": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-434": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-479": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-10": 0,
+     "c01-crash-under-deletes-20260929T061314-r13-o-253": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 14,
+   "params": {
+    "submit_mode": "sync",
+    "kill_delay_s": 0.111
+   },
+   "notes": {
+    "pg": "1.3",
+    "acting": "pg=1.3 up=[4, 1, 2] acting=[4, 1, 2] primary=4",
+    "retainer": 1,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.1116,
+     "acked": 16,
+     "acked_before_kill": 0,
+     "acked_after_kill": 16,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 95,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.1116,
+    "acked": 16,
+    "acked_before_kill": 0,
+    "acked_after_kill": 16,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r14-o-384": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-617": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-666": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-245": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-64": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-687": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-700": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-564": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-703": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-218": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-639": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-325": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-9": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-542": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-60": 0,
+     "c01-crash-under-deletes-20260929T061314-r14-o-459": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 15,
+   "params": {
+    "submit_mode": "sync",
+    "kill_delay_s": 0.018
+   },
+   "notes": {
+    "pg": "1.1b",
+    "acting": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "retainer": 1,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.0187,
+     "acked": 16,
+     "acked_before_kill": 0,
+     "acked_after_kill": 16,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 97,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.0187,
+    "acked": 16,
+    "acked_before_kill": 0,
+    "acked_after_kill": 16,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r15-o-206": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-465": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-496": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-40": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-300": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-334": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-596": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-608": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-106": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-444": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-227": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-570": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-325": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-212": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-209": 0,
+     "c01-crash-under-deletes-20260929T061314-r15-o-483": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 16,
+   "params": {
+    "submit_mode": "sync",
+    "kill_delay_s": 0.179
+   },
+   "notes": {
+    "pg": "1.0",
+    "acting": "pg=1.0 up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.1797,
+     "acked": 16,
+     "acked_before_kill": 0,
+     "acked_after_kill": 16,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 99,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.1797,
+    "acked": 16,
+    "acked_before_kill": 0,
+    "acked_after_kill": 16,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r16-o-260": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-667": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-529": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-216": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-102": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-46": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-598": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-466": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-80": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-217": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-459": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-593": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-54": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-189": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-13": 0,
+     "c01-crash-under-deletes-20260929T061314-r16-o-392": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 17,
+   "params": {
+    "submit_mode": "sync+rand",
+    "kill_delay_s": 0.856
+   },
+   "notes": {
+    "pg": "1.13",
+    "acting": "pg=1.13 up=[4, 3, 1] acting=[4, 3, 1] primary=4",
+    "retainer": 3,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.8569,
+     "acked": 16,
+     "acked_before_kill": 16,
+     "acked_after_kill": 0,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 98,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.8569,
+    "acked": 16,
+    "acked_before_kill": 16,
+    "acked_after_kill": 0,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r17-o-596": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-618": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-254": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-538": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-452": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-471": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-25": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-152": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-629": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-592": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-341": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-97": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-460": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-159": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-293": 0,
+     "c01-crash-under-deletes-20260929T061314-r17-o-493": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 18,
+   "params": {
+    "submit_mode": "sync+rand",
+    "kill_delay_s": 0.163
+   },
+   "notes": {
+    "pg": "1.4",
+    "acting": "pg=1.4 up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.1637,
+     "acked": 16,
+     "acked_before_kill": 1,
+     "acked_after_kill": 15,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 103,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.1637,
+    "acked": 16,
+    "acked_before_kill": 1,
+    "acked_after_kill": 15,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r18-o-468": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-228": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-258": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-298": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-345": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-46": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-363": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-119": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-246": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-6": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-294": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-287": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-209": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-116": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-534": 0,
+     "c01-crash-under-deletes-20260929T061314-r18-o-137": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 19,
+   "params": {
+    "submit_mode": "sync+rand",
+    "kill_delay_s": 0.655
+   },
+   "notes": {
+    "pg": "1.0",
+    "acting": "pg=1.0 up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "retainer": 0,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.6561,
+     "acked": 16,
+     "acked_before_kill": 2,
+     "acked_after_kill": 14,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 138,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.6561,
+    "acked": 16,
+    "acked_before_kill": 2,
+    "acked_after_kill": 14,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r19-o-95": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-425": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-50": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-191": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-417": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-33": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-350": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-368": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-129": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-202": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-445": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-369": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-243": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-65": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-466": 0,
+     "c01-crash-under-deletes-20260929T061314-r19-o-548": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 20,
+   "params": {
+    "submit_mode": "sync+rand",
+    "kill_delay_s": 0.293
+   },
+   "notes": {
+    "pg": "1.15",
+    "acting": "pg=1.15 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "retainer": 3,
+    "outcome": {
+     "fsck": {
+      "pass": true,
+      "output": "fsck success"
+     },
+     "kill_at_s": 0.294,
+     "acked": 16,
+     "acked_before_kill": 0,
+     "acked_after_kill": 16,
+     "not_acked": []
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 113,
+   "crash": {
+    "fsck": {
+     "pass": true,
+     "output": "fsck success"
+    },
+    "kill_at_s": 0.294,
+    "acked": 16,
+    "acked_before_kill": 0,
+    "acked_after_kill": 16,
+    "not_acked": []
+   },
+   "vault_copies": {
+    "copies": {
+     "c01-crash-under-deletes-20260929T061314-r20-o-111": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-54": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-204": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-282": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-119": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-123": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-332": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-23": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-45": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-254": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-38": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-47": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-41": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-109": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-180": 0,
+     "c01-crash-under-deletes-20260929T061314-r20-o-334": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  }
+ ]
+}

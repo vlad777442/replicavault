@@ -62,3 +62,18 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Full matrix (smoke, s01–s12, a01–a05) on vanilla, then p2: **34/34 scenario results pass, both smoke runs pass** (`results/phase2/`, log `results/phase2/logs/phase3-full-20260928T*.log`). On p2, a03 3/3 (every delete vaulted `path=fallback` by the single acting OSD) and a04 10/10 (primary at acting[1] → acting[0] vaults via `repop`). a05 on p2: 2 copies per missed delete, retained/deleted 2.00, unchanged from the pilot.
 - B4 for p2: `ceph-patch/p2/` (3 patches) applied on the fresh clone reproduces `ef0be10b…` exactly (commit and tree `2ad62347…`); incremental `ninja ceph-osd` 104 s; the binary contains `retainer_osd` and `vault_deleted_heads`.
 - Harness bug noticed: this node's `grep` is ugrep, which rejects backreferences, so my "not all runs passed" filter in the overnight failure watcher never worked. The results were checked afterwards in python instead; no failures.
+
+## 2026-09-29 — phase 2, Phase 4 — results and a finding for Vlad
+- Results in `results/phase2/`:
+  - c01 vanilla 20/20 (script validation: 12 default, 4 sync, 4 sync+rand; a deliberate reduction from 100 to save about 5 h, full 100 on p2).
+  - c02 vanilla 10/10 (200 cases).
+  - **c01 p2 100/100:** 60 default, 20 `bluestore_sync_submit_transaction`, 20 sync + `bluestore_debug_randomize_serial_transaction=2`. 1,600/1,600 acknowledged deletes have an intact vault entry after restart; fsck clean on the killed retainer in 100/100 runs; no delete went unacknowledged (the client resent every in-flight remove); 1,405 of the 1,600 were acknowledged after the kill.
+  - **c02 p2 10/10:** 200/200 cases; the vault always held the last queued write (sizes 4 KiB–8 MiB × 1–4 in-flight writes, 40 or 50 per cell).
+  - Duplicates: 19 of 1,600 deletes have 2 intact copies, 1,581 have 1.
+- No BlueStore option stops between KV submissions. The two used change submission grouping: `global.yaml.in:5180`, `:5354`; `BlueStore.cc:14192–14213`.
+- **Finding (does not fail the pre-registered c01 criterion, which is checked after restart):** for 993 of the 1,600 acknowledged deletes, the only intact vault copy was made by the killed retainer **through recovery after it restarted** (`path=recovery`).
+  - Its original staging (`path=repop`, logged) died with the crash; there are 148 such "logged but never durable" `vaulted` lines across the run. So a `vaulted` log line records staging, not durability.
+  - No other OSD vaulted these deletes. The client's acknowledgement was sent after the kill because, on the interval change, `apply_and_flush_repops` (`PrimaryLogPG.cc:12825–12865`) requeues the in-flight ops, the resent op is a dup (`check_in_progress_op`, `:2230–2244`), and `already_complete` (`:15453–15478`) only checks repops still queued in the new interval.
+  - The new acting set (primary + old rank 2) had applied the remove without vaulting. At ack time the pre-delete bytes were therefore durable only on the crashed retainer's disk, as its vault entry or as the not-yet-removed object.
+  - **So contract item 5 (Revision 1a B1: the ack waits for a durable vault copy) is not enforced for deletes in flight when the retainer crashes.** If that OSD never returned, those deletes would have no copy.
+  - Verified in code and observed; no fix attempted. Enforcing item 5 here would need a second copy staged before the non-retainers remove (e.g. primary also vaults, or retainer confirmation plus a fallback copy), i.e. a design change for Vlad.
