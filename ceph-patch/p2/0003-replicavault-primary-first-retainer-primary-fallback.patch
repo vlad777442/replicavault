@@ -1,0 +1,252 @@
+From ef0be10b667cfdfd15512eb2f8e79128de0d537f Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Mon, 28 Sep 2026 20:19:28 -0600
+Subject: [PATCH 3/3] replicavault: primary-first retainer, primary fallback
+ (B1 design i)
+
+The pilot vaulted on the OSD at acting-set rank 1. Two attacker-triggerable
+cases left acknowledged deletes unvaulted (phase 2 scenarios a03, a04):
+  G1  the acting set has no rank 1 (pool size 1, or min_size 1 with the
+      replicas down);
+  G2  primary_temp places the primary at acting rank 1, and the primary
+      never vaulted.
+
+retainer_osd() replaces acting_rank(): the retainer is element RETAIN_RANK
+of the acting set reordered primary-first, or the primary itself when the
+acting set has no other member. Replicas (do_repop) and recovery
+(remove_missing_object) vault when they are the retainer, as before. New:
+the primary vaults in ReplicatedBackend::submit_transaction when it is the
+retainer, after issue_op has encoded the replicas' transaction and before
+log_operation, as its own txc queued ahead of op_t on the same sequencer,
+logged path=fallback. The CRUSH mapping runs only for transactions that
+delete a head. No message, peering, PG log, scrub or backfill change.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/PrimaryLogPG.cc      |  7 +++--
+ src/osd/ReplicaVault.cc      | 43 +++++++++++++++++++++++++-----
+ src/osd/ReplicaVault.h       | 31 +++++++++++++++++-----
+ src/osd/ReplicatedBackend.cc | 51 +++++++++++++++++++++++-------------
+ 4 files changed, 97 insertions(+), 35 deletions(-)
+
+diff --git a/src/osd/PrimaryLogPG.cc b/src/osd/PrimaryLogPG.cc
+index d445885..d150778 100644
+--- a/src/osd/PrimaryLogPG.cc
++++ b/src/osd/PrimaryLogPG.cc
+@@ -12412,12 +12412,11 @@ void PrimaryLogPG::remove_missing_object(const hobject_t &soid,
+   // delete locally
+   ObjectStore::Transaction t;
+   // ReplicaVault: a delete learned through recovery (this OSD missed the live
+-  // one) is vaulted by the retaining rank too, in the same local transaction.
++  // one) is vaulted by the retainer too, primary included.
+   if (!soid.is_snap()) {
+     vector<int> acting;
+-    int rank = replicavault::acting_rank(
+-      *get_osdmap(), info.pgid.pgid, osd->whoami, &acting);
+-    if (rank == replicavault::RETAIN_RANK) {
++    if (replicavault::retainer_osd(*get_osdmap(), info.pgid.pgid,
++				   &acting) == osd->whoami) {
+       ObjectStore::Transaction vt;
+       if (replicavault::vault_object(
+ 	    cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
+diff --git a/src/osd/ReplicaVault.cc b/src/osd/ReplicaVault.cc
+index 4b19ac3..bb2202a 100644
+--- a/src/osd/ReplicaVault.cc
++++ b/src/osd/ReplicaVault.cc
+@@ -53,22 +53,30 @@ string vault_name(spg_t pgid, const hobject_t &soid, eversion_t version,
+ 
+ string path_str(Path p)
+ {
+-  return p == Path::REPOP ? "repop" : "recovery";
++  switch (p) {
++  case Path::REPOP: return "repop";
++  case Path::RECOVERY: return "recovery";
++  case Path::FALLBACK: return "fallback";
++  }
++  return "unknown";
+ }
+ 
+ } // anonymous namespace
+ 
+-int acting_rank(const OSDMap &osdmap, pg_t pgid, int osd, vector<int> *acting)
++int retainer_osd(const OSDMap &osdmap, pg_t pgid, vector<int> *acting)
+ {
+   vector<int> up;
+   int up_primary, acting_primary;
+   osdmap.pg_to_up_acting_osds(pgid, &up, &up_primary, acting, &acting_primary);
+-  for (unsigned i = 0; i < acting->size(); ++i) {
+-    if ((*acting)[i] == osd) {
+-      return i;
++  // primary_temp can put the primary anywhere in the acting set
++  // (OSDMap::_get_temp_osds); count ranks as if it were first.
++  vector<int> order{acting_primary};
++  for (int o : *acting) {
++    if (o != acting_primary && o != CRUSH_ITEM_NONE) {
++      order.push_back(o);
+     }
+   }
+-  return -1;
++  return order.size() > RETAIN_RANK ? order[RETAIN_RANK] : acting_primary;
+ }
+ 
+ set<hobject_t> deleted_heads(ObjectStore::Transaction &t, const coll_t &coll,
+@@ -267,4 +275,27 @@ int vault_object(CephContext *cct, ObjectStore *store,
+   return 0;
+ }
+ 
++int vault_deleted_heads(CephContext *cct, ObjectStore *store,
++			ObjectStore::CollectionHandle &ch, const coll_t &coll,
++			spg_t pgid, ObjectStore::Transaction &t,
++			const vector<pg_log_entry_t> &log, eversion_t default_v,
++			int whoami, const vector<int> &acting, Path path,
++			ObjectStore::Transaction *vt)
++{
++  int staged = 0;
++  for (auto &hoid : deleted_heads(t, coll, log)) {
++    eversion_t v = default_v;
++    for (auto &e : log) {
++      if (e.soid == hoid) {
++	v = e.version;
++      }
++    }
++    if (vault_object(cct, store, ch, pgid, hoid, v, whoami, acting, path,
++		     vt) == 0) {
++      ++staged;
++    }
++  }
++  return staged;
++}
++
+ } // namespace replicavault
+diff --git a/src/osd/ReplicaVault.h b/src/osd/ReplicaVault.h
+index 27bb138..06768ee 100644
+--- a/src/osd/ReplicaVault.h
++++ b/src/osd/ReplicaVault.h
+@@ -24,7 +24,9 @@
+ 
+ namespace replicavault {
+ 
+-/// The acting-set rank that retains deleted objects (0 = primary).
++/// The rank that retains deleted objects, counted in the acting set reordered
++/// primary-first (0 = the primary). Without primary_temp this is the plain
++/// acting-set rank; with primary_temp it skips the primary wherever it sits.
+ constexpr int RETAIN_RANK = 1;
+ 
+ /// Debug level (subsys osd) for the "replicavault: vaulted ..." lines.
+@@ -33,13 +35,17 @@ constexpr int VAULT_LOG_LEVEL = 1;
+ /// Namespace of vault entries inside coll_t::meta().
+ extern const std::string VAULT_NSPACE;
+ 
+-/// Which local code path applied the delete.
+-enum class Path { REPOP, RECOVERY };
++/// Which local code path applied the delete: a replica applying a shipped
++/// transaction, any OSD applying a delete learned through log recovery, or
++/// the primary vaulting its own copy because no replica is the retainer.
++enum class Path { REPOP, RECOVERY, FALLBACK };
+ 
+-/// Position of `osd` in the acting set of `pgid` in `osdmap`, or -1.
+-/// `acting` receives the ordered acting set.
+-int acting_rank(const OSDMap &osdmap, pg_t pgid, int osd,
+-		std::vector<int> *acting);
++/// The OSD that retains deletes for `pgid` in `osdmap`: element RETAIN_RANK
++/// of the acting set reordered primary-first, or the primary itself when the
++/// acting set has no other member (size 1, or all replicas down with
++/// min_size 1). Every OSD computes the same answer from the same map.
++/// `acting` receives the acting set as the osdmap gives it.
++int retainer_osd(const OSDMap &osdmap, pg_t pgid, std::vector<int> *acting);
+ 
+ /// Head objects of collection `coll` that transaction `t` deletes, as
+ /// opposed to overwrites:
+@@ -61,4 +67,15 @@ int vault_object(CephContext *cct, ObjectStore *store,
+ 		 const std::vector<int> &acting, Path path,
+ 		 ObjectStore::Transaction *vt);
+ 
++/// For every head that transaction `t` deletes (deleted_heads), stage a vault
++/// copy into `vt` (vault_object). The version recorded is the head's log entry
++/// version, or `default_v` if the log has none. Returns the number staged.
++int vault_deleted_heads(CephContext *cct, ObjectStore *store,
++			ObjectStore::CollectionHandle &ch, const coll_t &coll,
++			spg_t pgid, ObjectStore::Transaction &t,
++			const std::vector<pg_log_entry_t> &log,
++			eversion_t default_v, int whoami,
++			const std::vector<int> &acting, Path path,
++			ObjectStore::Transaction *vt);
++
+ } // namespace replicavault
+diff --git a/src/osd/ReplicatedBackend.cc b/src/osd/ReplicatedBackend.cc
+index dfb1122..f125fdc 100644
+--- a/src/osd/ReplicatedBackend.cc
++++ b/src/osd/ReplicatedBackend.cc
+@@ -529,6 +529,28 @@ void ReplicatedBackend::submit_transaction(
+   add_temp_objs(added);
+   clear_temp_objs(removed);
+ 
++  // ReplicaVault: when no replica is the retainer (the acting set has no
++  // member besides the primary), the primary vaults the heads this
++  // transaction deletes. issue_op has already encoded op_t for the replicas,
++  // and log_operation below has not yet appended to it, so op_t holds only
++  // the object ops. Own txc (meta-pool accounting) on the same sequencer as
++  // op_t, queued first, so the client ack (after op_t commits) implies it.
++  if (!replicavault::deleted_heads(op_t, coll, log_entries).empty()) {
++    vector<int> acting;
++    int me = get_parent()->whoami_shard().osd;
++    if (replicavault::retainer_osd(*get_osdmap(), get_info().pgid.pgid,
++				   &acting) == me) {
++      ObjectStore::Transaction vault_t;
++      if (replicavault::vault_deleted_heads(
++	    cct, store, ch, coll, get_info().pgid, op_t, log_entries,
++	    at_version, me, acting, replicavault::Path::FALLBACK,
++	    &vault_t) > 0) {
++	int r = store->queue_transaction(ch, std::move(vault_t));
++	ceph_assert(r == 0);
++      }
++    }
++  }
++
+   parent->log_operation(
+     std::move(log_entries),
+     hset_history,
+@@ -1118,28 +1140,21 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+   decode(log, p);
+   rm->opt.set_fadvise_flag(CEPH_OSD_OP_FLAG_FADVISE_DONTNEED);
+ 
+-  // ReplicaVault: if this OSD holds the retaining rank, copy every head this
++  // ReplicaVault: if this OSD is the retainer, copy every head this
+   // transaction deletes into the vault, in this OSD's local transaction only.
+   // The shipped transaction and the log entries are not modified.
+   ObjectStore::Transaction vault_t;
+-  if (!rm->opt.empty()) {
++  // deleted_heads reads only op headers; the CRUSH mapping in retainer_osd
++  // runs only for transactions that delete a head.
++  if (!rm->opt.empty() &&
++      !replicavault::deleted_heads(rm->opt, coll, log).empty()) {
+     vector<int> acting;
+-    int rank = replicavault::acting_rank(
+-      *get_osdmap(), get_info().pgid.pgid, get_parent()->whoami_shard().osd,
+-      &acting);
+-    if (rank == replicavault::RETAIN_RANK) {
+-      for (auto &hoid : replicavault::deleted_heads(rm->opt, coll, log)) {
+-	eversion_t v = m->version;
+-	for (auto &e : log) {
+-	  if (e.soid == hoid) {
+-	    v = e.version;
+-	  }
+-	}
+-	replicavault::vault_object(
+-	  cct, store, ch, get_info().pgid, hoid, v,
+-	  get_parent()->whoami_shard().osd, acting,
+-	  replicavault::Path::REPOP, &vault_t);
+-      }
++    int me = get_parent()->whoami_shard().osd;
++    if (replicavault::retainer_osd(*get_osdmap(), get_info().pgid.pgid,
++				   &acting) == me) {
++      replicavault::vault_deleted_heads(
++	cct, store, ch, coll, get_info().pgid, rm->opt, log, m->version, me,
++	acting, replicavault::Path::REPOP, &vault_t);
+     }
+   }
+ 
+-- 
+2.43.0
+

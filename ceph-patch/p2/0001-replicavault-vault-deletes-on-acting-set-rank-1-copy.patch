@@ -1,0 +1,475 @@
+From ca2a5b245558cfc1a872c0289fb79aae6a30fe23 Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Sat, 26 Sep 2026 13:44:41 -0600
+Subject: [PATCH 1/3] replicavault: vault deletes on acting-set rank 1 (copy
+ into meta namespace)
+
+On the OSD at acting-set rank 1, a head delete is expanded in this OSD's own
+local transaction into a copy of the object (data, xattrs, omap, checksum)
+into coll_t::meta() namespace 'replicavault', followed by the unchanged remove.
+Hooks: ReplicatedBackend::do_repop (live deletes) and
+PrimaryLogPG::remove_missing_object (deletes learned through recovery).
+The PG log, the shipped transaction, and all PG-collection ops are unchanged.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/CMakeLists.txt       |   1 +
+ src/osd/PrimaryLogPG.cc      |  13 ++
+ src/osd/ReplicaVault.cc      | 270 +++++++++++++++++++++++++++++++++++
+ src/osd/ReplicaVault.h       |  64 +++++++++
+ src/osd/ReplicatedBackend.cc |  33 ++++-
+ 5 files changed, 380 insertions(+), 1 deletion(-)
+ create mode 100644 src/osd/ReplicaVault.cc
+ create mode 100644 src/osd/ReplicaVault.h
+
+diff --git a/src/osd/CMakeLists.txt b/src/osd/CMakeLists.txt
+index 5f1e965..67a1756 100644
+--- a/src/osd/CMakeLists.txt
++++ b/src/osd/CMakeLists.txt
+@@ -17,6 +17,7 @@ set(osd_srcs
+   PGLog.cc
+   PrimaryLogPG.cc
+   ReplicatedBackend.cc
++  ReplicaVault.cc
+   ECCommon.cc
+   ECBackend.cc
+   ECTransaction.cc
+diff --git a/src/osd/PrimaryLogPG.cc b/src/osd/PrimaryLogPG.cc
+index 2b17903..aca5ea3 100644
+--- a/src/osd/PrimaryLogPG.cc
++++ b/src/osd/PrimaryLogPG.cc
+@@ -24,6 +24,7 @@
+ #include <boost/tuple/tuple.hpp>
+ 
+ #include "PrimaryLogPG.h"
++#include "ReplicaVault.h"
+ 
+ #include "cls/cas/cls_cas_ops.h"
+ #include "common/CDC.h"
+@@ -12410,6 +12411,18 @@ void PrimaryLogPG::remove_missing_object(const hobject_t &soid,
+   ceph_assert(on_complete != nullptr);
+   // delete locally
+   ObjectStore::Transaction t;
++  // ReplicaVault: a delete learned through recovery (this OSD missed the live
++  // one) is vaulted by the retaining rank too, in the same local transaction.
++  if (!soid.is_snap()) {
++    vector<int> acting;
++    int rank = replicavault::acting_rank(
++      *get_osdmap(), info.pgid.pgid, osd->whoami, &acting);
++    if (rank == replicavault::RETAIN_RANK) {
++      replicavault::vault_object(
++	cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
++	replicavault::Path::RECOVERY, &t);
++    }
++  }
+   remove_snap_mapped_object(t, soid);
+ 
+   ObjectRecoveryInfo recovery_info;
+diff --git a/src/osd/ReplicaVault.cc b/src/osd/ReplicaVault.cc
+new file mode 100644
+index 0000000..4b19ac3
+--- /dev/null
++++ b/src/osd/ReplicaVault.cc
+@@ -0,0 +1,270 @@
++// -*- mode:C++; tab-width:8; c-basic-offset:2; indent-tabs-mode:t -*-
++// vim: ts=8 sw=2 smarttab
++
++#include "osd/ReplicaVault.h"
++
++#include <map>
++
++#include <fmt/format.h>
++
++#include "common/ceph_crypto.h"
++#include "common/debug.h"
++#include "common/errno.h"
++#include "include/stringify.h"
++
++#define dout_context cct
++#define dout_subsys ceph_subsys_osd
++#undef dout_prefix
++#define dout_prefix *_dout << "replicavault: "
++
++using std::map;
++using std::set;
++using std::string;
++using std::vector;
++using ceph::bufferlist;
++
++namespace replicavault {
++
++const string VAULT_NSPACE = "replicavault";
++
++namespace {
++
++string hex(const string &s)
++{
++  string out;
++  out.reserve(s.size() * 2);
++  for (unsigned char c : s) {
++    out += fmt::format("{:02x}", c);
++  }
++  return out;
++}
++
++// Vault entry name: digits, '.', '-', '_' and hex only, so it can never
++// contain "osdmap." (OSD::trim_stale_maps matches that substring anywhere
++// in a meta object name). Each field is decodable by scripts/vault-inspect.sh.
++string vault_name(spg_t pgid, const hobject_t &soid, eversion_t version,
++		  utime_t when)
++{
++  return fmt::format("rv1_{}_{}_{}-{}_{}.{:09}_{}_{}_{}",
++		     soid.pool, stringify(pgid.pgid), version.epoch, version.version,
++		     when.sec(), when.nsec(),
++		     hex(soid.nspace), hex(soid.get_key()), hex(soid.oid.name));
++}
++
++string path_str(Path p)
++{
++  return p == Path::REPOP ? "repop" : "recovery";
++}
++
++} // anonymous namespace
++
++int acting_rank(const OSDMap &osdmap, pg_t pgid, int osd, vector<int> *acting)
++{
++  vector<int> up;
++  int up_primary, acting_primary;
++  osdmap.pg_to_up_acting_osds(pgid, &up, &up_primary, acting, &acting_primary);
++  for (unsigned i = 0; i < acting->size(); ++i) {
++    if ((*acting)[i] == osd) {
++      return i;
++    }
++  }
++  return -1;
++}
++
++set<hobject_t> deleted_heads(ObjectStore::Transaction &t, const coll_t &coll,
++			     const vector<pg_log_entry_t> &log)
++{
++  struct state_t {
++    bool removed = false;
++    bool recreated = false;
++    bool data_after_remove = false;
++  };
++  map<hobject_t, state_t> seen;
++
++  auto head_in_coll = [&](const coll_t &cid, const ghobject_t &g) {
++    return cid == coll && g.is_no_gen() && !g.hobj.is_temp() &&
++      g.hobj.snap == CEPH_NOSNAP;
++  };
++
++  for (auto i = t.begin(); i.have_op(); ) {
++    ObjectStore::Transaction::Op *op = i.decode_op();
++    if (op->op == ObjectStore::Transaction::OP_NOP) {
++      continue;
++    }
++    const coll_t &cid = i.get_cid(op->cid);
++    switch (op->op) {
++    case ObjectStore::Transaction::OP_REMOVE: {
++      const ghobject_t &g = i.get_oid(op->oid);
++      if (head_in_coll(cid, g)) {
++	seen[g.hobj] = state_t{true, false, false};
++      }
++      break;
++    }
++    case ObjectStore::Transaction::OP_CREATE:
++    case ObjectStore::Transaction::OP_TOUCH: {
++      const ghobject_t &g = i.get_oid(op->oid);
++      auto p = seen.find(g.hobj);
++      if (head_in_coll(cid, g) && p != seen.end() && p->second.removed) {
++	p->second.recreated = true;
++      }
++      break;
++    }
++    case ObjectStore::Transaction::OP_WRITE:
++    case ObjectStore::Transaction::OP_ZERO: {
++      const ghobject_t &g = i.get_oid(op->oid);
++      auto p = seen.find(g.hobj);
++      if (head_in_coll(cid, g) && p != seen.end()) {
++	p->second.data_after_remove = true;
++      }
++      break;
++    }
++    case ObjectStore::Transaction::OP_CLONE:
++    case ObjectStore::Transaction::OP_CLONERANGE2:
++    case ObjectStore::Transaction::OP_COLL_MOVE_RENAME:
++    case ObjectStore::Transaction::OP_TRY_RENAME: {
++      // the destination receives data
++      const ghobject_t &g = i.get_oid(op->dest_oid);
++      auto p = seen.find(g.hobj);
++      if (head_in_coll(cid, g) && p != seen.end()) {
++	p->second.data_after_remove = true;
++      }
++      break;
++    }
++    default:
++      break;
++    }
++  }
++
++  set<hobject_t> out;
++  for (auto &[hoid, st] : seen) {
++    if (!st.removed || st.data_after_remove) {
++      continue;  // overwrite or recreate-with-data: not a delete
++    }
++    bool log_delete = false;
++    for (auto &e : log) {
++      if (e.soid == hoid && e.is_delete()) {
++	log_delete = true;
++      }
++    }
++    if (log_delete || st.recreated) {
++      out.insert(hoid);
++    }
++  }
++  return out;
++}
++
++int vault_object(CephContext *cct, ObjectStore *store,
++		 ObjectStore::CollectionHandle &ch, spg_t pgid,
++		 const hobject_t &soid, eversion_t version, int whoami,
++		 const vector<int> &acting, Path path,
++		 ObjectStore::Transaction *vt)
++{
++  const ghobject_t goid(soid, ghobject_t::NO_GEN, shard_id_t::NO_SHARD);
++
++  struct stat st;
++  int r = store->stat(ch, goid, &st);
++  if (r < 0) {
++    ldout(cct, VAULT_LOG_LEVEL) << "skip pool=" << soid.pool << " pg=" << pgid
++			  << " oid=" << soid << " v=" << version
++			  << " osd=" << whoami << " path=" << path_str(path)
++			  << ": stat " << cpp_strerror(r) << dendl;
++    return r;
++  }
++
++  map<string, bufferlist, std::less<>> attrs;
++  r = store->getattrs(ch, goid, attrs);
++  if (r < 0) {
++    lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++	       << " oid=" << soid << ": getattrs " << cpp_strerror(r) << dendl;
++    return r;
++  }
++  if (auto p = attrs.find(OI_ATTR); p != attrs.end()) {
++    object_info_t oi;
++    try {
++      auto bp = p->second.cbegin();
++      oi.decode(bp);
++    } catch (ceph::buffer::error &) {
++      lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++		 << " oid=" << soid << ": undecodable object_info" << dendl;
++      return -EIO;
++    }
++    if (oi.is_whiteout()) {
++      ldout(cct, VAULT_LOG_LEVEL) << "skip pool=" << soid.pool << " pg=" << pgid
++			    << " oid=" << soid << " v=" << version
++			    << " osd=" << whoami << " path=" << path_str(path)
++			    << ": already a whiteout" << dendl;
++      return 1;
++    }
++  }
++
++  bufferlist data;
++  if (st.st_size > 0) {
++    r = store->read(ch, goid, 0, st.st_size, data);
++    if (r < 0) {
++      lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++		 << " oid=" << soid << ": read " << cpp_strerror(r) << dendl;
++      return r;
++    }
++  }
++
++  bufferlist omap_header;
++  map<string, bufferlist> omap;
++  r = store->omap_get(ch, goid, &omap_header, &omap);
++  if (r < 0 && r != -ENOENT) {
++    lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++	       << " oid=" << soid << ": omap_get " << cpp_strerror(r) << dendl;
++    return r;
++  }
++
++  const string sha = ceph::crypto::digest<ceph::crypto::SHA256>(data).to_str();
++  const utime_t now = ceph_clock_now();
++  const string vname = vault_name(pgid, soid, version, now);
++  const coll_t meta = coll_t::meta();
++  const ghobject_t vobj(hobject_t(object_t(vname), "", CEPH_NOSNAP,
++				  soid.get_hash(), hobject_t::POOL_META,
++				  VAULT_NSPACE));
++
++  auto put = [&](const char *k, const string &v) {
++    bufferlist bl;
++    bl.append(v);
++    attrs[k] = std::move(bl);
++  };
++  put("rv.sha256", sha);
++  put("rv.size", std::to_string(data.length()));
++  put("rv.pool", std::to_string(soid.pool));
++  put("rv.pgid", stringify(pgid));
++  put("rv.oid", soid.oid.name);
++  put("rv.nspace", soid.nspace);
++  put("rv.key", soid.get_key());
++  put("rv.version", stringify(version));
++  put("rv.vaulted_at", stringify(now));
++  put("rv.osd", std::to_string(whoami));
++  put("rv.path", path_str(path));
++  put("rv.acting", stringify(acting));
++
++  vt->touch(meta, vobj);
++  if (data.length()) {
++    vt->write(meta, vobj, 0, data.length(), data);
++  }
++  vt->setattrs(meta, vobj, attrs);
++  if (omap_header.length()) {
++    vt->omap_setheader(meta, vobj, omap_header);
++  }
++  if (!omap.empty()) {
++    vt->omap_setkeys(meta, vobj, omap);
++  }
++
++  ldout(cct, VAULT_LOG_LEVEL) << "vaulted pool=" << soid.pool << " pg=" << pgid
++			<< " oid=" << soid.oid.name
++			<< " ns=" << soid.nspace
++			<< " v=" << version << " osd=" << whoami
++			<< " path=" << path_str(path)
++			<< " acting=" << acting
++			<< " size=" << data.length()
++			<< " omap_keys=" << omap.size()
++			<< " sha256=" << sha
++			<< " vname=" << vname << dendl;
++  return 0;
++}
++
++} // namespace replicavault
+diff --git a/src/osd/ReplicaVault.h b/src/osd/ReplicaVault.h
+new file mode 100644
+index 0000000..27bb138
+--- /dev/null
++++ b/src/osd/ReplicaVault.h
+@@ -0,0 +1,64 @@
++// -*- mode:C++; tab-width:8; c-basic-offset:2; indent-tabs-mode:t -*-
++// vim: ts=8 sw=2 smarttab
++/*
++ * ReplicaVault pilot prototype.
++ *
++ * On the OSD at a fixed acting-set rank, a delete of a head object is
++ * expanded, in this OSD's own local transaction only, into "copy the object
++ * into a hidden namespace of the meta collection, then remove it". The PG
++ * log, the transaction shipped to other replicas, and every PG-collection
++ * operation are left untouched. See notes/design-note.md in the pilot
++ * workspace.
++ */
++
++#pragma once
++
++#include <set>
++#include <string>
++#include <vector>
++
++#include "common/ceph_context.h"
++#include "os/ObjectStore.h"
++#include "osd/OSDMap.h"
++#include "osd/osd_types.h"
++
++namespace replicavault {
++
++/// The acting-set rank that retains deleted objects (0 = primary).
++constexpr int RETAIN_RANK = 1;
++
++/// Debug level (subsys osd) for the "replicavault: vaulted ..." lines.
++constexpr int VAULT_LOG_LEVEL = 1;
++
++/// Namespace of vault entries inside coll_t::meta().
++extern const std::string VAULT_NSPACE;
++
++/// Which local code path applied the delete.
++enum class Path { REPOP, RECOVERY };
++
++/// Position of `osd` in the acting set of `pgid` in `osdmap`, or -1.
++/// `acting` receives the ordered acting set.
++int acting_rank(const OSDMap &osdmap, pg_t pgid, int osd,
++		std::vector<int> *acting);
++
++/// Head objects of collection `coll` that transaction `t` deletes, as
++/// opposed to overwrites:
++///  - the head is removed and the log has a DELETE entry for it, or
++///  - the head is removed and then recreated with no data written
++///    (whiteout on delete when snapshots exist).
++/// Reads only the op headers of `t`, never its data payload.
++std::set<hobject_t> deleted_heads(ObjectStore::Transaction &t,
++				  const coll_t &coll,
++				  const std::vector<pg_log_entry_t> &log);
++
++/// Read head object `soid` from `ch` and append to `vt` the ops that write
++/// a copy (data, xattrs, omap, plus rv.* metadata) into the vault.
++/// Returns 0 if a vault copy was staged, 1 if skipped (whiteout head),
++/// or a negative error (-ENOENT if the object is not present locally).
++int vault_object(CephContext *cct, ObjectStore *store,
++		 ObjectStore::CollectionHandle &ch, spg_t pgid,
++		 const hobject_t &soid, eversion_t version, int whoami,
++		 const std::vector<int> &acting, Path path,
++		 ObjectStore::Transaction *vt);
++
++} // namespace replicavault
+diff --git a/src/osd/ReplicatedBackend.cc b/src/osd/ReplicatedBackend.cc
+index 8fd2d20..0050f70 100644
+--- a/src/osd/ReplicatedBackend.cc
++++ b/src/osd/ReplicatedBackend.cc
+@@ -24,6 +24,7 @@
+ #include "include/util.h"
+ #include "OSD.h"
+ #include "osd_tracer.h"
++#include "ReplicaVault.h"
+ 
+ #define dout_context cct
+ #define dout_subsys ceph_subsys_osd
+@@ -1117,6 +1118,31 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+   decode(log, p);
+   rm->opt.set_fadvise_flag(CEPH_OSD_OP_FLAG_FADVISE_DONTNEED);
+ 
++  // ReplicaVault: if this OSD holds the retaining rank, copy every head this
++  // transaction deletes into the vault, in this OSD's local transaction only.
++  // The shipped transaction and the log entries are not modified.
++  ObjectStore::Transaction vault_t;
++  if (!rm->opt.empty()) {
++    vector<int> acting;
++    int rank = replicavault::acting_rank(
++      *get_osdmap(), get_info().pgid.pgid, get_parent()->whoami_shard().osd,
++      &acting);
++    if (rank == replicavault::RETAIN_RANK) {
++      for (auto &hoid : replicavault::deleted_heads(rm->opt, coll, log)) {
++	eversion_t v = m->version;
++	for (auto &e : log) {
++	  if (e.soid == hoid) {
++	    v = e.version;
++	  }
++	}
++	replicavault::vault_object(
++	  cct, store, ch, get_info().pgid, hoid, v,
++	  get_parent()->whoami_shard().osd, acting,
++	  replicavault::Path::REPOP, &vault_t);
++      }
++    }
++  }
++
+   bool update_snaps = false;
+   if (!rm->opt.empty()) {
+     // If the opt is non-empty, we infer we are before
+@@ -1154,7 +1180,12 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+     parent->bless_context(
+       new C_OSD_RepModifyCommit(this, rm)));
+   vector<ObjectStore::Transaction> tls;
+-  tls.reserve(2);
++  tls.reserve(3);
++  if (!vault_t.empty()) {
++    // same BlueStore txc as the remove below: vault copy and remove commit
++    // atomically
++    tls.push_back(std::move(vault_t));
++  }
+   tls.push_back(std::move(rm->localt));
+   tls.push_back(std::move(rm->opt));
+   parent->queue_transactions(tls, op);
+-- 
+2.43.0
+
