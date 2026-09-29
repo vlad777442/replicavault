@@ -1,0 +1,1887 @@
+{
+ "scenario": "a02-upmap-empty",
+ "timestamp": "20260929T042304",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/a02-upmap-empty.sh ",
+ "pool": "rvtest",
+ "duration_s": 1727,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.5",
+    "before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "at_delete": "pg=1.5 up=[4, 0, 3] acting=[4, 3, 2] primary=4",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-0",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'333",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-16",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'334",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-76",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'335",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-118",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'336",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-137",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'337",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-185",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'338",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-209",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'339",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r1-o-230",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10294'340",
+         "acting": "4,3,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 170,
+   "upmap": [
+    2,
+    0
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r1-o-209": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-76": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-137": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-16": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-0": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-118": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-230": 1,
+     "a02-upmap-empty-20260929T042304-r1-o-185": 1
+    },
+    "bytes": 607227
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.1a",
+    "before": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "at_delete": "pg=1.1a up=[1, 0, 3] acting=[1, 3, 4] primary=1",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-25",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'387",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-29",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'388",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-38",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'389",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-43",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'390",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-62",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'391",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-81",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'392",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-88",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'393",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r2-o-107",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10312'394",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 171,
+   "upmap": [
+    4,
+    0
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r2-o-107": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-29": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-43": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-25": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-62": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-88": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-38": 1,
+     "a02-upmap-empty-20260929T042304-r2-o-81": 1
+    },
+    "bytes": 688305
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.d",
+    "before": "pg=1.d up=[2, 4, 1] acting=[2, 4, 1] primary=2",
+    "at_delete": "pg=1.d up=[2, 3, 1] acting=[2, 1, 4] primary=2",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-15",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'454",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-64",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'455",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-66",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'456",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-81",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'457",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-95",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'458",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-133",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'459",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-152",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'460",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r3-o-222",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10331'461",
+         "acting": "2,1,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 179,
+   "upmap": [
+    4,
+    3
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r3-o-95": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-64": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-222": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-81": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-15": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-152": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-66": 1,
+     "a02-upmap-empty-20260929T042304-r3-o-133": 1
+    },
+    "bytes": 653179
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.1f",
+    "before": "pg=1.1f up=[0, 2, 1] acting=[0, 2, 1] primary=0",
+    "at_delete": "pg=1.1f up=[0, 4, 1] acting=[0, 1, 2] primary=0",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-12",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'337",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-24",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'338",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-30",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'339",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-35",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'340",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-43",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'341",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-87",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'342",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-99",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'343",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r4-o-160",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10350'344",
+         "acting": "0,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 168,
+   "upmap": [
+    2,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r4-o-30": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-87": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-160": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-12": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-43": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-35": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-99": 1,
+     "a02-upmap-empty-20260929T042304-r4-o-24": 1
+    },
+    "bytes": 674883
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.1c",
+    "before": "pg=1.1c up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "at_delete": "pg=1.1c up=[0, 1, 4] acting=[0, 4, 3] primary=0",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-13",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'358",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-39",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'359",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-117",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'360",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-161",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'361",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-212",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'362",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-219",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'363",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-291",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'364",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r5-o-292",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "10369'365",
+         "acting": "0,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 163,
+   "upmap": [
+    3,
+    1
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r5-o-219": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-291": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-292": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-161": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-39": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-13": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-212": 1,
+     "a02-upmap-empty-20260929T042304-r5-o-117": 1
+    },
+    "bytes": 637603
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.e",
+    "before": "pg=1.e up=[1, 4, 2] acting=[1, 4, 2] primary=1",
+    "at_delete": "pg=1.e up=[1, 3, 2] acting=[1, 2, 4] primary=1",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-50",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'339",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-91",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'340",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-112",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'341",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-144",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'342",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-150",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'343",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-155",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'344",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-176",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'345",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r6-o-206",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10388'346",
+         "acting": "1,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 163,
+   "upmap": [
+    4,
+    3
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r6-o-176": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-91": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-144": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-206": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-150": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-50": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-155": 1,
+     "a02-upmap-empty-20260929T042304-r6-o-112": 1
+    },
+    "bytes": 686770
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.8",
+    "before": "pg=1.8 up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "at_delete": "pg=1.8 up=[1, 2, 3] acting=[1, 3, 4] primary=1",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-9",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'367",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-10",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'368",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-20",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'369",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-58",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'370",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-67",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'371",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-152",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'372",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-163",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'373",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r7-o-258",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "10407'374",
+         "acting": "1,3,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 179,
+   "upmap": [
+    4,
+    2
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r7-o-58": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-20": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-163": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-67": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-10": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-152": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-258": 1,
+     "a02-upmap-empty-20260929T042304-r7-o-9": 1
+    },
+    "bytes": 647218
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.0",
+    "before": "pg=1.0 up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "at_delete": "pg=1.0 up=[1, 4, 2] acting=[1, 2, 0] primary=1",
+    "state_at_delete": "remapped+peering"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-39",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'334",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-131",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'335",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-162",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'336",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-179",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'337",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-272",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'338",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-281",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'339",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-327",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'340",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r8-o-370",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10425'341",
+         "acting": "1,2,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 172,
+   "upmap": [
+    0,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r8-o-162": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-39": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-370": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-281": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-179": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-131": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-272": 1,
+     "a02-upmap-empty-20260929T042304-r8-o-327": 1
+    },
+    "bytes": 670940
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.4",
+    "before": "pg=1.4 up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "at_delete": "pg=1.4 up=[3, 2, 1] acting=[3, 1, 0] primary=3",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-133",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'430",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-257",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'431",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-264",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'432",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-280",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'433",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-336",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'434",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-358",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'435",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-372",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'436",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r9-o-393",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "10444'437",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 186,
+   "upmap": [
+    0,
+    2
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r9-o-336": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-280": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-133": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-372": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-257": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-393": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-264": 1,
+     "a02-upmap-empty-20260929T042304-r9-o-358": 1
+    },
+    "bytes": 608265
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.1b",
+    "before": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "at_delete": "pg=1.1b up=[0, 4, 2] acting=[0, 2, 1] primary=0",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-26",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'294",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-38",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'295",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-168",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'296",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-180",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'297",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-273",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'298",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-285",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'299",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-353",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'300",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20260929T042304-r10-o-393",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "10463'301",
+         "acting": "0,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 167,
+   "upmap": [
+    1,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20260929T042304-r10-o-38": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-285": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-26": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-273": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-393": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-180": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-168": 1,
+     "a02-upmap-empty-20260929T042304-r10-o-353": 1
+    },
+    "bytes": 684909
+   },
+   "pass": true
+  }
+ ]
+}

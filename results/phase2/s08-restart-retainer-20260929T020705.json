@@ -1,0 +1,733 @@
+{
+ "scenario": "s08-restart-retainer",
+ "timestamp": "20260929T020705",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/s08-restart-retainer.sh ",
+ "pool": "rvtest",
+ "duration_s": 754,
+ "summary": {
+  "runs": 6,
+  "runs_passed": 6,
+  "1_no_resurrection": {
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "signal": "KILL"
+   },
+   "notes": {
+    "acting": [
+     1,
+     4,
+     2
+    ],
+    "retainer": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r1-o-18",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8572'327",
+         "acting": "1,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r1-o-56",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8572'330",
+         "acting": "1,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r1-o-149",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8572'333",
+         "acting": "1,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r1-o-185",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8572'336",
+         "acting": "1,4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 124,
+   "retainer": 4,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "signal": "TERM"
+   },
+   "notes": {
+    "acting": [
+     4,
+     3,
+     1
+    ],
+    "retainer": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r2-o-14",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "8586'298",
+         "acting": "4,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r2-o-138",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "8586'301",
+         "acting": "4,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r2-o-159",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "8586'304",
+         "acting": "4,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r2-o-264",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "8586'307",
+         "acting": "4,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 124,
+   "retainer": 3,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "signal": "KILL"
+   },
+   "notes": {
+    "acting": [
+     4,
+     1,
+     2
+    ],
+    "retainer": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r3-o-42",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "8600'307",
+         "acting": "4,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r3-o-82",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "8600'310",
+         "acting": "4,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r3-o-131",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "8600'313",
+         "acting": "4,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r3-o-176",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "8600'316",
+         "acting": "4,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 129,
+   "retainer": 1,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "signal": "TERM"
+   },
+   "notes": {
+    "acting": [
+     2,
+     0,
+     4
+    ],
+    "retainer": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r4-o-17",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8614'283",
+         "acting": "2,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r4-o-210",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8614'286",
+         "acting": "2,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r4-o-279",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8614'289",
+         "acting": "2,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r4-o-343",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8614'292",
+         "acting": "2,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 123,
+   "retainer": 0,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "signal": "KILL"
+   },
+   "notes": {
+    "acting": [
+     1,
+     4,
+     3
+    ],
+    "retainer": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r5-o-1",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8627'343",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r5-o-38",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8627'346",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r5-o-56",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8627'349",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r5-o-143",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8627'352",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 121,
+   "retainer": 4,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "signal": "TERM"
+   },
+   "notes": {
+    "acting": [
+     3,
+     0,
+     4
+    ],
+    "retainer": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r6-o-88",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8641'202",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r6-o-175",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8641'205",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r6-o-248",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8641'208",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s08-restart-retainer-20260929T020705-r6-o-264",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8641'211",
+         "acting": "3,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 127,
+   "retainer": 0,
+   "fsck": {
+    "pass": true,
+    "output": "fsck success"
+   },
+   "boot": {
+    "pass": true,
+    "asserts": 0,
+    "removal_lines": 0
+   },
+   "pass": true
+  }
+ ]
+}

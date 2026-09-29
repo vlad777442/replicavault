@@ -1,0 +1,178 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20260928T231257",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 265,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 3
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.4 up=[1] acting=[1] primary=1"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 79,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T231257-r1-6": 0,
+     "a03-size-one-20260928T231257-r1-8": 0,
+     "a03-size-one-20260928T231257-r1-12": 0,
+     "a03-size-one-20260928T231257-r1-10": 0,
+     "a03-size-one-20260928T231257-r1-0": 0,
+     "a03-size-one-20260928T231257-r1-2": 0,
+     "a03-size-one-20260928T231257-r1-14": 0,
+     "a03-size-one-20260928T231257-r1-4": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.2 up=[3] acting=[3] primary=3"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 84,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T231257-r2-8": 0,
+     "a03-size-one-20260928T231257-r2-0": 0,
+     "a03-size-one-20260928T231257-r2-6": 0,
+     "a03-size-one-20260928T231257-r2-4": 0,
+     "a03-size-one-20260928T231257-r2-14": 0,
+     "a03-size-one-20260928T231257-r2-12": 0,
+     "a03-size-one-20260928T231257-r2-2": 0,
+     "a03-size-one-20260928T231257-r2-10": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.6 up=[0] acting=[0] primary=0"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 80,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260928T231257-r3-2": 0,
+     "a03-size-one-20260928T231257-r3-8": 0,
+     "a03-size-one-20260928T231257-r3-12": 0,
+     "a03-size-one-20260928T231257-r3-10": 0,
+     "a03-size-one-20260928T231257-r3-14": 0,
+     "a03-size-one-20260928T231257-r3-4": 0,
+     "a03-size-one-20260928T231257-r3-0": 0,
+     "a03-size-one-20260928T231257-r3-6": 0
+    },
+    "bytes": 0
+   },
+   "pass": true
+  }
+ ]
+}

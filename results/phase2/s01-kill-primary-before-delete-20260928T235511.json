@@ -1,0 +1,647 @@
+{
+ "scenario": "s01-kill-primary-before-delete",
+ "timestamp": "20260928T235511",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/s01-kill-primary-before-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 985,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     4,
+     2
+    ],
+    "pg": "1.e",
+    "acting_at_delete": [
+     4,
+     2
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r1-target",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "7467'285",
+         "acting": "4,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 94,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     4
+    ],
+    "pg": "1.f",
+    "acting_at_delete": [
+     0,
+     4
+    ],
+    "killed": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r2-target",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "7478'299",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     2,
+     4
+    ],
+    "pg": "1.a",
+    "acting_at_delete": [
+     2,
+     4
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r3-target",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "7490'269",
+         "acting": "2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 102,
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     0,
+     4
+    ],
+    "pg": "1.16",
+    "acting_at_delete": [
+     0,
+     4
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r4-target",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "7502'239",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 105,
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     1
+    ],
+    "pg": "1.4",
+    "acting_at_delete": [
+     0,
+     1
+    ],
+    "killed": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r5-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "7514'364",
+         "acting": "0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     4
+    ],
+    "pg": "1.19",
+    "acting_at_delete": [
+     0,
+     4
+    ],
+    "killed": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r6-target",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "7526'244",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 89,
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     0,
+     2
+    ],
+    "pg": "1.b",
+    "acting_at_delete": [
+     0,
+     2
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r7-target",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "7537'208",
+         "acting": "0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 97,
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     1,
+     2
+    ],
+    "pg": "1.3",
+    "acting_at_delete": [
+     1,
+     2
+    ],
+    "killed": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r8-target",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "7549'269",
+         "acting": "1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 100,
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     0,
+     4,
+     1
+    ],
+    "pg": "1.2",
+    "acting_at_delete": [
+     4,
+     1
+    ],
+    "killed": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r9-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "7561'207",
+         "acting": "4,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 96,
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     1,
+     2
+    ],
+    "pg": "1.3",
+    "acting_at_delete": [
+     1,
+     2
+    ],
+    "killed": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260928T235511-r10-target",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "7573'277",
+         "acting": "1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 99,
+   "pass": true
+  }
+ ]
+}

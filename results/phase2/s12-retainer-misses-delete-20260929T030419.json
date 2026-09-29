@@ -1,0 +1,797 @@
+{
+ "scenario": "s12-retainer-misses-delete",
+ "timestamp": "20260929T030419",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/s12-retainer-misses-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 1325,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     1
+    ],
+    "pg": "1.1e",
+    "acting_at_delete": [
+     3,
+     1
+    ],
+    "vault_paths": "0:recovery 1:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r1-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "recovery",
+         "v": "9218'359",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9218'359",
+         "acting": "3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 131,
+   "retainer_killed": 0,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "0:recovery 1:repop "
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     3,
+     1
+    ],
+    "pg": "1.13",
+    "acting_at_delete": [
+     4,
+     1
+    ],
+    "vault_paths": "1:repop 3:recovery "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r2-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9237'327",
+         "acting": "4,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "recovery",
+         "v": "9237'327",
+         "acting": "4,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 132,
+   "retainer_killed": 3,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "1:repop 3:recovery "
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     0,
+     2
+    ],
+    "pg": "1.b",
+    "acting_at_delete": [
+     1,
+     2
+    ],
+    "vault_paths": "0:recovery 2:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r3-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "recovery",
+         "v": "9256'254",
+         "acting": "1,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "9256'254",
+         "acting": "1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 132,
+   "retainer_killed": 0,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "0:recovery 2:repop "
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     1
+    ],
+    "pg": "1.4",
+    "acting_at_delete": [
+     3,
+     1
+    ],
+    "vault_paths": "0:recovery 1:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r4-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "recovery",
+         "v": "9275'407",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9275'407",
+         "acting": "3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 134,
+   "retainer_killed": 0,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "0:recovery 1:repop "
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     2,
+     3,
+     1
+    ],
+    "pg": "1.18",
+    "acting_at_delete": [
+     2,
+     1
+    ],
+    "vault_paths": "1:repop 3:recovery "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r5-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9293'288",
+         "acting": "2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "recovery",
+         "v": "9293'288",
+         "acting": "2,3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 131,
+   "retainer_killed": 3,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "1:repop 3:recovery "
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     3,
+     0
+    ],
+    "pg": "1.1d",
+    "acting_at_delete": [
+     1,
+     0
+    ],
+    "vault_paths": "0:repop 3:recovery "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r6-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "9312'283",
+         "acting": "1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "recovery",
+         "v": "9312'283",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 130,
+   "retainer_killed": 3,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "0:repop 3:recovery "
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     0,
+     1,
+     3
+    ],
+    "pg": "1.12",
+    "acting_at_delete": [
+     0,
+     3
+    ],
+    "vault_paths": "1:recovery 3:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r7-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "recovery",
+         "v": "9330'431",
+         "acting": "0,1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "9330'431",
+         "acting": "0,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 130,
+   "retainer_killed": 1,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "1:recovery 3:repop "
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     4,
+     3
+    ],
+    "pg": "1.1a",
+    "acting_at_delete": [
+     1,
+     3
+    ],
+    "vault_paths": "3:repop 4:recovery "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r8-target",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "9349'366",
+         "acting": "1,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "recovery",
+         "v": "9349'366",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 128,
+   "retainer_killed": 4,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "3:repop 4:recovery "
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     1
+    ],
+    "pg": "1.4",
+    "acting_at_delete": [
+     3,
+     1
+    ],
+    "vault_paths": "0:recovery 1:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r9-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "recovery",
+         "v": "9368'412",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9368'412",
+         "acting": "3,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 135,
+   "retainer_killed": 0,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "0:recovery 1:repop "
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     2,
+     3
+    ],
+    "pg": "1.5",
+    "acting_at_delete": [
+     4,
+     3
+    ],
+    "vault_paths": "2:recovery 3:repop "
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s12-retainer-misses-delete-20260929T030419-r10-target",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "recovery",
+         "v": "9386'315",
+         "acting": "4,2,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "9386'315",
+         "acting": "4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 134,
+   "retainer_killed": 2,
+   "recovery_path_vaulted": {
+    "pass": true,
+    "paths": "2:recovery 3:repop "
+   },
+   "pass": true
+  }
+ ]
+}

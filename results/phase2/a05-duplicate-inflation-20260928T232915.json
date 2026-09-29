@@ -1,0 +1,597 @@
+{
+ "scenario": "a05-duplicate-inflation",
+ "timestamp": "20260928T232915",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/a05-duplicate-inflation.sh ",
+ "pool": "rvtest",
+ "duration_s": 1335,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 10
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.5",
+    "before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1782043,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 142,
+   "retainer_killed": 2,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1782043,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.13",
+    "before": "pg=1.13 up=[4, 3, 1] acting=[4, 3, 1] primary=4",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1781251,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 135,
+   "retainer_killed": 3,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1781251,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.5",
+    "before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1812588,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 127,
+   "retainer_killed": 2,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1812588,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.10",
+    "before": "pg=1.10 up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1769299,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 130,
+   "retainer_killed": 2,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1769299,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.3",
+    "before": "pg=1.3 up=[4, 1, 2] acting=[4, 1, 2] primary=4",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1762441,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 135,
+   "retainer_killed": 1,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1762441,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.12",
+    "before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1772876,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 132,
+   "retainer_killed": 1,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1772876,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.5",
+    "before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1742279,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 134,
+   "retainer_killed": 2,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1742279,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.a",
+    "before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1821179,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 131,
+   "retainer_killed": 2,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1821179,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.16",
+    "before": "pg=1.16 up=[1, 0, 4] acting=[1, 0, 4] primary=1",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1780628,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 132,
+   "retainer_killed": 0,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1780628,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "rounds": 3,
+    "deletes_per_round": 4
+   },
+   "notes": {
+    "pg": "1.1c",
+    "before": "pg=1.1c up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "inflation": {
+     "deletes": 12,
+     "copies_total": 0,
+     "copies_per_delete": {
+      "0": 12
+     },
+     "deleted_bytes": 1771481,
+     "vaulted_bytes": 0,
+     "retained_per_deleted_byte": 0.0
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 12,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 130,
+   "retainer_killed": 3,
+   "inflation": {
+    "deletes": 12,
+    "copies_total": 0,
+    "copies_per_delete": {
+     "0": 12
+    },
+    "deleted_bytes": 1771481,
+    "vaulted_bytes": 0,
+    "retained_per_deleted_byte": 0.0
+   },
+   "pass": true
+  }
+ ]
+}

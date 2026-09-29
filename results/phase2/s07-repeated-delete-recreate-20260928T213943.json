@@ -1,0 +1,117 @@
+{
+ "scenario": "s07-repeated-delete-recreate",
+ "timestamp": "20260928T213943",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s07-repeated-delete-recreate.sh ",
+ "pool": "rvtest",
+ "duration_s": 123,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 2
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "cycles": 20
+   },
+   "notes": {
+    "acting": [
+     1,
+     4,
+     3
+    ],
+    "distinct_vault_lines": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 58,
+   "distinct_vault_lines": 0,
+   "expected": 20,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "cycles": 20
+   },
+   "notes": {
+    "acting": [
+     2,
+     3,
+     1
+    ],
+    "distinct_vault_lines": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 59,
+   "distinct_vault_lines": 0,
+   "expected": 20,
+   "pass": true
+  }
+ ]
+}

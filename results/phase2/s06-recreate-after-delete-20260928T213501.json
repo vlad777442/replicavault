@@ -1,0 +1,182 @@
+{
+ "scenario": "s06-recreate-after-delete",
+ "timestamp": "20260928T213501",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/s06-recreate-after-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 280,
+ "summary": {
+  "runs": 5,
+  "runs_passed": 5,
+  "1_no_resurrection": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 5
+  },
+  "4_live_intact": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 54,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 56,
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 55,
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 55,
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 54,
+   "pass": true
+  }
+ ]
+}

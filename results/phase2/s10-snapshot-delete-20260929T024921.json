@@ -1,0 +1,277 @@
+{
+ "scenario": "s10-snapshot-delete",
+ "timestamp": "20260929T024921",
+ "mode": "p2",
+ "ceph_git": "ef0be10b667cfdfd15512eb2f8e79128de0d537f",
+ "osd_build_marker": "p2 ef0be10b667cfdfd15512eb2f8e79128de0d537f fae5ea6ae3cea4e9",
+ "command": "scripts/scenarios/s10-snapshot-delete.sh ",
+ "pool": "rvsnap",
+ "duration_s": 268,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 2,
+     "after_trim": 2
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r1-a",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "9008'32",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r1-b",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "9009'14",
+         "acting": "4,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 87,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 2,
+     "after_trim": 2
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r2-a",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "9028'20",
+         "acting": "4,2,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r2-b",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "9029'14",
+         "acting": "2,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 89,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 2,
+     "after_trim": 2
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r3-a",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "9047'36",
+         "acting": "3,4,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260929T024921-r3-b",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "9048'19",
+         "acting": "3,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 2
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 86,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  }
+ ]
+}
