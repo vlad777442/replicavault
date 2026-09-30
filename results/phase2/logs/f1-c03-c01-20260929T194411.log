@@ -1,0 +1,173 @@
+19:46:20 all OSDs running p2
+19:48:03 result: pass -> /users/vlad777/research/replicavault/results/phase2/smoke-20260929T194620.json
+     36 recovery
+      4 repop
+19:48:04 scenario c03-retainer-out-during-deletes: mode=p2 ceph=05289b51c83c54c095a92b4c249373c8fb22e47f runs=20 pool=rvtest
+19:48:11 clean after 6 s
+19:48:11 --- c03-retainer-out-during-deletes run 1 {"kill_delay_s": 0.879}
+19:50:15 PGs clean after 109 s
+19:50:24 osd.1 up (pid 1999221)
+19:53:06 clean after 149 s
+19:53:13 clean after 7 s
+19:54:05 deep-scrubbed 32 PGs in 52 s
+19:56:12 clean after 14 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:56:12 --- c03-retainer-out-during-deletes run 2 {"kill_delay_s": 1.319}
+19:58:07 PGs clean after 100 s
+19:58:15 osd.4 up (pid 2018305)
+20:00:44 clean after 136 s
+20:00:50 clean after 6 s
+20:01:46 deep-scrubbed 32 PGs in 56 s
+20:03:52 clean after 14 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:03:52 --- c03-retainer-out-during-deletes run 3 {"kill_delay_s": 0.153}
+20:05:49 PGs clean after 102 s
+20:05:56 osd.4 up (pid 2037157)
+20:08:21 clean after 132 s
+20:08:28 clean after 6 s
+20:09:21 deep-scrubbed 32 PGs in 53 s
+20:10:53 clean after 10 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:10:54 --- c03-retainer-out-during-deletes run 4 {"kill_delay_s": 0.091}
+20:12:53 PGs clean after 104 s
+20:13:03 osd.3 up (pid 2054212)
+20:15:11 clean after 115 s
+20:15:18 clean after 7 s
+20:16:11 deep-scrubbed 32 PGs in 53 s
+20:18:34 clean after 13 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:18:35 --- c03-retainer-out-during-deletes run 5 {"kill_delay_s": 1.413}
+20:20:35 PGs clean after 107 s
+20:20:44 osd.0 up (pid 2076590)
+20:23:16 clean after 138 s
+20:23:24 clean after 7 s
+20:24:15 deep-scrubbed 32 PGs in 51 s
+20:26:31 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:26:32 --- c03-retainer-out-during-deletes run 6 {"kill_delay_s": 0.844}
+20:28:30 PGs clean after 101 s
+20:28:39 osd.0 up (pid 2096942)
+20:31:06 clean after 134 s
+20:31:13 clean after 6 s
+20:32:01 deep-scrubbed 32 PGs in 48 s
+20:33:58 clean after 13 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:33:59 --- c03-retainer-out-during-deletes run 7 {"kill_delay_s": 0.525}
+20:35:31 PGs clean after 78 s
+20:35:43 osd.2 up (pid 2113394)
+20:37:33 clean after 99 s
+20:37:39 clean after 6 s
+20:38:32 deep-scrubbed 32 PGs in 53 s
+20:40:44 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:40:44 --- c03-retainer-out-during-deletes run 8 {"kill_delay_s": 0.576}
+20:42:46 PGs clean after 109 s
+20:42:56 osd.1 up (pid 2129698)
+20:45:39 clean after 149 s
+20:45:45 clean after 6 s
+20:46:34 deep-scrubbed 32 PGs in 49 s
+20:48:47 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:48:48 --- c03-retainer-out-during-deletes run 9 {"kill_delay_s": 0.783}
+20:50:48 PGs clean after 104 s
+20:50:57 osd.4 up (pid 2148562)
+20:53:19 clean after 128 s
+20:53:26 clean after 6 s
+20:54:17 deep-scrubbed 32 PGs in 51 s
+20:57:35 clean after 13 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:57:36 --- c03-retainer-out-during-deletes run 10 {"kill_delay_s": 0.375}
+20:59:36 PGs clean after 103 s
+20:59:46 osd.0 up (pid 2172015)
+21:02:13 clean after 134 s
+21:02:19 clean after 6 s
+21:03:08 deep-scrubbed 32 PGs in 49 s
+21:05:42 clean after 8 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:05:43 --- c03-retainer-out-during-deletes run 11 {"kill_delay_s": 0.792}
+21:07:13 PGs clean after 75 s
+21:07:22 osd.2 up (pid 2192328)
+21:09:06 clean after 95 s
+21:09:13 clean after 6 s
+21:10:03 deep-scrubbed 32 PGs in 50 s
+21:11:58 clean after 11 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:11:59 --- c03-retainer-out-during-deletes run 12 {"kill_delay_s": 0.907}
+21:13:23 PGs clean after 72 s
+21:13:31 osd.2 up (pid 2209689)
+21:15:22 clean after 103 s
+21:15:29 clean after 7 s
+21:16:21 deep-scrubbed 32 PGs in 52 s
+21:18:26 clean after 14 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:18:26 --- c03-retainer-out-during-deletes run 13 {"kill_delay_s": 0.87}
+21:20:24 PGs clean after 106 s
+21:20:32 osd.4 up (pid 2229058)
+21:22:55 clean after 129 s
+21:23:02 clean after 6 s
+21:23:51 deep-scrubbed 32 PGs in 49 s
+21:26:02 clean after 11 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:26:02 --- c03-retainer-out-during-deletes run 14 {"kill_delay_s": 0.927}
+21:27:56 PGs clean after 101 s
+21:28:04 osd.4 up (pid 2249090)
+21:30:29 clean after 131 s
+21:30:35 clean after 6 s
+21:31:27 deep-scrubbed 32 PGs in 52 s
+21:34:13 clean after 11 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:34:13 --- c03-retainer-out-during-deletes run 15 {"kill_delay_s": 0.065}
+21:36:09 PGs clean after 104 s
+21:36:18 osd.0 up (pid 2270289)
+21:38:42 clean after 131 s
+21:38:49 clean after 6 s
+21:39:38 deep-scrubbed 32 PGs in 49 s
+21:42:22 clean after 14 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:42:23 --- c03-retainer-out-during-deletes run 16 {"kill_delay_s": 1.072}
+21:44:19 PGs clean after 102 s
+21:44:28 osd.3 up (pid 2291188)
+21:46:41 clean after 121 s
+21:46:48 clean after 6 s
+21:47:36 deep-scrubbed 32 PGs in 48 s
+21:49:48 clean after 9 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:49:48 --- c03-retainer-out-during-deletes run 17 {"kill_delay_s": 0.864}
+21:51:40 PGs clean after 97 s
+21:51:48 osd.3 up (pid 2310624)
+21:53:59 clean after 119 s
+21:54:06 clean after 7 s
+21:54:57 deep-scrubbed 32 PGs in 51 s
+21:57:56 clean after 11 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:57:57 --- c03-retainer-out-during-deletes run 18 {"kill_delay_s": 0.925}
+21:59:59 PGs clean after 109 s
+22:00:08 osd.1 up (pid 2333496)
+22:02:57 clean after 156 s
+22:03:05 clean after 7 s
+22:03:55 deep-scrubbed 32 PGs in 50 s
+22:06:23 clean after 11 s
+run 18: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:06:23 --- c03-retainer-out-during-deletes run 19 {"kill_delay_s": 0.851}
+22:08:25 PGs clean after 109 s
+22:08:33 osd.4 up (pid 2352327)
+22:10:53 clean after 126 s
+22:11:00 clean after 7 s
+22:11:52 deep-scrubbed 32 PGs in 52 s
+22:14:06 clean after 13 s
+run 19: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:14:07 --- c03-retainer-out-during-deletes run 20 {"kill_delay_s": 1.222}
+22:16:09 PGs clean after 105 s
+22:16:17 osd.0 up (pid 2370307)
+22:18:45 clean after 134 s
+22:18:52 clean after 7 s
+22:19:41 deep-scrubbed 32 PGs in 49 s
+22:22:23 clean after 11 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok]
+c03-retainer-out-during-deletes [p2]: 20/20 runs passed -> /users/vlad777/research/replicavault/results/phase2/c03-retainer-out-during-deletes-20260929T194803.json
+22:22:24 scenario c01-crash-under-deletes: mode=p2 ceph=05289b51c83c54c095a92b4c249373c8fb22e47f runs=100 pool=rvtest
+22:22:30 clean after 6 s
+22:22:31 --- c01-crash-under-deletes run 1 {"submit_mode": "default", "kill_delay_s": 1.059}
+22:23:04 osd.4 up (pid 2389763)
+22:23:17 clean after 11 s
+22:23:24 clean after 6 s

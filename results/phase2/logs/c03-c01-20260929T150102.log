@@ -211,3 +211,298 @@ c03-retainer-out-during-deletes [p2]: 1/20 runs passed -> /users/vlad777/researc
 17:32:08 --- c01-crash-under-deletes run 1 {"submit_mode": "default", "kill_delay_s": 1.041}
 17:32:36 osd.0 up (pid 1492022)
 17:32:51 clean after 13 s
+17:32:59 clean after 7 s
+17:33:52 deep-scrubbed 32 PGs in 53 s
+17:35:09 clean after 13 s
+run 1: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:35:10 --- c01-crash-under-deletes run 2 {"submit_mode": "default", "kill_delay_s": 1.372}
+17:35:42 osd.2 up (pid 1502613)
+17:35:57 clean after 13 s
+17:36:05 clean after 7 s
+17:36:56 deep-scrubbed 32 PGs in 51 s
+17:38:00 clean after 10 s
+run 2: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:38:01 --- c01-crash-under-deletes run 3 {"submit_mode": "default", "kill_delay_s": 1.105}
+17:38:34 osd.1 up (pid 1510554)
+17:38:46 clean after 11 s
+17:38:53 clean after 6 s
+17:39:45 deep-scrubbed 32 PGs in 52 s
+17:41:05 clean after 13 s
+run 3: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:41:06 --- c01-crash-under-deletes run 4 {"submit_mode": "default", "kill_delay_s": 0.688}
+17:41:33 osd.2 up (pid 1521514)
+17:41:47 clean after 13 s
+17:41:54 clean after 6 s
+17:42:43 deep-scrubbed 32 PGs in 49 s
+17:44:05 clean after 11 s
+run 4: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:44:05 --- c01-crash-under-deletes run 5 {"submit_mode": "default", "kill_delay_s": 0.355}
+17:44:32 osd.4 up (pid 1531233)
+17:44:49 clean after 15 s
+17:44:56 clean after 6 s
+17:45:46 deep-scrubbed 32 PGs in 50 s
+17:47:18 clean after 11 s
+run 5: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:47:19 --- c01-crash-under-deletes run 6 {"submit_mode": "default", "kill_delay_s": 0.222}
+17:47:45 osd.4 up (pid 1544103)
+17:48:00 clean after 13 s
+17:48:07 clean after 6 s
+17:48:58 deep-scrubbed 32 PGs in 51 s
+17:50:44 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+17:50:45 --- c01-crash-under-deletes run 7 {"submit_mode": "default", "kill_delay_s": 0.923}
+17:51:10 osd.2 up (pid 1558210)
+17:51:25 clean after 13 s
+17:51:32 clean after 6 s
+17:52:22 deep-scrubbed 32 PGs in 50 s
+17:53:42 clean after 12 s
+run 7: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:53:42 --- c01-crash-under-deletes run 8 {"submit_mode": "default", "kill_delay_s": 0.556}
+17:54:08 osd.0 up (pid 1570976)
+17:54:21 clean after 11 s
+17:54:28 clean after 6 s
+17:55:19 deep-scrubbed 32 PGs in 51 s
+17:56:40 clean after 13 s
+run 8: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:56:41 --- c01-crash-under-deletes run 9 {"submit_mode": "default", "kill_delay_s": 0.729}
+17:57:19 osd.3 up (pid 1581470)
+17:57:33 clean after 13 s
+17:57:40 clean after 6 s
+17:58:32 deep-scrubbed 32 PGs in 52 s
+17:59:33 clean after 13 s
+run 9: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+17:59:34 --- c01-crash-under-deletes run 10 {"submit_mode": "default", "kill_delay_s": 0.029}
+18:00:00 osd.2 up (pid 1589425)
+18:00:16 clean after 14 s
+18:00:23 clean after 7 s
+18:01:14 deep-scrubbed 32 PGs in 51 s
+18:02:46 clean after 14 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:02:46 --- c01-crash-under-deletes run 11 {"submit_mode": "default", "kill_delay_s": 0.814}
+18:03:13 osd.3 up (pid 1603435)
+18:03:28 clean after 13 s
+18:03:35 clean after 6 s
+18:04:27 deep-scrubbed 32 PGs in 52 s
+18:06:17 clean after 11 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:06:18 --- c01-crash-under-deletes run 12 {"submit_mode": "default", "kill_delay_s": 0.421}
+18:06:45 osd.4 up (pid 1617463)
+18:07:02 clean after 16 s
+18:07:09 clean after 7 s
+18:07:59 deep-scrubbed 32 PGs in 50 s
+18:09:44 clean after 13 s
+run 12: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:09:45 --- c01-crash-under-deletes run 13 {"submit_mode": "default", "kill_delay_s": 1.19}
+18:10:12 osd.4 up (pid 1631114)
+18:10:27 clean after 14 s
+18:10:33 clean after 6 s
+18:11:24 deep-scrubbed 32 PGs in 51 s
+18:13:00 clean after 12 s
+run 13: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:13:00 --- c01-crash-under-deletes run 14 {"submit_mode": "default", "kill_delay_s": 1.232}
+18:13:28 osd.4 up (pid 1643295)
+18:13:43 clean after 14 s
+18:13:50 clean after 7 s
+18:14:43 deep-scrubbed 32 PGs in 53 s
+18:15:47 clean after 14 s
+run 14: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:15:48 --- c01-crash-under-deletes run 15 {"submit_mode": "default", "kill_delay_s": 0.008}
+18:16:13 osd.0 up (pid 1653079)
+18:16:25 clean after 11 s
+18:16:32 clean after 6 s
+18:17:24 deep-scrubbed 32 PGs in 52 s
+18:19:13 clean after 9 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:19:14 --- c01-crash-under-deletes run 16 {"submit_mode": "default", "kill_delay_s": 0.029}
+18:19:38 osd.2 up (pid 1666996)
+18:19:51 clean after 11 s
+18:19:58 clean after 6 s
+18:20:49 deep-scrubbed 32 PGs in 51 s
+18:22:26 clean after 11 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:22:27 --- c01-crash-under-deletes run 17 {"submit_mode": "default", "kill_delay_s": 0.448}
+18:22:51 osd.0 up (pid 1681379)
+18:23:03 clean after 11 s
+18:23:10 clean after 6 s
+18:24:01 deep-scrubbed 32 PGs in 51 s
+18:25:19 clean after 14 s
+run 17: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:25:20 --- c01-crash-under-deletes run 18 {"submit_mode": "default", "kill_delay_s": 0.343}
+18:25:44 osd.4 up (pid 1693548)
+18:25:57 clean after 11 s
+18:26:04 clean after 6 s
+18:26:56 deep-scrubbed 32 PGs in 52 s
+18:28:18 clean after 13 s
+run 18: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:28:18 --- c01-crash-under-deletes run 19 {"submit_mode": "default", "kill_delay_s": 0.594}
+18:28:43 osd.4 up (pid 1706674)
+18:28:55 clean after 11 s
+18:29:02 clean after 6 s
+18:29:52 deep-scrubbed 32 PGs in 50 s
+18:31:19 clean after 11 s
+run 19: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:31:20 --- c01-crash-under-deletes run 20 {"submit_mode": "default", "kill_delay_s": 0.124}
+18:31:46 osd.0 up (pid 1720024)
+18:31:58 clean after 11 s
+18:32:05 clean after 6 s
+18:32:52 deep-scrubbed 32 PGs in 47 s
+18:34:23 clean after 13 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:34:24 --- c01-crash-under-deletes run 21 {"submit_mode": "default", "kill_delay_s": 0.567}
+18:34:51 osd.0 up (pid 1733961)
+18:35:04 clean after 11 s
+18:35:11 clean after 7 s
+18:36:02 deep-scrubbed 32 PGs in 51 s
+18:37:24 clean after 11 s
+run 21: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:37:25 --- c01-crash-under-deletes run 22 {"submit_mode": "default", "kill_delay_s": 0.765}
+18:37:51 osd.0 up (pid 1746078)
+18:38:04 clean after 12 s
+18:38:11 clean after 7 s
+18:39:00 deep-scrubbed 32 PGs in 49 s
+18:40:13 clean after 13 s
+run 22: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:40:13 --- c01-crash-under-deletes run 23 {"submit_mode": "default", "kill_delay_s": 0.827}
+18:40:39 osd.0 up (pid 1756358)
+18:40:54 clean after 14 s
+18:41:00 clean after 6 s
+18:41:50 deep-scrubbed 32 PGs in 50 s
+18:42:44 clean after 12 s
+run 23: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:42:44 --- c01-crash-under-deletes run 24 {"submit_mode": "default", "kill_delay_s": 1.086}
+18:43:12 osd.0 up (pid 1764513)
+18:43:27 clean after 13 s
+18:43:34 clean after 6 s
+18:44:26 deep-scrubbed 32 PGs in 52 s
+18:45:47 clean after 11 s
+run 24: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:45:48 --- c01-crash-under-deletes run 25 {"submit_mode": "default", "kill_delay_s": 1.335}
+18:46:16 osd.2 up (pid 1776015)
+18:46:28 clean after 11 s
+18:46:35 clean after 6 s
+18:47:28 deep-scrubbed 32 PGs in 53 s
+18:48:24 clean after 11 s
+run 25: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:48:24 --- c01-crash-under-deletes run 26 {"submit_mode": "default", "kill_delay_s": 1.379}
+18:48:51 osd.0 up (pid 1783882)
+18:49:03 clean after 11 s
+18:49:10 clean after 6 s
+18:49:59 deep-scrubbed 32 PGs in 49 s
+18:51:08 clean after 14 s
+run 26: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+18:51:08 --- c01-crash-under-deletes run 27 {"submit_mode": "default", "kill_delay_s": 0.173}
+18:51:34 osd.4 up (pid 1792958)
+18:51:49 clean after 13 s
+18:51:56 clean after 6 s
+18:52:45 deep-scrubbed 32 PGs in 49 s
+18:54:26 clean after 12 s
+run 27: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:54:26 --- c01-crash-under-deletes run 28 {"submit_mode": "default", "kill_delay_s": 0.313}
+18:54:53 osd.4 up (pid 1806884)
+18:55:08 clean after 13 s
+18:55:15 clean after 6 s
+18:56:03 deep-scrubbed 32 PGs in 48 s
+18:57:45 clean after 11 s
+run 28: PASS  [1=ok 2=ok 3=ok 4=ok]
+18:57:45 --- c01-crash-under-deletes run 29 {"submit_mode": "default", "kill_delay_s": 1.416}
+18:58:13 osd.2 up (pid 1822043)
+18:58:28 clean after 13 s
+18:58:35 clean after 6 s
+18:59:27 deep-scrubbed 32 PGs in 52 s
+19:00:50 clean after 11 s
+run 29: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:00:51 --- c01-crash-under-deletes run 30 {"submit_mode": "default", "kill_delay_s": 1.03}
+19:01:19 osd.4 up (pid 1832502)
+19:01:33 clean after 13 s
+19:01:40 clean after 6 s
+19:02:29 deep-scrubbed 32 PGs in 49 s
+19:03:33 clean after 11 s
+run 30: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:03:33 --- c01-crash-under-deletes run 31 {"submit_mode": "default", "kill_delay_s": 0.724}
+19:04:00 osd.3 up (pid 1841581)
+19:04:15 clean after 13 s
+19:04:22 clean after 6 s
+19:05:15 deep-scrubbed 32 PGs in 53 s
+19:06:32 clean after 11 s
+run 31: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:06:32 --- c01-crash-under-deletes run 32 {"submit_mode": "default", "kill_delay_s": 0.038}
+19:06:59 osd.1 up (pid 1852536)
+19:07:14 clean after 13 s
+19:07:21 clean after 6 s
+19:08:13 deep-scrubbed 32 PGs in 52 s
+19:09:40 clean after 11 s
+run 32: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:09:40 --- c01-crash-under-deletes run 33 {"submit_mode": "default", "kill_delay_s": 0.818}
+19:10:08 osd.3 up (pid 1866509)
+19:10:20 clean after 11 s
+19:10:27 clean after 6 s
+19:11:18 deep-scrubbed 32 PGs in 51 s
+19:12:49 clean after 12 s
+run 33: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:12:49 --- c01-crash-under-deletes run 34 {"submit_mode": "default", "kill_delay_s": 1.049}
+19:13:20 osd.2 up (pid 1879253)
+19:13:32 clean after 11 s
+19:13:39 clean after 6 s
+19:14:31 deep-scrubbed 32 PGs in 52 s
+19:16:14 clean after 14 s
+run 34: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:16:14 --- c01-crash-under-deletes run 35 {"submit_mode": "default", "kill_delay_s": 0.818}
+19:16:40 osd.3 up (pid 1889009)
+19:16:51 clean after 11 s
+19:16:58 clean after 6 s
+19:17:48 deep-scrubbed 32 PGs in 50 s
+19:19:27 clean after 11 s
+run 35: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:19:27 --- c01-crash-under-deletes run 36 {"submit_mode": "default", "kill_delay_s": 0.063}
+19:19:53 osd.4 up (pid 1902952)
+19:20:06 clean after 11 s
+19:20:13 clean after 6 s
+19:21:06 deep-scrubbed 32 PGs in 53 s
+19:22:56 clean after 13 s
+run 36: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:22:57 --- c01-crash-under-deletes run 37 {"submit_mode": "default", "kill_delay_s": 0.739}
+19:23:24 osd.3 up (pid 1916985)
+19:23:37 clean after 11 s
+19:23:44 clean after 6 s
+19:24:37 deep-scrubbed 32 PGs in 53 s
+19:26:01 clean after 11 s
+run 37: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:26:01 --- c01-crash-under-deletes run 38 {"submit_mode": "default", "kill_delay_s": 0.389}
+19:26:29 osd.0 up (pid 1928759)
+19:26:41 clean after 11 s
+19:26:48 clean after 6 s
+19:27:41 deep-scrubbed 32 PGs in 53 s
+19:29:29 clean after 13 s
+run 38: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:29:30 --- c01-crash-under-deletes run 39 {"submit_mode": "default", "kill_delay_s": 0.102}
+19:29:54 osd.0 up (pid 1942140)
+19:30:07 clean after 11 s
+19:30:14 clean after 6 s
+19:31:06 deep-scrubbed 32 PGs in 52 s
+19:32:31 clean after 10 s
+run 39: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:32:32 --- c01-crash-under-deletes run 40 {"submit_mode": "default", "kill_delay_s": 0.959}
+19:32:56 osd.2 up (pid 1956127)
+19:33:11 clean after 13 s
+19:33:18 clean after 6 s
+19:34:07 deep-scrubbed 32 PGs in 49 s
+19:35:32 clean after 11 s
+run 40: PASS  [1=ok 2=ok 3=ok 4=ok]
+19:35:33 --- c01-crash-under-deletes run 41 {"submit_mode": "default", "kill_delay_s": 0.99}
+19:36:00 osd.3 up (pid 1970161)
+19:36:12 clean after 11 s
+19:36:19 clean after 6 s
+19:37:11 deep-scrubbed 32 PGs in 52 s
+19:38:14 clean after 11 s
+run 41: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:38:15 --- c01-crash-under-deletes run 42 {"submit_mode": "default", "kill_delay_s": 0.831}
+19:38:40 osd.0 up (pid 1978763)
+19:38:52 clean after 11 s
+19:38:59 clean after 6 s
+19:39:50 deep-scrubbed 32 PGs in 51 s
+19:40:39 clean after 13 s
+run 42: FAIL  [1=ok 2=ok 3=FAIL 4=ok]
+19:40:40 --- c01-crash-under-deletes run 43 {"submit_mode": "default", "kill_delay_s": 0.901}
+19:41:06 osd.3 up (pid 1986101)
+19:41:19 clean after 13 s
+19:41:26 clean after 6 s

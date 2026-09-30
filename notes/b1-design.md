@@ -175,6 +175,19 @@ The root cause: between the non-retainers applying the remove and the retainer's
 
 It also fits the proposal's asymmetric retention (§4.2: "rank 0 reclaims immediately, rank 1 retains 30 minutes, rank 2 retains 24 hours"). The primary's copy can have a short window, just long enough to cover the retainer's commit, and the retainer keeps the long one. The window is a reclaimer-policy question, not a v1 one. F3 is the steady-state 1-copy version, if the doubled cost matters more than a message change. F4 and F5 are listed for completeness; neither fits the limits.
 
+### 6.3 F1 implemented and tested (Vlad approved F1, 2026-09-29)
+
+`05289b5` on `replicavault-p2`: the primary vaults every head a transaction deletes (`path=primary`; `path=fallback` when it is the retainer), and the recovery path vaults on the primary as well as on the retainer. 4 files, +30/−21.
+
+- **Smoke:** 16 deletes gave 16 `primary` + 16 `repop` copies, two per delete.
+- **c03 on F1** (`c03-retainer-out-during-deletes-20260929T194803.json`): **20/20 runs pass; 0 of 320 acknowledged deletes lost.** 319 of the 320 were acknowledged after the retainer was killed.
+  - 253 survived **only** through the primary's copy.
+  - 32 more have the primary's and the retainer's copies.
+  - 23 have the primary's plus a `repop` copy from the OSD that became retainer after the interval change.
+  - 12 have the primary's plus a `recovery` copy.
+  - Strays were purged in 20/20; invariants 1, 2 and 4 held in 20/20.
+- **Before F1** (`…T153224`): 261 of 320 lost.
+
 **Not yet measured:** F1's cost. The primary's vault read and write sit on the same op path as the retainer's, so the §5 cost ratios would apply on two OSDs per delete.
 
 ## Future work

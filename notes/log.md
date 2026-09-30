@@ -89,3 +89,9 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Revision 1b draft committed: `docs/revision-1b-coverage-and-ack-window.md` (`1dcf572`).
 - c03 written (`scripts/scenarios/c03-retainer-out-during-deletes.sh`). Vanilla 5/5 (script validation; strays purged in 10–13 s; on vanilla all deletes finish before the kill, so the window is not exercised there). **p2 run 1: 10 of 16 acknowledged deletes have no vault copy anywhere** after the retainer was killed, marked out, recovered around, and purged as a stray. STOP per Vlad's instruction. Fix proposals in `notes/b1-design.md` §6 (recommend F1: the primary also vaults). Nothing implemented. The remaining c03 runs and the c01 rerun (log-fix check) continue in the background; they change no code.
 - c03 p2 complete: **1/20 runs pass; 261 of 320 acknowledged deletes lost**. The lost ones are, almost exactly, the deletes acknowledged after the retainer's kill (261 of 263); none acknowledged before it was lost. Strays purged in 20/20; invariants 1, 2 and 4 hold in 20/20. Details in `b1-design.md` §6.1. The c01 rerun (log-fix check) is still running.
+
+## 2026-09-29 — F1
+- Vlad chose F1. Implemented as `05289b5` (`replicavault-p2`): the primary vaults every delete (`path=primary`), and recovery vaults on the primary and on the retainer. Smoke passes, with 2 copies per delete.
+- **c03 on F1: 20/20 pass, 0/320 acknowledged deletes lost** (before F1: 261/320 lost). 253 survived only via the primary's copy. `b1-design.md` §6.3.
+- Revision 1b draft updated: item 5 now carries a PROPOSED restatement with c03 results, awaiting Vlad's confirmation.
+- The c01 rerun (100 runs, log-fix check, now on the F1 build) is running. The push to origin follows its commit, as agreed.

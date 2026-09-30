@@ -1,10 +1,10 @@
 # Revision 1b to the ReplicaVault proposal: coverage corrected, acknowledgement window, measured cost ratios
 
-**Status:** DRAFT for Vlad's review. Item 1b-2 (contract item 5) is **PENDING c03**. It is filled in from scenario c03's result, then the file is committed and frozen like Revisions 1 and 1a.
+**Status:** DRAFT for Vlad's review. c03 is done; item 1b-2 (contract item 5) carries a **PROPOSED** restatement below for Vlad to confirm. After that the file is committed as final and frozen like Revisions 1 and 1a.
 
 - Date: 2026-09-29
 - Amends: Revision 1a (`docs/revision-1a-ordered-vault.md`, `43cdc17`). It corrects `results/GATE_REPORT.md` §3 caveat 2 and `notes/design-note.md` §§1 and 4, all left unedited.
-- Ceph commits: v19.2.3 `c92aebb2`; pilot `17451c9`; phase 2 `ef0be10` (primary-first retainer and primary fallback) and `25b9d8d` (log line at commit).
+- Ceph commits: v19.2.3 `c92aebb2`; pilot `17451c9`; phase 2 `ef0be10` (primary-first retainer and primary fallback), `25b9d8d` (log line at commit) and `05289b5` (F1: the primary also vaults every delete).
 - Evidence:
   - `results/phase2/PHASE2_REPORT.md`
   - `notes/b1-design.md` §§1 and 5
@@ -44,7 +44,7 @@ The attacks listed in Revision 1a B1 change as follows:
 
 **Mechanism (phase 2, `ef0be10`).** The retainer is element 1 of the acting set ordered primary-first, or the primary itself when the acting set has no other member. The primary vaults locally when it is the retainer (log `path=fallback`). There is no message, peering, PG log, scrub or backfill change. On the phase 2 prototype, a01–a04 pass 33/33 runs, and s01–s12 still pass 75/75.
 
-## 1b-2. Contract item 5 under a retainer failure (amends Revision 1a B1) — **PENDING c03**
+## 1b-2. Contract item 5 under a retainer failure (amends Revision 1a B1) — c03 done, restatement PROPOSED
 
 **Observed (phase 2 c01, 100 runs).** When the retaining OSD crashes while deletes are in flight, the new acting set acknowledges them without any OSD holding a durable vault copy.
 
@@ -57,9 +57,16 @@ The attacks listed in Revision 1a B1 change as follows:
 - **Code, verified:** a returning OSD that is neither up nor acting is placed in `stray_set` (`PeeringState.cc:340–346`). It receives no log, because `activate` sends logs only to `acting_recovery_backfill` (`:2748–2850`). `purge_strays` sends `MOSDPGRemove` (`:241–270`), and `do_delete_work` removes every object directly (`PG.cc:2716–2762`), not through `remove_missing_object`.
 - **Prediction, inferred:** deletes whose only durable pre-delete bytes were the retainer's unremoved object are lost.
 
-The restated item 5 is written once c03's result is in:
+**c03 result** (`results/phase2/c03-retainer-out-during-deletes-*.json`). Per run, the retainer is killed during a stream of 16 deletes, marked out, recovered around, then restarted and purged as a stray.
 
-> **5.** *PENDING c03.*
+- **Before the fix** (`25b9d8d`): **261 of 320 acknowledged deletes lost** (19 of 20 runs). They are almost exactly the deletes acknowledged after the kill (261 of 263).
+- **With fix F1** (`05289b5`, the primary also vaults every delete): **0 of 320 lost** (20 of 20 runs). 253 survived only through the primary's copy.
+
+Proposed restatement, for Vlad to confirm:
+
+> **5. PROPOSED.** An acknowledged delete implies at least one durable vault copy. Every delete is vaulted by the primary and by the retaining replica, each copy committed before that OSD's own acknowledgement of the delete. The client's acknowledgement waits for the primary's commit, so the primary's copy is durable when the client is answered, and the loss of any single OSD leaves at least one copy. Copies per delete: 2 in steady state (1 when the acting set has a single OSD), more when a missed delete is later applied through recovery.
+
+The copy-count consequences for H1 and H3 (two copies per delete) are a proposal-level decision. The proposal's asymmetric retention (§4.2) would let the primary's copy carry a short window.
 
 ## 1b-3. The vault log line records durability
 
