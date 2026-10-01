@@ -103,3 +103,9 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - `ceph-patch/p2/` re-exported (5 patches) and verified: reproduces `05289b5` exactly; builds in 110 s on the fresh clone.
 - Vlad pushed `main` to origin up to `a194ae0`. This commit needs another push.
 - Wrote and committed `notes/advisor-update-2026-09-30.md` before the F1 regression finished. It lists the regression and cost probe as in progress, and gives pre-F1 cost numbers.
+
+## 2026-10-01 — Vlad's follow-ups
+- Item 2 (the 69 single-copy deletes in F1 c01 `…T222223`): all 69 also have an intact vault entry on the retainer, checksum-verified, that was durable but never logged. SIGKILL landed between the vault txc's kv commit and its on_commit callback (`BlueStore.cc:14457–14467`, `Transaction.h:46–49`). Their retainer log already held the delete, so recovery did not re-vault. Each has 2 copies.
+- **Same blind spot, larger effect:** the pre-F1 c03 "261 lost" includes 97 deletes with such an entry (97/97 intact, expected bytes). **True loss: 164/320, 18/20 runs.** F1 c03 "253 primary-only" is 230. Corrected in `b1-design.md` §§6.1, 6.3, 6.4 and the advisor note. `PHASE2_REPORT.md` and Revision 1b still say 261 (wording proposed to Vlad, not committed).
+- Harness: `rvcheck.py --disk-scan` (`a56…`); c04 written (primary failure; A = returns as stray, B = never returns); running vanilla then F1, 20 runs per variant.
+- Advisor note updated (F1 regression, F1 cost, shared-disk caveat, corrected counts, c04 pending).

@@ -148,8 +148,11 @@ So contract item 5 fails in the strongest sense: an acknowledged delete with no 
 
 `results/phase2/c03-retainer-out-during-deletes-20260929T153224.json` (p2 `25b9d8d`, 20 runs) and `…-20260929T150311.json` (vanilla, 5 runs, script validation):
 
-- **p2: 1/20 runs pass. 261 of 320 acknowledged deletes have no vault copy anywhere after the run**; 19 of 20 runs lost data.
-- **The losses are the deletes acknowledged after the retainer was killed:** 261 of those 263. None acknowledged before the kill was lost.
+- **p2: 1/20 runs pass by the log-based check. 164 of 320 acknowledged deletes have no vault copy anywhere after the run; 18 of 20 runs lost data.**
+  - *Correction 2026-10-01:* the log-based check first reported 261 lost.
+  - 97 of those had an intact vault entry on the retainer, holding exactly the pre-delete bytes. It was durable but never logged: the retainer was killed after the vault txc's kv commit and before its on_commit callback wrote the `vaulted` line (`BlueStore.cc:14457–14467`, `os/Transaction.h:46–49`).
+  - Verified by listing every OSD's vault entries and checksumming them; see §6.4.
+- **The losses are among the deletes acknowledged after the retainer was killed:** 164 of those 263 have no copy anywhere, and none acknowledged before the kill was lost.
   - The kill landed 0.29–1.41 s into a stream of 16 simultaneous removes. Most were still queued behind the retainer's vault copies of objects up to 8 MiB.
   - The one clean run (run 6) had all 16 acknowledged before the kill.
 - **Strays were purged in 20/20 runs**, and invariants 1, 2 and 4 held in 20/20.
@@ -181,12 +184,25 @@ It also fits the proposal's asymmetric retention (§4.2: "rank 0 reclaims immedi
 
 - **Smoke:** 16 deletes gave 16 `primary` + 16 `repop` copies, two per delete.
 - **c03 on F1** (`c03-retainer-out-during-deletes-20260929T194803.json`): **20/20 runs pass; 0 of 320 acknowledged deletes lost.** 319 of the 320 were acknowledged after the retainer was killed.
-  - 253 survived **only** through the primary's copy.
-  - 32 more have the primary's and the retainer's copies.
+  - 230 survived **only** through the primary's copy (the logged count was 253; 23 of those also have an unlogged retainer copy, §6.4).
+  - 32 more have the primary's and the retainer's logged copies.
   - 23 have the primary's plus a `repop` copy from the OSD that became retainer after the interval change.
   - 12 have the primary's plus a `recovery` copy.
   - Strays were purged in 20/20; invariants 1, 2 and 4 held in 20/20.
-- **Before F1** (`…T153224`): 261 of 320 lost.
+- **Before F1** (`…T153224`): 164 of 320 lost (corrected from 261, §6.4).
+
+### 6.4 Durable but unlogged vault copies (2026-10-01)
+
+Since `25b9d8d`, the `vaulted` log line is written by the vault txc's on_commit context. BlueStore queues that context to the PG shard's commit queue, or its finisher, **after** the kv commit (`_txc_committed_kv`, `os/bluestore/BlueStore.cc:14457–14467`; queue set per PG at `osd/OSD.cc:5368`; `on_commit` semantics in `os/Transaction.h:46–49`). A SIGKILL between the two leaves a durable vault entry with no log line. The harness found copies only through log lines, so it undercounted.
+
+- **c01 on F1** (`…T222223`): 69 deletes appeared to have one copy, held by the primary (`path=primary`).
+  - Each also has an intact entry on the retainer that holds its pre-delete bytes, checksum-verified (69/69).
+  - The retainer did not re-vault them through recovery because its PG transaction, with the remove and the log entry, had committed too. Its log already held the delete, so there was nothing to recover.
+  - These deletes have 2 copies, not 1.
+- **c03 before F1** (`…T153224`): of the 261 reported lost, 97 have such an entry on the retainer: 97/97 intact, each with the expected pre-delete checksum.
+  - **True loss: 164 of 320, in 18 of 20 runs.**
+- **c03 on F1** (`…T194803`): 23 of the 253 "primary only" deletes also have an unlogged retainer copy, so 230 are primary-only.
+- **Harness fix:** `rvcheck.py --disk-scan` lists every OSD's vault entries by name and checksum-verifies those without a log line, recording them as `path=unlogged`. The default scans only deletes without a verified logged copy; c04 scans every delete. Pre-fix result files are left as written; these corrections live here.
 
 **F1 regression** (`results/phase2/*-20260930T1*/2*.json`, build marker `05289b5`): s01–s12 and a01–a05 pass, 17 scenarios, **118/118 runs**, 1,000/1,000 deletes with an intact copy. Copies per delete: 1 (25, single-OSD acting sets), 2 (832), 3 (143). a05 under F1: **3 copies per missed delete; retained / deleted bytes 3.00** (2.00 before F1).
 
