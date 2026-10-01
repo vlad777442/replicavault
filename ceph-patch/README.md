@@ -5,9 +5,9 @@ These patches reproduce the ReplicaVault prototype from this repository alone. E
 | Series | Commits | Result | What it is |
 |---|---|---|---|
 | `pilot/` | 2 | `17451c9003d3e9b5e72d1d1a09b2397cf33eab1f` | Pilot prototype, evaluated in `results/GATE_REPORT.md` |
-| `p2/` | 3 | `ef0be10b667cfdfd15512eb2f8e79128de0d537f` | Phase 2: the pilot's two commits, then the primary-first retainer and primary fallback (`notes/b1-design.md`, design (i)) |
+| `p2/` | 5 | `05289b51c83c54c095a92b4c249373c8fb22e47f` | Phase 2: the pilot's two commits, then the primary-first retainer and primary fallback (`ef0be10`, `notes/b1-design.md` design (i)), the `vaulted` log line at commit (`25b9d8d`), and the primary also vaulting every delete (`05289b5`, F1, `b1-design.md` §6) |
 
-`p2/0001` and `p2/0002` have the same content as `pilot/0001` and `pilot/0002`; only the `[PATCH n/3]` numbering in the subject differs. Apply either series to a clean v19.2.3, not one on top of the other. `p2/0003` (`ef0be10`) replaces the acting-rank rule with `retainer_osd` and adds the primary's vault hook in `ReplicatedBackend::submit_transaction`, logged `path=fallback`. Build the phase 2 binary from branch `replicavault-p2` and save it as `bin/ceph-osd.p2`, which `scripts/use-build.sh p2` expects.
+`p2/0001` and `p2/0002` have the same content as `pilot/0001` and `pilot/0002`; only the `[PATCH n/5]` numbering in the subject differs. Apply either series to a clean v19.2.3, not one on top of the other. `p2/0003` (`ef0be10`) replaces the acting-rank rule with `retainer_osd` and adds the primary's vault hook in `ReplicatedBackend::submit_transaction`, logged `path=fallback`. `p2/0004` (`25b9d8d`) emits the `vaulted` log line from the vault transaction's commit callback. `p2/0005` (`05289b5`, F1) makes the primary vault every delete (`path=primary`), as well as on the recovery path. Build the phase 2 binary from branch `replicavault-p2` and save it as `bin/ceph-osd.p2`, which `scripts/use-build.sh p2` expects.
 
 `pilot/0001` (`ca2a5b2`) adds `src/osd/ReplicaVault.{h,cc}` and the two hooks, in `ReplicatedBackend::do_repop` and `PrimaryLogPG::remove_missing_object`. `pilot/0002` (`17451c9`) queues the vault copy as its own transaction on the PG's sequencer.
 

@@ -1,0 +1,206 @@
+{
+ "build": "p2",
+ "build_type": "RelWithDebInfo",
+ "ceph_commit": "05289b51c83c54c095a92b4c249373c8fb22e47f",
+ "timestamp": "20260930T231922",
+ "command": "PROBE_ARGS='--deletes 20 --threads 16' scripts/cost-probe.sh p2",
+ "cluster": "vstart /data/ceph/build-rel, 1 MON, 1 MGR, 3 OSDs, file-backed BlueStore, single host",
+ "label": "indicative, single host",
+ "retainer": 1,
+ "target_pg": "2.18",
+ "acting": [
+  0,
+  1,
+  2
+ ],
+ "acting_primary": 0,
+ "sizes": {
+  "1": {
+   "deletes": 20,
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 266.683,
+    "p99_ms": 422.867,
+    "mean_ms": 286.849
+   },
+   "ops_4k_during_delete": {
+    "n": 585,
+    "p50_ms": 133.102,
+    "p99_ms": 336.043,
+    "mean_ms": 123.289
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 207,
+    "p50_ms": 124.268,
+    "p99_ms": 335.319,
+    "mean_ms": 121.979
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 2417,
+     "avg_ms": 111.717
+    },
+    "op_r_latency": {
+     "ops": 1194,
+     "avg_ms": 27.615
+    },
+    "op_w_latency": {
+     "ops": 1223,
+     "avg_ms": 193.824
+    }
+   }
+  },
+  "4": {
+   "deletes": 20,
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 433.122,
+    "p99_ms": 518.709,
+    "mean_ms": 436.389
+   },
+   "ops_4k_during_delete": {
+    "n": 614,
+    "p50_ms": 174.002,
+    "p99_ms": 436.278,
+    "mean_ms": 148.969
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 204,
+    "p50_ms": 174.956,
+    "p99_ms": 400.746,
+    "mean_ms": 151.397
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 2204,
+     "avg_ms": 126.693
+    },
+    "op_r_latency": {
+     "ops": 1106,
+     "avg_ms": 31.126
+    },
+    "op_w_latency": {
+     "ops": 1098,
+     "avg_ms": 222.957
+    }
+   }
+  },
+  "16": {
+   "deletes": 20,
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 1047.262,
+    "p99_ms": 1225.221,
+    "mean_ms": 1037.4
+   },
+   "ops_4k_during_delete": {
+    "n": 881,
+    "p50_ms": 209.444,
+    "p99_ms": 809.194,
+    "mean_ms": 240.527
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 312,
+    "p50_ms": 203.963,
+    "p99_ms": 807.911,
+    "mean_ms": 227.733
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 2280,
+     "avg_ms": 144.931
+    },
+    "op_r_latency": {
+     "ops": 1149,
+     "avg_ms": 35.622
+    },
+    "op_w_latency": {
+     "ops": 1131,
+     "avg_ms": 255.981
+    }
+   }
+  },
+  "64": {
+   "deletes": 20,
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 2778.475,
+    "p99_ms": 3469.887,
+    "mean_ms": 2855.241
+   },
+   "ops_4k_during_delete": {
+    "n": 970,
+    "p50_ms": 225.349,
+    "p99_ms": 2609.182,
+    "mean_ms": 444.751
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 360,
+    "p50_ms": 246.941,
+    "p99_ms": 2609.271,
+    "mean_ms": 452.759
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 2342,
+     "avg_ms": 256.362
+    },
+    "op_r_latency": {
+     "ops": 1124,
+     "avg_ms": 59.103
+    },
+    "op_w_latency": {
+     "ops": 1218,
+     "avg_ms": 438.397
+    }
+   }
+  },
+  "128": {
+   "deletes": 20,
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 4932.049,
+    "p99_ms": 5507.883,
+    "mean_ms": 4960.594
+   },
+   "ops_4k_during_delete": {
+    "n": 967,
+    "p50_ms": 250.34,
+    "p99_ms": 4755.527,
+    "mean_ms": 759.562
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 342,
+    "p50_ms": 241.082,
+    "p99_ms": 4785.224,
+    "mean_ms": 757.588
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 2162,
+     "avg_ms": 362.643
+    },
+    "op_r_latency": {
+     "ops": 1101,
+     "avg_ms": 67.911
+    },
+    "op_w_latency": {
+     "ops": 1061,
+     "avg_ms": 668.486
+    }
+   }
+  }
+ },
+ "baseline_4k": {
+  "n": 2620,
+  "p50_ms": 150.436,
+  "p99_ms": 342.082,
+  "mean_ms": 121.907
+ },
+ "baseline_4k_retainer_primary": {
+  "n": 918,
+  "p50_ms": 121.506,
+  "p99_ms": 365.488,
+  "mean_ms": 116.233
+ }
+}

@@ -1,0 +1,16 @@
+23:18:12 osd.0 (pid 1278108) down and exited
+23:18:22 osd.0 up (pid 2778014)
+23:18:34 clean after 12 s
+23:18:36 osd.1 (pid 1278913) down and exited
+23:18:45 osd.1 up (pid 2778858)
+23:18:57 clean after 12 s
+23:19:01 osd.2 (pid 1279718) down and exited
+23:19:09 osd.2 up (pid 2779675)
+23:19:21 clean after 12 s
+23:19:22 probe p2 rep 1 -> /users/vlad777/research/replicavault/results/phase2/cost-probe-p2-20260930T231922-r1.json
+1 MiB: {'n': 20, 'p50_ms': 266.683, 'p99_ms': 422.867, 'mean_ms': 286.849} 4k during: {'n': 585, 'p50_ms': 133.102, 'p99_ms': 336.043, 'mean_ms': 123.289}
+4 MiB: {'n': 20, 'p50_ms': 433.122, 'p99_ms': 518.709, 'mean_ms': 436.389} 4k during: {'n': 614, 'p50_ms': 174.002, 'p99_ms': 436.278, 'mean_ms': 148.969}
+16 MiB: {'n': 20, 'p50_ms': 1047.262, 'p99_ms': 1225.221, 'mean_ms': 1037.4} 4k during: {'n': 881, 'p50_ms': 209.444, 'p99_ms': 809.194, 'mean_ms': 240.527}
+64 MiB: {'n': 20, 'p50_ms': 2778.475, 'p99_ms': 3469.887, 'mean_ms': 2855.241} 4k during: {'n': 970, 'p50_ms': 225.349, 'p99_ms': 2609.182, 'mean_ms': 444.751}
+128 MiB: {'n': 20, 'p50_ms': 4932.049, 'p99_ms': 5507.883, 'mean_ms': 4960.594} 4k during: {'n': 967, 'p50_ms': 250.34, 'p99_ms': 4755.527, 'mean_ms': 759.562}
+23:29:57 clean after 7 s

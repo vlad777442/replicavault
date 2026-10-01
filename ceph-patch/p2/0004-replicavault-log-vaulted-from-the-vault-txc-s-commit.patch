@@ -1,0 +1,76 @@
+From 25b9d8d1a772582fcf826d41536a57b0fbf3e5ab Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Tue, 29 Sep 2026 15:00:03 -0600
+Subject: [PATCH 4/5] replicavault: log 'vaulted' from the vault txc's commit
+ callback
+
+The 'replicavault: vaulted' line is the scenarios' ground truth for where
+copies are, but it was emitted when the copy was staged. Phase 2 c01 left 148
+such lines for copies that a crash lost before they committed. Emit it from
+an on_commit context registered on the vault transaction instead, with the
+commit result appended (r=...); keep a level-10 'staged' line for debugging.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/ReplicaVault.cc | 31 +++++++++++++++++++++----------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
+
+diff --git a/src/osd/ReplicaVault.cc b/src/osd/ReplicaVault.cc
+index bb2202a..e81ac06 100644
+--- a/src/osd/ReplicaVault.cc
++++ b/src/osd/ReplicaVault.cc
+@@ -4,12 +4,14 @@
+ #include "osd/ReplicaVault.h"
+ 
+ #include <map>
++#include <sstream>
+ 
+ #include <fmt/format.h>
+ 
+ #include "common/ceph_crypto.h"
+ #include "common/debug.h"
+ #include "common/errno.h"
++#include "include/Context.h"
+ #include "include/stringify.h"
+ 
+ #define dout_context cct
+@@ -262,16 +264,25 @@ int vault_object(CephContext *cct, ObjectStore *store,
+     vt->omap_setkeys(meta, vobj, omap);
+   }
+ 
+-  ldout(cct, VAULT_LOG_LEVEL) << "vaulted pool=" << soid.pool << " pg=" << pgid
+-			<< " oid=" << soid.oid.name
+-			<< " ns=" << soid.nspace
+-			<< " v=" << version << " osd=" << whoami
+-			<< " path=" << path_str(path)
+-			<< " acting=" << acting
+-			<< " size=" << data.length()
+-			<< " omap_keys=" << omap.size()
+-			<< " sha256=" << sha
+-			<< " vname=" << vname << dendl;
++  // The "vaulted" line is ground truth for scenarios, so it must mean the copy
++  // is durable: log it from the vault transaction's commit callback, not here
++  // at staging (phase 2 c01 left lines for copies lost in a crash).
++  std::ostringstream line;
++  line << "vaulted pool=" << soid.pool << " pg=" << pgid
++       << " oid=" << soid.oid.name
++       << " ns=" << soid.nspace
++       << " v=" << version << " osd=" << whoami
++       << " path=" << path_str(path)
++       << " acting=" << acting
++       << " size=" << data.length()
++       << " omap_keys=" << omap.size()
++       << " sha256=" << sha
++       << " vname=" << vname;
++  ldout(cct, VAULT_LOG_LEVEL + 9) << "staged " << vname << dendl;
++  vt->register_on_commit(new LambdaContext(
++    [cct, msg = line.str()](int r) {
++      ldout(cct, VAULT_LOG_LEVEL) << msg << " r=" << r << dendl;
++    }));
+   return 0;
+ }
+ 
+-- 
+2.43.0
+

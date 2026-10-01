@@ -1,0 +1,847 @@
+{
+ "scenario": "s01-kill-primary-before-delete",
+ "timestamp": "20260930T141127",
+ "mode": "p2",
+ "ceph_git": "05289b51c83c54c095a92b4c249373c8fb22e47f",
+ "osd_build_marker": "p2 05289b51c83c54c095a92b4c249373c8fb22e47f 63449d06579f0367",
+ "command": "scripts/scenarios/s01-kill-primary-before-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 1567,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     4,
+     3
+    ],
+    "pg": "1.1a",
+    "acting_at_delete": [
+     4,
+     3
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r1-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "recovery",
+         "v": "20113'874",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "20113'874",
+         "acting": "4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "20113'874",
+         "acting": "4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 168,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     3,
+     0
+    ],
+    "pg": "1.1d",
+    "acting_at_delete": [
+     3,
+     0
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r2-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "20138'487",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "recovery",
+         "v": "20138'487",
+         "acting": "1,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "20138'487",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 158,
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     0,
+     4
+    ],
+    "pg": "1.16",
+    "acting_at_delete": [
+     0,
+     4
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r3-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "20163'645",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "recovery",
+         "v": "20163'645",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "20163'645",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 157,
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     3,
+     0
+    ],
+    "pg": "1.1",
+    "acting_at_delete": [
+     3,
+     0
+    ],
+    "killed": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r4-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "20188'664",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "20188'664",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "recovery",
+         "v": "20188'664",
+         "acting": "4,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 150,
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     2,
+     0,
+     4
+    ],
+    "pg": "1.14",
+    "acting_at_delete": [
+     0,
+     4
+    ],
+    "killed": 2
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r5-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "20213'721",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "recovery",
+         "v": "20213'721",
+         "acting": "2,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "20213'721",
+         "acting": "0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 159,
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     3,
+     0,
+     1
+    ],
+    "pg": "1.1e",
+    "acting_at_delete": [
+     0,
+     1
+    ],
+    "killed": 3
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r6-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "20238'624",
+         "acting": "0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "20238'624",
+         "acting": "0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "recovery",
+         "v": "20238'624",
+         "acting": "3,0,1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 154,
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     1,
+     2
+    ],
+    "pg": "1.3",
+    "acting_at_delete": [
+     1,
+     2
+    ],
+    "killed": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r7-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "20265'957",
+         "acting": "1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "20265'957",
+         "acting": "1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "recovery",
+         "v": "20265'957",
+         "acting": "4,1,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 151,
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     1,
+     4,
+     3
+    ],
+    "pg": "1.8",
+    "acting_at_delete": [
+     4,
+     3
+    ],
+    "killed": 1
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r8-target",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "recovery",
+         "v": "20288'960",
+         "acting": "1,4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "20288'960",
+         "acting": "4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "20288'960",
+         "acting": "4,3",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 149,
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     4,
+     3,
+     0
+    ],
+    "pg": "1.1",
+    "acting_at_delete": [
+     3,
+     0
+    ],
+    "killed": 4
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r9-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "20313'669",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "20313'669",
+         "acting": "3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "recovery",
+         "v": "20313'669",
+         "acting": "4,3,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 154,
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {},
+   "notes": {
+    "acting_before": [
+     0,
+     2,
+     4
+    ],
+    "pg": "1.10",
+    "acting_at_delete": [
+     2,
+     4
+    ],
+    "killed": 0
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s01-kill-primary-before-delete-20260930T141127-r10-target",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "recovery",
+         "v": "20337'894",
+         "acting": "0,2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "20337'894",
+         "acting": "2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "20337'894",
+         "acting": "2,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 3
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 161,
+   "pass": true
+  }
+ ]
+}

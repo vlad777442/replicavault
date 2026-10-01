@@ -1,7 +1,7 @@
 From 17451c9003d3e9b5e72d1d1a09b2397cf33eab1f Mon Sep 17 00:00:00 2001
 From: vlad777442 <vefirst@gmail.com>
 Date: Sat, 26 Sep 2026 13:55:16 -0600
-Subject: [PATCH 2/3] replicavault: queue vault copy as its own txc on the PG
+Subject: [PATCH 2/5] replicavault: queue vault copy as its own txc on the PG
  sequencer
 
 Staging the vault copy inside the PG's transaction made BlueStore charge

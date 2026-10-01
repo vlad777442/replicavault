@@ -1,0 +1,337 @@
+{
+ "scenario": "s10-snapshot-delete",
+ "timestamp": "20260930T183950",
+ "mode": "p2",
+ "ceph_git": "05289b51c83c54c095a92b4c249373c8fb22e47f",
+ "osd_build_marker": "p2 05289b51c83c54c095a92b4c249373c8fb22e47f 63449d06579f0367",
+ "command": "scripts/scenarios/s10-snapshot-delete.sh ",
+ "pool": "rvsnap",
+ "duration_s": 367,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r1-a",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22206'38",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "22206'38",
+         "acting": "3,1,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r1-b",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22207'24",
+         "acting": "3,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "22207'24",
+         "acting": "3,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 114,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r2-a",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "22232'42",
+         "acting": "3,4,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "22232'42",
+         "acting": "3,4,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r2-b",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22233'29",
+         "acting": "3,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "22233'29",
+         "acting": "3,0,2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 118,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r3-a",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22259'10",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22259'10",
+         "acting": "1,0,4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20260930T183950-r3-b",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "22260'47",
+         "acting": "3,4,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "22260'47",
+         "acting": "3,4,0",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 128,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "pass": true
+  }
+ ]
+}

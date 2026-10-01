@@ -155,3 +155,40 @@ Baselines match: 4 KiB p99 340 ms on both builds, p50 167 vs 171 ms. 4 KiB ops w
 > - **Serial 4 MiB delete rate:** 0.47×.
 >
 > H1b (1.5×) and H1e (50%) are at risk. The full evaluation measures them on the multi-host testbed with the RelWithDebInfo build. The design adds a mitigation for the synchronous full-object read before objects above 16 MiB are evaluated.
+
+
+---
+
+## Addendum, 2026-09-30: c03, F1, and reruns
+
+Written after Vlad's decisions on this report. Sections 1–7 above are left as written.
+
+**c03** (retainer killed during deletes, marked out, PGs recovered elsewhere, then purged as a stray on return) **lost data on the phase 2 build**: 261 of 320 acknowledged deletes, 19 of 20 runs (`c03-…-20260929T153224.json`). That is finding 2 in its strongest form.
+
+The cause is verified in code. A returning OSD whose PGs moved away is a stray: it receives no log, and its copy is removed by `do_delete_work` without any vault (`notes/b1-design.md` §6).
+
+**F1** (`05289b5`, Vlad's choice): the primary also vaults every delete.
+
+| | Result |
+|---|---|
+| c03 | **20/20 runs, 0 of 320 lost**; 253 deletes survived only through the primary's copy |
+| c01 (rerun) | 100/100 runs; fsck clean 100/100; **0 of 3,282 `vaulted` lines without a durable copy** |
+| Log fix (`25b9d8d`) | Confirmed by the c01 rerun above; before the fix, 148 lines had no copy |
+| Full regression (s01–s12, a01–a05) | **118/118 runs, 1,000/1,000 deletes vaulted** |
+
+Costs of F1:
+
+- **Copies:** 2 per delete in steady state; 3 per deliberately missed delete (a05: retained / deleted bytes 3.00, against 2.00 before F1).
+- **Latency (indicative):**
+
+| Deleted object | Delete p50, F1 ÷ vanilla | 4 KiB p99 during deletes, F1 ÷ vanilla |
+|---|---|---|
+| 1 MiB | 1.3× | 1.1× |
+| 4 MiB | 2.3× | 1.2× |
+| 16 MiB | 5.0× | 1.6× |
+| 64 MiB | 11.5× | 7.5× |
+| 128 MiB | 22× | 11× |
+
+**Patch series.** `ceph-patch/p2/` (5 patches) reproduces `05289b5` exactly on a fresh v19.2.3 clone, and builds in 110 s incrementally.
+
+**Revision 1b:** contract item 5 carries a proposed restatement (F1 guarantees a durable copy at acknowledgement under any single OSD failure; that is inferred, and tested by c03 and c01). It awaits Vlad.

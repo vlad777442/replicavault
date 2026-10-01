@@ -1,7 +1,7 @@
 From ef0be10b667cfdfd15512eb2f8e79128de0d537f Mon Sep 17 00:00:00 2001
 From: vlad777442 <vefirst@gmail.com>
 Date: Mon, 28 Sep 2026 20:19:28 -0600
-Subject: [PATCH 3/3] replicavault: primary-first retainer, primary fallback
+Subject: [PATCH 3/5] replicavault: primary-first retainer, primary fallback
  (B1 design i)
 
 The pilot vaulted on the OSD at acting-set rank 1. Two attacker-triggerable

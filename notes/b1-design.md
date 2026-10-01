@@ -188,7 +188,19 @@ It also fits the proposal's asymmetric retention (§4.2: "rank 0 reclaims immedi
   - Strays were purged in 20/20; invariants 1, 2 and 4 held in 20/20.
 - **Before F1** (`…T153224`): 261 of 320 lost.
 
-**Not yet measured:** F1's cost. The primary's vault read and write sit on the same op path as the retainer's, so the §5 cost ratios would apply on two OSDs per delete.
+**F1 regression** (`results/phase2/*-20260930T1*/2*.json`, build marker `05289b5`): s01–s12 and a01–a05 pass, 17 scenarios, **118/118 runs**, 1,000/1,000 deletes with an intact copy. Copies per delete: 1 (25, single-OSD acting sets), 2 (832), 3 (143). a05 under F1: **3 copies per missed delete; retained / deleted bytes 3.00** (2.00 before F1).
+
+**F1 cost** (indicative, single host; `cost-probe-p2-20260930T231922-r1.json` vs vanilla `…20260929T132837`; baselines match, 4 KiB p99 about 340 ms):
+
+| Deleted object | Delete p50, F1 ÷ vanilla | 4 KiB p99 during deletes, F1 ÷ vanilla |
+|---|---|---|
+| 1 MiB | 1.3× | 1.1× |
+| 4 MiB | 2.3× | 1.2× |
+| 16 MiB | 5.0× | 1.6× |
+| 64 MiB | 11.5× | 7.5× |
+| 128 MiB | 22× | 11× |
+
+Before F1, at 128 MiB: 13× and 4.8×. The primary now also reads and copies each deleted object on its op path. The 4 MiB interference ratio (1.2× with F1, 1.7× without) is within this probe's run-to-run noise. The primary's vault read and write sit on the same op path as the retainer's, so the §5 cost ratios would apply on two OSDs per delete.
 
 ## Future work
 

@@ -96,3 +96,10 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Revision 1b draft updated: item 5 now carries a PROPOSED restatement with c03 results, awaiting Vlad's confirmation.
 - The c01 rerun (100 runs, log-fix check, now on the F1 build) is running. The push to origin follows its commit, as agreed.
 - c01 rerun on F1 (`05289b5`, `results/phase2/c01-crash-under-deletes-20260929T222223.json`): **100/100 runs**, 1,600/1,600 acknowledged deletes with an intact copy (1,585 acknowledged after the kill), fsck clean 100/100. **Log-fix check: 3,282 `vaulted` lines, 0 without a durable copy** (before the fix: 148). Copies per delete: 1 (69), 2 (1,380), 3 (151). Paths: 1,600 primary, 204 repop, 1,478 recovery. (An earlier c01 rerun on `25b9d8d` was stopped at run 43 to switch to F1; its partial log is kept but it wrote no result file.)
+
+## 2026-09-30 — F1 regression and cost
+- F1 regression on the p2 build `05289b5`: s01–s12 and a01–a05, **118/118 runs**, 1,000/1,000 deletes vaulted. a05: 3 copies per missed delete, retained / deleted bytes 3.00.
+- Cost probe on the F1 release build: delete p50 22× vanilla at 128 MiB (13× before F1); 4 KiB p99 11× (4.8× before F1).
+- `ceph-patch/p2/` re-exported (5 patches) and verified: reproduces `05289b5` exactly; builds in 110 s on the fresh clone.
+- Vlad pushed `main` to origin up to `a194ae0`. This commit needs another push.
+- Wrote and committed `notes/advisor-update-2026-09-30.md` before the F1 regression finished. It lists the regression and cost probe as in progress, and gives pre-F1 cost numbers.

@@ -1,0 +1,574 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20260930T213538",
+ "mode": "p2",
+ "ceph_git": "05289b51c83c54c095a92b4c249373c8fb22e47f",
+ "osd_build_marker": "p2 05289b51c83c54c095a92b4c249373c8fb22e47f 63449d06579f0367",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 551,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.5 up=[2] acting=[2] primary=2"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24017'40",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-2",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24017'78",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-4",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24017'58",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-6",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24017'79",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-8",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24017'80",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-10",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24017'56",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-12",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24017'64",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r1-14",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24017'41",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 173,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260930T213538-r1-2": 1,
+     "a03-size-one-20260930T213538-r1-6": 1,
+     "a03-size-one-20260930T213538-r1-4": 1,
+     "a03-size-one-20260930T213538-r1-12": 1,
+     "a03-size-one-20260930T213538-r1-10": 1,
+     "a03-size-one-20260930T213538-r1-14": 1,
+     "a03-size-one-20260930T213538-r1-8": 1,
+     "a03-size-one-20260930T213538-r1-0": 1
+    },
+    "bytes": 375832
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.3 up=[4] acting=[4] primary=4"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-0",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24044'62",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-2",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24044'70",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-4",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24044'47",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-6",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24044'62",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-8",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24044'48",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-10",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24044'71",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-12",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24044'61",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r2-14",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24044'63",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 177,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260930T213538-r2-8": 1,
+     "a03-size-one-20260930T213538-r2-6": 1,
+     "a03-size-one-20260930T213538-r2-10": 1,
+     "a03-size-one-20260930T213538-r2-2": 1,
+     "a03-size-one-20260930T213538-r2-4": 1,
+     "a03-size-one-20260930T213538-r2-12": 1,
+     "a03-size-one-20260930T213538-r2-0": 1,
+     "a03-size-one-20260930T213538-r2-14": 1
+    },
+    "bytes": 375832
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=3.4 up=[1] acting=[1] primary=1"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-0",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24071'75",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-2",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24071'64",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-4",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24071'76",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "24071'65",
+         "acting": "1",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-8",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24071'52",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-10",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "24071'53",
+         "acting": "2",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-12",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24071'83",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20260930T213538-r3-14",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "24071'65",
+         "acting": "4",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 178,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20260930T213538-r3-6": 1,
+     "a03-size-one-20260930T213538-r3-4": 1,
+     "a03-size-one-20260930T213538-r3-2": 1,
+     "a03-size-one-20260930T213538-r3-0": 1,
+     "a03-size-one-20260930T213538-r3-10": 1,
+     "a03-size-one-20260930T213538-r3-14": 1,
+     "a03-size-one-20260930T213538-r3-12": 1,
+     "a03-size-one-20260930T213538-r3-8": 1
+    },
+    "bytes": 375832
+   },
+   "pass": true
+  }
+ ]
+}

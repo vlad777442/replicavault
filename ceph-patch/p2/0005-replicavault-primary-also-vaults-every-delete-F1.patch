@@ -1,0 +1,132 @@
+From 05289b51c83c54c095a92b4c249373c8fb22e47f Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Tue, 29 Sep 2026 19:44:02 -0600
+Subject: [PATCH 5/5] replicavault: primary also vaults every delete (F1)
+
+Phase 2 c03: when the retainer is killed while deletes are in flight and its
+PGs are then remapped, the deletes it had not yet committed are acknowledged
+by the remaining acting set (dup op after the interval change) and the
+retainer's unremoved object is later purged with its stray PG copy. 261 of
+320 acknowledged deletes were lost.
+
+The primary now vaults every head a transaction deletes, in addition to the
+retainer (path=primary; path=fallback when the primary is the retainer).
+The ack waits for the primary's commit, and the vault txc is queued ahead of
+op_t on the same sequencer, so an acknowledged delete has a durable copy on
+the primary whatever happens to the retainer. The recovery path vaults on the
+primary as well as on the retainer. Two copies per delete; no message,
+peering, PG log, scrub or backfill change.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/PrimaryLogPG.cc      |  6 ++++--
+ src/osd/ReplicaVault.cc      |  1 +
+ src/osd/ReplicaVault.h       |  8 +++++---
+ src/osd/ReplicatedBackend.cc | 36 ++++++++++++++++++++----------------
+ 4 files changed, 30 insertions(+), 21 deletions(-)
+
+diff --git a/src/osd/PrimaryLogPG.cc b/src/osd/PrimaryLogPG.cc
+index d150778..fc8f03f 100644
+--- a/src/osd/PrimaryLogPG.cc
++++ b/src/osd/PrimaryLogPG.cc
+@@ -12412,11 +12412,13 @@ void PrimaryLogPG::remove_missing_object(const hobject_t &soid,
+   // delete locally
+   ObjectStore::Transaction t;
+   // ReplicaVault: a delete learned through recovery (this OSD missed the live
+-  // one) is vaulted by the retainer too, primary included.
++  // one) is vaulted by the retainer and by the primary, as on the live path
++  // (b1-design.md section 6, F1).
+   if (!soid.is_snap()) {
+     vector<int> acting;
+     if (replicavault::retainer_osd(*get_osdmap(), info.pgid.pgid,
+-				   &acting) == osd->whoami) {
++				   &acting) == osd->whoami ||
++	is_primary()) {
+       ObjectStore::Transaction vt;
+       if (replicavault::vault_object(
+ 	    cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
+diff --git a/src/osd/ReplicaVault.cc b/src/osd/ReplicaVault.cc
+index e81ac06..fa6826f 100644
+--- a/src/osd/ReplicaVault.cc
++++ b/src/osd/ReplicaVault.cc
+@@ -59,6 +59,7 @@ string path_str(Path p)
+   case Path::REPOP: return "repop";
+   case Path::RECOVERY: return "recovery";
+   case Path::FALLBACK: return "fallback";
++  case Path::PRIMARY: return "primary";
+   }
+   return "unknown";
+ }
+diff --git a/src/osd/ReplicaVault.h b/src/osd/ReplicaVault.h
+index 06768ee..0ce1290 100644
+--- a/src/osd/ReplicaVault.h
++++ b/src/osd/ReplicaVault.h
+@@ -36,9 +36,11 @@ constexpr int VAULT_LOG_LEVEL = 1;
+ extern const std::string VAULT_NSPACE;
+ 
+ /// Which local code path applied the delete: a replica applying a shipped
+-/// transaction, any OSD applying a delete learned through log recovery, or
+-/// the primary vaulting its own copy because no replica is the retainer.
+-enum class Path { REPOP, RECOVERY, FALLBACK };
++/// transaction, any OSD applying a delete learned through log recovery, the
++/// primary vaulting because no replica is the retainer, or the primary's
++/// second copy (every delete is vaulted on the primary as well as on the
++/// retainer, so the loss of either leaves one; b1-design.md section 6, F1).
++enum class Path { REPOP, RECOVERY, FALLBACK, PRIMARY };
+ 
+ /// The OSD that retains deletes for `pgid` in `osdmap`: element RETAIN_RANK
+ /// of the acting set reordered primary-first, or the primary itself when the
+diff --git a/src/osd/ReplicatedBackend.cc b/src/osd/ReplicatedBackend.cc
+index f125fdc..6c42292 100644
+--- a/src/osd/ReplicatedBackend.cc
++++ b/src/osd/ReplicatedBackend.cc
+@@ -529,25 +529,29 @@ void ReplicatedBackend::submit_transaction(
+   add_temp_objs(added);
+   clear_temp_objs(removed);
+ 
+-  // ReplicaVault: when no replica is the retainer (the acting set has no
+-  // member besides the primary), the primary vaults the heads this
+-  // transaction deletes. issue_op has already encoded op_t for the replicas,
+-  // and log_operation below has not yet appended to it, so op_t holds only
+-  // the object ops. Own txc (meta-pool accounting) on the same sequencer as
+-  // op_t, queued first, so the client ack (after op_t commits) implies it.
++  // ReplicaVault: the primary vaults every head this transaction deletes,
++  // in addition to the retainer (b1-design.md section 6, F1). The client ack
++  // waits for the primary's own commit, so it implies a durable copy here
++  // even if the retainer is lost before its copy commits (phase 2 c03). When
++  // the primary is itself the retainer (acting set of one) this is the only
++  // copy, logged path=fallback. issue_op has already encoded op_t for the
++  // replicas, and log_operation below has not yet appended to it, so op_t
++  // holds only the object ops. Own txc (meta-pool accounting) on the same
++  // sequencer as op_t, queued first.
+   if (!replicavault::deleted_heads(op_t, coll, log_entries).empty()) {
+     vector<int> acting;
+     int me = get_parent()->whoami_shard().osd;
+-    if (replicavault::retainer_osd(*get_osdmap(), get_info().pgid.pgid,
+-				   &acting) == me) {
+-      ObjectStore::Transaction vault_t;
+-      if (replicavault::vault_deleted_heads(
+-	    cct, store, ch, coll, get_info().pgid, op_t, log_entries,
+-	    at_version, me, acting, replicavault::Path::FALLBACK,
+-	    &vault_t) > 0) {
+-	int r = store->queue_transaction(ch, std::move(vault_t));
+-	ceph_assert(r == 0);
+-      }
++    bool is_retainer = replicavault::retainer_osd(
++      *get_osdmap(), get_info().pgid.pgid, &acting) == me;
++    ObjectStore::Transaction vault_t;
++    if (replicavault::vault_deleted_heads(
++	  cct, store, ch, coll, get_info().pgid, op_t, log_entries,
++	  at_version, me, acting,
++	  is_retainer ? replicavault::Path::FALLBACK
++		      : replicavault::Path::PRIMARY,
++	  &vault_t) > 0) {
++      int r = store->queue_transaction(ch, std::move(vault_t));
++      ceph_assert(r == 0);
+     }
+   }
+ 
+-- 
+2.43.0
+
