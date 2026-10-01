@@ -112,6 +112,11 @@ def main():
     ap.add_argument("--inspect", required=True, help="path to vault-inspect.sh")
     ap.add_argument("--no-vault-inspect", action="store_true",
                     help="check vault log lines only, not the on-disk entries")
+    ap.add_argument("--disk-scan", choices=["missing", "all", "off"], default="missing",
+                    help="also look for vault entries by name on every OSD's disk, not only via "
+                         "'vaulted' log lines: a SIGKILL between the vault txc's kv commit and its "
+                         "on_commit callback leaves a durable entry with no log line. 'missing' = "
+                         "only for deletes without a verified logged copy; 'all' = every delete")
     a = ap.parse_args()
 
     build = os.environ.get("CEPH_BUILD", "/data/ceph/build")
@@ -199,6 +204,8 @@ def main():
                 for l in ls:
                     by_osd[l["osd"]].add(l["vname"])
             for osd, vnames in sorted(by_osd.items()):
+                if osd == os.environ.get("RV_EXCLUDE_OSD", ""):
+                    continue  # deliberately down (c04 variant B): its store is not reachable
                 p = subprocess.run([a.inspect, "check", osd, *sorted(vnames)],
                                    capture_output=True, text=True)
                 for line in p.stdout.splitlines():
@@ -207,6 +214,43 @@ def main():
                         entries[(str(e["osd"]), e["vname"])] = e
                 if p.returncode != 0:
                     result["vault_inspect_error"] = p.stderr[-2000:]
+        # Disk scan: vault entries present on an OSD but never logged.
+        disk = {}   # n -> list of (osd, vname) for entries matching deletion n's identity
+        if a.disk_scan != "off" and not a.no_vault_inspect:
+            def logged_ok(n, d):
+                for l in cands[n]:
+                    e = entries.get((l["osd"], l["vname"]))
+                    if e and e.get("found") and e.get("intact") and e.get("data_sha256") == d["sha"]:
+                        return True
+                return False
+            scope = [n for n, d in enumerate(deletes) if a.disk_scan == "all" or not logged_ok(n, d)]
+            if scope:
+                excluded = os.environ.get("RV_EXCLUDE_OSD", "")
+                osds = [o for o in subprocess.run([os.path.join(build, "bin", "ceph"), "-c", os.environ["CEPH_CONF"], "osd", "ls"],
+                                                  capture_output=True, text=True).stdout.split() if o != excluded]
+                on_disk = collections.defaultdict(list)   # identity -> [(osd, vname)]
+                for osd in osds:
+                    p = subprocess.run([a.inspect, "names", osd], capture_output=True, text=True)
+                    for v in p.stdout.split():
+                        try:
+                            dv = decode_vname(v)
+                        except Exception:
+                            continue
+                        on_disk[(dv["pool"], dv["nspace"], dv["key"], dv["oid"])].append((osd, v))
+                want = collections.defaultdict(set)
+                for n in scope:
+                    pool, ns, loc, name = deletes[n]["ident"]
+                    logged = {(l["osd"], l["vname"]) for l in cands[n]}
+                    for osd, v in on_disk.get((pool_ids.get(pool), ns, loc, name), []):
+                        if (osd, v) not in logged:
+                            disk.setdefault(n, []).append((osd, v))
+                            want[osd].add(v)
+                for osd, vnames in sorted(want.items()):
+                    p = subprocess.run([a.inspect, "check", osd, *sorted(vnames)], capture_output=True, text=True)
+                    for line in p.stdout.splitlines():
+                        if line.startswith("{"):
+                            e = json.loads(line)
+                            entries[(str(e["osd"]), e["vname"])] = e
         bad = []
         details = []
         used = set()
@@ -230,6 +274,16 @@ def main():
                 if good and not ok:
                     ok = True
                     used.add(key)
+            for osd, v in disk.get(n, []):
+                key = (osd, v)
+                e = entries.get(key)
+                rec = {"osd": int(osd), "path": "unlogged", "vname": v,
+                       "found": bool(e and e.get("found")), "intact": bool(e and e.get("intact")),
+                       "data_sha_match": bool(e and e.get("data_sha256") == d["sha"])}
+                seen.append(rec)
+                if rec["found"] and rec["intact"] and rec["data_sha_match"] and key not in used and not ok:
+                    ok = True
+                    used.add(key)
             details.append({"object": ident_str(d["ident"]), "vault": seen, "ok": ok})
             if not ok:
                 bad.append({"object": ident_str(d["ident"]), "expected_sha": d["sha"],
@@ -237,7 +291,9 @@ def main():
                             "problem": "no vault line" if not seen else "no matching intact entry"})
         result["vault_intact"] = {"pass": not bad, "checked": len(deletes),
                                   "failures": bad, "entries": details,
-                                  "vault_lines_in_run": len(lines)}
+                                  "vault_lines_in_run": len(lines), "disk_scan": a.disk_scan,
+                                  "unlogged_copies": sum(1 for x in details for y in x["vault"]
+                                                         if y["path"] == "unlogged" and y.get("found"))}
 
     print(json.dumps(result))
     ok = all(v.get("pass") in (True, None) for k, v in result.items() if isinstance(v, dict))

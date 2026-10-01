@@ -110,15 +110,18 @@ restart_osd() {
 
 # wait_clean [timeout_s]: all PGs active+clean, all OSDs that exist are up, and that
 # holds for 3 consecutive polls (the mgr's PG stats lag the osdmap by a few seconds).
+# RV_ALLOW_DOWN=1 drops the "all OSDs up" part (an OSD deliberately kept down).
 wait_clean() {
   local timeout=${1:-600} start=$SECONDS streak=0
+  local unclean='PG_DEGRADED|PG_AVAILABILITY|OSD_DOWN|recovery|backfill'
+  [[ -n ${RV_ALLOW_DOWN:-} ]] && unclean='PG_DEGRADED|PG_AVAILABILITY|recovery|backfill'
   while (( SECONDS - start < timeout )); do
     if ceph pg stat -f json | python3 -c '
 import json,sys
 s=json.load(sys.stdin)["pg_summary"]
 st=s["num_pg_by_state"]
 ok = len(st)==1 and st[0]["name"]=="active+clean" and st[0]["num"]==s["num_pgs"]
-sys.exit(0 if ok else 1)' && ! ceph health detail | grep -qE 'PG_DEGRADED|PG_AVAILABILITY|OSD_DOWN|recovery|backfill'; then
+sys.exit(0 if ok else 1)' && ! ceph health detail | grep -qE "$unclean"; then
       (( ++streak >= 3 )) && { log "clean after $((SECONDS - start)) s"; return 0; }
     else
       streak=0

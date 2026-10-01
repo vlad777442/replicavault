@@ -140,7 +140,8 @@ run_end() {
   local inspect_flag=()
   (( VAULT_INSPECT )) || inspect_flag=(--no-vault-inspect)
   check=$(python3 "$SCEN_DIR/rvcheck.py" --state "$RUN_STATE" --offsets "$WORK/offsets-$RUN.json" \
-          --mode "$MODE" --inspect "$INSPECT" "${inspect_flag[@]}" 2>"$WORK/rvcheck-$RUN.err") || rc=$?
+          --mode "$MODE" --inspect "$INSPECT" --disk-scan "${RV_DISK_SCAN:-missing}" "${inspect_flag[@]}" \
+          2>"$WORK/rvcheck-$RUN.err") || rc=$?
   [[ -n $check ]] || check='{"rvcheck_error": {"pass": false, "stderr": ""}}'
   # vault-inspect stopped and restarted OSDs; come back to clean before the next run
   wait_clean 900 || clean_ok=false
