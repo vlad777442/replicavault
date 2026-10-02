@@ -1,10 +1,11 @@
 # Revision 1b to the ReplicaVault proposal: coverage corrected, acknowledgement window, measured cost ratios
 
-**Status:** DRAFT for Vlad's review. c03 is done; item 1b-2 (contract item 5) carries a **PROPOSED** restatement below for Vlad to confirm. After that the file is committed as final and frozen like Revisions 1 and 1a.
+**Status:** APPROVED by Vlad on 2026-10-02, including the restated contract item 5 (limited to the tested cases: c01, c03, c04). Frozen from this commit on, like Revisions 1 and 1a.
 
 - Date: 2026-09-29
 - Amends: Revision 1a (`docs/revision-1a-ordered-vault.md`, `43cdc17`). It corrects `results/GATE_REPORT.md` §3 caveat 2 and `notes/design-note.md` §§1 and 4, all left unedited.
 - Ceph commits: v19.2.3 `c92aebb2`; pilot `17451c9`; phase 2 `ef0be10` (primary-first retainer and primary fallback), `25b9d8d` (log line at commit) and `05289b5` (F1: the primary also vaults every delete).
+- Scenarios behind item 5: c01, c03, c04 (`results/phase2/c01-…-20260929T222223`, `c03-…-20260929T194803`, `c04a-…-20261001T200538`, `c04b-…-20261001T235554`).
 - Evidence:
   - `results/phase2/PHASE2_REPORT.md`
   - `notes/b1-design.md` §§1 and 5
@@ -44,7 +45,7 @@ The attacks listed in Revision 1a B1 change as follows:
 
 **Mechanism (phase 2, `ef0be10`).** The retainer is element 1 of the acting set ordered primary-first, or the primary itself when the acting set has no other member. The primary vaults locally when it is the retainer (log `path=fallback`). There is no message, peering, PG log, scrub or backfill change. On the phase 2 prototype, a01–a04 pass 33/33 runs, and s01–s12 still pass 75/75.
 
-## 1b-2. Contract item 5 under a retainer failure (amends Revision 1a B1) — c03 done, restatement PROPOSED
+## 1b-2. Contract item 5 under a single-OSD failure (amends Revision 1a B1)
 
 **Observed (phase 2 c01, 100 runs).** When the retaining OSD crashes while deletes are in flight, the new acting set acknowledges them without any OSD holding a durable vault copy.
 
@@ -59,12 +60,18 @@ The attacks listed in Revision 1a B1 change as follows:
 
 **c03 result** (`results/phase2/c03-retainer-out-during-deletes-*.json`). Per run, the retainer is killed during a stream of 16 deletes, marked out, recovered around, then restarted and purged as a stray.
 
-- **Before the fix** (`25b9d8d`): **261 of 320 acknowledged deletes lost** (19 of 20 runs). They are almost exactly the deletes acknowledged after the kill (261 of 263).
-- **With fix F1** (`05289b5`, the primary also vaults every delete): **0 of 320 lost** (20 of 20 runs). 253 survived only through the primary's copy.
+- **Before the fix** (`25b9d8d`): **164 of 320 acknowledged deletes lost** (18 of 20 runs; corrected after an on-disk recheck). The log-based check first reported 261; the other 97 had durable but unlogged retainer copies (`notes/b1-design.md` §6.4). All the losses are among the 263 deletes acknowledged after the kill.
+- **With fix F1** (`05289b5`, the primary also vaults every delete): **0 of 320 lost** (20 of 20 runs). 230 survived only through the primary's copy.
 
-Proposed restatement, for Vlad to confirm:
+Restatement:
 
-> **5. PROPOSED.** An acknowledged delete implies at least one durable vault copy. Every delete is vaulted by the primary and by the retaining replica, each copy committed before that OSD's own acknowledgement of the delete. The client's acknowledgement waits for the primary's commit, so the primary's copy is durable when the client is answered, and the loss of any single OSD leaves at least one copy. Copies per delete: 2 in steady state (1 when the acting set has a single OSD), more when a missed delete is later applied through recovery.
+> **5.** On the phase 2 prototype with F1 (`05289b5`), in the single-OSD failures tested, every acknowledged delete had an intact vault copy, holding its pre-delete bytes, on an OSD that survived. The check was made after recovery. Pool size 3, min_size 2; 16 concurrent deletes of 4 KiB–8 MiB objects in one PG:
+> - retainer killed, returning into the acting set (c01): 1,600/1,600, 100 runs;
+> - retainer killed, marked out, returning as a stray (c03): 320/320, 20 runs. Before F1: 164/320 lost, 18 of 20 runs;
+> - primary killed, marked out, returning as a stray (c04 A): 320/320, 20 runs;
+> - primary killed, never returning, surviving OSDs only (c04 B): 320/320, 20 runs.
+>
+> Not tested: failure of the third replica; two or more OSD failures; device loss; other pool sizes; erasure-coded pools; other workloads. The tests check for a copy *after recovery*, not at the moment of acknowledgement. A durable copy *at* acknowledgement, and coverage of every single-OSD failure, follow from the code's ordering (the ack waits for the primary's commit; each vault copy is queued ahead of its OSD's remove) but are not shown.
 
 The copy-count consequences for H1 and H3 (two copies per delete) are a proposal-level decision. The proposal's asymmetric retention (§4.2) would let the primary's copy carry a short window.
 

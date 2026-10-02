@@ -1,6 +1,6 @@
 # ReplicaVault — progress update, 2026-09-30
 
-Since the pilot gate passed (2026-09-26, "pass with revised hypotheses"), phase 2 has fixed the problems the pilot exposed. It also found a serious coverage bug, now fixed (F1). With F1, all earlier scenarios pass again. One more failure scenario (c04: losing the primary instead of the retaining replica) is running now. *(Revised 2026-10-01: corrected loss counts, F1 regression and cost added.)*
+Since the pilot gate passed (2026-09-26, "pass with revised hypotheses"), phase 2 has fixed the problems the pilot exposed. It also found a serious coverage bug, now fixed (F1). With F1, all earlier scenarios pass again, and so does losing the primary instead of the retaining replica (c04). *(Revised 2026-10-01: corrected loss counts, F1 regression and cost added. Revised 2026-10-02: c04 added.)*
 
 ## Results
 
@@ -40,15 +40,20 @@ Since the pilot gate passed (2026-09-26, "pass with revised hypotheses"), phase 
 ## Consequences for the proposal
 
 - **H1 (overhead):** with F1, retention costs two copies per delete, not one. The cost grows with object size.
-- **H2 (coverage):** the pilot's gap description is corrected. With F1, losing the retaining replica mid-delete no longer loses acknowledged deletes, whether it comes back into the acting set (c01) or as a stray (c03). Losing the primary instead is being tested now (c04). Until then, "any single OSD failure" is an expectation, not a result.
+- **H2 (coverage):** the pilot's gap description is corrected. With F1, in every single-OSD failure tested, each acknowledged delete still had an intact copy on a surviving OSD after recovery:
+  - retainer killed and back in the acting set (c01): 1,600/1,600;
+  - retainer killed and returning as a stray (c03): 320/320;
+  - primary killed, returning as a stray (c04): 320/320;
+  - primary killed, never returning (c04): 320/320.
+
+  Untested: the third replica, two or more failures, device loss, other pool sizes.
 - **H3 (capacity):** retained bytes are about 2× deleted bytes, and 3× when a replica is deliberately made to miss deletes (scenario a05). The proposal's asymmetric retention windows could give the primary's copy a short window.
 
-All of this is drafted as Revision 1b (`docs/revision-1b-coverage-and-ack-window.md`). The restated contract item 5 is pending my confirmation.
+All of this is recorded in Revision 1b (`docs/revision-1b-coverage-and-ack-window.md`), now approved.
 
 ## In progress / next
 
-- c04: losing the *primary* mid-delete, with it either returning as a stray or never returning (running now).
-- Confirm Revision 1b's item 5 once c04 is in.
+- Revision 1b is approved, with item 5 limited to the tested cases.
 - Decide on a mitigation for the large-object copy cost before the full H1 evaluation.
 
 ## Where to read more

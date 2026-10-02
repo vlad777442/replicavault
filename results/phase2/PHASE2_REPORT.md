@@ -163,7 +163,7 @@ Baselines match: 4 KiB p99 340 ms on both builds, p50 167 vs 171 ms. 4 KiB ops w
 
 Written after Vlad's decisions on this report. Sections 1–7 above are left as written.
 
-**c03** (retainer killed during deletes, marked out, PGs recovered elsewhere, then purged as a stray on return) **lost data on the phase 2 build**: 261 of 320 acknowledged deletes, 19 of 20 runs (`c03-…-20260929T153224.json`). That is finding 2 in its strongest form.
+**c03** (retainer killed during deletes, marked out, PGs recovered elsewhere, then purged as a stray on return) **lost data on the phase 2 build**: **164 of 320 acknowledged deletes, in 18 of 20 runs** (`c03-…-20260929T153224.json`). The log-based check first reported 261; the other 97 had durable but unlogged retainer copies (`notes/b1-design.md` §6.4). That is finding 2 in its strongest form.
 
 The cause is verified in code. A returning OSD whose PGs moved away is a stray: it receives no log, and its copy is removed by `do_delete_work` without any vault (`notes/b1-design.md` §6).
 
@@ -171,7 +171,8 @@ The cause is verified in code. A returning OSD whose PGs moved away is a stray: 
 
 | | Result |
 |---|---|
-| c03 | **20/20 runs, 0 of 320 lost**; 253 deletes survived only through the primary's copy |
+| c03 | **20/20 runs, 0 of 320 lost**; 230 deletes survived only through the primary's copy |
+| c04 (primary killed; A: returns as a stray, B: never returns) | **A 20/20, B 20/20; 0 of 320 lost in each** (`b1-design.md` §6.5) |
 | c01 (rerun) | 100/100 runs; fsck clean 100/100; **0 of 3,282 `vaulted` lines without a durable copy** |
 | Log fix (`25b9d8d`) | Confirmed by the c01 rerun above; before the fix, 148 lines had no copy |
 | Full regression (s01–s12, a01–a05) | **118/118 runs, 1,000/1,000 deletes vaulted** |
@@ -191,4 +192,4 @@ Costs of F1:
 
 **Patch series.** `ceph-patch/p2/` (5 patches) reproduces `05289b5` exactly on a fresh v19.2.3 clone, and builds in 110 s incrementally.
 
-**Revision 1b:** contract item 5 carries a proposed restatement (F1 guarantees a durable copy at acknowledgement under any single OSD failure; that is inferred, and tested by c03 and c01). It awaits Vlad.
+**Revision 1b:** contract item 5 carries a restatement limited to the tested cases (c01, c03, c04): after recovery, an intact copy on a surviving OSD in every tested single-OSD failure. Durability at acknowledgement, and untested failure modes, are stated as inferred. Approved by Vlad on 2026-10-02.

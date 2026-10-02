@@ -111,3 +111,4 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Advisor note updated (F1 regression, F1 cost, shared-disk caveat, corrected counts, c04 pending).
 - c04 complete. Vanilla A 20/20, B 20/20. **F1 A 20/20, B 20/20; 0 of 320 acknowledged deletes lost in each** (305 and 300 acked after the primary's kill). Survivors: the retainer's repop copy, or the new primary's and new retainer's copies for resent ops; 30 of P's copies in A were durable but unlogged and found by the disk scan. `b1-design.md` §6.5.
 - Item 3 (rewrite Revision 1b item 5 and the PHASE2_REPORT addendum claim to only what c01, c03 and c04 support): wording drafted and shown to Vlad, **not committed**.
+- Vlad approved the item 3 wording. Committed: Revision 1b final (item 5 limited to the c01/c03/c04 evidence; counts corrected to 164 and 230), PHASE2_REPORT addendum corrected (adds c04), advisor note with c04 results.
