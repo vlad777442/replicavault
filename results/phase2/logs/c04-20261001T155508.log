@@ -1,0 +1,654 @@
+15:57:17 all OSDs running vanilla
+15:57:17 scenario c04a-primary-failure: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=20 pool=rvtest
+15:57:24 clean after 7 s
+15:57:24 --- c04a-primary-failure run 1 {"variant": "A", "kill_delay_s": 0.77}
+15:59:49 PGs clean after 134 s
+15:59:56 osd.4 up (pid 2955816)
+16:02:54 clean after 162 s
+16:03:01 clean after 7 s
+16:04:11 deep-scrubbed 32 PGs in 70 s
+16:04:18 clean after 6 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:04:19 --- c04a-primary-failure run 2 {"variant": "A", "kill_delay_s": 0.201}
+16:06:42 PGs clean after 133 s
+16:06:52 osd.0 up (pid 2962446)
+16:09:55 clean after 167 s
+16:10:02 clean after 7 s
+16:11:08 deep-scrubbed 32 PGs in 66 s
+16:11:15 clean after 6 s
+run 2: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:11:15 --- c04a-primary-failure run 3 {"variant": "A", "kill_delay_s": 1.458}
+16:13:44 PGs clean after 135 s
+16:13:55 osd.4 up (pid 2969108)
+16:16:47 clean after 156 s
+16:16:54 clean after 7 s
+16:18:00 deep-scrubbed 32 PGs in 66 s
+16:18:07 clean after 6 s
+run 3: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:18:08 --- c04a-primary-failure run 4 {"variant": "A", "kill_delay_s": 0.618}
+16:20:39 PGs clean after 139 s
+16:20:50 osd.1 up (pid 2975708)
+16:24:06 clean after 178 s
+16:24:13 clean after 7 s
+16:25:21 deep-scrubbed 32 PGs in 68 s
+16:25:29 clean after 7 s
+run 4: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:25:29 --- c04a-primary-failure run 5 {"variant": "A", "kill_delay_s": 0.374}
+16:28:01 PGs clean after 140 s
+16:28:11 osd.1 up (pid 2982694)
+16:31:29 clean after 180 s
+16:31:35 clean after 6 s
+16:32:43 deep-scrubbed 32 PGs in 68 s
+16:32:49 clean after 6 s
+run 5: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:32:50 --- c04a-primary-failure run 6 {"variant": "A", "kill_delay_s": 1.061}
+16:35:09 PGs clean after 127 s
+16:35:19 osd.3 up (pid 2989457)
+16:37:52 clean after 138 s
+16:37:58 clean after 6 s
+16:39:08 deep-scrubbed 32 PGs in 70 s
+16:39:16 clean after 7 s
+run 6: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:39:16 --- c04a-primary-failure run 7 {"variant": "A", "kill_delay_s": 0.586}
+16:41:43 PGs clean after 136 s
+16:41:55 osd.0 up (pid 2996069)
+16:44:53 clean after 162 s
+16:44:59 clean after 6 s
+16:46:07 deep-scrubbed 32 PGs in 68 s
+16:46:14 clean after 6 s
+run 7: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:46:14 --- c04a-primary-failure run 8 {"variant": "A", "kill_delay_s": 0.082}
+16:48:34 PGs clean after 126 s
+16:48:44 osd.0 up (pid 3002621)
+16:51:39 clean after 159 s
+16:51:46 clean after 7 s
+16:52:52 deep-scrubbed 32 PGs in 66 s
+16:52:59 clean after 6 s
+run 8: PASS  [1=ok 2=ok 3=skip 4=ok]
+16:53:00 --- c04a-primary-failure run 9 {"variant": "A", "kill_delay_s": 0.526}
+16:55:33 PGs clean after 141 s
+16:55:43 osd.1 up (pid 3009267)
+16:58:55 clean after 174 s
+16:59:02 clean after 7 s
+17:00:07 deep-scrubbed 32 PGs in 65 s
+17:00:14 clean after 6 s
+run 9: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:00:15 --- c04a-primary-failure run 10 {"variant": "A", "kill_delay_s": 0.182}
+17:02:49 PGs clean after 143 s
+17:02:58 osd.1 up (pid 3016127)
+17:06:16 clean after 180 s
+17:06:22 clean after 6 s
+17:07:32 deep-scrubbed 32 PGs in 70 s
+17:07:39 clean after 6 s
+run 10: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:07:39 --- c04a-primary-failure run 11 {"variant": "A", "kill_delay_s": 1.158}
+17:10:09 PGs clean after 138 s
+17:10:23 osd.4 up (pid 3023017)
+17:13:19 clean after 160 s
+17:13:25 clean after 6 s
+17:14:33 deep-scrubbed 32 PGs in 68 s
+17:14:40 clean after 7 s
+run 11: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:14:40 --- c04a-primary-failure run 12 {"variant": "A", "kill_delay_s": 1.183}
+17:17:15 PGs clean after 143 s
+17:17:25 osd.1 up (pid 3029663)
+17:20:48 clean after 185 s
+17:20:54 clean after 6 s
+17:22:02 deep-scrubbed 32 PGs in 68 s
+17:22:09 clean after 6 s
+run 12: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:22:09 --- c04a-primary-failure run 13 {"variant": "A", "kill_delay_s": 0.884}
+17:24:44 PGs clean after 142 s
+17:24:56 osd.3 up (pid 3036639)
+17:27:35 clean after 145 s
+17:27:41 clean after 6 s
+17:28:48 deep-scrubbed 32 PGs in 67 s
+17:28:55 clean after 6 s
+run 13: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:28:56 --- c04a-primary-failure run 14 {"variant": "A", "kill_delay_s": 1.003}
+17:31:44 PGs clean after 155 s
+17:31:57 osd.0 up (pid 3043249)
+17:34:59 clean after 166 s
+17:35:05 clean after 6 s
+17:36:10 deep-scrubbed 32 PGs in 65 s
+17:36:17 clean after 6 s
+run 14: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:36:18 --- c04a-primary-failure run 15 {"variant": "A", "kill_delay_s": 0.697}
+17:38:55 PGs clean after 146 s
+17:39:05 osd.0 up (pid 3050221)
+17:42:06 clean after 165 s
+17:42:12 clean after 6 s
+17:43:19 deep-scrubbed 32 PGs in 67 s
+17:43:26 clean after 6 s
+run 15: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:43:26 --- c04a-primary-failure run 16 {"variant": "A", "kill_delay_s": 0.737}
+17:45:13 PGs clean after 94 s
+17:45:31 osd.2 up (pid 3056377)
+17:47:44 clean after 121 s
+17:47:51 clean after 6 s
+17:49:00 deep-scrubbed 32 PGs in 69 s
+17:49:07 clean after 6 s
+run 16: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:49:08 --- c04a-primary-failure run 17 {"variant": "A", "kill_delay_s": 0.8}
+17:51:18 PGs clean after 118 s
+17:51:28 osd.3 up (pid 3062296)
+17:54:02 clean after 140 s
+17:54:09 clean after 6 s
+17:55:12 deep-scrubbed 32 PGs in 63 s
+17:55:19 clean after 6 s
+run 17: PASS  [1=ok 2=ok 3=skip 4=ok]
+17:55:20 --- c04a-primary-failure run 18 {"variant": "A", "kill_delay_s": 0.417}
+17:57:46 PGs clean after 135 s
+17:57:59 osd.1 up (pid 3068568)
+18:01:27 clean after 190 s
+18:01:33 clean after 6 s
+18:02:40 deep-scrubbed 32 PGs in 67 s
+18:02:48 clean after 7 s
+run 18: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:02:48 --- c04a-primary-failure run 19 {"variant": "A", "kill_delay_s": 0.614}
+18:05:13 PGs clean after 133 s
+18:05:24 osd.1 up (pid 3075521)
+18:08:46 clean after 185 s
+18:08:52 clean after 6 s
+18:09:58 deep-scrubbed 32 PGs in 66 s
+18:10:06 clean after 6 s
+run 19: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:10:06 --- c04a-primary-failure run 20 {"variant": "A", "kill_delay_s": 1.29}
+18:12:44 PGs clean after 145 s
+18:12:54 osd.1 up (pid 3082514)
+18:16:17 clean after 185 s
+18:16:23 clean after 6 s
+18:17:30 deep-scrubbed 32 PGs in 67 s
+18:17:37 clean after 6 s
+run 20: PASS  [1=ok 2=ok 3=skip 4=ok]
+c04a-primary-failure [vanilla]: 20/20 runs passed -> /users/vlad777/research/replicavault/results/phase2/c04a-primary-failure-20261001T155717.json
+18:17:38 scenario c04b-primary-failure: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=20 pool=rvtest
+18:17:44 clean after 6 s
+18:17:45 --- c04b-primary-failure run 1 {"variant": "B", "kill_delay_s": 0.075}
+18:19:38 PGs clean after 101 s
+18:19:45 clean after 6 s
+18:20:52 deep-scrubbed 32 PGs in 67 s
+18:20:59 clean after 6 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:21:11 osd.2 up (pid 3090842)
+18:22:04 clean after 52 s
+18:22:04 --- c04b-primary-failure run 2 {"variant": "B", "kill_delay_s": 1.211}
+18:24:42 PGs clean after 145 s
+18:24:49 clean after 6 s
+18:25:57 deep-scrubbed 32 PGs in 68 s
+18:26:04 clean after 6 s
+run 2: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:26:20 osd.0 up (pid 3096084)
+18:28:07 clean after 106 s
+18:28:07 --- c04b-primary-failure run 3 {"variant": "B", "kill_delay_s": 1.38}
+18:30:51 PGs clean after 153 s
+18:30:58 clean after 6 s
+18:32:08 deep-scrubbed 32 PGs in 70 s
+18:32:15 clean after 6 s
+run 3: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:32:27 osd.1 up (pid 3102181)
+18:34:21 clean after 112 s
+18:34:21 --- c04b-primary-failure run 4 {"variant": "B", "kill_delay_s": 0.328}
+18:37:04 PGs clean after 152 s
+18:37:10 clean after 6 s
+18:38:20 deep-scrubbed 32 PGs in 70 s
+18:38:27 clean after 6 s
+run 4: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:38:37 osd.0 up (pid 3108603)
+18:39:49 clean after 72 s
+18:39:49 --- c04b-primary-failure run 5 {"variant": "B", "kill_delay_s": 1.097}
+18:42:13 PGs clean after 130 s
+18:42:20 clean after 6 s
+18:43:29 deep-scrubbed 32 PGs in 69 s
+18:43:36 clean after 6 s
+run 5: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:43:52 osd.4 up (pid 3113925)
+18:45:28 clean after 94 s
+18:45:28 --- c04b-primary-failure run 6 {"variant": "B", "kill_delay_s": 0.491}
+18:48:03 PGs clean after 144 s
+18:48:10 clean after 6 s
+18:49:20 deep-scrubbed 32 PGs in 70 s
+18:49:27 clean after 6 s
+run 6: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:49:37 osd.1 up (pid 3120005)
+18:50:41 clean after 63 s
+18:50:41 --- c04b-primary-failure run 7 {"variant": "B", "kill_delay_s": 1.137}
+18:52:54 PGs clean after 121 s
+18:53:01 clean after 6 s
+18:54:14 deep-scrubbed 32 PGs in 73 s
+18:54:21 clean after 6 s
+run 7: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:54:36 osd.3 up (pid 3125133)
+18:56:02 clean after 85 s
+18:56:03 --- c04b-primary-failure run 8 {"variant": "B", "kill_delay_s": 0.962}
+18:57:51 PGs clean after 96 s
+18:57:58 clean after 7 s
+18:59:07 deep-scrubbed 32 PGs in 69 s
+18:59:15 clean after 6 s
+run 8: PASS  [1=ok 2=ok 3=skip 4=ok]
+18:59:28 osd.2 up (pid 3130224)
+19:00:30 clean after 62 s
+19:00:31 --- c04b-primary-failure run 9 {"variant": "B", "kill_delay_s": 0.045}
+19:03:01 PGs clean after 137 s
+19:03:08 clean after 7 s
+19:04:18 deep-scrubbed 32 PGs in 70 s
+19:04:25 clean after 6 s
+run 9: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:04:35 osd.1 up (pid 3135556)
+19:06:26 clean after 110 s
+19:06:27 --- c04b-primary-failure run 10 {"variant": "B", "kill_delay_s": 1.311}
+19:08:49 PGs clean after 131 s
+19:08:56 clean after 6 s
+19:10:05 deep-scrubbed 32 PGs in 69 s
+19:10:13 clean after 7 s
+run 10: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:10:22 osd.1 up (pid 3141446)
+19:11:30 clean after 67 s
+19:11:30 --- c04b-primary-failure run 11 {"variant": "B", "kill_delay_s": 0.672}
+19:13:52 PGs clean after 130 s
+19:13:58 clean after 6 s
+19:15:10 deep-scrubbed 32 PGs in 72 s
+19:15:17 clean after 6 s
+run 11: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:15:28 osd.4 up (pid 3146726)
+19:16:51 clean after 83 s
+19:16:52 --- c04b-primary-failure run 12 {"variant": "B", "kill_delay_s": 0.108}
+19:19:11 PGs clean after 126 s
+19:19:17 clean after 6 s
+19:20:28 deep-scrubbed 32 PGs in 71 s
+19:20:35 clean after 6 s
+run 12: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:20:44 osd.4 up (pid 3152143)
+19:22:24 clean after 99 s
+19:22:24 --- c04b-primary-failure run 13 {"variant": "B", "kill_delay_s": 0.455}
+19:24:53 PGs clean after 138 s
+19:25:00 clean after 7 s
+19:26:09 deep-scrubbed 32 PGs in 69 s
+19:26:16 clean after 6 s
+run 13: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:26:26 osd.1 up (pid 3158110)
+19:27:38 clean after 71 s
+19:27:38 --- c04b-primary-failure run 14 {"variant": "B", "kill_delay_s": 0.94}
+19:29:58 PGs clean after 128 s
+19:30:04 clean after 6 s
+19:31:17 deep-scrubbed 32 PGs in 73 s
+19:31:24 clean after 6 s
+run 14: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:31:38 osd.0 up (pid 3163365)
+19:33:15 clean after 95 s
+19:33:15 --- c04b-primary-failure run 15 {"variant": "B", "kill_delay_s": 1.009}
+19:35:40 PGs clean after 133 s
+19:35:46 clean after 6 s
+19:36:56 deep-scrubbed 32 PGs in 70 s
+19:37:03 clean after 6 s
+run 15: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:37:11 osd.1 up (pid 3169191)
+19:38:18 clean after 67 s
+19:38:19 --- c04b-primary-failure run 16 {"variant": "B", "kill_delay_s": 1.009}
+19:40:07 PGs clean after 97 s
+19:40:13 clean after 6 s
+19:41:23 deep-scrubbed 32 PGs in 70 s
+19:41:30 clean after 6 s
+run 16: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:41:44 osd.2 up (pid 3174238)
+19:42:52 clean after 67 s
+19:42:52 --- c04b-primary-failure run 17 {"variant": "B", "kill_delay_s": 0.814}
+19:45:07 PGs clean after 123 s
+19:45:13 clean after 6 s
+19:46:24 deep-scrubbed 32 PGs in 71 s
+19:46:31 clean after 6 s
+run 17: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:46:43 osd.3 up (pid 3179365)
+19:47:23 clean after 40 s
+19:47:24 --- c04b-primary-failure run 18 {"variant": "B", "kill_delay_s": 0.732}
+19:49:49 PGs clean after 133 s
+19:49:56 clean after 6 s
+19:51:06 deep-scrubbed 32 PGs in 70 s
+19:51:15 clean after 8 s
+run 18: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:51:26 osd.0 up (pid 3184338)
+19:52:49 clean after 81 s
+19:52:49 --- c04b-primary-failure run 19 {"variant": "B", "kill_delay_s": 0.852}
+19:55:18 PGs clean after 138 s
+19:55:24 clean after 6 s
+19:56:34 deep-scrubbed 32 PGs in 70 s
+19:56:41 clean after 6 s
+run 19: PASS  [1=ok 2=ok 3=skip 4=ok]
+19:56:51 osd.1 up (pid 3189858)
+19:57:39 clean after 47 s
+19:57:39 --- c04b-primary-failure run 20 {"variant": "B", "kill_delay_s": 0.817}
+20:00:05 PGs clean after 134 s
+20:00:12 clean after 7 s
+20:01:22 deep-scrubbed 32 PGs in 70 s
+20:01:29 clean after 6 s
+run 20: PASS  [1=ok 2=ok 3=skip 4=ok]
+20:01:38 osd.1 up (pid 3194923)
+20:03:18 clean after 99 s
+c04b-primary-failure [vanilla]: 20/20 runs passed -> /users/vlad777/research/replicavault/results/phase2/c04b-primary-failure-20261001T181737.json
+20:05:38 all OSDs running p2
+20:05:38 scenario c04a-primary-failure: mode=p2 ceph=05289b51c83c54c095a92b4c249373c8fb22e47f runs=20 pool=rvtest
+20:05:45 clean after 7 s
+20:05:45 --- c04a-primary-failure run 1 {"variant": "A", "kill_delay_s": 0.369}
+20:08:16 PGs clean after 138 s
+20:08:25 osd.1 up (pid 3203661)
+20:11:46 clean after 183 s
+20:11:52 clean after 6 s
+20:13:00 deep-scrubbed 32 PGs in 68 s
+20:18:00 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:18:01 --- c04a-primary-failure run 2 {"variant": "A", "kill_delay_s": 0.368}
+20:20:36 PGs clean after 139 s
+20:20:43 osd.1 up (pid 3235527)
+20:24:07 clean after 187 s
+20:24:13 clean after 6 s
+20:25:22 deep-scrubbed 32 PGs in 69 s
+20:29:33 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:29:33 --- c04a-primary-failure run 3 {"variant": "A", "kill_delay_s": 1.422}
+20:32:04 PGs clean after 137 s
+20:32:11 osd.1 up (pid 3267545)
+20:35:26 clean after 177 s
+20:35:32 clean after 6 s
+20:36:38 deep-scrubbed 32 PGs in 66 s
+20:41:14 clean after 13 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:41:15 --- c04a-primary-failure run 4 {"variant": "A", "kill_delay_s": 1.025}
+20:43:55 PGs clean after 142 s
+20:44:03 osd.1 up (pid 3298512)
+20:47:25 clean after 185 s
+20:47:31 clean after 6 s
+20:48:41 deep-scrubbed 32 PGs in 70 s
+20:53:47 clean after 14 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+20:53:47 --- c04a-primary-failure run 5 {"variant": "A", "kill_delay_s": 0.379}
+20:56:06 PGs clean after 123 s
+20:56:14 osd.3 up (pid 3331144)
+20:58:57 clean after 148 s
+20:59:04 clean after 7 s
+21:00:10 deep-scrubbed 32 PGs in 66 s
+21:04:54 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:04:55 --- c04a-primary-failure run 6 {"variant": "A", "kill_delay_s": 0.418}
+21:07:11 PGs clean after 121 s
+21:07:19 osd.3 up (pid 3362635)
+21:09:56 clean after 141 s
+21:10:02 clean after 6 s
+21:11:08 deep-scrubbed 32 PGs in 66 s
+21:15:55 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:15:56 --- c04a-primary-failure run 7 {"variant": "A", "kill_delay_s": 0.018}
+21:18:24 PGs clean after 133 s
+21:18:32 osd.4 up (pid 3393583)
+21:21:33 clean after 165 s
+21:21:39 clean after 6 s
+21:22:48 deep-scrubbed 32 PGs in 69 s
+21:27:45 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:27:45 --- c04a-primary-failure run 8 {"variant": "A", "kill_delay_s": 1.493}
+21:29:38 PGs clean after 94 s
+21:29:46 osd.2 up (pid 3424995)
+21:31:59 clean after 122 s
+21:32:05 clean after 6 s
+21:33:13 deep-scrubbed 32 PGs in 68 s
+21:37:35 clean after 14 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:37:35 --- c04a-primary-failure run 9 {"variant": "A", "kill_delay_s": 0.14}
+21:40:14 PGs clean after 145 s
+21:40:22 osd.1 up (pid 3456162)
+21:43:50 clean after 190 s
+21:43:56 clean after 6 s
+21:45:02 deep-scrubbed 32 PGs in 66 s
+21:49:32 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+21:49:32 --- c04a-primary-failure run 10 {"variant": "A", "kill_delay_s": 1.164}
+21:51:45 PGs clean after 118 s
+21:51:53 osd.3 up (pid 3487202)
+21:54:33 clean after 145 s
+21:54:40 clean after 7 s
+21:55:52 deep-scrubbed 32 PGs in 72 s
+22:01:03 clean after 14 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:01:03 --- c04a-primary-failure run 11 {"variant": "A", "kill_delay_s": 1.404}
+22:02:52 PGs clean after 94 s
+22:03:00 osd.2 up (pid 3518114)
+22:05:18 clean after 127 s
+22:05:24 clean after 6 s
+22:06:33 deep-scrubbed 32 PGs in 69 s
+22:11:27 clean after 11 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:11:28 --- c04a-primary-failure run 12 {"variant": "A", "kill_delay_s": 1.436}
+22:13:57 PGs clean after 132 s
+22:14:05 osd.0 up (pid 3550476)
+22:17:04 clean after 164 s
+22:17:11 clean after 6 s
+22:18:19 deep-scrubbed 32 PGs in 68 s
+22:22:48 clean after 13 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:22:49 --- c04a-primary-failure run 13 {"variant": "A", "kill_delay_s": 1.292}
+22:24:43 PGs clean after 99 s
+22:24:50 osd.2 up (pid 3581389)
+22:27:00 clean after 119 s
+22:27:06 clean after 6 s
+22:28:17 deep-scrubbed 32 PGs in 71 s
+22:33:32 clean after 13 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:33:33 --- c04a-primary-failure run 14 {"variant": "A", "kill_delay_s": 0.935}
+22:35:21 PGs clean after 94 s
+22:35:30 osd.2 up (pid 3612758)
+22:37:51 clean after 129 s
+22:37:57 clean after 6 s
+22:39:08 deep-scrubbed 32 PGs in 71 s
+22:44:15 clean after 11 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:44:15 --- c04a-primary-failure run 15 {"variant": "A", "kill_delay_s": 0.572}
+22:46:49 PGs clean after 138 s
+22:46:56 osd.4 up (pid 3644554)
+22:49:55 clean after 164 s
+22:50:01 clean after 6 s
+22:51:11 deep-scrubbed 32 PGs in 70 s
+22:56:11 clean after 11 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok]
+22:56:11 --- c04a-primary-failure run 16 {"variant": "A", "kill_delay_s": 1.111}
+22:58:45 PGs clean after 138 s
+22:58:54 osd.1 up (pid 3676455)
+23:02:11 clean after 179 s
+23:02:18 clean after 7 s
+23:03:27 deep-scrubbed 32 PGs in 69 s
+23:08:03 clean after 12 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok]
+23:08:03 --- c04a-primary-failure run 17 {"variant": "A", "kill_delay_s": 1.172}
+23:10:30 PGs clean after 134 s
+23:10:39 osd.4 up (pid 3707572)
+23:13:35 clean after 161 s
+23:13:41 clean after 6 s
+23:14:50 deep-scrubbed 32 PGs in 69 s
+23:19:21 clean after 13 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok]
+23:19:22 --- c04a-primary-failure run 18 {"variant": "A", "kill_delay_s": 0.097}
+23:22:01 PGs clean after 143 s
+23:22:09 osd.1 up (pid 3737339)
+23:25:38 clean after 191 s
+23:25:44 clean after 6 s
+23:26:55 deep-scrubbed 32 PGs in 71 s
+23:31:51 clean after 12 s
+run 18: PASS  [1=ok 2=ok 3=ok 4=ok]
+23:31:51 --- c04a-primary-failure run 19 {"variant": "A", "kill_delay_s": 0.199}
+23:34:26 PGs clean after 137 s
+23:34:33 osd.1 up (pid 3769301)
+23:37:56 clean after 184 s
+23:38:02 clean after 6 s
+23:39:10 deep-scrubbed 32 PGs in 68 s
+23:43:48 clean after 14 s
+run 19: PASS  [1=ok 2=ok 3=ok 4=ok]
+23:43:48 --- c04a-primary-failure run 20 {"variant": "A", "kill_delay_s": 0.69}
+23:46:15 PGs clean after 132 s
+23:46:24 osd.0 up (pid 3801361)
+23:49:27 clean after 167 s
+23:49:34 clean after 7 s
+23:50:42 deep-scrubbed 32 PGs in 68 s
+23:55:54 clean after 11 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok]
+c04a-primary-failure [p2]: 20/20 runs passed -> /users/vlad777/research/replicavault/results/phase2/c04a-primary-failure-20261001T200538.json
+23:55:55 scenario c04b-primary-failure: mode=p2 ceph=05289b51c83c54c095a92b4c249373c8fb22e47f runs=20 pool=rvtest
+23:56:01 clean after 6 s
+23:56:01 --- c04b-primary-failure run 1 {"variant": "B", "kill_delay_s": 1.035}
+23:58:30 PGs clean after 132 s
+23:58:37 clean after 6 s
+23:59:50 deep-scrubbed 32 PGs in 73 s
+00:03:40 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:03:49 osd.0 up (pid 3857369)
+00:05:25 clean after 96 s
+00:05:26 --- c04b-primary-failure run 2 {"variant": "B", "kill_delay_s": 0.898}
+00:07:50 PGs clean after 128 s
+00:07:56 clean after 6 s
+00:09:08 deep-scrubbed 32 PGs in 72 s
+00:12:56 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:13:04 osd.0 up (pid 3884220)
+00:14:37 clean after 92 s
+00:14:37 --- c04b-primary-failure run 3 {"variant": "B", "kill_delay_s": 0.663}
+00:17:02 PGs clean after 132 s
+00:17:09 clean after 6 s
+00:18:26 deep-scrubbed 32 PGs in 77 s
+00:21:39 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:21:47 osd.0 up (pid 3906630)
+00:22:50 clean after 62 s
+00:22:50 --- c04b-primary-failure run 4 {"variant": "B", "kill_delay_s": 1.17}
+00:25:11 PGs clean after 127 s
+00:25:18 clean after 6 s
+00:26:33 deep-scrubbed 32 PGs in 75 s
+00:30:02 clean after 10 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:30:11 osd.0 up (pid 3930068)
+00:31:14 clean after 62 s
+00:31:14 --- c04b-primary-failure run 5 {"variant": "B", "kill_delay_s": 0.266}
+00:33:34 PGs clean after 126 s
+00:33:41 clean after 7 s
+00:34:52 deep-scrubbed 32 PGs in 71 s
+00:38:33 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:38:42 osd.3 up (pid 3955866)
+00:40:17 clean after 94 s
+00:40:17 --- c04b-primary-failure run 6 {"variant": "B", "kill_delay_s": 0.648}
+00:42:44 PGs clean after 131 s
+00:42:50 clean after 6 s
+00:44:06 deep-scrubbed 32 PGs in 76 s
+00:48:33 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:48:40 osd.0 up (pid 3984548)
+00:49:50 clean after 69 s
+00:49:51 --- c04b-primary-failure run 7 {"variant": "B", "kill_delay_s": 0.981}
+00:51:41 PGs clean after 94 s
+00:51:48 clean after 6 s
+00:52:59 deep-scrubbed 32 PGs in 71 s
+00:56:53 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+00:57:02 osd.2 up (pid 4011669)
+00:58:24 clean after 81 s
+00:58:25 --- c04b-primary-failure run 8 {"variant": "B", "kill_delay_s": 0.864}
+01:00:47 PGs clean after 127 s
+01:00:54 clean after 6 s
+01:02:06 deep-scrubbed 32 PGs in 72 s
+01:05:41 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:05:49 osd.3 up (pid 4037613)
+01:06:49 clean after 60 s
+01:06:50 --- c04b-primary-failure run 9 {"variant": "B", "kill_delay_s": 1.206}
+01:09:03 PGs clean after 121 s
+01:09:09 clean after 6 s
+01:10:21 deep-scrubbed 32 PGs in 72 s
+01:13:37 clean after 12 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:13:45 osd.3 up (pid 4059455)
+01:14:34 clean after 48 s
+01:14:34 --- c04b-primary-failure run 10 {"variant": "B", "kill_delay_s": 0.032}
+01:17:16 PGs clean after 145 s
+01:17:22 clean after 6 s
+01:18:35 deep-scrubbed 32 PGs in 73 s
+01:22:53 clean after 14 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:23:02 osd.1 up (pid 4088919)
+01:24:37 clean after 94 s
+01:24:37 --- c04b-primary-failure run 11 {"variant": "B", "kill_delay_s": 1.267}
+01:26:23 PGs clean after 93 s
+01:26:29 clean after 6 s
+01:27:42 deep-scrubbed 32 PGs in 73 s
+01:30:35 clean after 10 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:30:44 osd.2 up (pid 4108161)
+01:31:44 clean after 60 s
+01:31:44 --- c04b-primary-failure run 12 {"variant": "B", "kill_delay_s": 0.074}
+01:34:03 PGs clean after 125 s
+01:34:10 clean after 6 s
+01:35:20 deep-scrubbed 32 PGs in 70 s
+01:39:34 clean after 11 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:39:42 osd.3 up (pid 4136954)
+01:41:13 clean after 90 s
+01:41:13 --- c04b-primary-failure run 13 {"variant": "B", "kill_delay_s": 1.263}
+01:43:54 PGs clean after 143 s
+01:44:01 clean after 6 s
+01:45:16 deep-scrubbed 32 PGs in 75 s
+01:49:08 clean after 11 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:49:16 osd.1 up (pid 4163678)
+01:50:18 clean after 62 s
+01:50:19 --- c04b-primary-failure run 14 {"variant": "B", "kill_delay_s": 0.865}
+01:52:41 PGs clean after 126 s
+01:52:48 clean after 6 s
+01:54:01 deep-scrubbed 32 PGs in 73 s
+01:57:37 clean after 11 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok]
+01:57:45 osd.3 up (pid 4188669)
+01:59:18 clean after 92 s
+01:59:18 --- c04b-primary-failure run 15 {"variant": "B", "kill_delay_s": 1.156}
+02:01:11 PGs clean after 96 s
+02:01:18 clean after 6 s
+02:02:29 deep-scrubbed 32 PGs in 71 s
+02:05:55 clean after 11 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:06:04 osd.2 up (pid 19178)
+02:07:31 clean after 85 s
+02:07:32 --- c04b-primary-failure run 16 {"variant": "B", "kill_delay_s": 0.742}
+02:10:02 PGs clean after 135 s
+02:10:09 clean after 7 s
+02:11:25 deep-scrubbed 32 PGs in 76 s
+02:15:29 clean after 11 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:15:37 osd.0 up (pid 46565)
+02:16:58 clean after 81 s
+02:16:58 --- c04b-primary-failure run 17 {"variant": "B", "kill_delay_s": 0.273}
+02:19:12 PGs clean after 120 s
+02:19:19 clean after 7 s
+02:20:30 deep-scrubbed 32 PGs in 71 s
+02:25:00 clean after 11 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:25:08 osd.3 up (pid 75938)
+02:26:40 clean after 90 s
+02:26:41 --- c04b-primary-failure run 18 {"variant": "B", "kill_delay_s": 1.145}
+02:29:10 PGs clean after 134 s
+02:29:17 clean after 7 s
+02:30:37 deep-scrubbed 32 PGs in 80 s
+02:34:20 clean after 11 s
+run 18: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:34:28 osd.0 up (pid 100948)
+02:36:10 clean after 100 s
+02:36:10 --- c04b-primary-failure run 19 {"variant": "B", "kill_delay_s": 1.239}
+02:38:50 PGs clean after 142 s
+02:38:57 clean after 6 s
+02:40:13 deep-scrubbed 32 PGs in 76 s
+02:44:16 clean after 11 s
+run 19: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:44:24 osd.1 up (pid 128390)
+02:46:19 clean after 113 s
+02:46:20 --- c04b-primary-failure run 20 {"variant": "B", "kill_delay_s": 0.688}
+02:48:49 PGs clean after 135 s
+02:48:56 clean after 7 s
+02:50:11 deep-scrubbed 32 PGs in 75 s
+02:54:20 clean after 11 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok]
+02:54:29 osd.0 up (pid 155955)
+02:56:05 clean after 96 s
+c04b-primary-failure [p2]: 20/20 runs passed -> /users/vlad777/research/replicavault/results/phase2/c04b-primary-failure-20261001T235554.json

@@ -1,0 +1,1017 @@
+{
+ "scenario": "c04a-primary-failure",
+ "timestamp": "20261001T155717",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/c04-primary-failure.sh ",
+ "pool": "rvtest",
+ "duration_s": 8420,
+ "summary": {
+  "runs": 20,
+  "runs_passed": 20,
+  "1_no_resurrection": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 20
+  },
+  "4_live_intact": {
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.77
+   },
+   "notes": {
+    "pg": "1.5",
+    "acting_before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "primary": 4,
+    "retainer": 2,
+    "acting_without_p": "pg=1.5 up=[2, 3, 0] acting=[2, 3, 0] primary=2",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 414,
+   "crash": {
+    "kill_at_s": 0.7709,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 4,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.201
+   },
+   "notes": {
+    "pg": "1.1c",
+    "acting_before": "pg=1.1c up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "primary": 0,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1c up=[3, 4, 1] acting=[3, 4, 1] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 14
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 416,
+   "crash": {
+    "kill_at_s": 0.2016,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 0,
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.458
+   },
+   "notes": {
+    "pg": "1.13",
+    "acting_before": "pg=1.13 up=[4, 3, 1] acting=[4, 3, 1] primary=4",
+    "primary": 4,
+    "retainer": 3,
+    "acting_without_p": "pg=1.13 up=[3, 1, 0] acting=[3, 1, 0] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 14
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 412,
+   "crash": {
+    "kill_at_s": 1.4588,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 4,
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.618
+   },
+   "notes": {
+    "pg": "1.a",
+    "acting_before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "primary": 1,
+    "retainer": 2,
+    "acting_without_p": "pg=1.a up=[2, 4, 0] acting=[2, 4, 0] primary=2",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 441,
+   "crash": {
+    "kill_at_s": 0.6188,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.374
+   },
+   "notes": {
+    "pg": "1.b",
+    "acting_before": "pg=1.b up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "primary": 1,
+    "retainer": 0,
+    "acting_without_p": "pg=1.b up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 440,
+   "crash": {
+    "kill_at_s": 0.3747,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.061
+   },
+   "notes": {
+    "pg": "1.4",
+    "acting_before": "pg=1.4 up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "primary": 3,
+    "retainer": 0,
+    "acting_without_p": "pg=1.4 up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 387,
+   "crash": {
+    "kill_at_s": 1.0617,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 3,
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.586
+   },
+   "notes": {
+    "pg": "1.1c",
+    "acting_before": "pg=1.1c up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "primary": 0,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1c up=[3, 4, 1] acting=[3, 4, 1] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 418,
+   "crash": {
+    "kill_at_s": 0.5867,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 0,
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.082
+   },
+   "notes": {
+    "pg": "1.12",
+    "acting_before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "primary": 0,
+    "retainer": 1,
+    "acting_without_p": "pg=1.12 up=[1, 3, 4] acting=[1, 3, 4] primary=1",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 405,
+   "crash": {
+    "kill_at_s": 0.0827,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0
+   },
+   "failed_osd": 0,
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.526
+   },
+   "notes": {
+    "pg": "1.a",
+    "acting_before": "pg=1.a up=[1, 2, 4] acting=[1, 2, 4] primary=1",
+    "primary": 1,
+    "retainer": 2,
+    "acting_without_p": "pg=1.a up=[2, 4, 0] acting=[2, 4, 0] primary=2",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 435,
+   "crash": {
+    "kill_at_s": 0.527,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.182
+   },
+   "notes": {
+    "pg": "1.8",
+    "acting_before": "pg=1.8 up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "primary": 1,
+    "retainer": 4,
+    "acting_without_p": "pg=1.8 up=[4, 3, 0] acting=[4, 3, 0] primary=4",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 444,
+   "crash": {
+    "kill_at_s": 0.1826,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 11,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.158
+   },
+   "notes": {
+    "pg": "1.5",
+    "acting_before": "pg=1.5 up=[4, 2, 3] acting=[4, 2, 3] primary=4",
+    "primary": 4,
+    "retainer": 2,
+    "acting_without_p": "pg=1.5 up=[2, 3, 0] acting=[2, 3, 0] primary=2",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 421,
+   "crash": {
+    "kill_at_s": 1.1588,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 4,
+   "pass": true
+  },
+  {
+   "run": 12,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.183
+   },
+   "notes": {
+    "pg": "1.16",
+    "acting_before": "pg=1.16 up=[1, 0, 4] acting=[1, 0, 4] primary=1",
+    "primary": 1,
+    "retainer": 0,
+    "acting_without_p": "pg=1.16 up=[0, 4, 2] acting=[0, 4, 2] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 449,
+   "crash": {
+    "kill_at_s": 1.1838,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 13,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.884
+   },
+   "notes": {
+    "pg": "1.c",
+    "acting_before": "pg=1.c up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "primary": 3,
+    "retainer": 0,
+    "acting_without_p": "pg=1.c up=[0, 4, 2] acting=[0, 4, 2] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 13
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 406,
+   "crash": {
+    "kill_at_s": 0.8849,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 3,
+   "pass": true
+  },
+  {
+   "run": 14,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.003
+   },
+   "notes": {
+    "pg": "1.1c",
+    "acting_before": "pg=1.1c up=[0, 3, 4] acting=[0, 3, 4] primary=0",
+    "primary": 0,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1c up=[3, 4, 1] acting=[3, 4, 1] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 442,
+   "crash": {
+    "kill_at_s": 1.0039,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 0,
+   "pass": true
+  },
+  {
+   "run": 15,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.697
+   },
+   "notes": {
+    "pg": "1.2",
+    "acting_before": "pg=1.2 up=[0, 4, 1] acting=[0, 4, 1] primary=0",
+    "primary": 0,
+    "retainer": 4,
+    "acting_without_p": "pg=1.2 up=[4, 1, 3] acting=[4, 1, 3] primary=4",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 15
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 429,
+   "crash": {
+    "kill_at_s": 0.6977,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 0,
+   "pass": true
+  },
+  {
+   "run": 16,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.737
+   },
+   "notes": {
+    "pg": "1.14",
+    "acting_before": "pg=1.14 up=[2, 0, 4] acting=[2, 0, 4] primary=2",
+    "primary": 2,
+    "retainer": 0,
+    "acting_without_p": "pg=1.14 up=[0, 4, 1] acting=[0, 4, 1] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 10
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 341,
+   "crash": {
+    "kill_at_s": 0.7377,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 2,
+   "pass": true
+  },
+  {
+   "run": 17,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.8
+   },
+   "notes": {
+    "pg": "1.1e",
+    "acting_before": "pg=1.1e up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "primary": 3,
+    "retainer": 0,
+    "acting_without_p": "pg=1.1e up=[0, 1, 4] acting=[0, 1, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 13
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 372,
+   "crash": {
+    "kill_at_s": 0.8007,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 3,
+   "pass": true
+  },
+  {
+   "run": 18,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.417
+   },
+   "notes": {
+    "pg": "1.7",
+    "acting_before": "pg=1.7 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.7 up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 449,
+   "crash": {
+    "kill_at_s": 0.4177,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 19,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.614
+   },
+   "notes": {
+    "pg": "1.e",
+    "acting_before": "pg=1.e up=[1, 4, 2] acting=[1, 4, 2] primary=1",
+    "primary": 1,
+    "retainer": 4,
+    "acting_without_p": "pg=1.e up=[4, 2, 0] acting=[4, 2, 0] primary=4",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 16
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 438,
+   "crash": {
+    "kill_at_s": 0.6147,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  },
+  {
+   "run": 20,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 1.29
+   },
+   "notes": {
+    "pg": "1.1a",
+    "acting_before": "pg=1.1a up=[1, 4, 3] acting=[1, 4, 3] primary=1",
+    "primary": 1,
+    "retainer": 4,
+    "acting_without_p": "pg=1.1a up=[4, 3, 2] acting=[4, 3, 2] primary=4",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 17
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 451,
+   "crash": {
+    "kill_at_s": 1.2909,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0
+   },
+   "failed_osd": 1,
+   "pass": true
+  }
+ ]
+}

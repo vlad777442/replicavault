@@ -204,6 +204,32 @@ Since `25b9d8d`, the `vaulted` log line is written by the vault txc's on_commit 
 - **c03 on F1** (`…T194803`): 23 of the 253 "primary only" deletes also have an unlogged retainer copy, so 230 are primary-only.
 - **Harness fix:** `rvcheck.py --disk-scan` lists every OSD's vault entries by name and checksum-verifies those without a log line, recording them as `path=unlogged`. The default scans only deletes without a verified logged copy; c04 scans every delete. Pre-fix result files are left as written; these corrections live here.
 
+### 6.5 c04: primary failure (2026-10-01/02)
+
+`scripts/scenarios/c04-primary-failure.sh`. The primary P of the target PG is killed during 16 concurrent removes (4 KiB–8 MiB), marked out, and its PGs recover on the other OSDs. Two variants:
+
+- **A:** P is restarted and its strays are purged.
+- **B:** P never returns during the check. Its store and log lines are excluded, so only surviving OSDs count.
+
+The vault check scans every reachable OSD's disk (`--disk-scan all`).
+
+| Variant | Vanilla (script validation) | F1 `05289b5` | Acked after kill (F1) | Lost (F1) |
+|---|---|---|---|---|
+| A (P returns as a stray) | 20/20 | **20/20** | 305 of 320 | **0 of 320** |
+| B (P never returns) | 20/20 | **20/20** | 300 of 320 | **0 of 320** |
+
+Result files: `c04a-…-20261001T155717` / `…T200538`, `c04b-…-20261001T181737` / `…T235554`.
+
+Copies found per delete (P = killed primary, R = retainer; "R:primary" is R vaulting after it became the new primary):
+
+- **A:** R:primary + other:repop (213); R:repop only (52); P:unlogged + R:repop (30); P:primary + R:repop (25).
+- **B:** R:primary + other:repop (183); R:repop only (137).
+
+**Reading:**
+- A delete that had reached the retainer survives on the retainer's own copy, committed before the retainer's acknowledgement to the primary.
+- A delete resent by the client after the interval change is vaulted again by the new primary and the new retainer.
+- 30 of P's copies in variant A were durable but unlogged (§6.4), and were found only by the disk scan.
+
 **F1 regression** (`results/phase2/*-20260930T1*/2*.json`, build marker `05289b5`): s01–s12 and a01–a05 pass, 17 scenarios, **118/118 runs**, 1,000/1,000 deletes with an intact copy. Copies per delete: 1 (25, single-OSD acting sets), 2 (832), 3 (143). a05 under F1: **3 copies per missed delete; retained / deleted bytes 3.00** (2.00 before F1).
 
 **F1 cost** (indicative, single host; `cost-probe-p2-20260930T231922-r1.json` vs vanilla `…20260929T132837`; baselines match, 4 KiB p99 about 340 ms):
