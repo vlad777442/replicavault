@@ -112,3 +112,10 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - c04 complete. Vanilla A 20/20, B 20/20. **F1 A 20/20, B 20/20; 0 of 320 acknowledged deletes lost in each** (305 and 300 acked after the primary's kill). Survivors: the retainer's repop copy, or the new primary's and new retainer's copies for resent ops; 30 of P's copies in A were durable but unlogged and found by the disk scan. `b1-design.md` §6.5.
 - Item 3 (rewrite Revision 1b item 5 and the PHASE2_REPORT addendum claim to only what c01, c03 and c04 support): wording drafted and shown to Vlad, **not committed**.
 - Vlad approved the item 3 wording. Committed: Revision 1b final (item 5 limited to the c01/c03/c04 evidence; counts corrected to 164 and 230), PHASE2_REPORT addendum corrected (adds c04), advisor note with c04 results.
+
+## 2026-10-03 — zero-copy pilot, Phase 0
+- Committed `CLAUDE.md` (zero-copy pilot) and proposal v3, with §4.1 item 5 restated as a design goal and the following paragraph de-duplicated, per Vlad.
+- `ZC_CRITERIA.md` pre-registered (`9b20da1`), with the fsck rule as amended by Vlad: deep fsck after every run for z01 and z06; elsewhere a regular fsck per run plus one deep fsck per batch; the disk scan every run. Diff-checked against CLAUDE.md: only that rule differs.
+- Ceph branch `replicavault-zc` created at `05289b5`.
+- Debug build reconfigured `WITH_TESTS=ON`; `ceph_test_objectstore` built (260 s); `ceph-osd` unchanged.
+- Fresh vstart cluster `/data/zc`, fsid `b0729c2b-…` (`notes/environment.md`). Scripts now default to it, with results in `results/zc/`. Smoke passes on F1.

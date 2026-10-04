@@ -5,8 +5,11 @@
 # checks the fsid against the value recorded in notes/environment.md and aborts
 # otherwise; call it before anything destructive.
 
-CEPH_BUILD=${CEPH_BUILD:-/data/ceph/build}
-RV_EXPECTED_FSID=${RV_EXPECTED_FSID:-224f2f2c-33fd-48ea-9d19-61f5c2df962f}
+# Default: the zero-copy pilot's vstart cluster (/data/zc, notes/environment.md).
+# The pilot/phase 2 cluster (/data/ceph/build, fsid 224f2f2c-…) is kept for reference
+# only: nothing is to be run on it. To address the release cluster, set both variables.
+CEPH_BUILD=${CEPH_BUILD:-/data/zc}
+RV_EXPECTED_FSID=${RV_EXPECTED_FSID:-b0729c2b-8a21-481d-bec4-7655b87b5a9d}
 RV_ROOT=${RV_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
 export CEPH_CONF=$CEPH_BUILD/ceph.conf
 export LD_LIBRARY_PATH=$CEPH_BUILD/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}

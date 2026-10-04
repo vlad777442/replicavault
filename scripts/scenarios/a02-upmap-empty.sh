@@ -6,7 +6,7 @@
 # Requires require_min_compat_client >= luminous (the vstart cluster already has it;
 # recorded per run).
 source "$(dirname "$0")/common.sh"
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init a02-upmap-empty "$@"
 trap 'ceph osd unset nobackfill >/dev/null 2>&1; rm -rf "$WORK"' EXIT
 compat=$(ceph osd dump | awk '/^require_min_compat_client/{print $2}')

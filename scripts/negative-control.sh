@@ -12,7 +12,7 @@ source "$(dirname "$0")/lib.sh"
 POOL=${1:-rvtest}
 TS=$(date +%Y%m%dT%H%M%S)
 RUN_ID=negative-control-$TS
-OUT=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-phase2}/$RUN_ID.json   # pilot results/ is frozen
+OUT=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-zc}/$RUN_ID.json   # pilot results/ is frozen
 WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 mkdir -p "$(dirname "$OUT")"

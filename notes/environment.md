@@ -59,3 +59,20 @@ bin/ceph-osd -i N -c ceph.conf        # restart; daemonizes, rewrites out/osd.N.
 Test run: wrote 4 MiB object `probe` (acting `[1,3,0]`, PG 1.15), killed osd.1 (the primary) with SIGKILL, and restarted it. It was marked down after 2 s and all 32 PGs were `active+clean` 17 s after the kill. Read-back was byte-identical.
 
 Stop the whole cluster: `../src/stop.sh`. Restart it without wiping: `../src/vstart.sh` without `--new`. Not yet exercised.
+
+## Zero-copy pilot cluster (from 2026-10-03) — the default for all scripts
+
+| Item | Value |
+|---|---|
+| **fsid** | **`b0729c2b-8a21-481d-bec4-7655b87b5a9d`** (default `RV_EXPECTED_FSID` in `scripts/lib.sh`) |
+| Directory | `/data/zc` (default `CEPH_BUILD` in `scripts/lib.sh`): `ceph.conf`, `keyring`, `dev/`, `out/`, `asok/` |
+| Binaries | `/data/zc/bin`: symlinks to `/data/ceph/build/bin/*`, except `ceph-osd`, which is a real copy installed by `scripts/use-build.sh` from `ceph-osd.{vanilla,rv,p2,…}` in the same directory. Rebuilding never changes a running OSD's binary. `/data/zc/lib` → `/data/ceph/build/lib`. |
+| Started with | `cd /data/ceph/build && VSTART_DEST=/data/zc CEPH_BIN=/data/zc/bin CEPH_LIB=/data/zc/lib CEPH_PORT=44000 MON=1 MGR=1 OSD=5 MDS=0 RGW=0 NFS=0 ../src/vstart.sh --new -x --localhost --bluestore --without-dashboard` (log `/data/vstart-zc.log`) |
+| mkfs race | Hit osd.2 and osd.3 again; fixed by hand as before (mkfs with the logged key and uuid, write `dev/osdN/keyring`, start). |
+| Daemons | 1 MON, 1 MGR, 5 BlueStore OSDs (file-backed), CRUSH failure domain osd |
+| Pool | `rvtest`: size 3, min_size 2, 32 PGs, autoscale off |
+| First OSD build | p2 F1 (`05289b5`); smoke passes (`results/zc/smoke-20261003T194747.json`) |
+
+**The pilot / phase 2 Debug cluster** (`/data/ceph/build`, fsid `224f2f2c-…`) and the **release cluster** (`/data/ceph/build-rel`, fsid `e6e34e84-…`) are left as they are, for reference. Nothing is run on the Debug one.
+
+**Debug build** (`/data/ceph/build`) reconfigured with `-DWITH_TESTS=ON` on 2026-10-03. `ninja ceph_test_objectstore` took 260 s (418 test cases across the memstore, bluestore and kstore instances). `bin/ceph-osd` is unchanged by the reconfigure (same sha256).

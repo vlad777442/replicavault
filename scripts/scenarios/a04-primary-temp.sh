@@ -8,7 +8,7 @@
 # Records who vaulted.
 # primary-temp needs require_min_compat_client >= firefly (src/mon/OSDMonitor.cc).
 source "$(dirname "$0")/common.sh"
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init a04-primary-temp "$@"
 PT_PG=""
 trap '[[ -n $PT_PG ]] && ceph osd rm-primary-temp "$PT_PG" >/dev/null 2>&1; rm -rf "$WORK"' EXIT

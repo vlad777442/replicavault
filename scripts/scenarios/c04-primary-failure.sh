@@ -18,7 +18,7 @@
 # leaves a durable entry without a log line.
 source "$(dirname "$0")/common.sh"
 RUNS=20
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 export RV_DISK_SCAN=all
 VARIANT=A
 args=()

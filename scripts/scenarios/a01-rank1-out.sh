@@ -10,7 +10,7 @@
 # is set; the nobackfill flag holds the window deterministically instead.
 # Records the up and acting sets at delete time, i.e. who the rule's rank 1 is.
 source "$(dirname "$0")/common.sh"
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init a01-rank1-out "$@"
 trap 'ceph osd unset nobackfill >/dev/null 2>&1; ceph osd unset noout >/dev/null 2>&1; rm -rf "$WORK"' EXIT
 

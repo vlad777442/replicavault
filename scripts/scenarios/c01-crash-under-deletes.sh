@@ -18,7 +18,7 @@
 # grouped (src/common/options/global.yaml.in:5180, :5354).
 source "$(dirname "$0")/common.sh"
 RUNS=100
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init c01-crash-under-deletes "$@"
 SIZES=(4096 65536 1048576 4194304 8388608)
 R_CFG=""

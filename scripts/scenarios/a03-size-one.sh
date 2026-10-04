@@ -7,7 +7,7 @@
 # path, out of scope in v1.
 source "$(dirname "$0")/common.sh"
 RUNS=3
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init a03-size-one "$@"
 SZ_POOL=rvsz1
 POOL=$SZ_POOL

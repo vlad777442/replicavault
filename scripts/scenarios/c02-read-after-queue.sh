@@ -10,7 +10,7 @@
 source "$(dirname "$0")/common.sh"
 RUNS=10
 CASES=20
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init c02-read-after-queue "$@"
 SIZES=(4096 65536 1048576 4194304 8388608)
 

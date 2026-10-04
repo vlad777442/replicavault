@@ -7,7 +7,7 @@
 #   wait for the PG to be clean
 # so every delete is missed by R and later reaches it through recovery.
 source "$(dirname "$0")/common.sh"
-RV_RESULTS_SUBDIR=phase2
+RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 scenario_init a05-duplicate-inflation "$@"
 ROUNDS=3
 PER_ROUND=4

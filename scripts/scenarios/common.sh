@@ -36,9 +36,9 @@ scenario_init() {
   done
   TS=$(date +%Y%m%dT%H%M%S)
   WORK=$(mktemp -d)
-  # phase 2 results go to results/phase2 by default: the pilot's files directly
-  # under results/ are frozen and must not gain neighbours from later runs
-  RESULTS=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-phase2}
+  # zero-copy pilot results go to results/zc by default: pilot (results/) and
+  # phase 2 (results/phase2) result files are frozen
+  RESULTS=$RV_ROOT/results/${RV_RESULTS_SUBDIR:-zc}
   mkdir -p "$RESULTS"
   OUT=$RESULTS/$SCENARIO-$TS.json
   RUNS_FILE=$WORK/runs.jsonl
