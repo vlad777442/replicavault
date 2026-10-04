@@ -1,0 +1,211 @@
+10:01:39 scenario z01-alloc-rebuild: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=30 pool=rvtest
+10:01:45 clean after 6 s
+10:01:46 --- z01-alloc-rebuild run 1 {"osd": 0, "full_fill": false, "expect_mode": "rename"}
+10:02:00 osd.0 (pid 713029) down and exited
+10:02:07 osd.0 up (pid 716825)
+10:02:44 clean after 7 s
+10:03:37 clean after 6 s
+10:08:00 osd.0 (pid 716825) down and exited
+10:12:38 osd.0 up (pid 747254)
+10:12:59 clean after 7 s
+10:13:22 deep-scrubbed 32 PGs in 23 s
+10:16:26 clean after 10 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 1 osd.0: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+10:16:27 --- z01-alloc-rebuild run 2 {"osd": 1, "full_fill": false, "expect_mode": "rename"}
+10:16:43 osd.1 (pid 774594) down and exited
+10:16:49 osd.1 up (pid 787681)
+10:17:26 clean after 6 s
+10:18:26 clean after 14 s
+10:21:57 osd.1 (pid 787681) down and exited
+10:26:17 osd.1 up (pid 825335)
+10:26:36 clean after 6 s
+10:26:56 deep-scrubbed 32 PGs in 20 s
+10:29:59 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 2 osd.1: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+10:29:59 --- z01-alloc-rebuild run 3 {"osd": 2, "full_fill": false, "expect_mode": "rename"}
+10:30:15 osd.2 (pid 778421) down and exited
+10:30:22 osd.2 up (pid 864515)
+10:30:58 clean after 6 s
+10:31:52 clean after 11 s
+10:35:04 osd.2 (pid 864515) down and exited
+10:39:21 osd.2 up (pid 904183)
+10:39:36 clean after 6 s
+10:39:59 deep-scrubbed 32 PGs in 23 s
+10:43:14 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 3 osd.2: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+10:43:15 --- z01-alloc-rebuild run 4 {"osd": 3, "full_fill": false, "expect_mode": "rename"}
+10:43:30 osd.3 (pid 941613) down and exited
+10:43:36 osd.3 up (pid 947933)
+10:44:12 clean after 6 s
+10:45:03 clean after 7 s
+10:48:42 osd.3 (pid 947933) down and exited
+10:52:46 osd.3 up (pid 986260)
+10:53:07 clean after 7 s
+10:53:22 deep-scrubbed 32 PGs in 15 s
+10:56:40 clean after 14 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 4 osd.3: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+10:56:40 --- z01-alloc-rebuild run 5 {"osd": 4, "full_fill": false, "expect_mode": "rename"}
+10:56:54 osd.4 (pid 1023050) down and exited
+10:57:00 osd.4 up (pid 1027395)
+10:57:37 clean after 6 s
+10:58:29 clean after 7 s
+11:02:25 osd.4 (pid 1027395) down and exited
+11:06:57 osd.4 up (pid 1057467)
+11:07:18 clean after 7 s
+11:07:37 deep-scrubbed 32 PGs in 19 s
+11:10:54 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 5 osd.4: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+11:10:55 --- z01-alloc-rebuild run 6 {"osd": 0, "full_fill": true, "expect_mode": "rename"}
+11:11:09 osd.0 (pid 1064692) down and exited
+11:11:16 osd.0 up (pid 1098316)
+11:11:53 clean after 6 s
+11:12:54 clean after 13 s
+11:50:53 osd.0 (pid 1098316) down and exited
+12:19:56 osd.0 up (pid 1195764)
+12:22:13 clean after 6 s
+12:22:33 deep-scrubbed 32 PGs in 20 s
+12:26:00 clean after 13 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 6 osd.0: PASS  fsck=True qfsck=True rebuild=True entries=16/32 free_overlap=0 sha_bad=0 missing=0 fill=70%
+12:26:01 --- z01-alloc-rebuild run 7 {"osd": 1, "full_fill": false, "expect_mode": "rename"}
+12:26:17 osd.1 (pid 1222441) down and exited
+12:26:23 osd.1 up (pid 1236569)
+12:27:00 clean after 6 s
+12:27:54 clean after 6 s
+12:31:09 osd.1 (pid 1236569) down and exited
+12:37:01 osd.1 up (pid 1273469)
+12:37:21 clean after 6 s
+12:37:41 deep-scrubbed 32 PGs in 20 s
+12:40:56 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 7 osd.1: PASS  fsck=True qfsck=True rebuild=True entries=16/32 free_overlap=0 sha_bad=0 missing=0 fill=9%
+12:40:56 --- z01-alloc-rebuild run 8 {"osd": 2, "full_fill": false, "expect_mode": "rename"}
+12:41:12 osd.2 (pid 1300596) down and exited
+12:41:19 osd.2 up (pid 1311863)
+12:41:56 clean after 6 s
+12:42:53 clean after 8 s
+12:46:09 osd.2 (pid 1311863) down and exited
+12:51:37 osd.2 up (pid 1349354)
+12:51:58 clean after 7 s
+12:52:13 deep-scrubbed 32 PGs in 15 s
+12:55:36 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 8 osd.2: PASS  fsck=True qfsck=True rebuild=True entries=16/32 free_overlap=0 sha_bad=0 missing=0 fill=9%
+12:55:37 --- z01-alloc-rebuild run 9 {"osd": 3, "full_fill": false, "expect_mode": "rename"}
+12:55:54 osd.3 (pid 1380500) down and exited
+12:56:00 osd.3 up (pid 1388307)
+12:56:37 clean after 6 s
+12:57:38 clean after 15 s
+13:00:50 osd.3 (pid 1388307) down and exited
+13:06:03 osd.3 up (pid 1428484)
+13:06:22 clean after 6 s
+13:06:41 deep-scrubbed 32 PGs in 19 s
+13:10:00 clean after 12 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 9 osd.3: PASS  fsck=True qfsck=True rebuild=True entries=16/32 free_overlap=0 sha_bad=0 missing=0 fill=9%
+13:10:00 --- z01-alloc-rebuild run 10 {"osd": 4, "full_fill": false, "expect_mode": "rename"}
+13:10:15 osd.4 (pid 1465750) down and exited
+13:10:22 osd.4 up (pid 1470464)
+13:10:58 clean after 6 s
+13:11:57 clean after 11 s
+13:15:26 osd.4 (pid 1470464) down and exited
+13:20:52 osd.4 up (pid 1507750)
+13:21:14 clean after 7 s
+13:21:34 deep-scrubbed 32 PGs in 20 s
+13:25:03 clean after 14 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 10 osd.4: PASS  fsck=True qfsck=True rebuild=True entries=16/32 free_overlap=0 sha_bad=0 missing=0 fill=9%
+13:25:04 --- z01-alloc-rebuild run 11 {"osd": 0, "full_fill": false, "expect_mode": "rename"}
+13:25:18 osd.0 (pid 1513268) down and exited
+13:25:25 osd.0 up (pid 1547869)
+13:26:01 clean after 6 s
+13:26:55 clean after 8 s
+13:30:17 osd.0 (pid 1547869) down and exited
+13:36:54 osd.0 up (pid 1598643)
+13:37:13 clean after 6 s
+13:37:33 deep-scrubbed 32 PGs in 20 s
+13:40:59 clean after 11 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 11 osd.0: PASS  fsck=True qfsck=True rebuild=True entries=16/48 free_overlap=0 sha_bad=0 missing=0 fill=9%
+13:41:00 --- z01-alloc-rebuild run 12 {"osd": 1, "full_fill": true, "expect_mode": "rename"}
+13:41:16 osd.1 (pid 1618298) down and exited
+13:41:29 osd.1 up (pid 1636137)
+13:42:06 clean after 7 s
+13:43:18 clean after 12 s
+14:14:58 osd.1 (pid 1636137) down and exited
+14:40:37 osd.1 up (pid 1699365)
+14:42:56 clean after 7 s
+14:43:15 deep-scrubbed 32 PGs in 19 s
+14:46:38 clean after 11 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 12 osd.1: PASS  fsck=True qfsck=True rebuild=True entries=16/48 free_overlap=0 sha_bad=0 missing=0 fill=70%
+14:46:38 --- z01-alloc-rebuild run 13 {"osd": 2, "full_fill": false, "expect_mode": "rename"}
+14:46:52 osd.2 (pid 1719033) down and exited
+14:46:59 osd.2 up (pid 1728034)
+14:47:36 clean after 7 s
+14:48:27 clean after 6 s
+14:51:40 osd.2 (pid 1728034) down and exited
+14:57:35 osd.2 up (pid 1766040)
+14:57:54 clean after 6 s
+14:58:13 deep-scrubbed 32 PGs in 19 s
+15:01:29 clean after 9 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 13 osd.2: PASS  fsck=True qfsck=True rebuild=True entries=16/48 free_overlap=0 sha_bad=0 missing=0 fill=9%
+15:01:29 --- z01-alloc-rebuild run 14 {"osd": 3, "full_fill": false, "expect_mode": "rename"}
+15:01:45 osd.3 (pid 1799850) down and exited
+15:01:51 osd.3 up (pid 1809323)
+15:02:28 clean after 6 s
+15:03:27 clean after 13 s
+15:06:52 osd.3 (pid 1809323) down and exited
+15:13:22 osd.3 up (pid 1852411)
+15:13:42 clean after 6 s
+15:14:02 deep-scrubbed 32 PGs in 20 s
+15:17:32 clean after 14 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 14 osd.3: PASS  fsck=True qfsck=True rebuild=True entries=16/48 free_overlap=0 sha_bad=0 missing=0 fill=9%
+15:17:33 --- z01-alloc-rebuild run 15 {"osd": 4, "full_fill": true, "expect_mode": "rename"}
+15:17:48 osd.4 (pid 1886319) down and exited
+15:17:57 osd.4 up (pid 1890502)
+15:18:34 clean after 7 s
+15:19:38 clean after 14 s
+16:02:27 osd.4 (pid 1890502) down and exited
+16:33:39 osd.4 up (pid 2006839)
+16:35:52 clean after 6 s
+16:36:12 deep-scrubbed 32 PGs in 20 s
+16:39:46 clean after 9 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 15 osd.4: PASS  fsck=True qfsck=True rebuild=True entries=16/48 free_overlap=0 sha_bad=0 missing=0 fill=70%
+16:39:46 --- z01-alloc-rebuild run 16 {"osd": 0, "full_fill": false, "expect_mode": "rename"}
+16:40:03 osd.0 (pid 2019242) down and exited
+16:40:11 osd.0 up (pid 2046148)
+16:40:47 clean after 6 s
+16:41:52 clean after 14 s
+16:45:17 osd.0 (pid 2046148) down and exited
+16:52:32 osd.0 up (pid 2099036)
+16:52:53 clean after 7 s
+16:53:11 deep-scrubbed 32 PGs in 18 s
+16:56:39 clean after 11 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 16 osd.0: PASS  fsck=True qfsck=True rebuild=True entries=16/64 free_overlap=0 sha_bad=0 missing=0 fill=9%
+16:56:40 --- z01-alloc-rebuild run 17 {"osd": 1, "full_fill": false, "expect_mode": "rename"}
+16:56:56 osd.1 (pid 2122952) down and exited
+16:57:04 osd.1 up (pid 2136280)
+16:57:40 clean after 6 s
+16:58:36 clean after 9 s
+17:02:02 osd.1 (pid 2136280) down and exited
+17:09:18 osd.1 up (pid 2193202)
+17:09:39 clean after 6 s
+17:09:59 deep-scrubbed 32 PGs in 20 s
+17:13:30 clean after 13 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 17 osd.1: PASS  fsck=True qfsck=True rebuild=True entries=16/64 free_overlap=0 sha_bad=0 missing=0 fill=9%
+17:13:31 --- z01-alloc-rebuild run 18 {"osd": 2, "full_fill": true, "expect_mode": "rename"}
+17:13:46 osd.2 (pid 2215570) down and exited
+17:13:53 osd.2 up (pid 2229611)
+17:14:30 clean after 6 s
+17:15:28 clean after 7 s
