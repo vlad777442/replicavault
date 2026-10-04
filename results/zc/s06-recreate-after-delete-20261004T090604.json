@@ -1,0 +1,2183 @@
+{
+ "scenario": "s06-recreate-after-delete",
+ "timestamp": "20261004T090604",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/s06-recreate-after-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 390,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 0,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 2,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "fail",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 12,
+     "failures": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-0",
+       "expected_sha": "4bdc481079a72a0b89d76d7782b37a055292971a3d2bddc6d08a005519d74fca",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "0,3,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "0,3,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-1",
+       "expected_sha": "49fd4cdea3512e26e2b5a3a2c942932b7ffd267ad4e3d81aa3790cc4f4475d5a",
+       "candidates": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-1",
+       "expected_sha": "b121ded040c00cdd131ec4b536fa06e345b803900d0fe7596e46ad7c60ecba97",
+       "candidates": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-0",
+       "expected_sha": "d04abf7dfbd711012f9a06b253a3927c9ec1c2382fe988a6618ba5be131b2b1c",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-1",
+       "expected_sha": "4db2dc7b95f04b09d26b8ffd3f91899b09d8ca986114c01ed5a1194a6977c2c4",
+       "candidates": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-1",
+       "expected_sha": "e0115fcd0b05365aa98e27dffb82d7a5db26ba916d233c2cde60cec2a3227a40",
+       "candidates": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-0@loc-x",
+       "expected_sha": "a2bb703e369b808a507fe76664a2b0052a449731b95e771cb0dba3a83aaf64a3",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-1@loc-x",
+       "expected_sha": "3b65805cf14ead6ca6440795b790c1c7463a3aac8a8a36c00ce430eed8570f93",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-1@loc-x",
+       "expected_sha": "80f2f54a6ab5d3a8d275d4a46d0bc742ea2ed0b40c162f0647692cb2f346783d",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-0@loc-y",
+       "expected_sha": "d395a69fcc683a58876fd3b40732e04b25675409751c38d5af4fca1877df7fff",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'2",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'2",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-1@loc-y",
+       "expected_sha": "6c37ef18b446a2aae1c0388f1a0eafaa212a43b123752df4aa60647a690cfaec",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-1@loc-y",
+       "expected_sha": "5fcc43ac387f33dd2bf02b288c131f058c233acca274ec0cc10ab2fc403fe814",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "0,3,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "0,3,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-1",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v0-1",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "4,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r1-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'6",
+         "acting": "1,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-0@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'4",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'4",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r1-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "84'9",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-0@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'2",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'2",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r1-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'5",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "84'7",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 24,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 197,
+   "vault_inspect_error": "09:07:52 osd.4 (pid 411504) down and exited\nTraceback (most recent call last):\n  File \"<string>\", line 17, in <module>\nNameError: name 'lazy' is not defined\n09:08:03 osd.4 up (pid 455109)\n",
+   "pass": false
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": false,
+     "checked": 12,
+     "failures": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-0",
+       "expected_sha": "a84f85cf8969285c40b92d629cd0c696c0192f978e842cd581d9a91d12f0cddc",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "148'4",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "148'4",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-1",
+       "expected_sha": "0d61f012469f67386be9f650cc3871686554d246e795e67b4b76d9d203c19c0b",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-1",
+       "expected_sha": "e85df25a4b506ffa13227c06760e6dcc36efc050cc211ae7094a702638231879",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-0",
+       "expected_sha": "b6889f8edb52ae742527c8be776bb5d52e5da83bba3cd14bb81095c2886f0598",
+       "candidates": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-1",
+       "expected_sha": "8d2e35b6432452b7711bf8a9526d9b3189e3ac093ce3991c0bcb33bf49a69233",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-1",
+       "expected_sha": "e8d47f111b5ac38e5d886fc51c5cbe54f8a2f4e12b3b8e7d07a28000ab81382c",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-0@loc-x",
+       "expected_sha": "283bcc70196ed2dded40099ea1188a01e769e0da2ee89c32925201b52de9c436",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'11",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'11",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-1@loc-x",
+       "expected_sha": "c8c27ceabe402c1dd982a1488ca4a35c075f7c1e6a0c7b7d3aef43132e36c1df",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-1@loc-x",
+       "expected_sha": "b985350c298f0620b00310b95bb8ae3c0d31a3276537cc5e5e588968221231da",
+       "candidates": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-0@loc-y",
+       "expected_sha": "98ef7dfb603bc437ad7db171fa1f9bc2bc696e9d3a9232153f40f44365897da0",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'9",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'9",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-1@loc-y",
+       "expected_sha": "023397a290604ebe849ae3d5b2eceb0996831a9eca350df03ae2b81910fd387a",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-1@loc-y",
+       "expected_sha": "83371a8b8ed5de34f7fe64ed3de6510598bc00dad94a054601c1093e343fd736",
+       "candidates": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "problem": "no matching intact entry"
+      }
+     ],
+     "entries": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "148'4",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "148'4",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v0-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'8",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-0",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "148'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T090604-r2-v1-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-0@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'11",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'11",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T090604-r2-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "148'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-0@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'9",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'9",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T090604-r2-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'12",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "148'14",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": false,
+         "intact": false,
+         "data_sha_match": false
+        }
+       ],
+       "ok": false
+      }
+     ],
+     "vault_lines_in_run": 24,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 187,
+   "vault_inspect_error": "09:10:57 osd.4 (pid 463816) down and exited\nTraceback (most recent call last):\n  File \"<string>\", line 17, in <module>\nNameError: name 'lazy' is not defined\n09:11:09 osd.4 up (pid 477323)\n",
+   "pass": false
+  }
+ ]
+}

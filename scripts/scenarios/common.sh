@@ -274,7 +274,8 @@ for l in sys.stdin:
 print(json.dumps({"copies": copies, "bytes": nbytes}))' "$@"
 }
 
-# vault_mode: true iff the installed OSD build vaults (pilot "rv" or phase 2 "p2")
+# vault_mode: true iff the installed OSD build vaults (pilot "rv", phase 2 "p2",
+# zero-copy "zc" or its copy-mode control "zccopy")
 vault_mode() {
-  [[ $MODE == rv || $MODE == p2 ]]
+  [[ $MODE == rv || $MODE == p2 || $MODE == zc || $MODE == zccopy ]]
 }

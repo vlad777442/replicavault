@@ -82,16 +82,22 @@ emit_entry() {
   attr_sha=$(cot "$n" --pgid meta "$spec" get-attr rv.sha256 || echo MISSING)
   # get-bytes refuses (EEXIST, exit 0) to overwrite an existing file
   rm -f "$WORK/b"
-  cot "$n" --pgid meta "$spec" get-bytes "$WORK/b" || true
+  local read_ok=1
+  cot "$n" --pgid meta "$spec" get-bytes "$WORK/b" || read_ok=0
   [[ -e $WORK/b ]] || : > "$WORK/b"
   data_sha=$(sha "$WORK/b")
   size=$(stat -c %s "$WORK/b")
   python3 -c "$decode_name_py
 import json, sys
 d = decode(sys.argv[1])
+# a zero-copy entry stores rv.sha256=lazy: intact means it read back without error
+# (BlueStore verifies its blob checksums on read); callers compare data_sha256
+# with the client-side checksum either way
+lazy = sys.argv[3] == 'lazy'
 d.update(osd=int(sys.argv[2]), found=True, stored_sha256=sys.argv[3], data_sha256=sys.argv[4],
-         size=int(sys.argv[5]), intact=sys.argv[3] == sys.argv[4])
-print(json.dumps(d))" "$vname" "$n" "$attr_sha" "$data_sha" "$size"
+         size=int(sys.argv[5]), lazy=lazy,
+         intact=(sys.argv[6] == '1') if lazy else sys.argv[3] == sys.argv[4])
+print(json.dumps(d))" "$vname" "$n" "$attr_sha" "$data_sha" "$size" "$read_ok"
 }
 
 # check <osd> <vname>...: JSON line per requested entry; found=false if absent
@@ -160,8 +166,13 @@ print("%d entries" % len(rows))'
     cot "$n" --pgid meta "$spec" get-bytes "$out"
     stored=$(cot "$n" --pgid meta "$spec" get-attr rv.sha256)
     resume "$n"
-    [[ $(sha "$out") == "$stored" ]] || die "checksum mismatch: stored $stored, bytes $(sha "$out")"
-    log "extracted $vname from osd.$n to $out ($(stat -c %s "$out") bytes, sha256 ok)"
+    if [[ $stored == lazy ]]; then
+      # zero-copy entry: no vault-time checksum; the sha256 is computed now
+      log "extracted $vname from osd.$n to $out ($(stat -c %s "$out") bytes, sha256 $(sha "$out"), computed at extract)"
+    else
+      [[ $(sha "$out") == "$stored" ]] || die "checksum mismatch: stored $stored, bytes $(sha "$out")"
+      log "extracted $vname from osd.$n to $out ($(stat -c %s "$out") bytes, sha256 ok)"
+    fi
     ;;
   restore)
     [[ $# -ge 2 ]] || die "usage: $0 restore <osd> <vname> [name]"

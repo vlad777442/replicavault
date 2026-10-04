@@ -1,0 +1,1131 @@
+{
+ "scenario": "s06-recreate-after-delete",
+ "timestamp": "20261004T091320",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/s06-recreate-after-delete.sh ",
+ "pool": "rvtest",
+ "duration_s": 554,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 12,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v0-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'9",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "215'9",
+         "acting": "2,3,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v0-1",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "215'2",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "215'4",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'2",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'4",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v0-1",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "215'2",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "215'4",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'2",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'4",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r1-v1-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "215'5",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'5",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r1-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "215'4",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "215'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'4",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r1-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "215'4",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "215'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'4",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'6",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v2-0@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "215'18",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "215'18",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "215'21",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "215'23",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "215'21",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "215'23",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r1-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "215'21",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "215'23",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "215'21",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "215'23",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r1-v3-0@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'16",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'16",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r1-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'19",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'21",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'19",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'21",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r1-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'19",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "215'21",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'19",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "215'21",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 24,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 271,
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 12,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v0-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'23",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'23",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v0-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'10",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'12",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'10",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'12",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v0-1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'10",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'12",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'10",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'12",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r2-v1-0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "280'2",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "280'2",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r2-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "280'4",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "280'6",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "280'4",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "280'6",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-a/s06-recreate-after-delete-20261004T091320-r2-v1-1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "280'4",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "280'6",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "280'4",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "280'6",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v2-0@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'25",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'25",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'28",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'30",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'28",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'30",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s06-recreate-after-delete-20261004T091320-r2-v2-1@loc-x",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'28",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "280'30",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'28",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "280'30",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r2-v3-0@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'26",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'26",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r2-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'29",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'31",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'29",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'31",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:tenant-b/s06-recreate-after-delete-20261004T091320-r2-v3-1@loc-y",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'29",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "280'31",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'29",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": false
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "280'31",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 24,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 276,
+   "pass": true
+  }
+ ]
+}

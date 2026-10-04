@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Switch every OSD of the vstart cluster to the vanilla, pilot (rv) or phase 2 (p2) ceph-osd.
+# Switch every OSD of the vstart cluster to the vanilla, pilot (rv), phase 2 (p2) or
+# zero-copy (zc: RV_VAULT_MODE=rename; zccopy: same branch, RV_VAULT_MODE=copy) ceph-osd.
 #
-#   scripts/use-build.sh vanilla|rv|p2   (pilot = rv, phase 2 = p2)
+#   scripts/use-build.sh vanilla|rv|p2|zc|zccopy
 #
 # Installs bin/ceph-osd.<build> as bin/ceph-osd (by rename, so running daemons are
 # unaffected until restarted), records the build in bin/ceph-osd.build, then restarts
@@ -15,7 +16,8 @@ case $build in
   vanilla) commit=c92aebb279828e9c3c1f5d24613efca272649e62 ;;
   rv)      commit=$(git -C "$CEPH_BUILD/.." rev-parse replicavault-pilot) ;;
   p2)      commit=$(git -C "$CEPH_BUILD/.." rev-parse replicavault-p2) ;;
-  *) die "usage: $0 vanilla|rv|p2" ;;
+  zc|zccopy) commit=$(git -C /data/ceph rev-parse "${RV_ZC_REF:-replicavault-zc}") ;;
+  *) die "usage: $0 vanilla|rv|p2|zc|zccopy" ;;
 esac
 src=$CEPH_BUILD/bin/ceph-osd.$build
 [[ -x $src ]] || die "$src not built"

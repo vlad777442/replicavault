@@ -135,3 +135,15 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
   - (C) run z01 on the freelist path only.
 - Vlad chose option A. The zc cluster was recreated (fsid `4c038ade-…`) with each OSD's DB and WAL on the SSD (`/ssd-zc`). All 5 OSDs report a non-rotational DB and allocation-from-file. A SIGKILL test confirmed the onode-walk allocation rebuild runs on restart. Smoke passes. Details in `notes/environment.md`.
 - Harness gap noticed: `wait_clean` never succeeds on a cluster with no PGs (empty state list). Harmless once `rvtest` exists.
+
+## 2026-10-04 — zero-copy pilot, Phase 2 (BlueStore change)
+- Vlad approved option (a): relax `OP_COLL_MOVE_RENAME` for a meta-collection destination. Ceph `5b0dac5` on `replicavault-zc`: `can_move_to_collection`, `_move_to_collection`, `Collection::move_onode_to`, a two-pool statfs delta per txc. No on-disk format change. Details in `notes/zc/phase2.md`.
+- New `ObjectStore/RVMoveTest` (7 tests: sizes, sharded extent map, 20k omap keys, forced compression, move after an uncommitted write, 50 moves then rmcoll, shared blob refused): **7/7 pass**, each with a deep fsck and exact pool → meta statfs.
+- Existing BlueStore suite (QA filters a and b, Debug build) running: 79/129 of job a passed so far, 0 failed. To be recorded when it finishes; the Phase 2 workspace commit waits for it.
+
+## 2026-10-04 — zero-copy pilot, Phase 3 (ReplicaVault integration)
+- Ceph `33b89ae`: `RV_VAULT_MODE` (cmake, rename|copy). A rename happens if the PG transaction's first use of the head is its remove and `can_move_to_collection` returns 0; otherwise a copy. The rename is queued in the same `queue_transactions` call as the PG transaction, ahead of it: one txc, one KV commit. The later `OP_REMOVE` gets a tolerated ENOENT. `rv.sha256=lazy`; the log line gains `mode=`. F1 kept. Citations in `notes/zc/phase3.md`.
+- Found while reading: a delete that has to clone the head for a snapshot does so in the same transaction, before the remove. A rename ahead of it would hit the fatal ENOENT-on-clone. Handled by the first-use rule; s10 confirms (case B copied, case A renamed).
+- Harness: `zc`/`zccopy` builds; rvcheck and vault-inspect accept lazy entries and still compare disk bytes with client checksums. Script bug (quoting) found by s06 run `…T090604` (0/2); fixed; kept.
+- Smoke passes on `zc` (32 vault lines, all rename). s06 2/2 and s10 3/3 with `RV_DISK_SCAN=all`.
+- **Deviation:** s06 and s10 ran before z01, although CLAUDE.md says z01 runs before anything else on the cluster. They are Phase 3 sanity checks, not Phase 5 results.

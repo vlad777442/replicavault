@@ -13,8 +13,9 @@ Invariants:
     by stat and absent from a listing of all namespaces.
   3 vault_intact (prototype only): every acknowledged delete has a
     "replicavault: vaulted" line whose vault entry exists on that OSD, is intact
-    (stored sha256 == sha256 of stored bytes), and holds the bytes the object had
-    when it was deleted.
+    (stored sha256 == sha256 of stored bytes; for a zero-copy entry, whose stored
+    sha256 is "lazy", the bytes read back without a BlueStore checksum error), and
+    holds the bytes the object had when it was deleted (client-side sha256).
   4 live_intact: every object whose last acknowledged action is a put reads back
     with that put's sha256.
 
@@ -34,7 +35,8 @@ import rados
 VAULT_RE = re.compile(
     r"replicavault: vaulted pool=(?P<pool>-?\d+) pg=(?P<pg>\S+) oid=.* ns=.* "
     r"v=(?P<epoch>\d+)'(?P<ver>\d+) osd=(?P<osd>\d+) path=(?P<path>\w+) "
-    r"acting=\[(?P<acting>[\d,]*)\] size=(?P<size>\d+) .*sha256=(?P<sha>[0-9a-f]+) "
+    r"(?:mode=(?P<vmode>\w+) )?"
+    r"acting=\[(?P<acting>[\d,]*)\] size=(?P<size>\d+) .*sha256=(?P<sha>[0-9a-f]+|lazy) "
     r"vname=(?P<vname>\S+)")
 
 
@@ -108,7 +110,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--state", required=True)
     ap.add_argument("--offsets", required=True)
-    ap.add_argument("--mode", required=True, choices=["vanilla", "rv", "p2", "unknown"])
+    ap.add_argument("--mode", required=True, choices=["vanilla", "rv", "p2", "zc", "zccopy", "unknown"])
     ap.add_argument("--inspect", required=True, help="path to vault-inspect.sh")
     ap.add_argument("--no-vault-inspect", action="store_true",
                     help="check vault log lines only, not the on-disk entries")
@@ -186,7 +188,7 @@ def main():
     c.shutdown()
 
     # 3: vault present and intact
-    if a.mode not in ("rv", "p2"):
+    if a.mode not in ("rv", "p2", "zc", "zccopy"):
         result["vault_intact"] = {"pass": None, "skipped": f"mode={a.mode}"}
     else:
         lines = vault_lines(build, offsets)
@@ -261,8 +263,10 @@ def main():
                 key = (l["osd"], l["vname"])
                 e = entries.get(key)
                 rec = {"osd": int(l["osd"]), "path": l["path"], "v": f"{l['epoch']}'{l['ver']}",
-                       "acting": l["acting"], "log_sha_match": l["sha"] == d["sha"]}
+                       "acting": l["acting"], "mode": l.get("vmode") or "copy",
+                       "log_sha_match": None if l["sha"] == "lazy" else l["sha"] == d["sha"]}
                 if a.no_vault_inspect:
+                    # a lazy (rename) line carries no checksum; only the disk can tell
                     good = l["sha"] == d["sha"] and key not in used
                 else:
                     rec.update(found=bool(e and e.get("found")),
