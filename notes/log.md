@@ -133,3 +133,5 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
   - (A) recreate the zc cluster with `block.db` and WAL on the SSD root filesystem (recommended);
   - (B) add one SSD-DB OSD for z01;
   - (C) run z01 on the freelist path only.
+- Vlad chose option A. The zc cluster was recreated (fsid `4c038ade-…`) with each OSD's DB and WAL on the SSD (`/ssd-zc`). All 5 OSDs report a non-rotational DB and allocation-from-file. A SIGKILL test confirmed the onode-walk allocation rebuild runs on restart. Smoke passes. Details in `notes/environment.md`.
+- Harness gap noticed: `wait_clean` never succeeds on a cluster with no PGs (empty state list). Harmless once `rvtest` exists.

@@ -60,7 +60,23 @@ Test run: wrote 4 MiB object `probe` (acting `[1,3,0]`, PG 1.15), killed osd.1 (
 
 Stop the whole cluster: `../src/stop.sh`. Restart it without wiping: `../src/vstart.sh` without `--new`. Not yet exercised.
 
-## Zero-copy pilot cluster (from 2026-10-03) — the default for all scripts
+## Zero-copy pilot cluster, recreated 2026-10-03 with DB and WAL on SSD — the default for all scripts
+
+Vlad chose option A (`notes/zc/step1.md`, "Decision for Vlad"). The first zc cluster (fsid `b0729c2b-…`) was stopped and its directory wiped. It held only a smoke run.
+
+| Item | Value |
+|---|---|
+| **fsid** | **`4c038ade-03a5-4bcd-8d8e-37b8e7c13ab3`** (default `RV_EXPECTED_FSID` in `scripts/lib.sh`) |
+| Directory | `/data/zc`, as below; same start command (log `/data/vstart-zc2.log`). No mkfs race this time. |
+| **DB / WAL** | `/ssd-zc/osdN/block.db.file` (1 GiB) and `block.wal.file` (1000 MiB), on the root SSD `sda` (Intel SSDSC2BX20). `/data/zc/dev/osdN/block.db` and `block.wal` are symlinks to them. Block data stays on HDD `sdb` (`/data/zc/dev/osdN/block`). |
+| How | vstart creates the files under `dev/`. Then, per OSD: stop it, move the two files to `/ssd-zc/osdN/`, re-point the symlinks, restart it. BlueStore detects the non-rotational DB at mount and switches to allocation-from-file (`commit_to_null_manager`, `BlueStore.cc:7799–7803`). |
+| Verified | `ceph osd metadata`, all 5 OSDs: `bluefs_db_rotational 0`, `bluefs_wal_rotational 0`, `bluestore_bdev_rotational 1`, `bluestore_allocation_from_file 1`. A SIGKILL and restart of osd.0 logged `_init_alloc::NCB::restore_allocator() failed! Run Full Recovery from ONodes` and `read_allocation_from_drive_on_startup … Allocation Recovery was completed in 0.009158 seconds, extent_count=83`. The onode-walk rebuild runs after every unclean shutdown. |
+| Pool | `rvtest`: size 3, min_size 2, 32 PGs, autoscale off |
+| OSD build | p2 F1 (`05289b5`); smoke passes (`results/zc/smoke-20261003T211114.json`) |
+
+Earlier version of this section (superseded):
+
+## Zero-copy pilot cluster (from 2026-10-03), first version
 
 | Item | Value |
 |---|---|

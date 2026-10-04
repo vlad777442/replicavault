@@ -9,7 +9,7 @@
 # The pilot/phase 2 cluster (/data/ceph/build, fsid 224f2f2c-…) is kept for reference
 # only: nothing is to be run on it. To address the release cluster, set both variables.
 CEPH_BUILD=${CEPH_BUILD:-/data/zc}
-RV_EXPECTED_FSID=${RV_EXPECTED_FSID:-b0729c2b-8a21-481d-bec4-7655b87b5a9d}
+RV_EXPECTED_FSID=${RV_EXPECTED_FSID:-4c038ade-03a5-4bcd-8d8e-37b8e7c13ab3}
 RV_ROOT=${RV_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
 export CEPH_CONF=$CEPH_BUILD/ceph.conf
 export LD_LIBRARY_PATH=$CEPH_BUILD/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
