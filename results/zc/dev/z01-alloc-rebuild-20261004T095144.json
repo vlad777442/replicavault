@@ -1,0 +1,596 @@
+{
+ "scenario": "z01-alloc-rebuild",
+ "timestamp": "20261004T095144",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/z01-alloc-rebuild.sh ",
+ "pool": "rvtest",
+ "duration_s": 514,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "osd": 0,
+    "full_fill": false,
+    "expect_mode": "rename"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "rename"
+     ],
+     "paths": {
+      "repop": 6,
+      "primary": 10
+     }
+    },
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.061292 seconds, extent_count=2579"
+    },
+    "fill": {
+     "objects": 256,
+     "bytes": 1073741824,
+     "seconds": 32,
+     "used_before": 1165381632,
+     "used_after": 2226536448,
+     "total": 108447924224,
+     "pct_after": 2
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'2",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "576'2",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o2",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'15",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "576'15",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o3",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'20",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "576'20",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o4",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "576'16",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o5",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'21",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "576'21",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o6",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'32",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "576'32",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o7",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'5",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "576'5",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o9",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'8",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "576'8",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o10",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'5",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "576'5",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o12",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'11",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "576'11",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o16",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'12",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "576'12",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o17",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'2",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "576'2",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o19",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'4",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "576'4",
+         "acting": "0,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o21",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'13",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "576'13",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o22",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "576'6",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "576'6",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261004T095144-r1-o23",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "576'2",
+         "acting": "0,1,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "576'2",
+         "acting": "0,1,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 506,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 34,
+     "tail": "2026-10-04T09:54:26.792-0600 7984de287c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-04T09:54:26.792-0600 7984de287c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-04T09:54:26.792-0600 7984de287c80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-04T09:55:01.070-0600 7089bd750c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-04T09:55:01.071-0600 7089bd750c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-04T09:55:01.071-0600 7089bd750c80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 0,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 61,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 49549312,
+     "max_vault_extent_end": 91664384,
+     "free_extents": 57,
+     "free_bytes": 106208800768,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 221184,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "rename"
+     ],
+     "paths": {
+      "repop": 6,
+      "primary": 10
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.061292 seconds, extent_count=2579"
+    },
+    "pass": true
+   },
+   "pass": true
+  }
+ ]
+}
