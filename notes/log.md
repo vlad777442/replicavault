@@ -119,3 +119,17 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Ceph branch `replicavault-zc` created at `05289b5`.
 - Debug build reconfigured `WITH_TESTS=ON`; `ceph_test_objectstore` built (260 s); `ceph-osd` unchanged.
 - Fresh vstart cluster `/data/zc`, fsid `b0729c2b-…` (`notes/environment.md`). Scripts now default to it, with results in `results/zc/`. Smoke passes on F1.
+
+## 2026-10-03 — zero-copy pilot, Phase 1 — **STOP: waiting for Vlad**
+- `notes/zc/step1.md`. **Verdict: feasible as a metadata-only change, without an on-disk format change (inferred), for onodes with no shared blob.**
+- What it needs: rewrite the onode, extent-shard and omap keys; re-home the onode and blobs into meta (factored from `Collection::split_cache`); move the object's statfs contribution from its pool to the meta pool.
+- Three requirements:
+  1. A transaction can carry only one pool's statfs delta today (`BlueStore.h:1914–1915`, `BlueStore.cc:14110–14146`); add a second, in memory, using existing per-pool `PREFIX_STAT` keys.
+  2. The move must be in the **same** txc as the PG log entry and remove. A separate txc, as the copy uses, is not crash-safe for a move: the store would lack the object while the PG log still has it.
+  3. Omap rekey is O(number of keys), against vanilla's O(1) range delete. To measure in z05.
+- Correction to the plan's premise: in v19 unshared blobs have no `SharedBlob` (`BlueStore.h:651`).
+- Shared-blob onodes: decided by a pre-check before the transaction is built, then `mode=copy`. An error inside `_txc_add_transaction` would abort the OSD.
+- **Decision needed:** the onode-walk allocation rebuild that z01 targets runs only when the DB is non-rotational (`BlueStore.cc:7100–7103`). The zc cluster's DBs sit on HDD (`bluefs_db_rotational: 1`), so a crash restart reloads the transactional freelist instead. Options:
+  - (A) recreate the zc cluster with `block.db` and WAL on the SSD root filesystem (recommended);
+  - (B) add one SSD-DB OSD for z01;
+  - (C) run z01 on the freelist path only.
