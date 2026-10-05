@@ -147,3 +147,4 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Harness: `zc`/`zccopy` builds; rvcheck and vault-inspect accept lazy entries and still compare disk bytes with client checksums. Script bug (quoting) found by s06 run `…T090604` (0/2); fixed; kept.
 - Smoke passes on `zc` (32 vault lines, all rename). s06 2/2 and s10 3/3 with `RV_DISK_SCAN=all`.
 - **Deviation:** s06 and s10 ran before z01, although CLAUDE.md says z01 runs before anything else on the cluster. They are Phase 3 sanity checks, not Phase 5 results.
+- 2026-10-04: existing `ceph_test_objectstore` BlueStore suite complete. Job a: 125 passed, 4 skipped (zero-block detection off by default). The QA yaml's job b filter `*SyntheticMatrixC*/2` selects kstore in v19.2.3, so it was rerun as `/1`: 4/4 passed. **Phase 2 done.**
