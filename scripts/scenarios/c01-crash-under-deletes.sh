@@ -19,7 +19,19 @@
 source "$(dirname "$0")/common.sh"
 RUNS=100
 RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
-scenario_init c01-crash-under-deletes "$@"
+# --max-delay S: kill delay uniform in [0, S] (default 1.5). With the zero-copy
+# rename all 16 deletes complete in well under 50 ms, so the default never kills
+# the retainer mid-delete (zc c01 x30: 0 of 480 acked after the kill).
+MAX_DELAY=1.5
+NAME=c01-crash-under-deletes
+args=()
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --max-delay) MAX_DELAY=$2; NAME=c01s-crash-under-deletes; shift 2 ;;
+    *) args+=("$1"); shift ;;
+  esac
+done
+scenario_init "$NAME" "${args[@]}"
 SIZES=(4096 65536 1048576 4194304 8388608)
 R_CFG=""
 clear_cfg() {
@@ -35,7 +47,7 @@ for run in $(seq 1 "$RUNS"); do
   if (( run <= RUNS * 6 / 10 )); then mode=default
   elif (( run <= RUNS * 8 / 10 )); then mode=sync
   else mode=sync+rand; fi
-  delay=$(python3 -c "import random; print(round(random.uniform(0.0, 1.5), 3))")
+  delay=$(python3 -c "import random,sys; print(round(random.uniform(0.0, float(sys.argv[1])), 4))" "$MAX_DELAY")
   run_begin "$run" "{\"submit_mode\": \"$mode\", \"kill_delay_s\": $delay}"
   seed=$RUN_PREFIX-seed
   put_obj "$seed" 4096
@@ -83,6 +95,7 @@ print(json.dumps({
   "acked_before_kill": sum(r["rc"] == 0 and r["done_before_kill"] for r in o),
   "acked_after_kill": sum(r["rc"] == 0 and not r["done_before_kill"] for r in o),
   "not_acked": [{"rc": r["rc"]} for r in o if r["rc"] != 0],
+  "done_s": sorted(r["done_s"] for r in o if r["done_s"] is not None),
 }))
 EOF
 )
