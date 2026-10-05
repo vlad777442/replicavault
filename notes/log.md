@@ -152,3 +152,4 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 ## 2026-10-05 — zero-copy pilot, Phase 4 (z01), rename build
 - **z01 on `zc` (33b89ae): 30/30 runs passed** (`results/zc/z01-alloc-rebuild-20261004T100138.json`). Every run: SIGKILL → onode-walk allocation rebuild confirmed in the OSD log → 8 GiB fill (70% in runs 6, 12, 15, 18, 24, 30, each OSD once plus osd.4 twice) → clean deep fsck and qfsck → no vault extent in the persisted free list → every z01 entry on the OSD present with client-checksum-matching bytes (cumulative, up to 96 per OSD) → invariants 1-4 with disk scan.
 - 480 renamed entries created; all renamed on disk. Copy-build control (5 runs) next.
+- **Copy-build control (`zccopy`, same commit, RV_VAULT_MODE=copy): 5/5 passed** (`results/zc/z01-alloc-rebuild-20261005T001126.json`; run 5 filled to 69%). All entries `mode=copy` on disk. Cluster back on `zc`. **Phase 4 done.**

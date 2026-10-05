@@ -1,0 +1,3402 @@
+{
+ "scenario": "z01-alloc-rebuild",
+ "timestamp": "20261005T001126",
+ "mode": "zccopy",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zccopy 33b89ae8660c5816e494890c1be5d1f987232599 581a15f9295c04a5",
+ "command": "scripts/scenarios/z01-alloc-rebuild.sh ",
+ "pool": "rvtest",
+ "duration_s": 5618,
+ "summary": {
+  "runs": 5,
+  "runs_passed": 5,
+  "1_no_resurrection": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "osd": 0,
+    "full_fill": false,
+    "expect_mode": "copy"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 10,
+      "repop": 6
+     }
+    },
+    "entries_on_x": [
+     {
+      "vname": "rv1_1_1.2_3147-69_1791180701.368219152___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f30",
+      "sha": "f5bf8b249eef8cf78a156e64ec0b5eddce8f0b47f45df1a39225a17fdfe121f2",
+      "run": 1,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.19_3147-34_1791180701.545552494___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f32",
+      "sha": "b91692b83e3bb94b277d4dcce2b0a9cd9dce3c5acfa143d90d9ee4983f65c6b2",
+      "run": 1,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.2_3147-70_1791180701.782671613___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f34",
+      "sha": "7a1b4b8c885fddd9cf70544da9871949f8f5bbed4352289bc4ce5d037c2418e7",
+      "run": 1,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.c_3147-22_1791180702.105244225___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f35",
+      "sha": "f8ba2724d810ced449eac1b8140daf4d224956e34fe4dcab30ac4c07c4846399",
+      "run": 1,
+      "size": 4194304,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1c_3147-45_1791180702.666121900___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f36",
+      "sha": "371fb2490d3fe8250aec653df6ceffec6014207c41f139329c87f9ed2087c334",
+      "run": 1,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.14_3147-64_1791180703.338700397___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f37",
+      "sha": "052949237727027df53d715bec7704270754e84e37115902901460c9ecb9d78d",
+      "run": 1,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.14_3147-65_1791180703.510368560___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3130",
+      "sha": "c321190f688f4adba5de83bb1beb770ac437bfdd2b90675a09ea0fed69f2984f",
+      "run": 1,
+      "size": 12345,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.10_3147-49_1791180703.719438979___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3133",
+      "sha": "7184266aa0d61b95c9ac5c7288f24c08530662a3dcec5344612f67bb6f0696a8",
+      "run": 1,
+      "size": 65536,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.14_3147-66_1791180703.930317319___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3135",
+      "sha": "7f0337dae96f847ad2b1c40bfb699cbd2f824c91f1085ca6f03269c8897ae109",
+      "run": 1,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.11_3147-47_1791180704.220322503___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3136",
+      "sha": "03d879e5f3365a1e950fccb29944139238331e474fee10fc3d1354df0350c392",
+      "run": 1,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1b_3147-31_1791180704.743629585___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3139",
+      "sha": "e6110d5965a353264b9978854230e73074f38aca1a46edb05bc10814584dba58",
+      "run": 1,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1f_3147-51_1791180705.327441289___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3230",
+      "sha": "853cf738e38ccc8d03297902d56f0ec92c4d424b4e096df839d97225ceb679d3",
+      "run": 1,
+      "size": 4096,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.12_3147-67_1791180705.526407297___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3232",
+      "sha": "0a4ecdb73316c33f4641afa7bf130ab4e4a75c596ddb7b7d42bbb17af63a2b3a",
+      "run": 1,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.14_3147-67_1791180705.719609659___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3233",
+      "sha": "1fa2284b142b8cdfa376f16b078414851b25713744271bc24cea3692400f0a20",
+      "run": 1,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.2_3147-71_1791180705.911236646___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3236",
+      "sha": "f85dd335d25b5eba40e9d27252969133ff61010873f4fcf807f12658ecdbae00",
+      "run": 1,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.10_3147-50_1791180706.241846947___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72312d6f3238",
+      "sha": "dd6d78dbff13ea9bf7adba11a6f45893031b9b62e04fbf20e4779e0538f5e8c2",
+      "run": 1,
+      "size": 4194304,
+      "path": "primary"
+     }
+    ],
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.119753 seconds, extent_count=17213"
+    },
+    "fill": {
+     "objects": 2048,
+     "bytes": 8589934592,
+     "seconds": 124,
+     "used_before": 2095812608,
+     "used_after": 10551517184,
+     "total": 108447924224,
+     "pct_after": 9
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'69",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3147'69",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o2",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'34",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3147'34",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o4",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'70",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3147'70",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o5",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'22",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3147'22",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o6",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'45",
+         "acting": "0,3,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3147'45",
+         "acting": "0,3,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o7",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'64",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3147'64",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o10",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'65",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3147'65",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o13",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'49",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3147'49",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o15",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'66",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3147'66",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o16",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'47",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3147'47",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o19",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'31",
+         "acting": "0,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3147'31",
+         "acting": "0,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o20",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'51",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3147'51",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o22",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'67",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3147'67",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o23",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3147'67",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3147'67",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o26",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'71",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3147'71",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r1-o28",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3147'50",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3147'50",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 695,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 137,
+     "tail": "2026-10-05T00:15:37.554-0600 7a64b9a9ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:15:37.554-0600 7a64b9a9ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:15:37.555-0600 7a64b9a9ec80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-05T00:17:54.125-0600 7e51652c3c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:17:54.125-0600 7e51652c3c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:17:54.125-0600 7e51652c3c80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 0,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 303,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 49549312,
+     "max_vault_extent_end": 10737295360,
+     "free_extents": 261,
+     "free_bytes": 97762185216,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 1125302272,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 10,
+      "repop": 6
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.119753 seconds, extent_count=17213"
+    },
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "osd": 1,
+    "full_fill": false,
+    "expect_mode": "copy"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "repop": 4,
+      "primary": 12
+     }
+    },
+    "entries_on_x": [
+     {
+      "vname": "rv1_1_1.1d_3230-54_1791181397.494361406___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f31",
+      "sha": "93cd050f715ea65dde7dc9eb2e941e0769a91a3cc330c707c6e4b68683d944c8",
+      "run": 2,
+      "size": 65536,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.9_3230-52_1791181398.031305437___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f33",
+      "sha": "b78ceaef1735b32efd3cd32d6350586eb3dd6982246a2f63d21270840be21688",
+      "run": 2,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1d_3230-55_1791181398.374255101___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f39",
+      "sha": "5a10ee910dfced0a0a098b5b951edfd376fd0eeca714fdb8b4994666e784b583",
+      "run": 2,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.12_3230-73_1791181398.952687489___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3133",
+      "sha": "e6c9445d1157f3315d33f568409fd26fd2d7dbe644610523f2b3c7c04d52daf4",
+      "run": 2,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.7_3230-36_1791181399.463705523___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3135",
+      "sha": "c310e4e3034774c24956226663fc4dce9a99d1e5859d4197373854a9e8e28d1b",
+      "run": 2,
+      "size": 4096,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.9_3230-53_1791181399.641763092___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3136",
+      "sha": "7d51fb7a6383e83de296b2bc8b74f55ea902e8bd6ee2b8b8ddb3a367fc58f64c",
+      "run": 2,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.12_3230-74_1791181399.803961431___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3138",
+      "sha": "d11146cc619a3022d1bfd9ae21c8c1159c7a34263b727d0d32056bc2345c3a7b",
+      "run": 2,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.e_3230-23_1791181400.021563621___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3233",
+      "sha": "42bcc92cbefb788f3fa5a0d4cedecd3ce18fa9d03cca2740756f2db21edb7e9b",
+      "run": 2,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.e_3230-24_1791181400.271686551___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3236",
+      "sha": "6205cd0647dd56412802c96977f2bb1c226b3084e604dc8789ff16bd05ae7523",
+      "run": 2,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1b_3230-36_1791181401.038408161___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3330",
+      "sha": "fc2f0869a31bcc2083c0a0aeaac651adf51808e8057a8e35c67b0d4ceb009c19",
+      "run": 2,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.15_3230-41_1791181401.571628037___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3332",
+      "sha": "d36e37dd6f22ecb49a271a7766d264fe74b3496489da116a61e0aca56ba741ee",
+      "run": 2,
+      "size": 4096,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.0_3230-44_1791181401.783053312___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3335",
+      "sha": "9431d9aef62d5ef37bfae7787fed293a86d2584b30e7562aac3054cd8f95002d",
+      "run": 2,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.11_3230-49_1791181401.958189411___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3337",
+      "sha": "9343ec6f5805d6f16fe6df34c1198e42a746d2a2b7d77637bf6555bda730e363",
+      "run": 2,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.a_3230-61_1791181402.187986844___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3431",
+      "sha": "bfc57b3f8e354a04f1a17f6ca4b277196ad62dbc631bf9e0b2e12cb37ab3594a",
+      "run": 2,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.8_3230-34_1791181402.490995115___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3433",
+      "sha": "f1d49535315cb98922aed55c2d21213db2af82c8928407eb00c1a5ffa1a2ce71",
+      "run": 2,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.9_3230-54_1791181403.041549349___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72322d6f3435",
+      "sha": "c41df908dc451c9aa7fa4c1595eacfdefdc3f51191bc2d76ec029de12fd610f4",
+      "run": 2,
+      "size": 16777216,
+      "path": "primary"
+     }
+    ],
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.125117 seconds, extent_count=15706"
+    },
+    "fill": {
+     "objects": 2048,
+     "bytes": 8589934592,
+     "seconds": 126,
+     "used_before": 1984163840,
+     "used_after": 10574090240,
+     "total": 108447924224,
+     "pct_after": 9
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o1",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'54",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3230'54",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o3",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'52",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'52",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o9",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'55",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3230'55",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o13",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3230'73",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3230'73",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o15",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'36",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3230'36",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o16",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'53",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'53",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o18",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3230'74",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3230'74",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o23",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'23",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'23",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o26",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'24",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'24",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o30",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3230'36",
+         "acting": "0,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3230'36",
+         "acting": "0,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o32",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'41",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3230'41",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o35",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3230'44",
+         "acting": "1,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'44",
+         "acting": "1,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o37",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3230'49",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3230'49",
+         "acting": "0,1,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o41",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'61",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3230'61",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o43",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'34",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'34",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r2-o45",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3230'54",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3230'54",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 701,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 143,
+     "tail": "2026-10-05T00:27:17.365-0600 766e7e923c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:27:17.366-0600 766e7e923c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:27:17.366-0600 766e7e923c80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-05T00:29:40.998-0600 7d04563a3c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:29:40.998-0600 7d04563a3c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:29:40.998-0600 7d04563a3c80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 1,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 266,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 66310144,
+     "max_vault_extent_end": 944230400,
+     "free_extents": 232,
+     "free_bytes": 97873829888,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 6565888,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "repop": 4,
+      "primary": 12
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.125117 seconds, extent_count=15706"
+    },
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "osd": 2,
+    "full_fill": false,
+    "expect_mode": "copy"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 7,
+      "repop": 9
+     }
+    },
+    "entries_on_x": [
+     {
+      "vname": "rv1_1_1.a_3313-64_1791182098.723636442___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f30",
+      "sha": "c7bfdf4e3084b72907da9e34f3c1426d0d5858bf8185269f3b5308c0227140ee",
+      "run": 3,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.10_3313-52_1791182099.087995073___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f32",
+      "sha": "1ca61f4701987b96cda960b65024b8eeb528318f72107353a9448f79214fc3f0",
+      "run": 3,
+      "size": 4194304,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.d_3313-106_1791182099.589644732___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f34",
+      "sha": "b6ad16830ebc0875eab52afe2e8e02a62c98c62de6ba7f663a04c379b9f48895",
+      "run": 3,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.d_3313-107_1791182100.049472889___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f38",
+      "sha": "bfb602080f501fb9d430b188cb2217846c1caa3670442881e02ef3ec98d2f6f2",
+      "run": 3,
+      "size": 4096,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1f_3313-58_1791182100.230901670___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3131",
+      "sha": "8ff46860a172a581454c9a5b0556b824972be61bef3d3bb51ef245694a85a14a",
+      "run": 3,
+      "size": 12345,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.14_3313-71_1791182100.394887082___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3138",
+      "sha": "10e36f3e53e6e429262a361d6b10700aa3ca244c8e18311654e8d3a96c838eef",
+      "run": 3,
+      "size": 65536,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.5_3313-49_1791182100.610803526___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3232",
+      "sha": "29beee622a4306bdc9d4565dcf779144cb964f5b6ac979118ce42981d6ad74d7",
+      "run": 3,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.a_3313-65_1791182100.953835427___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3235",
+      "sha": "a547fb6e5ae6becd5b88b40390354bb44de90a724b8f6c4a5ff88d49e58074a1",
+      "run": 3,
+      "size": 4194304,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.d_3313-108_1791182101.616879516___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3236",
+      "sha": "58f531be25618843696621e9d5dfdeabb5ac588ae31fa22c456e444959ba8a68",
+      "run": 3,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1f_3313-59_1791182102.009296331___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3332",
+      "sha": "8a39afe53480812b241dae532ab7cfbaef92a541886102874ee4a880ebf532b6",
+      "run": 3,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.14_3313-72_1791182102.179047254___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3432",
+      "sha": "db3fdc3cae6d9d7aa251afdc3c44060d0f22bedc8884955fc88bcb640387d4ad",
+      "run": 3,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.5_3313-50_1791182102.360474273___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3433",
+      "sha": "8e6e360a154230c0eb433deaf2853ddf200968da1333d8cc6552133c45f75585",
+      "run": 3,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.5_3313-51_1791182102.619528855___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3435",
+      "sha": "2f4b02f630b63c259b8cd56c93ae8950fa84cd6572bb89af569489c2c1a8abb6",
+      "run": 3,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.14_3313-73_1791182102.919229485___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3439",
+      "sha": "ce7804f8e6490c00695f0703f85d7c7f57825683234fe67107dbaa9e17ef78c3",
+      "run": 3,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1f_3313-60_1791182103.565660854___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3531",
+      "sha": "1a39a47e9aaa6322d755bfffcb6dba35a6f7d8071f1ca4e1d6b0c0d2344efd76",
+      "run": 3,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.d_3313-109_1791182104.107509516___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72332d6f3534",
+      "sha": "54d7b84466a526f516eddcf4bbf680fabebb6b201863190e350400eac01a13e9",
+      "run": 3,
+      "size": 4096,
+      "path": "primary"
+     }
+    ],
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.091338 seconds, extent_count=10759"
+    },
+    "fill": {
+     "objects": 2048,
+     "bytes": 8589934592,
+     "seconds": 125,
+     "used_before": 1689473024,
+     "used_after": 10199711744,
+     "total": 108447924224,
+     "pct_after": 9
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o0",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3313'64",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'64",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o2",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3313'52",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'52",
+         "acting": "0,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o4",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'106",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3313'106",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o8",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'107",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3313'107",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o11",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3313'58",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'58",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o18",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3313'71",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'71",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o22",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'49",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3313'49",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o25",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3313'65",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'65",
+         "acting": "1,2,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o26",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'108",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3313'108",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o32",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3313'59",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'59",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o42",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3313'72",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'72",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o43",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'50",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3313'50",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o45",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'51",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3313'51",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o49",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3313'73",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'73",
+         "acting": "2,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o51",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3313'60",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3313'60",
+         "acting": "0,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r3-o54",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3313'109",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3313'109",
+         "acting": "2,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 681,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 137,
+     "tail": "2026-10-05T00:38:55.170-0600 7e57a0a94c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:38:55.171-0600 7e57a0a94c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:38:55.171-0600 7e57a0a94c80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-05T00:41:12.349-0600 7490a6d2ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:41:12.350-0600 7490a6d2ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:41:12.350-0600 7490a6d2ec80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 2,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 196,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 66248704,
+     "max_vault_extent_end": 667197440,
+     "free_extents": 405,
+     "free_bytes": 98168516608,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 13873152,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 7,
+      "repop": 9
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.091338 seconds, extent_count=10759"
+    },
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "osd": 3,
+    "full_fill": false,
+    "expect_mode": "copy"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 9,
+      "repop": 7
+     }
+    },
+    "entries_on_x": [
+     {
+      "vname": "rv1_1_1.4_3390-35_1791182779.789126167___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f30",
+      "sha": "93e914e36145bbac03020fbc74dc5c9c32e9b51f3f800d39dcd5ceb5d5933237",
+      "run": 4,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.c_3390-29_1791182780.309213648___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f31",
+      "sha": "de01da19f5e99685e9e9e8421e61e0b429a44bfa21d0aeecd19c6b1b86595301",
+      "run": 4,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.13_3390-46_1791182780.948933015___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f33",
+      "sha": "151cfe1f63943f76c876fd6f38e5d56d23232f5885da221e263eb844dbdcabf4",
+      "run": 4,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1d_3390-61_1791182781.145964283___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f34",
+      "sha": "ddb3f7d41a77b4fe2cf9cb5e999627545cc93ba31bfc81759bf21ab4ced2274b",
+      "run": 4,
+      "size": 12345,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.f_3390-40_1791182781.326850935___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f35",
+      "sha": "68d7e6db51eb390ef032899777216cf01d9cdd113e1ea201d2791dde47a0cd8d",
+      "run": 4,
+      "size": 65536,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.15_3390-43_1791182781.545599869___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f36",
+      "sha": "84aa300910e51f48e97c77d6ecc7bcfa573f9663289df0d1155af02ef2d12a3f",
+      "run": 4,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.f_3390-41_1791182781.861636371___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f37",
+      "sha": "e142e722912bf3b5ddbb88e458556fb9e3b0f4ab98e19c34b7260a98aacb9dae",
+      "run": 4,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1e_3390-52_1791182782.424897179___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f38",
+      "sha": "d59294cf3c4b52aa929375c6579fb2c26b56a3d4a1d15b08296162ade8a6df2e",
+      "run": 4,
+      "size": 16777216,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.c_3390-30_1791182782.917691414___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3131",
+      "sha": "14662f781403a40928985126f47d6fa24714658e10ee8d4357d651c8b48b3fe4",
+      "run": 4,
+      "size": 4096,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1e_3390-53_1791182783.076035254___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3132",
+      "sha": "ac172393bf25fecf4bc66028ce43f82225b01af64de60680d55899bd7a4eb9c3",
+      "run": 4,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.c_3390-31_1791182783.270096539___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3134",
+      "sha": "22173ae2cad0353883fe1c6bb4a18d36300b7a44281ca5cfc9576f5e448e9028",
+      "run": 4,
+      "size": 65536,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.f_3390-42_1791182783.503790088___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3135",
+      "sha": "7d0175be228a5c674ef7419dd1479db1f2b28366bfa95079245b50c3721481d2",
+      "run": 4,
+      "size": 1048577,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.1_3390-43_1791182783.865450589___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3136",
+      "sha": "c02e346b16a4a4d8faa6ffb0d137d71ec68e9073a5d2af212544ce1ac001e6cb",
+      "run": 4,
+      "size": 4194304,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1d_3390-62_1791182784.484290139___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3137",
+      "sha": "09fa057d6ca6bc38f54d681df1e7ff92e9cfe7dcb7d6ed6088df0d95bc957232",
+      "run": 4,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.18_3390-75_1791182784.929651847___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3139",
+      "sha": "988f5b924face8a3eea7911ff726421bd68c67d8e640d1f4335d95126b79c1a7",
+      "run": 4,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1c_3390-47_1791182785.103471504___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72342d6f3231",
+      "sha": "513c9dd634cf167be40d53bfed70abaaf5ba3628adbc8c5ba04f7ccf649ee128",
+      "run": 4,
+      "size": 12345,
+      "path": "repop"
+     }
+    ],
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.158344 seconds, extent_count=13823"
+    },
+    "fill": {
+     "objects": 2048,
+     "bytes": 8589934592,
+     "seconds": 124,
+     "used_before": 1877086208,
+     "used_after": 10467020800,
+     "total": 108447924224,
+     "pct_after": 9
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o0",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'35",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'35",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o1",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'29",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'29",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o3",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'46",
+         "acting": "4,3,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3390'46",
+         "acting": "4,3,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o4",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3390'61",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'61",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o5",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'40",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'40",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3390'43",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'43",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o7",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'41",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'41",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o8",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'52",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'52",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o11",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'30",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'30",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o12",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'53",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'53",
+         "acting": "3,0,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o14",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'31",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'31",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o15",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "3390'42",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3390'42",
+         "acting": "3,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o16",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'43",
+         "acting": "4,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3390'43",
+         "acting": "4,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o17",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3390'62",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'62",
+         "acting": "1,3,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o19",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "3390'75",
+         "acting": "2,3,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'75",
+         "acting": "2,3,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r4-o21",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3390'47",
+         "acting": "0,3,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "3390'47",
+         "acting": "0,3,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 700,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 137,
+     "tail": "2026-10-05T00:50:17.918-0600 7ed2392fcc80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:50:17.918-0600 7ed2392fcc80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:50:17.918-0600 7ed2392fcc80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-05T00:52:34.149-0600 72227075ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:52:34.150-0600 72227075ec80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T00:52:34.150-0600 72227075ec80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 3,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 247,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 65212416,
+     "max_vault_extent_end": 835100672,
+     "free_extents": 268,
+     "free_bytes": 97980903424,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 10080256,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 9,
+      "repop": 7
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.158344 seconds, extent_count=13823"
+    },
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "osd": 4,
+    "full_fill": true,
+    "expect_mode": "copy"
+   },
+   "notes": {
+    "vault_lines_on_x": {
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 3,
+      "repop": 13
+     }
+    },
+    "entries_on_x": [
+     {
+      "vname": "rv1_1_1.2_3474-82_1791183479.109027453___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f33",
+      "sha": "69668446b74cdcc3ee9f9bd4bdb89d1795d5a42224d7e4f3baaf28e797f83e66",
+      "run": 5,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.2_3474-83_1791183479.612808273___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f34",
+      "sha": "4b673e06b1d24ffff7bd2869e7a8450b3628456ab2527526d3c0303e76311589",
+      "run": 5,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.17_3474-51_1791183479.808908335___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f39",
+      "sha": "fcfd116fe87140d904df752cf5599d13acdf5222d7237030231feddac19f67c8",
+      "run": 5,
+      "size": 12345,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.9_3474-59_1791183479.975714821___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3136",
+      "sha": "03b2cc333212eec1167952b69a51a784d0ab574c6aead51be0a19c2deb124635",
+      "run": 5,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1a_3474-54_1791183480.209968389___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3233",
+      "sha": "1bdfdd1a3049437ee0c6c1c6c480fb5f36c5c2446e090c8e4fbc6e8e9a74fab8",
+      "run": 5,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.9_3474-60_1791183480.527391759___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3235",
+      "sha": "22bc844812d04dc06b204d3daa129bf9b532b0dae5c431aeee932660e09bb11a",
+      "run": 5,
+      "size": 4194304,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.2_3474-84_1791183481.049794697___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3236",
+      "sha": "5ddf4e28948155432c8ca13a0436bcefd0340c99a26dc4ab450d86e7200d898e",
+      "run": 5,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.17_3474-52_1791183481.560282248___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3237",
+      "sha": "acc71e6f99ea03ae8886105aad468142d63336591e465c05c6e9b0afc9625099",
+      "run": 5,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.9_3474-61_1791183481.726790576___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3330",
+      "sha": "08b6cfcfca4975be1e0f170dcc0b5cffb24b26ace462737c035c4455321f60b1",
+      "run": 5,
+      "size": 12345,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.1a_3474-55_1791183482.117311179___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3333",
+      "sha": "dd8b6445d16fecae58b07be1021f750dc182676ce1789763c580b9003acd5578",
+      "run": 5,
+      "size": 65536,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.2_3474-85_1791183482.682001459___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3334",
+      "sha": "6f6815147f7537871becaa460d4220705e8e2e7d3a1bbe5f631e2ce76ca3f060",
+      "run": 5,
+      "size": 1048577,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.5_3474-53_1791183482.990106150___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3339",
+      "sha": "583723e07eb7b50188b47d0d51b8c1cc58aadbf4cc1ae0c0af9f7dabb5a5d531",
+      "run": 5,
+      "size": 4194304,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.6_3474-59_1791183483.535871057___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3430",
+      "sha": "dfe3cf3e3c4da379c24264350b93a9ce90eef200ab08d4c496a898d7749a1e66",
+      "run": 5,
+      "size": 16777216,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.9_3474-62_1791183484.020838601___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3431",
+      "sha": "38206294b6565f1d485c74f37bd32c45eba900e78865d2e02cba556f58ad83a7",
+      "run": 5,
+      "size": 4096,
+      "path": "repop"
+     },
+     {
+      "vname": "rv1_1_1.3_3474-38_1791183484.192684492___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3434",
+      "sha": "a8b8a31f6723d211dc742d12e6d20471f2d6b7af38f76ff209d04427c228b0b7",
+      "run": 5,
+      "size": 12345,
+      "path": "primary"
+     },
+     {
+      "vname": "rv1_1_1.3_3474-39_1791183484.385446007___7a30312d616c6c6f632d72656275696c642d3230323631303035543030313132362d72352d6f3438",
+      "sha": "c0165846a6e65ded93ef9afc28f68b0c0f85160b3ad532c2ae718cfef27d75a0",
+      "run": 5,
+      "size": 65536,
+      "path": "primary"
+     }
+    ],
+    "rebuild": {
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.402573 seconds, extent_count=15296"
+    },
+    "fill": {
+     "objects": 17631,
+     "bytes": 73949773824,
+     "seconds": 1089,
+     "used_before": 1964752896,
+     "used_after": 75906125824,
+     "total": 108447924224,
+     "pct_after": 69
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o3",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'82",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'82",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o4",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'83",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'83",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o9",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'51",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'51",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o16",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'59",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'59",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o23",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'54",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'54",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o25",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'60",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'60",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o26",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'84",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'84",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o27",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'52",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'52",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o30",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'61",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'61",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o33",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'55",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'55",
+         "acting": "1,4,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o34",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "3474'85",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'85",
+         "acting": "0,4,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o39",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "3474'53",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3474'53",
+         "acting": "4,2,3",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o40",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "3474'59",
+         "acting": "3,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'59",
+         "acting": "3,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o41",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "3474'62",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "3474'62",
+         "acting": "1,4,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o44",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3474'38",
+         "acting": "4,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3474'38",
+         "acting": "4,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z01-alloc-rebuild-20261005T001126-r5-o48",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "3474'39",
+         "acting": "4,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "3474'39",
+         "acting": "4,1,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "missing",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 2834,
+   "z01": {
+    "fsck_deep": {
+     "pass": true,
+     "seconds": 1193,
+     "tail": "2026-10-05T01:18:03.912-0600 7e1bea545c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T01:18:03.913-0600 7e1bea545c80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T01:18:03.913-0600 7e1bea545c80 -1 WARNING: all dangerous and experimental features are enabled.\nfsck success\n"
+    },
+    "qfsck": {
+     "pass": true,
+     "tail": "2026-10-05T01:37:56.634-0600 7f5c8293ac80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T01:37:56.634-0600 7f5c8293ac80 -1 WARNING: all dangerous and experimental features are enabled.\n2026-10-05T01:37:56.634-0600 7f5c8293ac80 -1 WARNING: all dangerous and experimental features are enabled.\nqfsck bluestore.quick-fsck\nqfsck success\n"
+    },
+    "check": {
+     "osd": 4,
+     "entries_checked": 16,
+     "entries_this_run": 16,
+     "vault_entries_on_osd": 268,
+     "missing": [],
+     "sha_mismatch": [],
+     "wrong_mode": [],
+     "free_overlap": [],
+     "dump_errors": [],
+     "vault_bytes_allocated": 61083648,
+     "max_vault_extent_end": 917561344,
+     "free_extents": 392,
+     "free_bytes": 32533405696,
+     "capacity": 107374182400,
+     "free_bytes_below_max_vault_extent": 12808192,
+     "pass": true
+    },
+    "vault_lines_on_x": {
+     "pass": true,
+     "lines": 16,
+     "objects": 16,
+     "modes": [
+      "copy"
+     ],
+     "paths": {
+      "primary": 3,
+      "repop": 13
+     }
+    },
+    "rebuild": {
+     "pass": true,
+     "full_recovery_from_onodes": true,
+     "completed": "::::Allocation Recovery was completed in 0.402573 seconds, extent_count=15296"
+    },
+    "pass": true
+   },
+   "pass": true
+  }
+ ]
+}

@@ -363,3 +363,102 @@ z01 run 30 osd.4: PASS  fsck=True qfsck=True rebuild=True entries=16/96 free_ove
 z01-alloc-rebuild [zc]: 30/30 runs passed -> /users/vlad777/research/replicavault/results/zc/z01-alloc-rebuild-20261004T100138.json
 00:09:36 clean after 7 s
 00:09:43 installed zccopy (33b89ae8660c5816e494890c1be5d1f987232599)
+00:09:46 osd.0 (pid 3500370) down and exited
+00:09:53 osd.0 up (pid 3521795)
+00:10:04 clean after 11 s
+00:10:06 osd.1 (pid 3506120) down and exited
+00:10:13 osd.1 up (pid 3522636)
+00:10:24 clean after 11 s
+00:10:27 osd.2 (pid 3409596) down and exited
+00:10:33 osd.2 up (pid 3523501)
+00:10:44 clean after 11 s
+00:10:46 osd.3 (pid 3510030) down and exited
+00:10:52 osd.3 up (pid 3524342)
+00:11:05 clean after 13 s
+00:11:07 osd.4 (pid 3520632) down and exited
+00:11:14 osd.4 up (pid 3525240)
+00:11:25 clean after 11 s
+00:11:26 all OSDs running zccopy
+00:11:27 scenario z01-alloc-rebuild: mode=zccopy ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=5 pool=rvtest
+00:11:33 clean after 6 s
+00:11:34 --- z01-alloc-rebuild run 1 {"osd": 0, "full_fill": false, "expect_mode": "copy"}
+00:11:48 osd.0 (pid 3521795) down and exited
+00:11:55 osd.0 up (pid 3527290)
+00:12:31 clean after 6 s
+00:13:26 clean after 14 s
+00:15:35 osd.0 (pid 3527290) down and exited
+00:19:19 osd.0 up (pid 3543811)
+00:19:39 clean after 6 s
+00:19:58 deep-scrubbed 32 PGs in 19 s
+00:23:09 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 1 osd.0: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+00:23:09 --- z01-alloc-rebuild run 2 {"osd": 1, "full_fill": false, "expect_mode": "copy"}
+00:23:27 osd.1 (pid 3558311) down and exited
+00:23:33 osd.1 up (pid 3570672)
+00:24:10 clean after 7 s
+00:25:05 clean after 13 s
+00:27:14 osd.1 (pid 3570672) down and exited
+00:31:06 osd.1 up (pid 3587223)
+00:31:25 clean after 6 s
+00:31:44 deep-scrubbed 32 PGs in 19 s
+00:34:50 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 2 osd.1: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+00:34:51 --- z01-alloc-rebuild run 3 {"osd": 2, "full_fill": false, "expect_mode": "copy"}
+00:35:06 osd.2 (pid 3604418) down and exited
+00:35:12 osd.2 up (pid 3614004)
+00:35:49 clean after 6 s
+00:36:44 clean after 13 s
+00:38:52 osd.2 (pid 3614004) down and exited
+00:42:36 osd.2 up (pid 3630686)
+00:42:51 clean after 6 s
+00:43:11 deep-scrubbed 32 PGs in 20 s
+00:46:11 clean after 14 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 3 osd.2: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+00:46:11 --- z01-alloc-rebuild run 4 {"osd": 3, "full_fill": false, "expect_mode": "copy"}
+00:46:29 osd.3 (pid 3607722) down and exited
+00:46:36 osd.3 up (pid 3656602)
+00:47:13 clean after 7 s
+00:48:08 clean after 14 s
+00:50:15 osd.3 (pid 3656602) down and exited
+00:53:59 osd.3 up (pid 3673072)
+00:54:24 clean after 6 s
+00:54:40 deep-scrubbed 32 PGs in 16 s
+00:57:51 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 4 osd.3: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=9%
+00:57:51 --- z01-alloc-rebuild run 5 {"osd": 4, "full_fill": true, "expect_mode": "copy"}
+00:58:08 osd.4 (pid 3698103) down and exited
+00:58:15 osd.4 up (pid 3699886)
+00:58:52 clean after 6 s
+00:59:46 clean after 13 s
+01:17:58 osd.4 (pid 3699886) down and exited
+01:39:23 osd.4 up (pid 3718285)
+01:41:36 clean after 6 s
+01:41:55 deep-scrubbed 32 PGs in 19 s
+01:45:05 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok]
+z01 run 5 osd.4: PASS  fsck=True qfsck=True rebuild=True entries=16/16 free_overlap=0 sha_bad=0 missing=0 fill=69%
+z01-alloc-rebuild [zccopy]: 5/5 runs passed -> /users/vlad777/research/replicavault/results/zc/z01-alloc-rebuild-20261005T001126.json
+chain rc=0
+01:45:13 clean after 6 s
+01:45:15 installed zc (33b89ae8660c5816e494890c1be5d1f987232599)
+01:45:18 osd.0 (pid 3724668) down and exited
+01:45:25 osd.0 up (pid 3745106)
+01:45:38 clean after 13 s
+01:45:40 osd.1 (pid 3730394) down and exited
+01:45:46 osd.1 up (pid 3745948)
+01:45:56 clean after 10 s
+01:46:00 osd.2 (pid 3731892) down and exited
+01:46:06 osd.2 up (pid 3746756)
+01:46:19 clean after 13 s
+01:46:21 osd.3 (pid 3733379) down and exited
+01:46:27 osd.3 up (pid 3747600)
+01:46:40 clean after 13 s
+01:46:42 osd.4 (pid 3743967) down and exited
+01:46:48 osd.4 up (pid 3748408)
+01:47:02 clean after 14 s
+01:47:02 all OSDs running zc
+back on zc rc=0
