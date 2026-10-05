@@ -171,12 +171,19 @@ run_end() {
   wait_clean 900 || clean_ok=false
   local fsck='{"pass": null, "skipped": "RV_FSCK=off"}'
   [[ ${RV_FSCK:-regular} == off ]] || fsck=$(fsck_all_osds)
-  python3 - "$RUNS_FILE" "$RUN" "$RUN_PARAMS" "$check" "$RUN_NOTES" "$scrub_ok" "$inc_ok" \
-           "$clean_ok" "$((SECONDS - RUN_START))" "$extra" "$WORK/inc-$RUN.txt" "$WORK/rvcheck-$RUN.err" "$fsck" <<'EOF'
+  # JSON goes through files: with RV_DISK_SCAN=all the check can exceed the 128 KiB
+  # limit on one argument (MAX_ARG_STRLEN; s07 hit it)
+  printf '%s' "$check" > "$WORK/check-$RUN.json"
+  printf '%s' "$extra" > "$WORK/extra-$RUN.json"
+  printf '%s' "$fsck" > "$WORK/fsck-$RUN.json"
+  python3 - "$RUNS_FILE" "$RUN" "$RUN_PARAMS" "$WORK/check-$RUN.json" "$RUN_NOTES" "$scrub_ok" "$inc_ok" \
+           "$clean_ok" "$((SECONDS - RUN_START))" "$WORK/extra-$RUN.json" "$WORK/inc-$RUN.txt" "$WORK/rvcheck-$RUN.err" "$WORK/fsck-$RUN.json" <<'EOF'
 import json, sys
 (runs_file, run, params, check, notes_file, scrub_ok, inc_ok, clean_ok, dur, extra,
  inc_file, err_file, fsck) = sys.argv[1:14]
-check = json.loads(check)
+check = json.load(open(check))
+extra = open(extra).read()
+fsck = open(fsck).read()
 if "rvcheck_error" in check:
     check["rvcheck_error"]["stderr"] = open(err_file).read()[-3000:]
 notes = {}
