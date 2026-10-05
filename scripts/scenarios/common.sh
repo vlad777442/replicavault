@@ -128,6 +128,30 @@ s=json.load(sys.stdin)["state"]; sys.exit(0 if s.startswith("active") else 1)' &
   return 1
 }
 
+# fsck_all_osds [deep] -> one JSON object {"pass", "deep", "osds": {N: {...}}}.
+# Stops each OSD in turn (noout), runs ceph-bluestore-tool fsck (--deep 1 if asked),
+# restarts it. ZC_CRITERIA.md: a regular fsck on every OSD after every run, a deep
+# fsck once per scenario batch. RV_FSCK=off skips the per-run fsck.
+fsck_all_osds() {
+  local deep=${1:-} n out t0 res="{"
+  local args=(fsck); [[ -n $deep ]] && args+=(--deep 1)
+  ceph osd set noout >/dev/null
+  for n in $(osd_ids); do
+    local was_up=0
+    if osd_pid "$n" >/dev/null; then was_up=1; kill_osd "$n" TERM >/dev/null 2>&1; fi
+    t0=$SECONDS
+    out=$("$CEPH_BUILD/bin/ceph-bluestore-tool" --path "$CEPH_BUILD/dev/osd$n" --command "${args[@]}" 2>&1 \
+          | grep -E 'fsck (success|status)|error|ERROR' | tail -3)
+    # an OSD a scenario keeps down deliberately (c04 variant B) stays down
+    if (( was_up )); then restart_osd "$n" >/dev/null 2>&1 || out="$out; restart failed"; fi
+    res+="\"$n\": $(python3 -c 'import json,sys; print(json.dumps({"pass": "fsck success" in sys.argv[1] and "restart failed" not in sys.argv[1], "output": sys.argv[1][-400:], "seconds": int(sys.argv[2])}))' "$out" "$((SECONDS - t0))"),"
+  done
+  ceph osd unset noout >/dev/null
+  wait_clean 900 >/dev/null 2>&1 || true
+  python3 -c 'import json,sys; o=json.loads(sys.argv[1]); print(json.dumps({"pass": all(v["pass"] for v in o.values()), "deep": sys.argv[2]=="1", "osds": o}))' \
+    "${res%,}}" "$([[ -n $deep ]] && echo 1 || echo 0)"
+}
+
 run_end() {
   local extra=${1:-} scrub_ok=true inc_ok=true pool check rc=0 clean_ok=true
   [[ -n $extra ]] || extra='{}'
@@ -145,11 +169,13 @@ run_end() {
   [[ -n $check ]] || check='{"rvcheck_error": {"pass": false, "stderr": ""}}'
   # vault-inspect stopped and restarted OSDs; come back to clean before the next run
   wait_clean 900 || clean_ok=false
+  local fsck='{"pass": null, "skipped": "RV_FSCK=off"}'
+  [[ ${RV_FSCK:-regular} == off ]] || fsck=$(fsck_all_osds)
   python3 - "$RUNS_FILE" "$RUN" "$RUN_PARAMS" "$check" "$RUN_NOTES" "$scrub_ok" "$inc_ok" \
-           "$clean_ok" "$((SECONDS - RUN_START))" "$extra" "$WORK/inc-$RUN.txt" "$WORK/rvcheck-$RUN.err" <<'EOF'
+           "$clean_ok" "$((SECONDS - RUN_START))" "$extra" "$WORK/inc-$RUN.txt" "$WORK/rvcheck-$RUN.err" "$fsck" <<'EOF'
 import json, sys
 (runs_file, run, params, check, notes_file, scrub_ok, inc_ok, clean_ok, dur, extra,
- inc_file, err_file) = sys.argv[1:13]
+ inc_file, err_file, fsck) = sys.argv[1:14]
 check = json.loads(check)
 if "rvcheck_error" in check:
     check["rvcheck_error"]["stderr"] = open(err_file).read()[-3000:]
@@ -170,19 +196,27 @@ if "rvcheck_error" in check:
     rec["rvcheck_error"] = check["rvcheck_error"]
 if "vault_inspect_error" in check:
     rec["vault_inspect_error"] = check["vault_inspect_error"]
-rec["pass"] = rec["clean_after"] and all(v.get("pass") in (True, None) for v in inv.values())
+rec["fsck_all"] = json.loads(fsck)
+rec["pass"] = rec["clean_after"] and all(v.get("pass") in (True, None) for v in inv.values()) \
+    and rec["fsck_all"].get("pass") in (True, None)
 open(runs_file, "a").write(json.dumps(rec) + "\n")
-print("run %s: %s  [%s]" % (run, "PASS" if rec["pass"] else "FAIL",
+print("run %s: %s  [%s fsck=%s]" % (run, "PASS" if rec["pass"] else "FAIL",
       " ".join("%s=%s" % (k.split("_", 1)[0], {True: "ok", False: "FAIL", None: "skip"}[v.get("pass")])
-               for k, v in inv.items())), file=sys.stderr)
+               for k, v in inv.items()), {True: "ok", False: "FAIL", None: "skip"}[rec["fsck_all"].get("pass")]), file=sys.stderr)
 EOF
 }
 
 scenario_finish() {
+  local deep='{"pass": null, "skipped": "RV_DEEP_FSCK_BATCH=0"}'
+  if [[ ${RV_DEEP_FSCK_BATCH:-1} == 1 ]]; then
+    log "batch deep fsck on every OSD"
+    deep=$(fsck_all_osds deep)
+  fi
   python3 - "$RUNS_FILE" "$OUT" "$SCENARIO" "$TS" "$MODE" "$CEPH_GIT" "$SCEN_CMD" "$POOL" \
-           "$((SECONDS - SCEN_START))" "$(cat "$CEPH_BUILD/bin/ceph-osd.build" 2>/dev/null)" <<'EOF'
+           "$((SECONDS - SCEN_START))" "$(cat "$CEPH_BUILD/bin/ceph-osd.build" 2>/dev/null)" "$deep" <<'EOF'
 import json, sys
-runs_file, out, scen, ts, mode, git, cmd, pool, dur, marker = sys.argv[1:11]
+runs_file, out, scen, ts, mode, git, cmd, pool, dur, marker, deep = sys.argv[1:12]
+deep = json.loads(deep)
 runs = [json.loads(l) for l in open(runs_file)]
 inv_names = ["1_no_resurrection", "2_no_inconsistency", "3_vault_intact", "4_live_intact"]
 summary = {"runs": len(runs), "runs_passed": sum(r["pass"] for r in runs)}
@@ -191,10 +225,11 @@ for k in inv_names:
     summary[k] = {"pass": vals.count(True), "fail": vals.count(False), "skipped": vals.count(None)}
 res = {"scenario": scen, "timestamp": ts, "mode": mode, "ceph_git": git,
        "osd_build_marker": marker, "command": cmd, "pool": pool, "duration_s": int(dur),
-       "summary": summary, "result": "pass" if runs and summary["runs_passed"] == len(runs) else "fail",
+       "summary": summary, "batch_deep_fsck": deep,
+       "result": "pass" if runs and summary["runs_passed"] == len(runs) and deep.get("pass") in (True, None) else "fail",
        "runs": runs}
 json.dump(res, open(out, "w"), indent=1)
-print(f"{scen} [{mode}]: {summary['runs_passed']}/{len(runs)} runs passed -> {out}", file=sys.stderr)
+print(f"{scen} [{mode}]: {summary['runs_passed']}/{len(runs)} runs passed, batch deep fsck {deep.get('pass')} -> {out}", file=sys.stderr)
 sys.exit(0 if res["result"] == "pass" else 1)
 EOF
 }
