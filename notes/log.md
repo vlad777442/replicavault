@@ -148,3 +148,7 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - Smoke passes on `zc` (32 vault lines, all rename). s06 2/2 and s10 3/3 with `RV_DISK_SCAN=all`.
 - **Deviation:** s06 and s10 ran before z01, although CLAUDE.md says z01 runs before anything else on the cluster. They are Phase 3 sanity checks, not Phase 5 results.
 - 2026-10-04: existing `ceph_test_objectstore` BlueStore suite complete. Job a: 125 passed, 4 skipped (zero-block detection off by default). The QA yaml's job b filter `*SyntheticMatrixC*/2` selects kstore in v19.2.3, so it was rerun as `/1`: 4/4 passed. **Phase 2 done.**
+
+## 2026-10-05 — zero-copy pilot, Phase 4 (z01), rename build
+- **z01 on `zc` (33b89ae): 30/30 runs passed** (`results/zc/z01-alloc-rebuild-20261004T100138.json`). Every run: SIGKILL → onode-walk allocation rebuild confirmed in the OSD log → 8 GiB fill (70% in runs 6, 12, 15, 18, 24, 30, each OSD once plus osd.4 twice) → clean deep fsck and qfsck → no vault extent in the persisted free list → every z01 entry on the OSD present with client-checksum-matching bytes (cumulative, up to 96 per OSD) → invariants 1-4 with disk scan.
+- 480 renamed entries created; all renamed on disk. Copy-build control (5 runs) next.
