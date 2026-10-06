@@ -1,0 +1,5541 @@
+{
+ "scenario": "c04as-primary-failure",
+ "timestamp": "20261006T013650",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/c04-primary-failure.sh ",
+ "pool": "rvtest",
+ "duration_s": 4324,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 86
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 79
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 50
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 66
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 67
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0307
+   },
+   "notes": {
+    "pg": "1.1d",
+    "acting_before": "pg=1.1d up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1d up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 6
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-41",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'197",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'197",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-49",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'198",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'198",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-119",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'199",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'199",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-125",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'200",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'200",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-154",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'201",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'201",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-164",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'202",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'202",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-170",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'203",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'203",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-185",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'204",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'204",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-189",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'205",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'205",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-194",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'206",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'206",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-200",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'207",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'207",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-203",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'208",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'208",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-219",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'209",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'209",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-253",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'210",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'210",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-273",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'211",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'211",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r1-o-350",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22763'212",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "22763'212",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 395,
+   "crash": {
+    "kill_at_s": 0.0312,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0099,
+     0.0099,
+     0.01,
+     0.01,
+     0.0101,
+     0.0101,
+     0.0101,
+     0.0105,
+     0.0105,
+     0.0108,
+     0.011,
+     0.0111,
+     0.0124,
+     0.0125,
+     0.0127,
+     0.0139
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0398
+   },
+   "notes": {
+    "pg": "1.b",
+    "acting_before": "pg=1.b up=[1, 0, 2] acting=[1, 0, 2] primary=1",
+    "primary": 1,
+    "retainer": 0,
+    "acting_without_p": "pg=1.b up=[0, 2, 4] acting=[0, 2, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-36",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'227",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'227",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-56",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'228",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'228",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-80",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'229",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'229",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-169",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'230",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'230",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-173",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'231",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'231",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-217",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'232",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'232",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-229",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'233",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'233",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-337",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'234",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'234",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-385",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'235",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'235",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-398",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'236",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'236",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-432",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'237",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'237",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-434",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'238",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'238",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-481",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'239",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'239",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-576",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'240",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'240",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-701",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'241",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'241",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r2-o-781",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "22868'242",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "22868'242",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 404,
+   "crash": {
+    "kill_at_s": 0.0408,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0093,
+     0.0137,
+     0.0144,
+     0.0145,
+     0.0146,
+     0.0147,
+     0.0148,
+     0.0148,
+     0.0149,
+     0.0149,
+     0.015,
+     0.015,
+     0.015,
+     0.0158,
+     0.016,
+     0.0169
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0217
+   },
+   "notes": {
+    "pg": "1.12",
+    "acting_before": "pg=1.12 up=[0, 1, 3] acting=[0, 1, 3] primary=0",
+    "primary": 0,
+    "retainer": 1,
+    "acting_without_p": "pg=1.12 up=[1, 3, 4] acting=[1, 3, 4] primary=1",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-5",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'298",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'298",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-35",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'299",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'299",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-45",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'300",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'300",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-105",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'301",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'301",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-180",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'302",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'302",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-184",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'303",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'303",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-218",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'304",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'304",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-270",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'305",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'305",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-272",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'306",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'306",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-277",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'307",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'307",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-279",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'308",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'308",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-311",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'309",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'309",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-408",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'310",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'310",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-432",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'311",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'311",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-451",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'312",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'312",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r3-o-459",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "22970'313",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "22970'313",
+         "acting": "0,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 388,
+   "crash": {
+    "kill_at_s": 0.0224,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0098,
+     0.01,
+     0.0102,
+     0.0106,
+     0.0106,
+     0.0106,
+     0.0107,
+     0.011,
+     0.011,
+     0.0111,
+     0.0111,
+     0.0112,
+     0.0112,
+     0.0112,
+     0.0113,
+     0.0115
+    ]
+   },
+   "failed_osd": 0,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0019
+   },
+   "notes": {
+    "pg": "1.1d",
+    "acting_before": "pg=1.1d up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1d up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-4",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23069'232",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-72",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23069'233",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-78",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'234",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'234",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-85",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'235",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'235",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-90",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'236",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'236",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-102",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'237",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'237",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-168",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'238",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'238",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-238",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'239",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'239",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-302",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'240",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'240",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-393",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'241",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'241",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-436",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'242",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'242",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-442",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'243",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'243",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-448",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'244",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'244",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-506",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'245",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'245",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-606",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'246",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'246",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r4-o-628",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23071'247",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23071'247",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 30,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 393,
+   "crash": {
+    "kill_at_s": 0.0025,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "done_s": [
+     1.2691,
+     1.2692,
+     1.2848,
+     1.2849,
+     1.285,
+     1.285,
+     1.2851,
+     1.2851,
+     1.2852,
+     1.2853,
+     1.2854,
+     1.2856,
+     1.2857,
+     1.2857,
+     1.2858,
+     1.2862
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0277
+   },
+   "notes": {
+    "pg": "1.1d",
+    "acting_before": "pg=1.1d up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1d up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-66",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'266",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'266",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-111",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'267",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'267",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-144",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'268",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'268",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-147",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'269",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'269",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-154",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'270",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'270",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-163",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'271",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'271",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-173",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'272",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'272",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-217",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'273",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'273",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-254",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'274",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'274",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-268",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'275",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'275",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-288",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'276",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'276",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-307",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'277",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'277",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-454",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'278",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'278",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-458",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'279",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'279",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-459",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'280",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'280",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r5-o-468",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "23172'281",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23172'281",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 401,
+   "crash": {
+    "kill_at_s": 0.0292,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0119,
+     0.012,
+     0.012,
+     0.0128,
+     0.0129,
+     0.0132,
+     0.0134,
+     0.0136,
+     0.0136,
+     0.0151,
+     0.0153,
+     0.0156,
+     0.0156,
+     0.0157,
+     0.0158,
+     0.0164
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0022
+   },
+   "notes": {
+    "pg": "1.7",
+    "acting_before": "pg=1.7 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.7 up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-67",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23276'273",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "unlogged",
+         "vname": "rv1_1_1.7_23276-273_1791267008.580570032___63303461732d7072696d6172792d6661696c7572652d3230323631303036543031333635302d72362d6f2d3637",
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-70",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23276'274",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-73",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'275",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'275",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-201",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'276",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'276",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-234",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'277",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'277",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-268",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'278",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'278",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-375",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'279",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'279",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-376",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'280",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'280",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-380",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'281",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'281",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-391",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'282",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'282",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-562",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'283",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'283",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-589",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'284",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'284",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-606",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'285",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'285",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-626",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'286",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'286",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-655",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'287",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'287",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r6-o-700",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23278'288",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23278'288",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 30,
+     "disk_scan": "all",
+     "unlogged_copies": 1
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 409,
+   "crash": {
+    "kill_at_s": 0.0028,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "done_s": [
+     1.4853,
+     1.4854,
+     1.4972,
+     1.4973,
+     1.4973,
+     1.4974,
+     1.4999,
+     1.5,
+     1.5001,
+     1.5006,
+     1.5007,
+     1.5007,
+     1.5008,
+     1.5008,
+     1.501,
+     1.5018
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0344
+   },
+   "notes": {
+    "pg": "1.d",
+    "acting_before": "pg=1.d up=[2, 4, 1] acting=[2, 4, 1] primary=2",
+    "primary": 2,
+    "retainer": 4,
+    "acting_without_p": "pg=1.d up=[4, 1, 3] acting=[4, 1, 3] primary=4",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 3
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-25",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'424",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'424",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-38",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'425",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'425",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-112",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'426",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'426",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-212",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'427",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'427",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-215",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'428",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'428",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-244",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'429",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'429",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-282",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'430",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'430",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-305",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'431",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'431",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-327",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'432",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'432",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-331",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'433",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'433",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-346",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'434",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'434",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-373",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'435",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'435",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-398",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'436",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'436",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-407",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'437",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'437",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-497",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'438",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'438",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r7-o-516",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "23385'439",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "23385'439",
+         "acting": "2,4,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 384,
+   "crash": {
+    "kill_at_s": 0.035,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0082,
+     0.0083,
+     0.0122,
+     0.0122,
+     0.0124,
+     0.0124,
+     0.0125,
+     0.0126,
+     0.0128,
+     0.0129,
+     0.0129,
+     0.0131,
+     0.0132,
+     0.0139,
+     0.0145,
+     0.0146
+    ]
+   },
+   "failed_osd": 2,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0345
+   },
+   "notes": {
+    "pg": "1.1",
+    "acting_before": "pg=1.1 up=[4, 3, 0] acting=[4, 3, 0] primary=4",
+    "primary": 4,
+    "retainer": 3,
+    "acting_without_p": "pg=1.1 up=[3, 0, 2] acting=[3, 0, 2] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 3
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-79",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'226",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'226",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-80",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'227",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'227",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-107",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'228",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'228",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-122",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'229",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'229",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-137",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'230",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'230",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-183",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'231",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'231",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-215",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'232",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'232",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-227",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'233",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'233",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-251",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'234",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'234",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-263",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'235",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'235",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-326",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'236",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'236",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-358",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'237",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'237",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-359",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'238",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'238",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-415",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'239",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'239",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-421",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'240",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'240",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r8-o-425",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23479'241",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "23479'241",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 388,
+   "crash": {
+    "kill_at_s": 0.0353,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0085,
+     0.0086,
+     0.0086,
+     0.0103,
+     0.0104,
+     0.0105,
+     0.0107,
+     0.0116,
+     0.0116,
+     0.0116,
+     0.0117,
+     0.0143,
+     0.0144,
+     0.0146,
+     0.0148,
+     0.0158
+    ]
+   },
+   "failed_osd": 4,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0016
+   },
+   "notes": {
+    "pg": "1.15",
+    "acting_before": "pg=1.15 up=[1, 3, 0] acting=[1, 3, 0] primary=1",
+    "primary": 1,
+    "retainer": 3,
+    "acting_without_p": "pg=1.15 up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 5
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-28",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "23581'301",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-40",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'302",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'302",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-62",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'303",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'303",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-72",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'304",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'304",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-209",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'305",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'305",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-269",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'306",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'306",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-278",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'307",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'307",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-283",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'308",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'308",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-292",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'309",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'309",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-329",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'310",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'310",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-395",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'311",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'311",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-452",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'312",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'312",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-487",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'313",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'313",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-497",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'314",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'314",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-530",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'315",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'315",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r9-o-544",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23583'316",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23583'316",
+         "acting": "3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 31,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 397,
+   "crash": {
+    "kill_at_s": 0.0023,
+    "acked": 16,
+    "acked_after_kill": 16,
+    "not_acked": 0,
+    "done_s": [
+     2.3749,
+     2.3831,
+     2.3832,
+     2.3832,
+     2.3834,
+     2.3845,
+     2.3876,
+     2.3884,
+     2.3889,
+     2.3901,
+     2.3902,
+     2.3903,
+     2.3908,
+     2.3908,
+     2.3909,
+     2.3916
+    ]
+   },
+   "failed_osd": 1,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "variant": "A",
+    "kill_delay_s": 0.0212
+   },
+   "notes": {
+    "pg": "1.1e",
+    "acting_before": "pg=1.1e up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "primary": 3,
+    "retainer": 0,
+    "acting_without_p": "pg=1.1e up=[0, 1, 4] acting=[0, 1, 4] primary=0",
+    "stray_removal": {
+     "pgs_on_p_after": "0",
+     "wait_s": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 16,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 16,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-11",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'395",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'395",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-39",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'396",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'396",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-43",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'397",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'397",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-58",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'398",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'398",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-62",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'399",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'399",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-141",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'400",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'400",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-153",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'401",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'401",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-157",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'402",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'402",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-192",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'403",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'403",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-246",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'404",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'404",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-257",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'405",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'405",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-292",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'406",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'406",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-301",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'407",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'407",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-369",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'408",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'408",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-371",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'409",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'409",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:c04as-primary-failure-20261006T013650-r10-o-388",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "23685'410",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "23685'410",
+         "acting": "3,0,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 32,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 1,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 383,
+   "crash": {
+    "kill_at_s": 0.0218,
+    "acked": 16,
+    "acked_after_kill": 0,
+    "not_acked": 0,
+    "done_s": [
+     0.0079,
+     0.0112,
+     0.0112,
+     0.0114,
+     0.0115,
+     0.0116,
+     0.0116,
+     0.0118,
+     0.0119,
+     0.012,
+     0.012,
+     0.0128,
+     0.0129,
+     0.0146,
+     0.0147,
+     0.0157
+    ]
+   },
+   "failed_osd": 3,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

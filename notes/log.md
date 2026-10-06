@@ -166,3 +166,9 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - c04 A/B also had 0 deletes acked after the kill. Added `--max-delay` to c04. Next: s07 rerun, then short-delay batches c01s ×30, c03s ×10, c04s A/B ×10 with `--max-delay 0.04`.
 - s07 rerun 2/2 (`results/zc/s07-repeated-delete-recreate-20261005T210712.json`). Full regression list now passes.
 - **c01s (`--max-delay 0.04`) ×30: 30/30 passed** (`results/zc/c01s-crash-under-deletes-20261005T212403.json`). Deletes complete at 21–26 ms; 14 runs killed the retainer mid-delete, 216 deletes acked after the kill, 0 unknown. Retainer fsck 30/30, all-OSD fsck 30/30, batch deep fsck clean. Every one of 480 deletes has 2 intact entries: 480 primary (rename), 276 repop (rename), 185 recovery (rename: R died before applying the delete and renamed it in recovery), 19 durable but unlogged (found by the disk scan).
+
+## 2026-10-06 — Phase 5 short-delay crash batches complete
+- **c03s ×10: 10/10** (`results/zc/c03s-retainer-out-during-deletes-20261006T002842.json`): 6 runs mid-delete, 86 acked after kill, 0 unknown; entries 160 primary + 94 repop (rename) + 9 unlogged; 57 deletes primary-only (retainer's stray purged before it vaulted — the F1 case, as in phase 2).
+- **c04 A s ×10: 10/10** (`…/c04as-primary-failure-20261006T013650.json`): 3 runs mid-delete, 48 acked after kill; 160 repop + 155 primary + 1 unlogged; 4 deletes retainer-only.
+- **c04 B s ×10: 10/10** (`…/c04bs-primary-failure-20261006T024855.json`): 3 runs mid-delete, 48 acked after kill; P excluded by design; 160 repop + 22 primary (new primary, resent ops).
+- All with per-run all-OSD fsck and batch deep fsck clean. **Phase 5 regression (pre-registered list + short-delay crash variants) complete; every acknowledged delete has ≥1 intact renamed vault entry.** Next: z02–z06.
