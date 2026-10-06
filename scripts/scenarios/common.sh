@@ -95,7 +95,14 @@ print(json.dumps(r))' "$@" >> "$RUN_STATE"
 put_obj() {
   local name=$1 size=$2 ns=${3:-} loc=${4:-} pool=${5:-$POOL} f
   f=$WORK/put.$$
-  head -c "$size" /dev/urandom > "$f"
+  if [[ ${RV_COMPRESSIBLE:-0} == 1 ]]; then
+    # z03: a random 64-char hex string repeated, unique per object and compressible
+    # (random bytes never meet bluestore_compression_required_ratio, so nothing would
+    # be stored compressed)
+    python3 -c 'import os,sys; n=int(sys.argv[1]); s=os.urandom(32).hex().encode()*(n//64+1); sys.stdout.buffer.write(s[:n])' "$size" > "$f"
+  else
+    head -c "$size" /dev/urandom > "$f"
+  fi
   mapfile -t ra < <(_rargs "$pool" "$ns" "$loc")
   rados "${ra[@]}" put "$name" "$f" || die "put $name failed"
   _state put "$pool" "$ns" "$loc" "$name" 1 "$(sha "$f")"

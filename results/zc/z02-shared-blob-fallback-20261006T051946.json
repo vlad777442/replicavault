@@ -1,0 +1,956 @@
+{
+ "scenario": "z02-shared-blob-fallback",
+ "timestamp": "20261006T051946",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/z02-shared-blob-fallback.sh ",
+ "pool": "rvsnap",
+ "duration_s": 1278,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 104
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 94
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 59
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 83
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 80
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "staged_reasons": {
+     "D": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ],
+     "A": [
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      },
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      }
+     ],
+     "B": [
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      },
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      }
+     ],
+     "C": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ]
+    },
+    "clone_reads": {
+     "A": true,
+     "B": true,
+     "C": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r1-A",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "25345'201",
+         "acting": "3,1,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "25345'201",
+         "acting": "3,1,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r1-B",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "25345'441",
+         "acting": "4,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "25345'441",
+         "acting": "4,2,1",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r1-C",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "25345'233",
+         "acting": "2,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "25345'233",
+         "acting": "2,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r1-D",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "25345'328",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "25345'328",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 278,
+   "clones_intact": {
+    "pass": true
+   },
+   "vault_modes": {
+    "pass": true,
+    "expected": {
+     "A": "copy",
+     "B": "copy",
+     "C": "rename",
+     "D": "rename"
+    },
+    "seen": {
+     "A": [
+      {
+       "osd": 1,
+       "path": "repop",
+       "mode": "copy"
+      },
+      {
+       "osd": 3,
+       "path": "primary",
+       "mode": "copy"
+      }
+     ],
+     "B": [
+      {
+       "osd": 2,
+       "path": "repop",
+       "mode": "copy"
+      },
+      {
+       "osd": 4,
+       "path": "primary",
+       "mode": "copy"
+      }
+     ],
+     "C": [
+      {
+       "osd": 2,
+       "path": "primary",
+       "mode": "rename"
+      },
+      {
+       "osd": 3,
+       "path": "repop",
+       "mode": "rename"
+      }
+     ],
+     "D": [
+      {
+       "osd": 0,
+       "path": "repop",
+       "mode": "rename"
+      },
+      {
+       "osd": 1,
+       "path": "primary",
+       "mode": "rename"
+      }
+     ]
+    }
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "staged_reasons": {
+     "B": [
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      },
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      }
+     ],
+     "C": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ],
+     "D": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ],
+     "A": [
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      },
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      }
+     ]
+    },
+    "clone_reads": {
+     "A": true,
+     "B": true,
+     "C": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r2-A",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "25437'666",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "25437'666",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r2-B",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "25437'396",
+         "acting": "1,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "25437'396",
+         "acting": "1,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r2-C",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "25437'397",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "25437'397",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r2-D",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "25437'237",
+         "acting": "2,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "25437'237",
+         "acting": "2,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 278,
+   "clones_intact": {
+    "pass": true
+   },
+   "vault_modes": {
+    "pass": true,
+    "expected": {
+     "A": "copy",
+     "B": "copy",
+     "C": "rename",
+     "D": "rename"
+    },
+    "seen": {
+     "A": [
+      {
+       "osd": 3,
+       "path": "primary",
+       "mode": "copy"
+      },
+      {
+       "osd": 4,
+       "path": "repop",
+       "mode": "copy"
+      }
+     ],
+     "B": [
+      {
+       "osd": 0,
+       "path": "repop",
+       "mode": "copy"
+      },
+      {
+       "osd": 1,
+       "path": "primary",
+       "mode": "copy"
+      }
+     ],
+     "C": [
+      {
+       "osd": 0,
+       "path": "repop",
+       "mode": "rename"
+      },
+      {
+       "osd": 1,
+       "path": "primary",
+       "mode": "rename"
+      }
+     ],
+     "D": [
+      {
+       "osd": 2,
+       "path": "primary",
+       "mode": "rename"
+      },
+      {
+       "osd": 3,
+       "path": "repop",
+       "mode": "rename"
+      }
+     ]
+    }
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "staged_reasons": {
+     "B": [
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      },
+      {
+       "mode": "copy",
+       "renamable": true,
+       "can_move": -18
+      }
+     ],
+     "A": [
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      },
+      {
+       "mode": "copy",
+       "renamable": false,
+       "can_move": -95
+      }
+     ],
+     "D": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ],
+     "C": [
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      },
+      {
+       "mode": "rename",
+       "renamable": true,
+       "can_move": 0
+      }
+     ]
+    },
+    "clone_reads": {
+     "A": true,
+     "B": true,
+     "C": true
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r3-A",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "25528'475",
+         "acting": "3,1,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "25528'475",
+         "acting": "3,1,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r3-B",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "25528'332",
+         "acting": "1,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "25528'332",
+         "acting": "1,0,4",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r3-C",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "25528'672",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "25528'672",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:z02-shared-blob-fallback-20261006T051946-r3-D",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "25528'205",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "25528'205",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 269,
+   "clones_intact": {
+    "pass": true
+   },
+   "vault_modes": {
+    "pass": true,
+    "expected": {
+     "A": "copy",
+     "B": "copy",
+     "C": "rename",
+     "D": "rename"
+    },
+    "seen": {
+     "A": [
+      {
+       "osd": 1,
+       "path": "repop",
+       "mode": "copy"
+      },
+      {
+       "osd": 3,
+       "path": "primary",
+       "mode": "copy"
+      }
+     ],
+     "B": [
+      {
+       "osd": 0,
+       "path": "repop",
+       "mode": "copy"
+      },
+      {
+       "osd": 1,
+       "path": "primary",
+       "mode": "copy"
+      }
+     ],
+     "C": [
+      {
+       "osd": 3,
+       "path": "primary",
+       "mode": "rename"
+      },
+      {
+       "osd": 4,
+       "path": "repop",
+       "mode": "rename"
+      }
+     ],
+     "D": [
+      {
+       "osd": 1,
+       "path": "repop",
+       "mode": "rename"
+      },
+      {
+       "osd": 3,
+       "path": "primary",
+       "mode": "rename"
+      }
+     ]
+    }
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

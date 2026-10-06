@@ -1,0 +1,99 @@
+===== use-build vanilla (04:30:28)
+04:32:26 all OSDs running vanilla
+===== z02 vanilla (04:32:26)
+04:32:27 scenario z02-shared-blob-fallback: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+04:32:33 clean after 6 s
+04:32:34 --- z02-shared-blob-fallback run 1 {}
+04:32:59 clean after 8 s
+04:33:11 deep-scrubbed 8 PGs in 12 s
+04:33:21 clean after 8 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok fsck=ok]
+04:34:45 batch deep fsck on every OSD
+z02-shared-blob-fallback [vanilla]: 1/1 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/vanilla/z02-shared-blob-fallback-20261006T043226.json
+===== z05 vanilla (04:42:44)
+04:42:44 scenario z05-omap-heavy: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=2 pool=rvtest
+04:42:51 clean after 7 s
+04:42:51 --- z05-omap-heavy run 1 {"keys": [100,2000,20000]}
+04:43:03 clean after 6 s
+04:43:26 deep-scrubbed 32 PGs in 23 s
+04:43:33 clean after 6 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok fsck=ok]
+04:44:52 --- z05-omap-heavy run 2 {"keys": [100,2000,20000]}
+04:45:04 clean after 6 s
+04:45:31 deep-scrubbed 32 PGs in 27 s
+04:45:38 clean after 6 s
+run 2: PASS  [1=ok 2=ok 3=skip 4=ok fsck=ok]
+04:47:00 batch deep fsck on every OSD
+z05-omap-heavy [vanilla]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/vanilla/z05-omap-heavy-20261006T044244.json
+===== z06 vanilla (04:54:01)
+04:54:02 scenario z06-soak: mode=vanilla ceph=c92aebb279828e9c3c1f5d24613efca272649e62 runs=1 pool=rvtest
+04:54:08 clean after 6 s
+04:54:09 --- z06-soak run 1 {"seconds": 900, "kill_every_s": 240}
+05:09:25 soak done: {"seconds": 900.0, "ops": 4324, "counts": {"write_full": 1526, "partial": 853, "delete": 1412, "recreate": 468, "mksnap": 36, "rmsnap": 36, "kills": 3, "unknown": 0}, "kills": [{"t": 240.1, "osd": 4}, {"t": 480.3, "osd": 0}, {"t": 720.6, "osd": 1}]}
+05:09:31 clean after 6 s
+05:16:46 clean after 11 s
+05:16:52 clean after 6 s
+05:17:20 deep-scrubbed 32 PGs in 28 s
+05:17:35 deep-scrubbed 8 PGs in 15 s
+05:17:44 clean after 7 s
+run 1: PASS  [1=ok 2=ok 3=skip 4=ok fsck=skip]
+z06-soak [vanilla]: 1/1 runs passed, batch deep fsck None -> /users/vlad777/research/replicavault/results/zc/vanilla/z06-soak-20261006T045401.json
+===== use-build zc (05:17:45)
+05:19:46 all OSDs running zc
+===== z02 (05:19:46)
+05:19:46 scenario z02-shared-blob-fallback: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=3 pool=rvtest
+05:19:53 clean after 7 s
+05:19:54 --- z02-shared-blob-fallback run 1 {}
+05:20:10 clean after 6 s
+05:20:25 deep-scrubbed 8 PGs in 15 s
+05:23:20 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:24:33 --- z02-shared-blob-fallback run 2 {}
+05:24:49 clean after 6 s
+05:25:00 deep-scrubbed 8 PGs in 11 s
+05:27:54 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:29:11 --- z02-shared-blob-fallback run 3 {}
+05:29:27 clean after 6 s
+05:29:44 deep-scrubbed 8 PGs in 17 s
+05:32:24 clean after 10 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:33:39 batch deep fsck on every OSD
+z02-shared-blob-fallback [zc]: 3/3 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/z02-shared-blob-fallback-20261006T051946.json
+===== z03 compression on (05:41:05)
+===== z03 s01-kill-primary-before-delete (05:41:08)
+05:41:09 scenario s01-kill-primary-before-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+05:41:15 clean after 6 s
+05:41:16 --- s01-kill-primary-before-delete run 1 {}
+05:41:20 osd.1 (pid 2688752) down and exited
+05:41:30 osd.1 up (pid 2693268)
+05:41:43 clean after 13 s
+05:42:10 deep-scrubbed 32 PGs in 27 s
+05:44:20 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:45:36 --- s01-kill-primary-before-delete run 2 {}
+05:45:40 osd.0 (pid 2704783) down and exited
+05:45:52 osd.0 up (pid 2709828)
+05:46:06 clean after 14 s
+05:46:30 deep-scrubbed 32 PGs in 24 s
+05:48:44 clean after 14 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:49:57 --- s01-kill-primary-before-delete run 3 {}
+05:50:02 osd.4 (pid 2724934) down and exited
+05:50:12 osd.4 up (pid 2726107)
+05:50:26 clean after 14 s
+05:50:51 deep-scrubbed 32 PGs in 25 s
+05:53:02 clean after 13 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:54:16 --- s01-kill-primary-before-delete run 4 {}
+05:54:21 osd.4 (pid 2741213) down and exited
+05:54:30 osd.4 up (pid 2742352)
+05:54:44 clean after 14 s
+05:55:10 deep-scrubbed 32 PGs in 26 s
+05:57:21 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:58:38 --- s01-kill-primary-before-delete run 5 {}
+05:58:42 osd.2 (pid 2755579) down and exited
+05:58:51 osd.2 up (pid 2758678)
+05:59:05 clean after 14 s
+05:59:32 deep-scrubbed 32 PGs in 27 s

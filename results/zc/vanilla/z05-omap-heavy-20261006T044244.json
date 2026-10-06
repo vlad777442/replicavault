@@ -1,0 +1,242 @@
+{
+ "scenario": "z05-omap-heavy",
+ "timestamp": "20261006T044244",
+ "mode": "vanilla",
+ "ceph_git": "c92aebb279828e9c3c1f5d24613efca272649e62",
+ "osd_build_marker": "vanilla c92aebb279828e9c3c1f5d24613efca272649e62 5db2ed248a1264c6",
+ "command": "scripts/scenarios/z05-omap-heavy.sh ",
+ "pool": "rvtest",
+ "duration_s": 676,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 0,
+   "fail": 0,
+   "skipped": 2
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 98
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 90
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 54
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 79
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 73
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "keys": [
+     100,
+     2000,
+     20000
+    ]
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 121,
+   "z05": {
+    "pass": null,
+    "deletes": [
+     {
+      "nkeys": 100,
+      "omap_bytes": 16750,
+      "rm_s": 0.00656
+     },
+     {
+      "nkeys": 2000,
+      "omap_bytes": 525000,
+      "rm_s": 0.07127
+     },
+     {
+      "nkeys": 20000,
+      "omap_bytes": 5340000,
+      "rm_s": 0.58807
+     }
+    ],
+    "checks": []
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 12
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 12
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 12
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "keys": [
+     100,
+     2000,
+     20000
+    ]
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": null,
+     "skipped": "mode=vanilla"
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 128,
+   "z05": {
+    "pass": null,
+    "deletes": [
+     {
+      "nkeys": 100,
+      "omap_bytes": 16750,
+      "rm_s": 0.00867
+     },
+     {
+      "nkeys": 2000,
+      "omap_bytes": 525000,
+      "rm_s": 0.07231
+     },
+     {
+      "nkeys": 20000,
+      "omap_bytes": 5340000,
+      "rm_s": 0.57831
+     }
+    ],
+    "checks": []
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 14
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 12
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}
