@@ -1,6 +1,6 @@
 # ReplicaVault zero-copy vault pilot — report
 
-Ceph v19.2.3 (`c92aebb2`) + ReplicaVault F1 (`05289b5`) + zero-copy (`5b0dac5`, `33b89ae`) on branch `replicavault-zc`. Patch series: `ceph-patch/zc/` (7 patches; they reproduce `33b89ae` exactly on a clean v19.2.3). Gate: `ZC_CRITERIA.md` (frozen 2026-10-03). Running log: `notes/log.md`. Written 2026-10-06.
+Ceph v19.2.3 (`c92aebb2`) + ReplicaVault F1 (`05289b5`) + zero-copy (`5b0dac5`, `33b89ae`) on branch `replicavault-zc`. Patch series: `ceph-patch/zc/` (7 patches; they reproduce `33b89ae` exactly on a clean v19.2.3, and a fresh build from them, `/data/verify-ceph/build-zc`, Debug, compiles `ceph-osd` and `ceph_test_objectstore` and passes `RVMoveTest` 7/7). Gate: `ZC_CRITERIA.md` (frozen 2026-10-03). Running log: `notes/log.md`. Written 2026-10-06.
 
 ## Recommendation
 
