@@ -1,0 +1,1100 @@
+{
+ "scenario": "s04-out-backfill",
+ "timestamp": "20261005T044114",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/s04-out-backfill.sh ",
+ "pool": "rvtest",
+ "duration_s": 1144,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 29
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 29
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 22
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 23
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 25
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "pg": "1.5",
+    "acting_before": [
+     4,
+     2,
+     3
+    ],
+    "acting_after_out_nonretainer": [
+     4,
+     2,
+     0
+    ],
+    "acting_after_out_retainer": [
+     4,
+     3,
+     0
+    ],
+    "acting_final": [
+     4,
+     2,
+     3
+    ]
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 15,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 15,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-24",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'73",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'73",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-36",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'74",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'74",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-38",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'75",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'75",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-71",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'76",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'76",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-111",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'77",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'77",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-227",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6810'78",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6810'78",
+         "acting": "4,2,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-255",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'79",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'79",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-318",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'80",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'80",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-329",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'81",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'81",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-332",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'82",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'82",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-346",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'83",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'83",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-355",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "6812'84",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6812'84",
+         "acting": "4,2,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-399",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "6819'85",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6819'85",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-402",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "6819'86",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6819'86",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r1-o-412",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "6819'87",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "6819'87",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 30,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 497,
+   "vault_not_copied": {
+    "pass": true,
+    "vault_lines": 30,
+    "copies_found": []
+   },
+   "retainer": 2,
+   "nonretainer": 3,
+   "primary": 4,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "pg": "1.c",
+    "acting_before": [
+     3,
+     0,
+     4
+    ],
+    "acting_after_out_nonretainer": [
+     3,
+     0,
+     2
+    ],
+    "acting_after_out_retainer": [
+     3,
+     4,
+     2
+    ],
+    "acting_final": [
+     3,
+     0,
+     4
+    ]
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 15,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 15,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-55",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'64",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'64",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-79",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'65",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'65",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-99",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'66",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'66",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-109",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'67",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'67",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-118",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'68",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'68",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-226",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6936'69",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6936'69",
+         "acting": "3,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-244",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'70",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'70",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-308",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'71",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'71",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-389",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'72",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'72",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-396",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'73",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'73",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-412",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'74",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'74",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-427",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "6941'75",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6941'75",
+         "acting": "3,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-458",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6948'76",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "6948'76",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-610",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6948'77",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "6948'77",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:s04-out-backfill-20261005T044114-r2-o-625",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "6948'78",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "6948'78",
+         "acting": "3,4,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 30,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 4,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 491,
+   "vault_not_copied": {
+    "pass": true,
+    "vault_lines": 30,
+    "copies_found": []
+   },
+   "retainer": 0,
+   "nonretainer": 4,
+   "primary": 3,
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,728 @@
+{
+ "scenario": "a03-size-one",
+ "timestamp": "20261005T103616",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/a03-size-one.sh ",
+ "pool": "rvsz1",
+ "duration_s": 1070,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 36
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 36
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 26
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 28
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 31
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=40.7 up=[3] acting=[3] primary=3"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-0",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12043'2",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-2",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "12043'6",
+         "acting": "4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-4",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "12043'5",
+         "acting": "0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-6",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12043'4",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-8",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "12043'7",
+         "acting": "4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-10",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "12043'3",
+         "acting": "1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-12",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "12043'2",
+         "acting": "1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r1-14",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "12043'6",
+         "acting": "0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 288,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20261005T103616-r1-10": 1,
+     "a03-size-one-20261005T103616-r1-2": 1,
+     "a03-size-one-20261005T103616-r1-8": 1,
+     "a03-size-one-20261005T103616-r1-12": 1,
+     "a03-size-one-20261005T103616-r1-14": 1,
+     "a03-size-one-20261005T103616-r1-6": 1,
+     "a03-size-one-20261005T103616-r1-4": 1,
+     "a03-size-one-20261005T103616-r1-0": 1
+    },
+    "bytes": 375832
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=40.6 up=[2] acting=[2] primary=2"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12135'5",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-2",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12135'3",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-4",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12135'4",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-6",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12135'10",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-8",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "12135'9",
+         "acting": "4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-10",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12135'6",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-12",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "12135'5",
+         "acting": "1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r2-14",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12135'4",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 280,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20261005T103616-r2-12": 1,
+     "a03-size-one-20261005T103616-r2-6": 1,
+     "a03-size-one-20261005T103616-r2-10": 1,
+     "a03-size-one-20261005T103616-r2-4": 1,
+     "a03-size-one-20261005T103616-r2-2": 1,
+     "a03-size-one-20261005T103616-r2-0": 1,
+     "a03-size-one-20261005T103616-r2-14": 1,
+     "a03-size-one-20261005T103616-r2-8": 1
+    },
+    "bytes": 375832
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "mon_allow_pool_size_one": "true"
+   },
+   "notes": {
+    "size_at_delete": 1,
+    "example_acting": "pg=40.6 up=[2] acting=[2] primary=2"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-0",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12224'9",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-2",
+       "vault": [
+        {
+         "osd": 4,
+         "path": "fallback",
+         "v": "12224'13",
+         "acting": "4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-4",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12224'10",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-6",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "fallback",
+         "v": "12224'7",
+         "acting": "1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-8",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12224'7",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-10",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "fallback",
+         "v": "12224'6",
+         "acting": "3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-12",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "fallback",
+         "v": "12224'14",
+         "acting": "2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsz1:a03-size-one-20261005T103616-r3-14",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "fallback",
+         "v": "12224'10",
+         "acting": "0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 8,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 295,
+   "vault_copies": {
+    "copies": {
+     "a03-size-one-20261005T103616-r3-12": 1,
+     "a03-size-one-20261005T103616-r3-6": 1,
+     "a03-size-one-20261005T103616-r3-10": 1,
+     "a03-size-one-20261005T103616-r3-4": 1,
+     "a03-size-one-20261005T103616-r3-8": 1,
+     "a03-size-one-20261005T103616-r3-14": 1,
+     "a03-size-one-20261005T103616-r3-0": 1,
+     "a03-size-one-20261005T103616-r3-2": 1
+    },
+    "bytes": 375832
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,479 @@
+{
+ "scenario": "s10-snapshot-delete",
+ "timestamp": "20261005T072801",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/s10-snapshot-delete.sh ",
+ "pool": "rvsnap",
+ "duration_s": 892,
+ "summary": {
+  "runs": 3,
+  "runs_passed": 3,
+  "1_no_resurrection": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 34
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 33
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 24
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 26
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 29
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r1-a",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8819'10",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "8819'10",
+         "acting": "1,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r1-b",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "8820'3",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8820'3",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 248,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r2-a",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "8907'9",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8907'9",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r2-b",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "8908'12",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "8908'12",
+         "acting": "3,4,0",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 229,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {},
+   "notes": {
+    "snapshot_reads": {
+     "a_matches_a1": true,
+     "b_matches_b1": true
+    },
+    "vault_lines": {
+     "before_trim": 4,
+     "after_trim": 4
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 2,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 2,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r3-a",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "8982'9",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "8982'9",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvsnap:s10-snapshot-delete-20261005T072801-r3-b",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "8983'9",
+         "acting": "3,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "8983'9",
+         "acting": "3,0,2",
+         "mode": "copy",
+         "log_sha_match": true,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 4,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 239,
+   "snapshot_reads": {
+    "pass": true
+   },
+   "snap_trim_not_vaulted": {
+    "pass": true
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

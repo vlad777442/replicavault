@@ -1,0 +1,3208 @@
+{
+ "scenario": "a02-upmap-empty",
+ "timestamp": "20261005T094223",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/a02-upmap-empty.sh ",
+ "pool": "rvtest",
+ "duration_s": 3231,
+ "summary": {
+  "runs": 10,
+  "runs_passed": 10,
+  "1_no_resurrection": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 37
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 36
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 24
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 27
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 30
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.18",
+    "before": "pg=1.18 up=[2, 3, 1] acting=[2, 3, 1] primary=2",
+    "at_delete": "pg=1.18 up=[2, 4, 1] acting=[2, 1, 3] primary=2",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-16",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'169",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'169",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-71",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'170",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'170",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-77",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'171",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'171",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-118",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'172",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'172",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-129",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'173",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'173",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-156",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'174",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'174",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-158",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'175",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'175",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r1-o-161",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11196'176",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11196'176",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 308,
+   "upmap": [
+    3,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r1-o-158": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-71": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-77": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-118": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-129": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-16": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-156": 2,
+     "a02-upmap-empty-20261005T094223-r1-o-161": 2
+    },
+    "bytes": 1338366
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.6",
+    "before": "pg=1.6 up=[3, 4, 2] acting=[3, 4, 2] primary=3",
+    "at_delete": "pg=1.6 up=[3, 1, 2] acting=[3, 2, 4] primary=3",
+    "state_at_delete": "remapped+peering"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-44",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'128",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'128",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-120",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'129",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'129",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-166",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'130",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'130",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-227",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'131",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'131",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-235",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'132",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'132",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-256",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'133",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'133",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-298",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'134",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'134",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r2-o-303",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11276'135",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11276'135",
+         "acting": "3,2,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 314,
+   "upmap": [
+    4,
+    1
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r2-o-166": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-235": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-44": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-256": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-298": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-120": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-227": 2,
+     "a02-upmap-empty-20261005T094223-r2-o-303": 2
+    },
+    "bytes": 1359524
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 3,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.2",
+    "before": "pg=1.2 up=[0, 4, 1] acting=[0, 4, 1] primary=0",
+    "at_delete": "pg=1.2 up=[0, 3, 1] acting=[0, 1, 4] primary=0",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-6",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'176",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'176",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-230",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'177",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'177",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-362",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'178",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'178",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-369",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'179",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'179",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-390",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'180",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'180",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-419",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'181",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'181",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-475",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'182",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'182",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r3-o-480",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11359'183",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11359'183",
+         "acting": "0,1,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 293,
+   "upmap": [
+    4,
+    3
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r3-o-419": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-475": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-369": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-230": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-390": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-362": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-6": 2,
+     "a02-upmap-empty-20261005T094223-r3-o-480": 2
+    },
+    "bytes": 1331218
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 4,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.19",
+    "before": "pg=1.19 up=[3, 0, 4] acting=[3, 0, 4] primary=3",
+    "at_delete": "pg=1.19 up=[3, 2, 4] acting=[3, 4, 0] primary=3",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-22",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'124",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'124",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-35",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'125",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'125",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-37",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'126",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'126",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-65",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'127",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'127",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-70",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'128",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'128",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-77",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'129",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'129",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-102",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'130",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'130",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r4-o-137",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11440'131",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "11440'131",
+         "acting": "3,4,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 301,
+   "upmap": [
+    0,
+    2
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r4-o-137": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-77": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-22": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-37": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-35": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-70": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-102": 2,
+     "a02-upmap-empty-20261005T094223-r4-o-65": 2
+    },
+    "bytes": 1279134
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 5,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.4",
+    "before": "pg=1.4 up=[3, 0, 1] acting=[3, 0, 1] primary=3",
+    "at_delete": "pg=1.4 up=[3, 4, 1] acting=[3, 1, 0] primary=3",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-20",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'78",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'78",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-41",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'79",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'79",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-117",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'80",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'80",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-130",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'81",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'81",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-175",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'82",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'82",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-177",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'83",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'83",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-192",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'84",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'84",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r5-o-245",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11523'85",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "primary",
+         "v": "11523'85",
+         "acting": "3,1,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 297,
+   "upmap": [
+    0,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r5-o-117": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-41": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-130": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-175": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-177": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-20": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-245": 2,
+     "a02-upmap-empty-20261005T094223-r5-o-192": 2
+    },
+    "bytes": 1290290
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 6,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.3",
+    "before": "pg=1.3 up=[4, 1, 2] acting=[4, 1, 2] primary=4",
+    "at_delete": "pg=1.3 up=[4, 0, 2] acting=[4, 2, 1] primary=4",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-28",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'108",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'108",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-56",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'109",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'109",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-65",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'110",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'110",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-219",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'111",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'111",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-250",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'112",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'112",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-282",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'113",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'113",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-293",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'114",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'114",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r6-o-319",
+       "vault": [
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11603'115",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "11603'115",
+         "acting": "4,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 303,
+   "upmap": [
+    1,
+    0
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r6-o-319": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-28": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-293": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-282": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-219": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-56": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-250": 2,
+     "a02-upmap-empty-20261005T094223-r6-o-65": 2
+    },
+    "bytes": 1215240
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 7,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.18",
+    "before": "pg=1.18 up=[2, 3, 1] acting=[2, 3, 1] primary=2",
+    "at_delete": "pg=1.18 up=[2, 0, 1] acting=[2, 1, 3] primary=2",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-45",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'192",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'192",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-100",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'193",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'193",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-125",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'194",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'194",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-139",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'195",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'195",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-158",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'196",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'196",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-217",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'197",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'197",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-246",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'198",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'198",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r7-o-311",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11685'199",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11685'199",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 315,
+   "upmap": [
+    3,
+    0
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r7-o-45": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-217": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-311": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-125": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-158": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-246": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-100": 2,
+     "a02-upmap-empty-20261005T094223-r7-o-139": 2
+    },
+    "bytes": 1383126
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 8,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.18",
+    "before": "pg=1.18 up=[2, 3, 1] acting=[2, 3, 1] primary=2",
+    "at_delete": "pg=1.18 up=[2, 0, 1] acting=[2, 1, 3] primary=2",
+    "state_at_delete": "remapped+peering"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-22",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'213",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'213",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-42",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'214",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'214",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-67",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'215",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'215",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-127",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'216",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'216",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-140",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'217",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'217",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-142",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'218",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'218",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-178",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'219",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'219",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r8-o-246",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11769'220",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11769'220",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 298,
+   "upmap": [
+    3,
+    0
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r8-o-246": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-127": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-178": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-42": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-67": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-140": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-22": 2,
+     "a02-upmap-empty-20261005T094223-r8-o-142": 2
+    },
+    "bytes": 1375278
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 8
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 9,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.1b",
+    "before": "pg=1.1b up=[0, 1, 2] acting=[0, 1, 2] primary=0",
+    "at_delete": "pg=1.1b up=[0, 3, 2] acting=[0, 2, 1] primary=0",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-48",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'93",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'93",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-100",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'94",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'94",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-185",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'95",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'95",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-235",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'96",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'96",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-331",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'97",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'97",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-350",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'98",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'98",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-379",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'99",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'99",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r9-o-411",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "primary",
+         "v": "11850'100",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "repop",
+         "v": "11850'100",
+         "acting": "0,2,1",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 297,
+   "upmap": [
+    1,
+    3
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r9-o-235": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-185": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-48": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-379": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-350": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-331": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-100": 2,
+     "a02-upmap-empty-20261005T094223-r9-o-411": 2
+    },
+    "bytes": 1394230
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 10,
+   "params": {
+    "require_min_compat_client": "luminous"
+   },
+   "notes": {
+    "pg": "1.18",
+    "before": "pg=1.18 up=[2, 3, 1] acting=[2, 3, 1] primary=2",
+    "at_delete": "pg=1.18 up=[2, 4, 1] acting=[2, 1, 3] primary=2",
+    "state_at_delete": "active+remapped+backfilling"
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 8,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 8,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-14",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'234",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'234",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-43",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'235",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'235",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-78",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'236",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'236",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-80",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'237",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'237",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-81",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'238",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'238",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-93",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'239",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'239",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-110",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'240",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'240",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:a02-upmap-empty-20261005T094223-r10-o-176",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "11932'241",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "11932'241",
+         "acting": "2,1,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 16,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 5,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 316,
+   "upmap": [
+    3,
+    4
+   ],
+   "vault_copies": {
+    "copies": {
+     "a02-upmap-empty-20261005T094223-r10-o-93": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-110": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-43": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-80": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-81": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-176": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-14": 2,
+     "a02-upmap-empty-20261005T094223-r10-o-78": 2
+    },
+    "bytes": 1352434
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}

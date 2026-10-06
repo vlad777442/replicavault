@@ -1,0 +1,1452 @@
+===== smoke (01:57:21)
+01:57:21 run smoke-20261005T015721, ceph 33b89ae8660c5816e494890c1be5d1f987232599, pool rvtest
+01:57:28 clean after 7 s
+01:57:31 wrote 16 objects
+01:57:35 deleted 8 objects
+01:57:35 killing osd.0 (primary of smoke-20261005T015721-5-0, acting 0 3 4)
+01:57:37 osd.0 (pid 3777591) down and exited
+01:57:49 osd.0 up (pid 3784268)
+01:58:00 clean after 11 s
+01:58:19 deep-scrubbed 32 PGs in 19 s
+01:58:23 result: pass -> /users/vlad777/research/replicavault/results/zc/smoke-20261005T015721.json
+===== s01 (01:58:23)
+01:58:24 scenario s01-kill-primary-before-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+01:58:30 clean after 6 s
+01:58:30 --- s01-kill-primary-before-delete run 1 {}
+01:58:35 osd.3 (pid 3780743) down and exited
+01:58:45 osd.3 up (pid 3787174)
+01:58:58 clean after 13 s
+01:59:13 deep-scrubbed 32 PGs in 15 s
+02:01:17 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:02:28 --- s01-kill-primary-before-delete run 2 {}
+02:02:32 osd.3 (pid 3801378) down and exited
+02:02:41 osd.3 up (pid 3803485)
+02:02:55 clean after 14 s
+02:03:14 deep-scrubbed 32 PGs in 19 s
+02:05:24 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:06:37 --- s01-kill-primary-before-delete run 3 {}
+02:06:40 osd.1 (pid 3815799) down and exited
+02:06:51 osd.1 up (pid 3819815)
+02:07:04 clean after 13 s
+02:07:23 deep-scrubbed 32 PGs in 19 s
+02:09:27 clean after 14 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:10:38 --- s01-kill-primary-before-delete run 4 {}
+02:10:42 osd.3 (pid 3834019) down and exited
+02:10:51 osd.3 up (pid 3836115)
+02:11:02 clean after 11 s
+02:11:21 deep-scrubbed 32 PGs in 19 s
+02:13:32 clean after 14 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:14:44 --- s01-kill-primary-before-delete run 5 {}
+02:14:48 osd.0 (pid 3847418) down and exited
+02:14:57 osd.0 up (pid 3852416)
+02:15:10 clean after 13 s
+02:15:29 deep-scrubbed 32 PGs in 19 s
+02:17:38 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:18:49 --- s01-kill-primary-before-delete run 6 {}
+02:18:52 osd.1 (pid 3864706) down and exited
+02:19:03 osd.1 up (pid 3868731)
+02:19:16 clean after 13 s
+02:19:35 deep-scrubbed 32 PGs in 19 s
+02:21:45 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:22:57 --- s01-kill-primary-before-delete run 7 {}
+02:23:00 osd.3 (pid 3882958) down and exited
+02:23:11 osd.3 up (pid 3885049)
+02:23:24 clean after 13 s
+02:23:43 deep-scrubbed 32 PGs in 19 s
+02:25:55 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:27:05 --- s01-kill-primary-before-delete run 8 {}
+02:27:07 osd.0 (pid 3896362) down and exited
+02:27:17 osd.0 up (pid 3901345)
+02:27:31 clean after 14 s
+02:27:50 deep-scrubbed 32 PGs in 19 s
+02:29:56 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:31:03 --- s01-kill-primary-before-delete run 9 {}
+02:31:08 osd.4 (pid 3916560) down and exited
+02:31:17 osd.4 up (pid 3917711)
+02:31:31 clean after 14 s
+02:31:53 deep-scrubbed 32 PGs in 22 s
+02:34:00 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:35:15 --- s01-kill-primary-before-delete run 10 {}
+02:35:19 osd.0 (pid 3929094) down and exited
+02:35:28 osd.0 up (pid 3934098)
+02:35:39 clean after 11 s
+02:35:58 deep-scrubbed 32 PGs in 19 s
+02:38:02 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:39:10 batch deep fsck on every OSD
+s01-kill-primary-before-delete [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s01-kill-primary-before-delete-20261005T015823.json
+===== s02 (02:41:37)
+02:41:38 scenario s02-kill-primary-during-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=20 pool=rvtest
+02:41:44 clean after 6 s
+02:41:45 --- s02-kill-primary-during-delete run 1 {"kill_delay_s": 0.05}
+02:42:04 osd.3 up (pid 3955963)
+02:42:18 clean after 14 s
+02:42:37 deep-scrubbed 32 PGs in 19 s
+02:44:45 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:45:56 --- s02-kill-primary-during-delete run 2 {"kill_delay_s": 0.12}
+02:46:06 osd.0 up (pid 3972191)
+02:46:19 clean after 13 s
+02:46:38 deep-scrubbed 32 PGs in 19 s
+02:48:28 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:49:39 --- s02-kill-primary-during-delete run 3 {"kill_delay_s": 0.15}
+02:49:50 osd.3 up (pid 3986960)
+02:50:04 clean after 14 s
+02:50:23 deep-scrubbed 32 PGs in 19 s
+02:52:15 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:53:27 --- s02-kill-primary-during-delete run 4 {"kill_delay_s": 0.18}
+02:53:37 osd.4 up (pid 4001699)
+02:53:49 clean after 12 s
+02:54:07 deep-scrubbed 32 PGs in 18 s
+02:56:00 clean after 13 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+02:57:11 --- s02-kill-primary-during-delete run 5 {"kill_delay_s": 0.2}
+02:57:24 osd.0 up (pid 4016446)
+02:57:37 clean after 13 s
+02:57:55 deep-scrubbed 32 PGs in 18 s
+02:59:47 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:00:59 --- s02-kill-primary-during-delete run 6 {"kill_delay_s": 0.22}
+03:01:11 osd.1 up (pid 4031298)
+03:01:22 clean after 11 s
+03:01:42 deep-scrubbed 32 PGs in 20 s
+03:03:36 clean after 14 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:04:46 --- s02-kill-primary-during-delete run 7 {"kill_delay_s": 0.25}
+03:04:57 osd.4 up (pid 4046031)
+03:05:11 clean after 14 s
+03:05:29 deep-scrubbed 32 PGs in 18 s
+03:07:23 clean after 13 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:08:34 --- s02-kill-primary-during-delete run 8 {"kill_delay_s": 0.28}
+03:08:46 osd.0 up (pid 4060825)
+03:09:00 clean after 14 s
+03:09:18 deep-scrubbed 32 PGs in 18 s
+03:11:09 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:12:16 --- s02-kill-primary-during-delete run 9 {"kill_delay_s": 0.3}
+03:12:28 osd.2 up (pid 4075554)
+03:12:42 clean after 14 s
+03:13:00 deep-scrubbed 32 PGs in 18 s
+03:14:52 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:16:05 --- s02-kill-primary-during-delete run 10 {"kill_delay_s": 0.35}
+03:16:17 osd.4 up (pid 4090312)
+03:16:31 clean after 14 s
+03:16:50 deep-scrubbed 32 PGs in 19 s
+03:18:40 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:19:52 --- s02-kill-primary-during-delete run 11 {"kill_delay_s": 0.4}
+03:20:04 osd.0 up (pid 4105079)
+03:20:18 clean after 14 s
+03:20:36 deep-scrubbed 32 PGs in 18 s
+03:22:31 clean after 13 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:23:42 --- s02-kill-primary-during-delete run 12 {"kill_delay_s": 0.5}
+03:23:55 osd.0 up (pid 4119896)
+03:24:06 clean after 11 s
+03:24:25 deep-scrubbed 32 PGs in 19 s
+03:26:18 clean after 12 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:27:28 --- s02-kill-primary-during-delete run 13 {"kill_delay_s": 0.05}
+03:27:49 osd.0 up (pid 4134662)
+03:28:02 clean after 13 s
+03:28:21 deep-scrubbed 32 PGs in 19 s
+03:30:30 clean after 12 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:31:40 --- s02-kill-primary-during-delete run 14 {"kill_delay_s": 0.12}
+03:31:50 osd.1 up (pid 4150901)
+03:32:04 clean after 14 s
+03:32:23 deep-scrubbed 32 PGs in 19 s
+03:34:15 clean after 14 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:35:24 --- s02-kill-primary-during-delete run 15 {"kill_delay_s": 0.15}
+03:35:34 osd.1 up (pid 4165688)
+03:35:47 clean after 13 s
+03:36:06 deep-scrubbed 32 PGs in 19 s
+03:37:56 clean after 11 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:39:08 --- s02-kill-primary-during-delete run 16 {"kill_delay_s": 0.18}
+03:39:20 osd.0 up (pid 4180704)
+03:39:34 clean after 14 s
+03:39:53 deep-scrubbed 32 PGs in 19 s
+03:41:46 clean after 11 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:42:58 --- s02-kill-primary-during-delete run 17 {"kill_delay_s": 0.2}
+03:43:08 osd.4 up (pid 1479)
+03:43:22 clean after 14 s
+03:43:41 deep-scrubbed 32 PGs in 19 s
+03:45:33 clean after 11 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:46:45 --- s02-kill-primary-during-delete run 18 {"kill_delay_s": 0.22}
+03:46:58 osd.1 up (pid 16335)
+03:47:11 clean after 13 s
+03:47:31 deep-scrubbed 32 PGs in 20 s
+03:49:22 clean after 13 s
+run 18: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:50:33 --- s02-kill-primary-during-delete run 19 {"kill_delay_s": 0.25}
+03:50:45 osd.1 up (pid 31201)
+03:50:58 clean after 13 s
+03:51:17 deep-scrubbed 32 PGs in 19 s
+03:53:09 clean after 11 s
+run 19: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:54:18 --- s02-kill-primary-during-delete run 20 {"kill_delay_s": 0.28}
+03:54:31 osd.0 up (pid 45943)
+03:54:44 clean after 13 s
+03:55:03 deep-scrubbed 32 PGs in 19 s
+03:56:58 clean after 14 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+03:58:09 batch deep fsck on every OSD
+s02-kill-primary-during-delete [zc]: 20/20 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s02-kill-primary-during-delete-20261005T024137.json
+===== s03 (04:00:37)
+04:00:38 scenario s03-kill-primary-after-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+04:00:44 clean after 6 s
+04:00:44 --- s03-kill-primary-after-delete run 1 {"down_s": 0}
+04:00:49 osd.2 (pid 62924) down and exited
+04:00:56 osd.2 up (pid 66276)
+04:01:09 clean after 13 s
+04:01:30 deep-scrubbed 32 PGs in 21 s
+04:03:23 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:04:33 --- s03-kill-primary-after-delete run 2 {"down_s": 1}
+04:04:37 osd.1 (pid 77077) down and exited
+04:04:45 osd.1 up (pid 81038)
+04:04:58 clean after 13 s
+04:05:17 deep-scrubbed 32 PGs in 19 s
+04:07:06 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:08:21 --- s03-kill-primary-after-delete run 3 {"down_s": 2}
+04:08:25 osd.3 (pid 93761) down and exited
+04:08:33 osd.3 up (pid 95838)
+04:08:46 clean after 13 s
+04:09:05 deep-scrubbed 32 PGs in 19 s
+04:10:55 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:12:05 --- s03-kill-primary-after-delete run 4 {"down_s": 3}
+04:12:09 osd.1 (pid 106613) down and exited
+04:12:19 osd.1 up (pid 110575)
+04:12:32 clean after 13 s
+04:12:51 deep-scrubbed 32 PGs in 19 s
+04:14:40 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:15:53 --- s03-kill-primary-after-delete run 5 {"down_s": 5}
+04:15:56 osd.3 (pid 123227) down and exited
+04:16:07 osd.3 up (pid 125268)
+04:16:20 clean after 13 s
+04:16:39 deep-scrubbed 32 PGs in 19 s
+04:18:32 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:19:42 --- s03-kill-primary-after-delete run 6 {"down_s": 8}
+04:19:45 osd.4 (pid 138963) down and exited
+04:19:59 osd.4 up (pid 140025)
+04:20:13 clean after 14 s
+04:20:31 deep-scrubbed 32 PGs in 18 s
+04:22:24 clean after 13 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:23:34 --- s03-kill-primary-after-delete run 7 {"down_s": 0}
+04:23:39 osd.1 (pid 150866) down and exited
+04:23:45 osd.1 up (pid 155028)
+04:23:58 clean after 13 s
+04:24:18 deep-scrubbed 32 PGs in 20 s
+04:26:10 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:27:19 --- s03-kill-primary-after-delete run 8 {"down_s": 1}
+04:27:24 osd.0 (pid 164996) down and exited
+04:27:31 osd.0 up (pid 169910)
+04:27:42 clean after 11 s
+04:28:04 deep-scrubbed 32 PGs in 22 s
+04:30:00 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:31:11 --- s03-kill-primary-after-delete run 9 {"down_s": 2}
+04:31:15 osd.0 (pid 179817) down and exited
+04:31:23 osd.0 up (pid 184747)
+04:31:36 clean after 13 s
+04:31:56 deep-scrubbed 32 PGs in 20 s
+04:33:49 clean after 13 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:34:56 --- s03-kill-primary-after-delete run 10 {"down_s": 3}
+04:35:01 osd.1 (pid 195622) down and exited
+04:35:10 osd.1 up (pid 199551)
+04:35:21 clean after 11 s
+04:35:40 deep-scrubbed 32 PGs in 19 s
+04:37:33 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:38:45 batch deep fsck on every OSD
+s03-kill-primary-after-delete [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s03-kill-primary-after-delete-20261005T040037.json
+===== s04 (04:41:14)
+04:41:15 scenario s04-out-backfill: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
+04:41:21 clean after 6 s
+04:41:21 --- s04-out-backfill run 1 {}
+04:41:47 clean after 19 s
+04:42:08 clean after 19 s
+04:42:28 clean after 19 s
+04:42:49 clean after 19 s
+04:44:17 clean after 10 s
+04:44:24 clean after 7 s
+04:44:47 deep-scrubbed 32 PGs in 23 s
+04:48:27 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:49:38 --- s04-out-backfill run 2 {}
+04:50:06 clean after 21 s
+04:50:24 clean after 16 s
+04:50:43 clean after 18 s
+04:51:03 clean after 18 s
+04:52:31 clean after 11 s
+04:52:37 clean after 6 s
+04:52:56 deep-scrubbed 32 PGs in 19 s
+04:56:38 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+04:57:49 batch deep fsck on every OSD
+s04-out-backfill [zc]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s04-out-backfill-20261005T044114.json
+===== s05 (05:00:20)
+05:00:21 scenario s05-deep-scrub-with-vault: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=3 pool=rvtest
+05:00:27 clean after 6 s
+05:00:27 --- s05-deep-scrub-with-vault run 1 {"objects": 96, "deleted": 64}
+05:01:06 clean after 6 s
+05:01:22 deep-scrubbed 32 PGs in 16 s
+05:11:08 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:12:37 deep-scrubbed 32 PGs in 19 s
+05:12:38 second deep scrub clean: true
+05:12:38 --- s05-deep-scrub-with-vault run 2 {"objects": 96, "deleted": 64}
+05:13:17 clean after 7 s
+05:13:36 deep-scrubbed 32 PGs in 19 s
+05:23:19 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:24:49 deep-scrubbed 32 PGs in 19 s
+05:24:49 second deep scrub clean: true
+05:24:50 --- s05-deep-scrub-with-vault run 3 {"objects": 96, "deleted": 64}
+05:25:28 clean after 6 s
+05:25:53 deep-scrubbed 32 PGs in 25 s
+05:35:39 clean after 13 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:37:14 deep-scrubbed 32 PGs in 24 s
+05:37:14 second deep scrub clean: true
+05:37:14 batch deep fsck on every OSD
+s05-deep-scrub-with-vault [zc]: 3/3 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s05-deep-scrub-with-vault-20261005T050020.json
+===== s06 (05:39:56)
+05:39:57 scenario s06-recreate-after-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=5 pool=rvtest
+05:40:03 clean after 6 s
+05:40:03 --- s06-recreate-after-delete run 1 {}
+05:40:15 clean after 6 s
+05:40:36 deep-scrubbed 32 PGs in 21 s
+05:44:18 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:45:29 --- s06-recreate-after-delete run 2 {}
+05:45:41 clean after 6 s
+05:46:01 deep-scrubbed 32 PGs in 20 s
+05:49:44 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:50:55 --- s06-recreate-after-delete run 3 {}
+05:51:07 clean after 6 s
+05:51:27 deep-scrubbed 32 PGs in 20 s
+05:55:11 clean after 13 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+05:56:18 --- s06-recreate-after-delete run 4 {}
+05:56:30 clean after 7 s
+05:56:50 deep-scrubbed 32 PGs in 20 s
+06:00:22 clean after 10 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:01:38 --- s06-recreate-after-delete run 5 {}
+06:01:49 clean after 6 s
+06:02:09 deep-scrubbed 32 PGs in 20 s
+06:05:56 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:07:07 batch deep fsck on every OSD
+s06-recreate-after-delete [zc]: 5/5 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s06-recreate-after-delete-20261005T053956.json
+===== s07 (06:09:51)
+06:09:52 scenario s07-repeated-delete-recreate: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
+06:09:58 clean after 6 s
+06:09:59 --- s07-repeated-delete-recreate run 1 {"cycles": 20}
+06:10:13 clean after 7 s
+06:10:33 deep-scrubbed 32 PGs in 20 s
+06:14:37 clean after 13 s
+./common.sh: line 174: /usr/bin/python3: Argument list too long
+===== s08 (06:15:49)
+06:15:50 scenario s08-restart-retainer: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=6 pool=rvtest
+06:15:57 clean after 7 s
+06:15:57 --- s08-restart-retainer run 1 {"signal": "KILL"}
+06:16:04 osd.2 (pid 797801) down and exited
+06:16:12 osd.2 up (pid 801768)
+06:16:27 clean after 13 s
+06:16:34 clean after 6 s
+06:16:54 deep-scrubbed 32 PGs in 20 s
+06:19:06 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:20:17 --- s08-restart-retainer run 2 {"signal": "TERM"}
+06:20:25 osd.3 (pid 818435) down and exited
+06:20:34 osd.3 up (pid 821157)
+06:20:48 clean after 13 s
+06:20:54 clean after 6 s
+06:21:18 deep-scrubbed 32 PGs in 24 s
+06:23:31 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:24:44 --- s08-restart-retainer run 3 {"signal": "KILL"}
+06:24:51 osd.3 (pid 837750) down and exited
+06:25:01 osd.3 up (pid 840430)
+06:25:14 clean after 11 s
+06:25:20 clean after 6 s
+06:25:37 deep-scrubbed 32 PGs in 17 s
+06:27:45 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:28:57 --- s08-restart-retainer run 4 {"signal": "TERM"}
+06:29:05 osd.4 (pid 857905) down and exited
+06:29:15 osd.4 up (pid 859673)
+06:29:27 clean after 11 s
+06:29:34 clean after 7 s
+06:29:58 deep-scrubbed 32 PGs in 24 s
+06:32:07 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:33:18 --- s08-restart-retainer run 5 {"signal": "KILL"}
+06:33:26 osd.3 (pid 876181) down and exited
+06:33:35 osd.3 up (pid 878848)
+06:33:46 clean after 10 s
+06:33:53 clean after 6 s
+06:34:13 deep-scrubbed 32 PGs in 20 s
+06:36:26 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:37:39 --- s08-restart-retainer run 6 {"signal": "TERM"}
+06:37:47 osd.4 (pid 896377) down and exited
+06:37:56 osd.4 up (pid 898332)
+06:38:08 clean after 11 s
+06:38:14 clean after 6 s
+06:38:36 deep-scrubbed 32 PGs in 22 s
+06:40:44 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+06:41:57 batch deep fsck on every OSD
+s08-restart-retainer [zc]: 6/6 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s08-restart-retainer-20261005T061549.json
+===== s09 (06:44:45)
+06:44:46 scenario s09-pg-split-merge: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
+06:44:52 clean after 6 s
+06:44:53 --- s09-pg-split-merge run 1 {"pg_num": [32, 64]}
+06:47:19 clean after 14 s
+06:47:19 rvtest pg_num=pgp_num=64 and clean after 112 s
+06:47:30 clean after 6 s
+06:48:00 deep-scrubbed 64 PGs in 30 s
+07:01:33 clean after 16 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:02:48 --- s09-pg-split-merge run 2 {"pg_num": [64, 32]}
+07:06:17 clean after 8 s
+07:06:17 rvtest pg_num=pgp_num=32 and clean after 205 s
+07:06:26 clean after 6 s
+07:06:47 deep-scrubbed 32 PGs in 21 s
+07:23:51 clean after 10 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:25:04 batch deep fsck on every OSD
+s09-pg-split-merge [zc]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s09-pg-split-merge-20261005T064445.json
+===== s10 (07:28:01)
+07:28:02 scenario s10-snapshot-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=3 pool=rvtest
+07:28:08 clean after 6 s
+07:28:09 --- s10-snapshot-delete run 1 {}
+07:28:25 clean after 6 s
+07:28:32 clean after 6 s
+07:28:42 deep-scrubbed 8 PGs in 10 s
+07:31:05 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:32:16 --- s10-snapshot-delete run 2 {}
+07:32:33 clean after 6 s
+07:32:40 clean after 6 s
+07:32:51 deep-scrubbed 8 PGs in 11 s
+07:34:50 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:36:06 --- s10-snapshot-delete run 3 {}
+07:36:22 clean after 6 s
+07:36:30 clean after 6 s
+07:36:44 deep-scrubbed 8 PGs in 14 s
+07:38:55 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:40:05 batch deep fsck on every OSD
+s10-snapshot-delete [zc]: 3/3 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s10-snapshot-delete-20261005T072801.json
+===== s11 (07:42:55)
+07:42:56 scenario s11-manual-restore: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
+07:43:02 clean after 6 s
+07:43:03 --- s11-manual-restore run 1 {}
+07:45:05 clean after 9 s
+07:45:11 clean after 6 s
+07:45:32 deep-scrubbed 32 PGs in 21 s
+07:49:09 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:50:18 --- s11-manual-restore run 2 {}
+07:52:22 clean after 9 s
+07:52:28 clean after 6 s
+07:52:45 deep-scrubbed 32 PGs in 17 s
+07:56:19 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+07:57:30 batch deep fsck on every OSD
+s11-manual-restore [zc]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s11-manual-restore-20261005T074255.json
+===== s12 (08:00:21)
+08:00:22 scenario s12-retainer-misses-delete: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+08:00:28 clean after 6 s
+08:00:28 --- s12-retainer-misses-delete run 1 {}
+08:00:31 osd.0 (pid 1371227) down and exited
+08:00:42 osd.0 up (pid 1376581)
+08:00:55 clean after 13 s
+08:01:03 clean after 7 s
+08:01:26 deep-scrubbed 32 PGs in 23 s
+08:03:33 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:04:44 --- s12-retainer-misses-delete run 2 {}
+08:04:47 osd.3 (pid 1391036) down and exited
+08:04:59 osd.3 up (pid 1393131)
+08:05:12 clean after 13 s
+08:05:19 clean after 6 s
+08:05:40 deep-scrubbed 32 PGs in 21 s
+08:07:47 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:08:58 --- s12-retainer-misses-delete run 3 {}
+08:09:02 osd.4 (pid 1408490) down and exited
+08:09:14 osd.4 up (pid 1409687)
+08:09:27 clean after 13 s
+08:09:34 clean after 6 s
+08:09:54 deep-scrubbed 32 PGs in 20 s
+08:12:04 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:13:18 --- s12-retainer-misses-delete run 4 {}
+08:13:23 osd.0 (pid 1421251) down and exited
+08:13:33 osd.0 up (pid 1426276)
+08:13:46 clean after 13 s
+08:13:53 clean after 6 s
+08:14:14 deep-scrubbed 32 PGs in 21 s
+08:16:24 clean after 13 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:17:34 --- s12-retainer-misses-delete run 5 {}
+08:17:38 osd.3 (pid 1440742) down and exited
+08:17:49 osd.3 up (pid 1442895)
+08:18:03 clean after 14 s
+08:18:10 clean after 6 s
+08:18:32 deep-scrubbed 32 PGs in 22 s
+08:20:40 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:21:50 --- s12-retainer-misses-delete run 6 {}
+08:21:54 osd.0 (pid 1454442) down and exited
+08:22:03 osd.0 up (pid 1459435)
+08:22:16 clean after 13 s
+08:22:23 clean after 6 s
+08:22:49 deep-scrubbed 32 PGs in 26 s
+08:24:59 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:26:06 --- s12-retainer-misses-delete run 7 {}
+08:26:11 osd.2 (pid 1472926) down and exited
+08:26:21 osd.2 up (pid 1476018)
+08:26:35 clean after 14 s
+08:26:42 clean after 6 s
+08:27:02 deep-scrubbed 32 PGs in 20 s
+08:29:07 clean after 10 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:30:18 --- s12-retainer-misses-delete run 8 {}
+08:30:22 osd.1 (pid 1488489) down and exited
+08:30:33 osd.1 up (pid 1492541)
+08:30:46 clean after 13 s
+08:30:54 clean after 7 s
+08:31:16 deep-scrubbed 32 PGs in 22 s
+08:33:22 clean after 13 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:34:32 --- s12-retainer-misses-delete run 9 {}
+08:34:36 osd.2 (pid 1506022) down and exited
+08:34:46 osd.2 up (pid 1509111)
+08:35:00 clean after 14 s
+08:35:07 clean after 6 s
+08:35:28 deep-scrubbed 32 PGs in 21 s
+08:37:36 clean after 10 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:38:46 --- s12-retainer-misses-delete run 10 {}
+08:38:49 osd.2 (pid 1522773) down and exited
+08:38:59 osd.2 up (pid 1525863)
+08:39:12 clean after 13 s
+08:39:19 clean after 6 s
+08:39:43 deep-scrubbed 32 PGs in 24 s
+08:41:54 clean after 10 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:43:05 batch deep fsck on every OSD
+s12-retainer-misses-delete [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/s12-retainer-misses-delete-20261005T080021.json
+===== a01 (08:46:03)
+08:46:03 scenario a01-rank1-out: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+08:46:10 clean after 7 s
+08:46:10 --- a01-rank1-out run 1 {}
+08:46:42 clean after 19 s
+08:47:07 clean after 24 s
+08:47:13 clean after 6 s
+08:47:31 deep-scrubbed 32 PGs in 18 s
+08:50:12 clean after 10 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:51:23 --- a01-rank1-out run 2 {}
+08:51:59 clean after 20 s
+08:52:21 clean after 21 s
+08:52:28 clean after 6 s
+08:52:48 deep-scrubbed 32 PGs in 20 s
+08:55:29 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+08:56:42 --- a01-rank1-out run 3 {}
+08:57:18 clean after 20 s
+08:57:40 clean after 21 s
+08:57:47 clean after 6 s
+08:58:11 deep-scrubbed 32 PGs in 24 s
+09:00:49 clean after 10 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:02:00 --- a01-rank1-out run 4 {}
+09:02:34 clean after 18 s
+09:03:01 clean after 26 s
+09:03:08 clean after 7 s
+09:03:29 deep-scrubbed 32 PGs in 21 s
+09:06:13 clean after 14 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:07:25 --- a01-rank1-out run 5 {}
+09:07:59 clean after 21 s
+09:08:20 clean after 20 s
+09:08:27 clean after 6 s
+09:08:48 deep-scrubbed 32 PGs in 21 s
+09:11:31 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:12:38 --- a01-rank1-out run 6 {}
+09:13:16 clean after 23 s
+09:13:40 clean after 23 s
+09:13:47 clean after 6 s
+09:14:09 deep-scrubbed 32 PGs in 22 s
+09:16:48 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:17:58 --- a01-rank1-out run 7 {}
+09:18:33 clean after 20 s
+09:18:58 clean after 23 s
+09:19:05 clean after 7 s
+09:19:27 deep-scrubbed 32 PGs in 22 s
+09:22:06 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:23:18 --- a01-rank1-out run 8 {}
+09:23:54 clean after 21 s
+09:24:20 clean after 25 s
+09:24:27 clean after 6 s
+09:24:48 deep-scrubbed 32 PGs in 21 s
+09:27:27 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:28:39 --- a01-rank1-out run 9 {}
+09:29:17 clean after 23 s
+09:29:42 clean after 23 s
+09:29:48 clean after 6 s
+09:30:09 deep-scrubbed 32 PGs in 21 s
+09:32:48 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:34:00 --- a01-rank1-out run 10 {}
+09:34:38 clean after 23 s
+09:35:02 clean after 23 s
+09:35:09 clean after 6 s
+09:35:30 deep-scrubbed 32 PGs in 21 s
+09:38:11 clean after 13 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:39:22 batch deep fsck on every OSD
+a01-rank1-out [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/a01-rank1-out-20261005T084603.json
+===== a02 (09:42:23)
+09:42:24 scenario a02-upmap-empty: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+09:42:30 clean after 6 s
+09:42:31 --- a02-upmap-empty run 1 {"require_min_compat_client": "luminous"}
+09:43:02 clean after 15 s
+09:43:17 clean after 14 s
+09:43:24 clean after 7 s
+09:43:48 deep-scrubbed 32 PGs in 24 s
+09:46:28 clean after 13 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:47:40 --- a02-upmap-empty run 2 {"require_min_compat_client": "luminous"}
+09:48:09 clean after 15 s
+09:48:30 clean after 20 s
+09:48:37 clean after 6 s
+09:48:58 deep-scrubbed 32 PGs in 21 s
+09:51:44 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:52:54 --- a02-upmap-empty run 3 {"require_min_compat_client": "luminous"}
+09:53:24 clean after 13 s
+09:53:31 clean after 6 s
+09:53:38 clean after 6 s
+09:54:00 deep-scrubbed 32 PGs in 22 s
+09:56:37 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:57:48 --- a02-upmap-empty run 4 {"require_min_compat_client": "luminous"}
+09:58:16 clean after 13 s
+09:58:29 clean after 12 s
+09:58:35 clean after 6 s
+09:58:57 deep-scrubbed 32 PGs in 22 s
+10:01:37 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:02:48 --- a02-upmap-empty run 5 {"require_min_compat_client": "luminous"}
+10:03:14 clean after 11 s
+10:03:29 clean after 14 s
+10:03:36 clean after 6 s
+10:03:58 deep-scrubbed 32 PGs in 22 s
+10:06:35 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:07:45 --- a02-upmap-empty run 6 {"require_min_compat_client": "luminous"}
+10:08:13 clean after 13 s
+10:08:28 clean after 13 s
+10:08:35 clean after 6 s
+10:08:59 deep-scrubbed 32 PGs in 24 s
+10:11:39 clean after 13 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:12:49 --- a02-upmap-empty run 7 {"require_min_compat_client": "luminous"}
+10:13:20 clean after 16 s
+10:13:36 clean after 14 s
+10:13:42 clean after 6 s
+10:14:08 deep-scrubbed 32 PGs in 26 s
+10:16:49 clean after 13 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:18:04 --- a02-upmap-empty run 8 {"require_min_compat_client": "luminous"}
+10:18:32 clean after 16 s
+10:18:46 clean after 14 s
+10:18:53 clean after 6 s
+10:19:15 deep-scrubbed 32 PGs in 22 s
+10:21:50 clean after 9 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:23:02 --- a02-upmap-empty run 9 {"require_min_compat_client": "luminous"}
+10:23:30 clean after 13 s
+10:23:38 clean after 6 s
+10:23:45 clean after 6 s
+10:24:07 deep-scrubbed 32 PGs in 22 s
+10:26:47 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:27:59 --- a02-upmap-empty run 10 {"require_min_compat_client": "luminous"}
+10:28:30 clean after 16 s
+10:28:49 clean after 18 s
+10:28:56 clean after 6 s
+10:29:16 deep-scrubbed 32 PGs in 20 s
+10:32:05 clean after 13 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:33:14 batch deep fsck on every OSD
+a02-upmap-empty [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/a02-upmap-empty-20261005T094223.json
+===== a03 (10:36:16)
+10:36:17 scenario a03-size-one: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=3 pool=rvtest
+10:36:24 clean after 7 s
+10:36:41 clean after 13 s
+10:36:42 --- a03-size-one run 1 {"mon_allow_pool_size_one": "true"}
+10:37:00 clean after 14 s
+10:37:17 clean after 13 s
+10:37:24 clean after 6 s
+10:37:34 deep-scrubbed 8 PGs in 10 s
+10:40:19 clean after 14 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:41:30 --- a03-size-one run 2 {"mon_allow_pool_size_one": "true"}
+10:41:49 clean after 14 s
+10:42:06 clean after 14 s
+10:42:12 clean after 6 s
+10:42:23 deep-scrubbed 8 PGs in 11 s
+10:44:58 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:46:10 --- a03-size-one run 3 {"mon_allow_pool_size_one": "true"}
+10:46:28 clean after 14 s
+10:46:46 clean after 14 s
+10:46:52 clean after 6 s
+10:47:03 deep-scrubbed 8 PGs in 11 s
+10:49:54 clean after 13 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:51:05 batch deep fsck on every OSD
+a03-size-one [zc]: 3/3 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/a03-size-one-20261005T103616.json
+===== a04 (10:54:09)
+10:54:10 scenario a04-primary-temp: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+10:54:21 clean after 11 s
+10:54:22 --- a04-primary-temp run 1 {"primary_temp_slot": 1}
+10:54:40 clean after 9 s
+10:54:47 clean after 7 s
+10:55:08 deep-scrubbed 32 PGs in 21 s
+10:57:29 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:58:38 --- a04-primary-temp run 2 {"primary_temp_slot": 2}
+10:58:58 clean after 11 s
+10:59:05 clean after 6 s
+10:59:26 deep-scrubbed 32 PGs in 21 s
+11:01:41 clean after 9 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:02:51 --- a04-primary-temp run 3 {"primary_temp_slot": 1}
+11:03:07 clean after 6 s
+11:03:14 clean after 6 s
+11:03:35 deep-scrubbed 32 PGs in 21 s
+11:05:55 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:07:05 --- a04-primary-temp run 4 {"primary_temp_slot": 2}
+11:07:29 clean after 14 s
+11:07:36 clean after 7 s
+11:07:57 deep-scrubbed 32 PGs in 21 s
+11:10:13 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:11:24 --- a04-primary-temp run 5 {"primary_temp_slot": 1}
+11:11:39 clean after 6 s
+11:11:46 clean after 6 s
+11:12:08 deep-scrubbed 32 PGs in 22 s
+11:14:25 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:15:35 --- a04-primary-temp run 6 {"primary_temp_slot": 2}
+11:15:51 clean after 6 s
+11:15:58 clean after 6 s
+11:16:16 deep-scrubbed 32 PGs in 18 s
+11:18:32 clean after 10 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:19:41 --- a04-primary-temp run 7 {"primary_temp_slot": 1}
+11:20:03 clean after 12 s
+11:20:10 clean after 7 s
+11:20:32 deep-scrubbed 32 PGs in 22 s
+11:22:54 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:24:00 --- a04-primary-temp run 8 {"primary_temp_slot": 2}
+11:24:16 clean after 7 s
+11:24:22 clean after 6 s
+11:24:45 deep-scrubbed 32 PGs in 23 s
+11:27:09 clean after 14 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:28:20 --- a04-primary-temp run 9 {"primary_temp_slot": 1}
+11:28:44 clean after 13 s
+11:28:51 clean after 6 s
+11:29:12 deep-scrubbed 32 PGs in 21 s
+11:31:32 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:32:43 --- a04-primary-temp run 10 {"primary_temp_slot": 2}
+11:32:58 clean after 7 s
+11:33:04 clean after 6 s
+11:33:29 deep-scrubbed 32 PGs in 25 s
+11:35:51 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:37:04 batch deep fsck on every OSD
+a04-primary-temp [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/a04-primary-temp-20261005T105409.json
+===== a05 (11:40:09)
+11:40:10 scenario a05-duplicate-inflation: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+11:40:16 clean after 6 s
+11:40:17 --- a05-duplicate-inflation run 1 {"rounds": 3, "deletes_per_round": 4}
+11:40:24 osd.3 (pid 2306479) down and exited
+11:40:31 osd.3 up (pid 2309268)
+11:40:45 clean after 13 s
+11:40:45 osd.3 (pid 2309268) down and exited
+11:40:54 osd.3 up (pid 2310295)
+11:41:08 clean after 14 s
+11:41:10 osd.3 (pid 2310295) down and exited
+11:41:19 osd.3 up (pid 2311320)
+11:41:30 clean after 11 s
+11:41:37 clean after 7 s
+11:41:59 deep-scrubbed 32 PGs in 22 s
+11:45:57 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:47:10 --- a05-duplicate-inflation run 2 {"rounds": 3, "deletes_per_round": 4}
+11:47:17 osd.4 (pid 2346585) down and exited
+11:47:25 osd.4 up (pid 2348185)
+11:47:39 clean after 14 s
+11:47:41 osd.4 (pid 2348185) down and exited
+11:47:50 osd.4 up (pid 2349260)
+11:48:03 clean after 13 s
+11:48:05 osd.4 (pid 2349260) down and exited
+11:48:13 osd.4 up (pid 2350285)
+11:48:26 clean after 13 s
+11:48:33 clean after 6 s
+11:48:56 deep-scrubbed 32 PGs in 23 s
+11:53:01 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+11:54:11 --- a05-duplicate-inflation run 3 {"rounds": 3, "deletes_per_round": 4}
+11:54:16 osd.1 (pid 2382722) down and exited
+11:54:26 osd.1 up (pid 2387128)
+11:54:39 clean after 13 s
+11:54:40 osd.1 (pid 2387128) down and exited
+11:54:49 osd.1 up (pid 2388153)
+11:55:03 clean after 14 s
+11:55:05 osd.1 (pid 2388153) down and exited
+11:55:13 osd.1 up (pid 2389183)
+11:55:24 clean after 11 s
+11:55:31 clean after 6 s
+11:55:56 deep-scrubbed 32 PGs in 25 s
+12:00:00 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:01:10 --- a05-duplicate-inflation run 4 {"rounds": 3, "deletes_per_round": 4}
+12:01:16 osd.2 (pid 2422540) down and exited
+12:01:24 osd.2 up (pid 2425992)
+12:01:35 clean after 11 s
+12:01:37 osd.2 (pid 2425992) down and exited
+12:01:45 osd.2 up (pid 2426990)
+12:01:56 clean after 11 s
+12:01:58 osd.2 (pid 2426990) down and exited
+12:02:05 osd.2 up (pid 2427988)
+12:02:18 clean after 13 s
+12:02:25 clean after 6 s
+12:02:48 deep-scrubbed 32 PGs in 23 s
+12:06:50 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:08:01 --- a05-duplicate-inflation run 5 {"rounds": 3, "deletes_per_round": 4}
+12:08:08 osd.4 (pid 2463272) down and exited
+12:08:18 osd.4 up (pid 2464848)
+12:08:31 clean after 13 s
+12:08:32 osd.4 (pid 2464848) down and exited
+12:08:40 osd.4 up (pid 2465872)
+12:08:54 clean after 14 s
+12:08:56 osd.4 (pid 2465872) down and exited
+12:09:04 osd.4 up (pid 2466897)
+12:09:18 clean after 14 s
+12:09:25 clean after 7 s
+12:09:48 deep-scrubbed 32 PGs in 23 s
+12:13:52 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:15:05 --- a05-duplicate-inflation run 6 {"rounds": 3, "deletes_per_round": 4}
+12:15:10 osd.0 (pid 2499075) down and exited
+12:15:19 osd.0 up (pid 2504522)
+12:15:32 clean after 13 s
+12:15:34 osd.0 (pid 2504522) down and exited
+12:15:42 osd.0 up (pid 2505702)
+12:15:55 clean after 13 s
+12:15:57 osd.0 (pid 2505702) down and exited
+12:16:06 osd.0 up (pid 2506808)
+12:16:19 clean after 13 s
+12:16:26 clean after 7 s
+12:16:48 deep-scrubbed 32 PGs in 22 s
+12:20:55 clean after 14 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:22:06 --- a05-duplicate-inflation run 7 {"rounds": 3, "deletes_per_round": 4}
+12:22:11 osd.2 (pid 2540531) down and exited
+12:22:20 osd.2 up (pid 2544030)
+12:22:34 clean after 14 s
+12:22:34 osd.2 (pid 2544030) down and exited
+12:22:43 osd.2 up (pid 2545065)
+12:22:53 clean after 10 s
+12:22:55 osd.2 (pid 2545065) down and exited
+12:23:03 osd.2 up (pid 2546064)
+12:23:14 clean after 11 s
+12:23:21 clean after 7 s
+12:23:42 deep-scrubbed 32 PGs in 21 s
+12:27:46 clean after 12 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:28:57 --- a05-duplicate-inflation run 8 {"rounds": 3, "deletes_per_round": 4}
+12:29:03 osd.0 (pid 2577624) down and exited
+12:29:10 osd.0 up (pid 2583073)
+12:29:24 clean after 14 s
+12:29:25 osd.0 (pid 2583073) down and exited
+12:29:33 osd.0 up (pid 2584111)
+12:29:46 clean after 13 s
+12:29:48 osd.0 (pid 2584111) down and exited
+12:29:56 osd.0 up (pid 2585135)
+12:30:07 clean after 11 s
+12:30:13 clean after 6 s
+12:30:37 deep-scrubbed 32 PGs in 24 s
+12:34:40 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:35:50 --- a05-duplicate-inflation run 9 {"rounds": 3, "deletes_per_round": 4}
+12:35:57 osd.4 (pid 2620495) down and exited
+12:36:06 osd.4 up (pid 2622070)
+12:36:19 clean after 13 s
+12:36:21 osd.4 (pid 2622070) down and exited
+12:36:30 osd.4 up (pid 2623136)
+12:36:43 clean after 13 s
+12:36:45 osd.4 (pid 2623136) down and exited
+12:36:54 osd.4 up (pid 2624189)
+12:37:07 clean after 13 s
+12:37:14 clean after 6 s
+12:37:40 deep-scrubbed 32 PGs in 26 s
+12:41:39 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:42:50 --- a05-duplicate-inflation run 10 {"rounds": 3, "deletes_per_round": 4}
+12:42:57 osd.4 (pid 2659822) down and exited
+12:43:07 osd.4 up (pid 2661398)
+12:43:20 clean after 13 s
+12:43:21 osd.4 (pid 2661398) down and exited
+12:43:30 osd.4 up (pid 2662463)
+12:43:44 clean after 14 s
+12:43:46 osd.4 (pid 2662463) down and exited
+12:43:55 osd.4 up (pid 2663566)
+12:44:09 clean after 14 s
+12:44:16 clean after 7 s
+12:44:39 deep-scrubbed 32 PGs in 23 s
+12:48:39 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:49:51 batch deep fsck on every OSD
+a05-duplicate-inflation [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/a05-duplicate-inflation-20261005T114009.json
+===== c01 (12:53:02)
+12:53:03 scenario c01-crash-under-deletes: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=30 pool=rvtest
+12:53:09 clean after 6 s
+12:53:10 --- c01-crash-under-deletes run 1 {"submit_mode": "default", "kill_delay_s": 1.147}
+12:53:30 osd.4 up (pid 2706514)
+12:53:43 clean after 12 s
+12:53:49 clean after 6 s
+12:54:12 deep-scrubbed 32 PGs in 23 s
+12:57:50 clean after 12 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+12:58:59 --- c01-crash-under-deletes run 2 {"submit_mode": "default", "kill_delay_s": 1.411}
+12:59:20 osd.3 up (pid 2740429)
+12:59:32 clean after 11 s
+12:59:39 clean after 6 s
+13:00:02 deep-scrubbed 32 PGs in 23 s
+13:03:37 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:04:47 --- c01-crash-under-deletes run 3 {"submit_mode": "default", "kill_delay_s": 0.044}
+13:05:05 osd.2 up (pid 2774285)
+13:05:18 clean after 11 s
+13:05:24 clean after 6 s
+13:05:48 deep-scrubbed 32 PGs in 24 s
+13:09:29 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:10:42 --- c01-crash-under-deletes run 4 {"submit_mode": "default", "kill_delay_s": 0.19}
+13:11:00 osd.3 up (pid 2808338)
+13:11:10 clean after 8 s
+13:11:17 clean after 6 s
+13:11:41 deep-scrubbed 32 PGs in 24 s
+13:15:19 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:16:31 --- c01-crash-under-deletes run 5 {"submit_mode": "default", "kill_delay_s": 1.246}
+13:16:51 osd.4 up (pid 2842298)
+13:17:04 clean after 11 s
+13:17:11 clean after 6 s
+13:17:33 deep-scrubbed 32 PGs in 22 s
+13:21:05 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:22:13 --- c01-crash-under-deletes run 6 {"submit_mode": "default", "kill_delay_s": 1.164}
+13:22:32 osd.4 up (pid 2876246)
+13:22:44 clean after 11 s
+13:22:51 clean after 6 s
+13:23:18 deep-scrubbed 32 PGs in 27 s
+13:26:57 clean after 14 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:28:08 --- c01-crash-under-deletes run 7 {"submit_mode": "default", "kill_delay_s": 0.961}
+13:28:27 osd.3 up (pid 2910221)
+13:28:39 clean after 11 s
+13:28:45 clean after 6 s
+13:29:12 deep-scrubbed 32 PGs in 27 s
+13:32:47 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:33:57 --- c01-crash-under-deletes run 8 {"submit_mode": "default", "kill_delay_s": 1.439}
+13:34:18 osd.3 up (pid 2944137)
+13:34:32 clean after 13 s
+13:34:39 clean after 7 s
+13:35:02 deep-scrubbed 32 PGs in 23 s
+13:38:37 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:39:48 --- c01-crash-under-deletes run 9 {"submit_mode": "default", "kill_delay_s": 0.836}
+13:40:07 osd.4 up (pid 2978445)
+13:40:20 clean after 11 s
+13:40:27 clean after 7 s
+13:40:52 deep-scrubbed 32 PGs in 25 s
+13:44:29 clean after 10 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:45:43 --- c01-crash-under-deletes run 10 {"submit_mode": "default", "kill_delay_s": 0.649}
+13:46:03 osd.2 up (pid 3012592)
+13:46:17 clean after 14 s
+13:46:23 clean after 6 s
+13:46:46 deep-scrubbed 32 PGs in 23 s
+13:50:28 clean after 12 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:51:39 --- c01-crash-under-deletes run 11 {"submit_mode": "default", "kill_delay_s": 1.049}
+13:51:58 osd.1 up (pid 3046563)
+13:52:09 clean after 11 s
+13:52:16 clean after 6 s
+13:52:38 deep-scrubbed 32 PGs in 22 s
+13:56:15 clean after 11 s
+run 11: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+13:57:28 --- c01-crash-under-deletes run 12 {"submit_mode": "default", "kill_delay_s": 1.114}
+13:57:49 osd.0 up (pid 3080433)
+13:58:00 clean after 11 s
+13:58:07 clean after 6 s
+13:58:31 deep-scrubbed 32 PGs in 24 s
+14:02:07 clean after 11 s
+run 12: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:03:19 --- c01-crash-under-deletes run 13 {"submit_mode": "default", "kill_delay_s": 0.664}
+14:03:40 osd.3 up (pid 3114301)
+14:03:52 clean after 11 s
+14:03:59 clean after 6 s
+14:04:22 deep-scrubbed 32 PGs in 23 s
+14:08:00 clean after 11 s
+run 13: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:09:11 --- c01-crash-under-deletes run 14 {"submit_mode": "default", "kill_delay_s": 0.908}
+14:09:30 osd.0 up (pid 3148174)
+14:09:42 clean after 11 s
+14:09:49 clean after 6 s
+14:10:12 deep-scrubbed 32 PGs in 23 s
+14:13:49 clean after 12 s
+run 14: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:15:05 --- c01-crash-under-deletes run 15 {"submit_mode": "default", "kill_delay_s": 0.389}
+14:15:24 osd.4 up (pid 3182097)
+14:15:37 clean after 11 s
+14:15:44 clean after 6 s
+14:16:10 deep-scrubbed 32 PGs in 26 s
+14:19:46 clean after 12 s
+run 15: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:20:59 --- c01-crash-under-deletes run 16 {"submit_mode": "default", "kill_delay_s": 0.429}
+14:21:17 osd.2 up (pid 3216113)
+14:21:29 clean after 11 s
+14:21:37 clean after 7 s
+14:22:03 deep-scrubbed 32 PGs in 26 s
+14:25:39 clean after 11 s
+run 16: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:26:49 --- c01-crash-under-deletes run 17 {"submit_mode": "default", "kill_delay_s": 0.767}
+14:27:07 osd.0 up (pid 3250034)
+14:27:20 clean after 11 s
+14:27:27 clean after 7 s
+14:27:53 deep-scrubbed 32 PGs in 26 s
+14:31:28 clean after 13 s
+run 17: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:32:40 --- c01-crash-under-deletes run 18 {"submit_mode": "default", "kill_delay_s": 0.146}
+14:32:58 osd.4 up (pid 3284162)
+14:33:11 clean after 12 s
+14:33:17 clean after 6 s
+14:33:43 deep-scrubbed 32 PGs in 26 s
+14:37:20 clean after 11 s
+run 18: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:38:29 --- c01-crash-under-deletes run 19 {"submit_mode": "sync", "kill_delay_s": 0.54}
+14:38:48 osd.4 up (pid 3318131)
+14:39:01 clean after 11 s
+14:39:08 clean after 7 s
+14:39:34 deep-scrubbed 32 PGs in 26 s
+14:43:12 clean after 13 s
+run 19: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+14:44:23 --- c01-crash-under-deletes run 20 {"submit_mode": "sync", "kill_delay_s": 0.484}
+14:44:45 osd.1 up (pid 3352353)
+14:45:00 clean after 14 s
+14:45:06 clean after 6 s
+14:45:34 deep-scrubbed 32 PGs in 28 s
+16:49:11 clean after 11 s
+run 20: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+16:50:19 --- c01-crash-under-deletes run 21 {"submit_mode": "sync", "kill_delay_s": 0.137}
+16:50:40 osd.4 up (pid 3386719)
+16:50:53 clean after 11 s
+16:51:00 clean after 6 s
+16:51:23 deep-scrubbed 32 PGs in 23 s
+16:54:59 clean after 11 s
+run 21: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+16:56:09 --- c01-crash-under-deletes run 22 {"submit_mode": "sync", "kill_delay_s": 1.433}
+16:56:31 osd.2 up (pid 3420687)
+16:56:45 clean after 13 s
+16:56:52 clean after 6 s
+16:57:12 deep-scrubbed 32 PGs in 20 s
+17:00:48 clean after 13 s
+run 22: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:02:00 --- c01-crash-under-deletes run 23 {"submit_mode": "sync", "kill_delay_s": 0.487}
+17:02:23 osd.4 up (pid 3454649)
+17:02:35 clean after 11 s
+17:02:42 clean after 6 s
+17:03:06 deep-scrubbed 32 PGs in 24 s
+17:06:45 clean after 14 s
+run 23: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:07:57 --- c01-crash-under-deletes run 24 {"submit_mode": "sync", "kill_delay_s": 0.567}
+17:08:20 osd.0 up (pid 3488643)
+17:08:32 clean after 11 s
+17:08:39 clean after 7 s
+17:09:03 deep-scrubbed 32 PGs in 24 s
+17:12:39 clean after 12 s
+run 24: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:13:48 --- c01-crash-under-deletes run 25 {"submit_mode": "sync+rand", "kill_delay_s": 0.716}
+17:14:10 osd.2 up (pid 3522583)
+17:14:24 clean after 14 s
+17:14:31 clean after 7 s
+17:14:56 deep-scrubbed 32 PGs in 25 s
+17:18:30 clean after 10 s
+run 25: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:19:39 --- c01-crash-under-deletes run 26 {"submit_mode": "sync+rand", "kill_delay_s": 1.331}
+17:20:01 osd.0 up (pid 3556663)
+17:20:14 clean after 11 s
+17:20:20 clean after 6 s
+17:20:40 deep-scrubbed 32 PGs in 20 s
+17:24:17 clean after 13 s
+run 26: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:25:29 --- c01-crash-under-deletes run 27 {"submit_mode": "sync+rand", "kill_delay_s": 0.149}
+17:25:51 osd.3 up (pid 3590650)
+17:26:06 clean after 13 s
+17:26:13 clean after 6 s
+17:26:40 deep-scrubbed 32 PGs in 27 s
+17:30:19 clean after 11 s
+run 27: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:31:32 --- c01-crash-under-deletes run 28 {"submit_mode": "sync+rand", "kill_delay_s": 0.73}
+17:31:55 osd.0 up (pid 3624700)
+17:32:07 clean after 11 s
+17:32:14 clean after 6 s
+17:32:40 deep-scrubbed 32 PGs in 26 s
+17:36:19 clean after 13 s
+run 28: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:37:29 --- c01-crash-under-deletes run 29 {"submit_mode": "sync+rand", "kill_delay_s": 0.098}
+17:37:49 osd.2 up (pid 3658739)
+17:38:01 clean after 11 s
+17:38:08 clean after 7 s
+17:38:33 deep-scrubbed 32 PGs in 25 s
+17:42:07 clean after 13 s
+run 29: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:43:20 --- c01-crash-under-deletes run 30 {"submit_mode": "sync+rand", "kill_delay_s": 1.458}
+17:43:42 osd.3 up (pid 3693173)
+17:43:54 clean after 11 s
+17:44:01 clean after 6 s
+17:44:27 deep-scrubbed 32 PGs in 26 s
+17:48:05 clean after 11 s
+run 30: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:49:16 batch deep fsck on every OSD
+c01-crash-under-deletes [zc]: 30/30 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/c01-crash-under-deletes-20261005T125302.json
+===== c03 (17:53:20)
+17:53:20 scenario c03-retainer-out-during-deletes: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+17:53:27 clean after 7 s
+17:53:27 --- c03-retainer-out-during-deletes run 1 {"kill_delay_s": 0.045}
+17:54:02 PGs clean after 25 s
+17:54:10 osd.4 up (pid 3733085)
+17:54:39 clean after 25 s
+17:54:46 clean after 6 s
+17:55:12 deep-scrubbed 32 PGs in 26 s
+17:58:48 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+17:59:59 --- c03-retainer-out-during-deletes run 2 {"kill_delay_s": 1.041}
+18:00:32 PGs clean after 23 s
+18:00:39 osd.4 up (pid 3767441)
+18:01:09 clean after 26 s
+18:01:16 clean after 7 s
+18:01:42 deep-scrubbed 32 PGs in 26 s
+18:05:19 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:06:31 --- c03-retainer-out-during-deletes run 3 {"kill_delay_s": 0.128}
+18:07:05 PGs clean after 24 s
+18:07:12 osd.4 up (pid 3801625)
+18:07:44 clean after 28 s
+18:07:51 clean after 6 s
+18:08:18 deep-scrubbed 32 PGs in 27 s
+18:11:54 clean after 10 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:13:08 --- c03-retainer-out-during-deletes run 4 {"kill_delay_s": 0.663}
+18:13:40 PGs clean after 22 s
+18:13:48 osd.4 up (pid 3835803)
+18:14:20 clean after 28 s
+18:14:27 clean after 6 s
+18:14:49 deep-scrubbed 32 PGs in 22 s
+18:18:28 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:19:41 --- c03-retainer-out-during-deletes run 5 {"kill_delay_s": 1.101}
+18:20:15 PGs clean after 24 s
+18:20:22 osd.4 up (pid 3870403)
+18:20:49 clean after 24 s
+18:20:56 clean after 7 s
+18:21:17 deep-scrubbed 32 PGs in 21 s
+18:24:54 clean after 13 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:26:07 --- c03-retainer-out-during-deletes run 6 {"kill_delay_s": 1.494}
+18:26:42 PGs clean after 24 s
+18:26:49 osd.4 up (pid 3905066)
+18:27:16 clean after 23 s
+18:27:23 clean after 6 s
+18:27:42 deep-scrubbed 32 PGs in 19 s
+18:31:19 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:32:31 --- c03-retainer-out-during-deletes run 7 {"kill_delay_s": 0.441}
+18:33:04 PGs clean after 25 s
+18:33:11 osd.0 up (pid 3939194)
+18:33:39 clean after 24 s
+18:33:46 clean after 6 s
+18:34:12 deep-scrubbed 32 PGs in 26 s
+18:37:46 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:38:58 --- c03-retainer-out-during-deletes run 8 {"kill_delay_s": 1.148}
+18:39:30 PGs clean after 22 s
+18:39:37 osd.4 up (pid 3973284)
+18:40:04 clean after 23 s
+18:40:11 clean after 6 s
+18:40:31 deep-scrubbed 32 PGs in 20 s
+18:44:07 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:45:20 --- c03-retainer-out-during-deletes run 9 {"kill_delay_s": 0.989}
+18:45:52 PGs clean after 22 s
+18:46:00 osd.2 up (pid 4007591)
+18:46:22 clean after 18 s
+18:46:29 clean after 6 s
+18:46:54 deep-scrubbed 32 PGs in 25 s
+18:50:32 clean after 12 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:51:44 --- c03-retainer-out-during-deletes run 10 {"kill_delay_s": 0.689}
+18:52:14 PGs clean after 20 s
+18:52:22 osd.0 up (pid 4041716)
+18:52:52 clean after 26 s
+18:52:59 clean after 6 s
+18:53:26 deep-scrubbed 32 PGs in 27 s
+18:57:04 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+18:58:21 batch deep fsck on every OSD
+c03-retainer-out-during-deletes [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/c03-retainer-out-during-deletes-20261005T175320.json
+===== c04A (19:02:51)
+19:02:52 scenario c04a-primary-failure: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+19:02:58 clean after 6 s
+19:02:58 --- c04a-primary-failure run 1 {"variant": "A", "kill_delay_s": 0.197}
+19:03:29 PGs clean after 22 s
+19:03:36 osd.2 up (pid 4081588)
+19:04:04 clean after 24 s
+19:04:10 clean after 6 s
+19:04:33 deep-scrubbed 32 PGs in 23 s
+19:08:15 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:09:28 --- c04a-primary-failure run 2 {"variant": "A", "kill_delay_s": 0.223}
+19:09:58 PGs clean after 21 s
+19:10:05 osd.2 up (pid 4115606)
+19:10:35 clean after 26 s
+19:10:41 clean after 6 s
+19:11:08 deep-scrubbed 32 PGs in 27 s
+19:14:47 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:15:58 --- c04a-primary-failure run 3 {"variant": "A", "kill_delay_s": 0.257}
+19:16:32 PGs clean after 24 s
+19:16:38 osd.0 up (pid 4149750)
+19:17:08 clean after 25 s
+19:17:14 clean after 6 s
+19:17:34 deep-scrubbed 32 PGs in 20 s
+19:21:12 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:22:24 --- c04a-primary-failure run 4 {"variant": "A", "kill_delay_s": 0.151}
+19:22:57 PGs clean after 25 s
+19:23:03 osd.4 up (pid 4183836)
+19:23:32 clean after 25 s
+19:23:39 clean after 7 s
+19:24:02 deep-scrubbed 32 PGs in 23 s
+19:27:41 clean after 13 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:28:54 --- c04a-primary-failure run 5 {"variant": "A", "kill_delay_s": 0.585}
+19:29:28 PGs clean after 24 s
+19:29:35 osd.2 up (pid 24111)
+19:30:02 clean after 24 s
+19:30:08 clean after 6 s
+19:30:34 deep-scrubbed 32 PGs in 26 s
+19:34:13 clean after 12 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:35:25 --- c04a-primary-failure run 6 {"variant": "A", "kill_delay_s": 0.244}
+19:35:59 PGs clean after 25 s
+19:36:06 osd.4 up (pid 58286)
+19:36:36 clean after 26 s
+19:36:42 clean after 6 s
+19:37:05 deep-scrubbed 32 PGs in 23 s
+19:40:45 clean after 11 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:41:58 --- c04a-primary-failure run 7 {"variant": "A", "kill_delay_s": 0.268}
+19:42:30 PGs clean after 22 s
+19:42:38 osd.0 up (pid 92378)
+19:43:07 clean after 26 s
+19:43:13 clean after 6 s
+19:43:36 deep-scrubbed 32 PGs in 23 s
+19:47:13 clean after 11 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:48:25 --- c04a-primary-failure run 8 {"variant": "A", "kill_delay_s": 0.112}
+19:48:58 PGs clean after 24 s
+19:49:05 osd.1 up (pid 126680)
+19:49:37 clean after 25 s
+19:49:43 clean after 6 s
+19:50:05 deep-scrubbed 32 PGs in 22 s
+19:53:41 clean after 11 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+19:54:54 --- c04a-primary-failure run 9 {"variant": "A", "kill_delay_s": 0.029}
+19:55:27 PGs clean after 24 s
+19:55:34 osd.1 up (pid 161031)
+19:56:07 clean after 26 s
+19:56:13 clean after 6 s
+19:56:35 deep-scrubbed 32 PGs in 22 s
+20:00:15 clean after 11 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:01:25 --- c04a-primary-failure run 10 {"variant": "A", "kill_delay_s": 1.376}
+20:01:59 PGs clean after 24 s
+20:02:06 osd.3 up (pid 195522)
+20:02:33 clean after 23 s
+20:02:39 clean after 6 s
+20:03:00 deep-scrubbed 32 PGs in 21 s
+20:06:39 clean after 14 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:07:51 batch deep fsck on every OSD
+c04a-primary-failure [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/c04a-primary-failure-20261005T190251.json
+===== c04B (20:12:31)
+20:12:32 scenario c04b-primary-failure: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=10 pool=rvtest
+20:12:38 clean after 6 s
+20:12:39 --- c04b-primary-failure run 1 {"variant": "B", "kill_delay_s": 0.855}
+20:13:15 PGs clean after 25 s
+20:13:21 clean after 6 s
+20:13:42 deep-scrubbed 32 PGs in 21 s
+20:15:55 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:17:03 osd.1 up (pid 255253)
+20:17:36 clean after 32 s
+20:17:37 --- c04b-primary-failure run 2 {"variant": "B", "kill_delay_s": 1.02}
+20:18:08 PGs clean after 22 s
+20:18:15 clean after 7 s
+20:18:36 deep-scrubbed 32 PGs in 21 s
+20:20:54 clean after 13 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:22:05 osd.0 up (pid 277322)
+20:22:31 clean after 25 s
+20:22:32 --- c04b-primary-failure run 3 {"variant": "B", "kill_delay_s": 0.963}
+20:23:04 PGs clean after 23 s
+20:23:10 clean after 6 s
+20:23:32 deep-scrubbed 32 PGs in 22 s
+20:25:49 clean after 11 s
+run 3: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:26:57 osd.4 up (pid 299223)
+20:27:21 clean after 24 s
+20:27:22 --- c04b-primary-failure run 4 {"variant": "B", "kill_delay_s": 0.889}
+20:27:53 PGs clean after 20 s
+20:28:00 clean after 7 s
+20:28:25 deep-scrubbed 32 PGs in 25 s
+20:30:40 clean after 11 s
+run 4: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:31:47 osd.4 up (pid 321062)
+20:32:16 clean after 28 s
+20:32:16 --- c04b-primary-failure run 5 {"variant": "B", "kill_delay_s": 0.668}
+20:32:44 PGs clean after 18 s
+20:32:50 clean after 6 s
+20:33:11 deep-scrubbed 32 PGs in 21 s
+20:35:26 clean after 11 s
+run 5: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:36:39 osd.2 up (pid 343072)
+20:37:07 clean after 28 s
+20:37:08 --- c04b-primary-failure run 6 {"variant": "B", "kill_delay_s": 0.436}
+20:37:39 PGs clean after 22 s
+20:37:45 clean after 6 s
+20:38:07 deep-scrubbed 32 PGs in 22 s
+20:40:24 clean after 10 s
+run 6: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:41:35 osd.0 up (pid 364914)
+20:42:03 clean after 27 s
+20:42:04 --- c04b-primary-failure run 7 {"variant": "B", "kill_delay_s": 1.129}
+20:42:34 PGs clean after 19 s
+20:42:41 clean after 6 s
+20:43:03 deep-scrubbed 32 PGs in 22 s
+20:45:20 clean after 10 s
+run 7: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:46:31 osd.2 up (pid 386955)
+20:46:57 clean after 26 s
+20:46:57 --- c04b-primary-failure run 8 {"variant": "B", "kill_delay_s": 0.528}
+20:47:27 PGs clean after 20 s
+20:47:33 clean after 6 s
+20:47:55 deep-scrubbed 32 PGs in 22 s
+20:50:11 clean after 10 s
+run 8: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:51:23 osd.0 up (pid 408770)
+20:51:52 clean after 28 s
+20:51:52 --- c04b-primary-failure run 9 {"variant": "B", "kill_delay_s": 0.068}
+20:52:23 PGs clean after 22 s
+20:52:29 clean after 6 s
+20:52:51 deep-scrubbed 32 PGs in 22 s
+20:55:11 clean after 13 s
+run 9: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+20:56:22 osd.2 up (pid 430660)
+20:56:48 clean after 26 s
+20:56:48 --- c04b-primary-failure run 10 {"variant": "B", "kill_delay_s": 1.224}
+20:57:21 PGs clean after 22 s
+20:57:28 clean after 6 s
+20:57:49 deep-scrubbed 32 PGs in 21 s
+21:00:07 clean after 11 s
+run 10: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+21:01:19 osd.1 up (pid 452504)
+21:01:50 clean after 30 s
+21:01:50 batch deep fsck on every OSD
+c04b-primary-failure [zc]: 10/10 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/c04b-primary-failure-20261005T201231.json
+===== summary (21:06:45)
+smoke: pass 
+s01: pass ../../results/zc/s01-kill-primary-before-delete-20261005T015823.json
+s02: pass ../../results/zc/s02-kill-primary-during-delete-20261005T024137.json
+s03: pass ../../results/zc/s03-kill-primary-after-delete-20261005T040037.json
+s04: pass ../../results/zc/s04-out-backfill-20261005T044114.json
+s05: pass ../../results/zc/s05-deep-scrub-with-vault-20261005T050020.json
+s06: pass ../../results/zc/s06-recreate-after-delete-20261005T053956.json
+s07: FAIL (rc=126) 
+s08: pass ../../results/zc/s08-restart-retainer-20261005T061549.json
+s09: pass ../../results/zc/s09-pg-split-merge-20261005T064445.json
+s10: pass ../../results/zc/s10-snapshot-delete-20261005T072801.json
+s11: pass ../../results/zc/s11-manual-restore-20261005T074255.json
+s12: pass ../../results/zc/s12-retainer-misses-delete-20261005T080021.json
+a01: pass ../../results/zc/a01-rank1-out-20261005T084603.json
+a02: pass ../../results/zc/a02-upmap-empty-20261005T094223.json
+a03: pass ../../results/zc/a03-size-one-20261005T103616.json
+a04: pass ../../results/zc/a04-primary-temp-20261005T105409.json
+a05: pass ../../results/zc/a05-duplicate-inflation-20261005T114009.json
+c01: pass ../../results/zc/c01-crash-under-deletes-20261005T125302.json
+c03: pass ../../results/zc/c03-retainer-out-during-deletes-20261005T175320.json
+c04A: pass ../../results/zc/c04a-primary-failure-20261005T190251.json
+c04B: pass ../../results/zc/c04b-primary-failure-20261005T201231.json

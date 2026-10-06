@@ -21,15 +21,20 @@ RUNS=20
 RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
 export RV_DISK_SCAN=all
 VARIANT=A
+# --max-delay S: kill delay uniform in [0, S] (default 1.5); see c01. With the
+# zero-copy rename the default never kills P mid-delete (zc c04 A/B x10: 0 of 320).
+MAX_DELAY=1.5
+SUFFIX=""
 args=()
 while [[ $# -gt 0 ]]; do
   case $1 in
     --variant) VARIANT=$2; shift 2 ;;
+    --max-delay) MAX_DELAY=$2; SUFFIX=s; shift 2 ;;
     *) args+=("$1"); shift ;;
   esac
 done
 [[ $VARIANT == A || $VARIANT == B ]] || die "--variant A|B"
-scenario_init "c04${VARIANT,,}-primary-failure" "${args[@]}"
+scenario_init "c04${VARIANT,,}${SUFFIX}-primary-failure" "${args[@]}"
 SIZES=(4096 65536 1048576 4194304 8388608)
 OUT_OSD=""
 restore_out_osd() {
@@ -58,7 +63,7 @@ osd_pg_count() {
 }
 
 for run in $(seq 1 "$RUNS"); do
-  delay=$(python3 -c "import random; print(round(random.uniform(0.0, 1.5), 3))")
+  delay=$(python3 -c "import random,sys; print(round(random.uniform(0.0, float(sys.argv[1])), 4))" "$MAX_DELAY")
   run_begin "$run" "{\"variant\": \"$VARIANT\", \"kill_delay_s\": $delay}"
   seed=$RUN_PREFIX-seed
   put_obj "$seed" 4096
@@ -95,7 +100,7 @@ EOF
     note stray_removal "{\"pgs_on_p_after\": \"$(osd_pg_count "$P")\", \"wait_s\": $((SECONDS - t0))}"
     restore_out_osd
     wait_clean 1800 || true
-    run_end "{\"crash\": $(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); o=a["objects"].values(); print(json.dumps({"kill_at_s": a["kill_at"], "acked": sum(r["rc"]==0 for r in o), "acked_after_kill": sum(r["rc"]==0 and not r["done_before_kill"] for r in o), "not_acked": sum(r["rc"]!=0 for r in o)}))' "$aio"), \"failed_osd\": $P}"
+    run_end "{\"crash\": $(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); o=a["objects"].values(); print(json.dumps({"kill_at_s": a["kill_at"], "acked": sum(r["rc"]==0 for r in o), "acked_after_kill": sum(r["rc"]==0 and not r["done_before_kill"] for r in o), "not_acked": sum(r["rc"]!=0 for r in o), "done_s": sorted(r["done_s"] for r in o if r["done_s"] is not None)}))' "$aio"), \"failed_osd\": $P}"
   else
     # Variant B: check while P is down and out; exclude P's log lines from the
     # offsets (it stays down, so vault-inspect cannot open its store either).
@@ -104,7 +109,7 @@ import json, sys
 p, osd = sys.argv[1], sys.argv[2]
 o = json.load(open(p)); o.pop(osd, None); json.dump(o, open(p, "w"))
 EOF
-    RV_ALLOW_DOWN=1 RV_EXCLUDE_OSD=$P run_end "{\"crash\": $(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); o=a["objects"].values(); print(json.dumps({"kill_at_s": a["kill_at"], "acked": sum(r["rc"]==0 for r in o), "acked_after_kill": sum(r["rc"]==0 and not r["done_before_kill"] for r in o), "not_acked": sum(r["rc"]!=0 for r in o)}))' "$aio"), \"failed_osd\": $P, \"failed_osd_never_returned\": true}"
+    RV_ALLOW_DOWN=1 RV_EXCLUDE_OSD=$P run_end "{\"crash\": $(python3 -c 'import json,sys; a=json.loads(sys.argv[1]); o=a["objects"].values(); print(json.dumps({"kill_at_s": a["kill_at"], "acked": sum(r["rc"]==0 for r in o), "acked_after_kill": sum(r["rc"]==0 and not r["done_before_kill"] for r in o), "not_acked": sum(r["rc"]!=0 for r in o), "done_s": sorted(r["done_s"] for r in o if r["done_s"] is not None)}))' "$aio"), \"failed_osd\": $P, \"failed_osd_never_returned\": true}"
     restore_out_osd
     wait_clean 1800 || true
   fi
