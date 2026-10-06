@@ -2,7 +2,7 @@
 # Phase 2, Phase 5: run scripts/cost-probe.py on the RelWithDebInfo vstart cluster
 # (/data/ceph/build-rel, fsid below), once per build and repetition.
 #
-#   scripts/cost-probe.sh vanilla|p2 [reps]      (extra cost-probe.py args via PROBE_ARGS,
+#   scripts/cost-probe.sh vanilla|p2|zc [reps]      (extra cost-probe.py args via PROBE_ARGS,
 #                                                 e.g. PROBE_ARGS="--deletes 20 --threads 16")
 #
 # Installs build-rel/bin/ceph-osd.<build> as bin/ceph-osd (by rename), restarts the
@@ -18,7 +18,7 @@ export PYTHONPATH=$CEPH_BUILD/lib/cython_modules/lib.3${PYTHONPATH:+:$PYTHONPATH
 export CEPH_BIN=$CEPH_BUILD/bin
 
 build=${1:-}; reps=${2:-2}
-[[ $build == vanilla || $build == p2 ]] || die "usage: $0 vanilla|p2 [reps]"
+[[ $build == vanilla || $build == p2 || $build == zc ]] || die "usage: $0 vanilla|p2|zc [reps]"
 rv_require_cluster
 src=$CEPH_BUILD/bin/ceph-osd.$build
 [[ -x $src ]] || die "$src not built"
@@ -32,20 +32,21 @@ if ! ceph osd pool ls | grep -qx rvcost; then
 fi
 for n in $(osd_ids); do kill_osd "$n" TERM; restart_osd "$n"; wait_clean 300 || die "not clean"; done
 rv_check_osd_binaries || die "stale OSD binary"
-mkdir -p "$RV_ROOT/results/phase2"
+OUTDIR=$RV_ROOT/results/${COST_RESULTS_SUBDIR:-phase2}
+mkdir -p "$OUTDIR"
 for i in $(seq 1 "$reps"); do
   TS=$(date +%Y%m%dT%H%M%S)
-  out=$RV_ROOT/results/phase2/cost-probe-$build-$TS-r$i.json
+  out=$OUTDIR/cost-probe-$build-$TS-r$i.json
   log "probe $build rep $i -> $out"
   # shellcheck disable=SC2086
   python3 "$(dirname "$0")/cost-probe.py" --pool rvcost --out "$out.tmp" --tag "cp-$build-$TS" ${PROBE_ARGS:-}
-  python3 - "$out.tmp" "$out" "$build" "$TS" "$(git -C /data/ceph rev-parse "$([[ $build == p2 ]] && echo replicavault-p2 || echo c92aebb2)")" <<'EOF'
+  python3 - "$out.tmp" "$out" "$build" "$TS" "$(git -C /data/ceph rev-parse "$(case $build in p2) echo replicavault-p2 ;; zc) echo replicavault-zc ;; *) echo c92aebb2 ;; esac)")" <<'EOF'
 import json, sys
 tmp, out, build, ts, commit = sys.argv[1:6]
 r = json.load(open(tmp))
 r = {"build": build, "build_type": "RelWithDebInfo", "ceph_commit": commit, "timestamp": ts,
      "command": f"PROBE_ARGS='{__import__('os').environ.get('PROBE_ARGS', '')}' scripts/cost-probe.sh {build}", "cluster": "vstart /data/ceph/build-rel, 1 MON, 1 MGR, 3 OSDs, file-backed BlueStore, single host",
-     "label": "indicative, single host", **r}
+     "label": "single host, 3 OSDs sharing one disk; ratios only", **r}
 json.dump(r, open(out, "w"), indent=1)
 EOF
   rm -f "$out.tmp"

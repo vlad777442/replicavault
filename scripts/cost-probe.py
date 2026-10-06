@@ -49,6 +49,25 @@ def summary(lat):
             "mean_ms": round(statistics.mean(lat) * 1000, 3) if lat else None}
 
 
+DEV_KEYS = ["write_big_bytes", "write_small_bytes", "issued_deferred_write_bytes",
+            "bytes_written_wal", "bytes_written_sst", "bytes_written_slow"]
+
+
+def device_counters(osd):
+    d = ceph_json("tell", f"osd.{osd}", "perf", "dump")
+    bs, bf = d.get("bluestore", {}), d.get("bluefs", {})
+    return {k: int(bs.get(k, bf.get(k, 0))) for k in DEV_KEYS}
+
+
+def diskstats(dev):
+    """sectors written to <dev> (/proc/diskstats field 10)."""
+    for l in open("/proc/diskstats"):
+        f = l.split()
+        if f[2] == dev:
+            return int(f[9])
+    return 0
+
+
 def osd_op_counters(osd):
     d = ceph_json("tell", f"osd.{osd}", "perf", "dump")["osd"]
     return {k: {"avgcount": d[k]["avgcount"], "sum": d[k]["sum"]}
@@ -68,6 +87,9 @@ def main():
     ap.add_argument("--pool", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--sizes-mib", type=int, nargs="+", default=[1, 4, 16, 64, 128])
+    ap.add_argument("--sizes-kib", type=int, nargs="+", default=None,
+                    help="sizes in KiB (zc Phase 6: 4 1024 4096 16384 65536 131072); overrides --sizes-mib")
+    ap.add_argument("--disk", default="sdb", help="block device holding the OSDs, for /proc/diskstats")
     ap.add_argument("--deletes", type=int, default=6)
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--baseline-s", type=float, default=20)
@@ -121,14 +143,20 @@ def main():
 
     results = {"retainer": retainer, "target_pg": target_pg, "acting": m["acting"],
                "acting_primary": m["acting_primary"], "sizes": {}}
-    for mib in a.sizes_mib:
-        names = [n for n in pgmap_names(pool_id, pg_num, target_pg, f"{a.tag}-{mib}m", a.deletes)]
-        data = os.urandom(mib << 20)
+    sizes_kib = a.sizes_kib or [m << 10 for m in a.sizes_mib]
+    osds = [int(x) for x in ceph_json("osd", "ls")]
+    for kib in sizes_kib:
+        mib = kib >> 10 if kib % 1024 == 0 else kib / 1024
+        key = str(mib) if a.sizes_kib is None else f"{kib}KiB"
+        names = [n for n in pgmap_names(pool_id, pg_num, target_pg, f"{a.tag}-{kib}k", a.deletes)]
+        data = os.urandom(kib << 10)
         for n in names:  # setup, not measured
             for off in range(0, len(data), CHUNK):
                 io.write(n, data[off:off + CHUNK], off)
         time.sleep(3)
         before = osd_op_counters(retainer)
+        dev_before = {o: device_counters(o) for o in osds}
+        disk_before = diskstats(a.disk)
         windows, del_lat = [], []
         for n in names:
             t0 = time.monotonic()
@@ -137,19 +165,33 @@ def main():
             windows.append((t0, t1))
             del_lat.append(t1 - t0)
             time.sleep(2)
+        time.sleep(3)   # let deferred writes and the kv sync settle into the counters
         after = osd_op_counters(retainer)
+        dev_after = {o: device_counters(o) for o in osds}
+        disk_after = diskstats(a.disk)
+        dev = {k: sum(dev_after[o][k] - dev_before[o][k] for o in osds) for k in DEV_KEYS}
         with lock:
             recs = list(records)
         during = [r for r in recs if any(w0 <= r[0] <= w1 for w0, w1 in windows)]
-        results["sizes"][str(mib)] = {
-            "deletes": len(names),
+        n_del = len(names)
+        results["sizes"][key] = {
+            "size_kib": kib,
+            "deletes": n_del,
+            # summed over every OSD, per delete (BlueStore.cc:6352-6391, BlueFS.cc:261-269)
+            "device_bytes_per_delete": {
+                "bluestore_data": (dev["write_big_bytes"] + dev["write_small_bytes"]) / n_del,
+                "bluestore_deferred": dev["issued_deferred_write_bytes"] / n_del,
+                "bluefs_db_wal": (dev["bytes_written_wal"] + dev["bytes_written_sst"] + dev["bytes_written_slow"]) / n_del,
+                "counters_total": dev,
+                "disk_sectors_written_per_delete": (disk_after - disk_before) / n_del,
+            },
             "delete_latency": summary(del_lat),
             "ops_4k_during_delete": summary([r[1] - r[0] for r in during]),
             "ops_4k_during_delete_retainer_primary": summary([r[1] - r[0] for r in during if r[2]]),
             "retainer_perf_delta": counter_delta(before, after),
         }
-        print(f"{mib} MiB: {results['sizes'][str(mib)]['delete_latency']} "
-              f"4k during: {results['sizes'][str(mib)]['ops_4k_during_delete']}", file=sys.stderr)
+        print(f"{key}: {results['sizes'][key]['delete_latency']} "
+              f"4k during: {results['sizes'][key]['ops_4k_during_delete']}", file=sys.stderr)
     stop.set()
     for t in threads:
         t.join()
