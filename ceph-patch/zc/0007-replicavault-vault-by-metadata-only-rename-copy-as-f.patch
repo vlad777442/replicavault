@@ -1,0 +1,549 @@
+From 33b89ae8660c5816e494890c1be5d1f987232599 Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Sun, 4 Oct 2026 08:59:45 -0600
+Subject: [PATCH 7/7] replicavault: vault by metadata-only rename, copy as
+ fallback (zc Phase 3)
+
+RV_VAULT_MODE (cmake, rename|copy, default rename). In rename mode a deleted
+head is moved into the vault with a cross-collection OP_COLL_MOVE_RENAME when
+ObjectStore::can_move_to_collection() says the store can do it without
+copying (BlueStore: no shared blobs) and the PG transaction's first use of
+the head is its remove (a snapshot delete clones the head first, so those
+copy). Otherwise, and always in copy mode, the old copy path is used.
+
+The rename is staged in its own Transaction but queued in the same
+queue_transactions() call as the PG transaction, ahead of it, so BlueStore
+applies it in the same txc and the same KV commit as the log entry and the
+remove; the remove then gets ENOENT, which _txc_add_transaction tolerates.
+A copy keeps its own txc queued first, as before. remove_missing_object
+stages the rename into its own transaction ahead of the remove.
+
+A renamed entry keeps the object's xattrs and gets rv.* attrs with
+rv.sha256=lazy and rv.mode=rename; the data is not read. The vaulted log
+line, still from the commit callback, gains mode=rename|copy and prints
+omap_keys=- and sha256=lazy for renames. F1 is unchanged.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/osd/CMakeLists.txt       |  10 ++
+ src/osd/PrimaryLogPG.cc      |  12 ++-
+ src/osd/ReplicaVault.cc      | 175 +++++++++++++++++++++++++++--------
+ src/osd/ReplicaVault.h       |  60 +++++++++---
+ src/osd/ReplicatedBackend.cc |  54 ++++++-----
+ 5 files changed, 234 insertions(+), 77 deletions(-)
+
+diff --git a/src/osd/CMakeLists.txt b/src/osd/CMakeLists.txt
+index 67a1756..93136bf 100644
+--- a/src/osd/CMakeLists.txt
++++ b/src/osd/CMakeLists.txt
+@@ -56,6 +56,16 @@ if(HAS_VTA)
+   set_source_files_properties(osdcap.cc
+     PROPERTIES COMPILE_FLAGS -fno-var-tracking-assignments)
+ endif()
++# ReplicaVault vault mode: "rename" (move the onode into the meta collection,
++# copying only objects with shared blobs) or "copy" (always copy).
++set(RV_VAULT_MODE "rename" CACHE STRING "ReplicaVault vault mode: rename or copy")
++set_property(CACHE RV_VAULT_MODE PROPERTY STRINGS rename copy)
++if(RV_VAULT_MODE STREQUAL "copy")
++  set_source_files_properties(ReplicaVault.cc PROPERTIES
++    COMPILE_DEFINITIONS RV_VAULT_MODE_COPY)
++elseif(NOT RV_VAULT_MODE STREQUAL "rename")
++  message(FATAL_ERROR "RV_VAULT_MODE must be rename or copy, not ${RV_VAULT_MODE}")
++endif()
+ add_library(osd STATIC ${osd_srcs})
+ target_link_libraries(osd
+   PUBLIC dmclock::dmclock Boost::MPL
+diff --git a/src/osd/PrimaryLogPG.cc b/src/osd/PrimaryLogPG.cc
+index fc8f03f..7817acd 100644
+--- a/src/osd/PrimaryLogPG.cc
++++ b/src/osd/PrimaryLogPG.cc
+@@ -12413,17 +12413,19 @@ void PrimaryLogPG::remove_missing_object(const hobject_t &soid,
+   ObjectStore::Transaction t;
+   // ReplicaVault: a delete learned through recovery (this OSD missed the live
+   // one) is vaulted by the retainer and by the primary, as on the live path
+-  // (b1-design.md section 6, F1).
++  // (b1-design.md section 6, F1). A rename is staged into t itself, ahead of
++  // the remove, so both commit together; a copy has its own txc (meta-pool
++  // accounting) on the same sequencer, queued first.
+   if (!soid.is_snap()) {
+     vector<int> acting;
+     if (replicavault::retainer_osd(*get_osdmap(), info.pgid.pgid,
+ 				   &acting) == osd->whoami ||
+ 	is_primary()) {
+       ObjectStore::Transaction vt;
+-      if (replicavault::vault_object(
+-	    cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
+-	    replicavault::Path::RECOVERY, &vt) == 0) {
+-	// own txc (meta-pool accounting), same sequencer as the remove below
++      replicavault::vault_object(
++	cct, osd->store, ch, info.pgid, soid, v, osd->whoami, acting,
++	replicavault::Path::RECOVERY, true, {&vt, &t});
++      if (!vt.empty()) {
+ 	int r = osd->store->queue_transaction(ch, std::move(vt), nullptr);
+ 	ceph_assert(r == 0);
+       }
+diff --git a/src/osd/ReplicaVault.cc b/src/osd/ReplicaVault.cc
+index fa6826f..e2275ff 100644
+--- a/src/osd/ReplicaVault.cc
++++ b/src/osd/ReplicaVault.cc
+@@ -53,6 +53,17 @@ string vault_name(spg_t pgid, const hobject_t &soid, eversion_t version,
+ 		     hex(soid.nspace), hex(soid.get_key()), hex(soid.oid.name));
+ }
+ 
++#ifdef RV_VAULT_MODE_COPY
++constexpr bool RENAME_ENABLED = false;
++#else
++constexpr bool RENAME_ENABLED = true;
++#endif
++
++const char *mode_str(Mode m)
++{
++  return m == Mode::RENAME ? "rename" : "copy";
++}
++
+ string path_str(Path p)
+ {
+   switch (p) {
+@@ -164,13 +175,61 @@ set<hobject_t> deleted_heads(ObjectStore::Transaction &t, const coll_t &coll,
+   return out;
+ }
+ 
++bool remove_is_first_use(ObjectStore::Transaction &t, const coll_t &coll,
++			 const hobject_t &hoid)
++{
++  auto is_head = [&](const coll_t &cid, const ghobject_t &g) {
++    return cid == coll && g.is_no_gen() && g.hobj == hoid;
++  };
++  using T = ObjectStore::Transaction;
++  for (auto i = t.begin(); i.have_op(); ) {
++    T::Op *op = i.decode_op();
++    switch (op->op) {
++    case T::OP_CREATE: case T::OP_TOUCH: case T::OP_WRITE: case T::OP_ZERO:
++    case T::OP_TRUNCATE: case T::OP_REMOVE: case T::OP_SETATTR:
++    case T::OP_SETATTRS: case T::OP_RMATTR: case T::OP_RMATTRS:
++    case T::OP_CLONE: case T::OP_CLONERANGE: case T::OP_CLONERANGE2:
++    case T::OP_COLL_ADD: case T::OP_COLL_REMOVE: case T::OP_OMAP_CLEAR:
++    case T::OP_OMAP_SETKEYS: case T::OP_OMAP_RMKEYS: case T::OP_OMAP_SETHEADER:
++    case T::OP_OMAP_RMKEYRANGE: case T::OP_SETALLOCHINT:
++    case T::OP_COLL_MOVE_RENAME: case T::OP_TRY_RENAME:
++      break;
++    default:
++      continue;  // no object operand
++    }
++    const coll_t &cid = i.get_cid(op->cid);
++    if (is_head(cid, i.get_oid(op->oid))) {
++      return op->op == T::OP_REMOVE;
++    }
++    switch (op->op) {
++    case T::OP_CLONE:
++    case T::OP_CLONERANGE:
++    case T::OP_CLONERANGE2:
++    case T::OP_TRY_RENAME:
++      if (is_head(cid, i.get_oid(op->dest_oid))) {
++	return false;
++      }
++      break;
++    case T::OP_COLL_MOVE_RENAME:
++      if (is_head(i.get_cid(op->dest_cid), i.get_oid(op->dest_oid))) {
++	return false;
++      }
++      break;
++    default:
++      break;
++    }
++  }
++  return false;
++}
++
+ int vault_object(CephContext *cct, ObjectStore *store,
+ 		 ObjectStore::CollectionHandle &ch, spg_t pgid,
+ 		 const hobject_t &soid, eversion_t version, int whoami,
+-		 const vector<int> &acting, Path path,
+-		 ObjectStore::Transaction *vt)
++		 const vector<int> &acting, Path path, bool renamable,
++		 const Staging &stg, Mode *mode_out)
+ {
+   const ghobject_t goid(soid, ghobject_t::NO_GEN, shard_id_t::NO_SHARD);
++  const coll_t meta = coll_t::meta();
+ 
+   struct stat st;
+   int r = store->stat(ch, goid, &st);
+@@ -208,40 +267,57 @@ int vault_object(CephContext *cct, ObjectStore *store,
+     }
+   }
+ 
+-  bufferlist data;
+-  if (st.st_size > 0) {
+-    r = store->read(ch, goid, 0, st.st_size, data);
+-    if (r < 0) {
+-      lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
+-		 << " oid=" << soid << ": read " << cpp_strerror(r) << dendl;
+-      return r;
++  // Rename if allowed and the store can move this object without copying
++  // (BlueStore: no shared blobs). The PG lock is held by every caller, so
++  // nothing else changes this PG's objects before the move is queued.
++  Mode mode = Mode::COPY;
++  int can_move = -EOPNOTSUPP;
++  if (RENAME_ENABLED && renamable) {
++    can_move = store->can_move_to_collection(ch, goid, meta);
++    if (can_move == 0) {
++      mode = Mode::RENAME;
+     }
+   }
+ 
++  bufferlist data;
+   bufferlist omap_header;
+   map<string, bufferlist> omap;
+-  r = store->omap_get(ch, goid, &omap_header, &omap);
+-  if (r < 0 && r != -ENOENT) {
+-    lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
+-	       << " oid=" << soid << ": omap_get " << cpp_strerror(r) << dendl;
+-    return r;
++  string sha = "lazy";
++  uint64_t size = st.st_size;
++  if (mode == Mode::COPY) {
++    if (st.st_size > 0) {
++      r = store->read(ch, goid, 0, st.st_size, data);
++      if (r < 0) {
++	lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++		   << " oid=" << soid << ": read " << cpp_strerror(r) << dendl;
++	return r;
++      }
++    }
++    r = store->omap_get(ch, goid, &omap_header, &omap);
++    if (r < 0 && r != -ENOENT) {
++      lderr(cct) << "error pool=" << soid.pool << " pg=" << pgid
++		 << " oid=" << soid << ": omap_get " << cpp_strerror(r) << dendl;
++      return r;
++    }
++    sha = ceph::crypto::digest<ceph::crypto::SHA256>(data).to_str();
++    size = data.length();
+   }
+ 
+-  const string sha = ceph::crypto::digest<ceph::crypto::SHA256>(data).to_str();
+   const utime_t now = ceph_clock_now();
+   const string vname = vault_name(pgid, soid, version, now);
+-  const coll_t meta = coll_t::meta();
+   const ghobject_t vobj(hobject_t(object_t(vname), "", CEPH_NOSNAP,
+ 				  soid.get_hash(), hobject_t::POOL_META,
+ 				  VAULT_NSPACE));
+ 
++  // rv.* metadata; a rename keeps the object's own xattrs and adds these
++  map<string, bufferlist, std::less<>> rv;
+   auto put = [&](const char *k, const string &v) {
+     bufferlist bl;
+     bl.append(v);
+-    attrs[k] = std::move(bl);
++    rv[k] = std::move(bl);
+   };
+   put("rv.sha256", sha);
+-  put("rv.size", std::to_string(data.length()));
++  put("rv.size", std::to_string(size));
+   put("rv.pool", std::to_string(soid.pool));
+   put("rv.pgid", stringify(pgid));
+   put("rv.oid", soid.oid.name);
+@@ -252,38 +328,63 @@ int vault_object(CephContext *cct, ObjectStore *store,
+   put("rv.osd", std::to_string(whoami));
+   put("rv.path", path_str(path));
+   put("rv.acting", stringify(acting));
++  put("rv.mode", mode_str(mode));
+ 
+-  vt->touch(meta, vobj);
+-  if (data.length()) {
+-    vt->write(meta, vobj, 0, data.length(), data);
+-  }
+-  vt->setattrs(meta, vobj, attrs);
+-  if (omap_header.length()) {
+-    vt->omap_setheader(meta, vobj, omap_header);
+-  }
+-  if (!omap.empty()) {
+-    vt->omap_setkeys(meta, vobj, omap);
++  ObjectStore::Transaction *vt;
++  if (mode == Mode::RENAME) {
++    vt = stg.move_t;
++    vt->collection_move_rename(ch->get_cid(), goid, meta, vobj);
++    vt->setattrs(meta, vobj, rv);
++  } else {
++    vt = stg.copy_t;
++    for (auto &[k, v] : rv) {
++      attrs[k] = v;
++    }
++    vt->touch(meta, vobj);
++    if (data.length()) {
++      vt->write(meta, vobj, 0, data.length(), data);
++    }
++    vt->setattrs(meta, vobj, attrs);
++    if (omap_header.length()) {
++      vt->omap_setheader(meta, vobj, omap_header);
++    }
++    if (!omap.empty()) {
++      vt->omap_setkeys(meta, vobj, omap);
++    }
+   }
+ 
+-  // The "vaulted" line is ground truth for scenarios, so it must mean the copy
+-  // is durable: log it from the vault transaction's commit callback, not here
+-  // at staging (phase 2 c01 left lines for copies lost in a crash).
++  // The "vaulted" line is ground truth for scenarios, so it must mean the
++  // entry is durable: log it from the commit callback of the transaction
++  // that carries it, not here at staging (phase 2 c01 left lines for copies
++  // lost in a crash). For a rename that is the PG transaction's own txc.
+   std::ostringstream line;
+   line << "vaulted pool=" << soid.pool << " pg=" << pgid
+        << " oid=" << soid.oid.name
+        << " ns=" << soid.nspace
+        << " v=" << version << " osd=" << whoami
+        << " path=" << path_str(path)
++       << " mode=" << mode_str(mode)
+        << " acting=" << acting
+-       << " size=" << data.length()
+-       << " omap_keys=" << omap.size()
+-       << " sha256=" << sha
++       << " size=" << size
++       << " omap_keys=";
++  if (mode == Mode::COPY) {
++    line << omap.size();
++  } else {
++    line << "-";
++  }
++  line << " sha256=" << sha
+        << " vname=" << vname;
+-  ldout(cct, VAULT_LOG_LEVEL + 9) << "staged " << vname << dendl;
++  ldout(cct, VAULT_LOG_LEVEL + 9) << "staged " << vname << " mode="
++				  << mode_str(mode) << " renamable="
++				  << renamable << " can_move=" << can_move
++				  << dendl;
+   vt->register_on_commit(new LambdaContext(
+     [cct, msg = line.str()](int r) {
+       ldout(cct, VAULT_LOG_LEVEL) << msg << " r=" << r << dendl;
+     }));
++  if (mode_out) {
++    *mode_out = mode;
++  }
+   return 0;
+ }
+ 
+@@ -292,7 +393,7 @@ int vault_deleted_heads(CephContext *cct, ObjectStore *store,
+ 			spg_t pgid, ObjectStore::Transaction &t,
+ 			const vector<pg_log_entry_t> &log, eversion_t default_v,
+ 			int whoami, const vector<int> &acting, Path path,
+-			ObjectStore::Transaction *vt)
++			const Staging &st)
+ {
+   int staged = 0;
+   for (auto &hoid : deleted_heads(t, coll, log)) {
+@@ -303,7 +404,7 @@ int vault_deleted_heads(CephContext *cct, ObjectStore *store,
+       }
+     }
+     if (vault_object(cct, store, ch, pgid, hoid, v, whoami, acting, path,
+-		     vt) == 0) {
++		     remove_is_first_use(t, coll, hoid), st) == 0) {
+       ++staged;
+     }
+   }
+diff --git a/src/osd/ReplicaVault.h b/src/osd/ReplicaVault.h
+index 0ce1290..f767098 100644
+--- a/src/osd/ReplicaVault.h
++++ b/src/osd/ReplicaVault.h
+@@ -4,11 +4,17 @@
+  * ReplicaVault pilot prototype.
+  *
+  * On the OSD at a fixed acting-set rank, a delete of a head object is
+- * expanded, in this OSD's own local transaction only, into "copy the object
+- * into a hidden namespace of the meta collection, then remove it". The PG
+- * log, the transaction shipped to other replicas, and every PG-collection
+- * operation are left untouched. See notes/design-note.md in the pilot
+- * workspace.
++ * expanded, in this OSD's own local transaction only, into "move (or copy)
++ * the object into a hidden namespace of the meta collection, then remove
++ * it". The PG log, the transaction shipped to other replicas, and every
++ * PG-collection operation are left untouched. See notes/design-note.md and
++ * notes/zc/ in the pilot workspace.
++ *
++ * Vault mode (compile time, cmake -DRV_VAULT_MODE=rename|copy, default
++ * rename): "rename" moves the onode into the meta collection without
++ * touching its data (BlueStore OP_COLL_MOVE_RENAME across collections), and
++ * falls back to a copy for objects whose blobs are shared (clones) or whose
++ * transaction uses the head before removing it. "copy" always copies.
+  */
+ 
+ #pragma once
+@@ -49,6 +55,20 @@ enum class Path { REPOP, RECOVERY, FALLBACK, PRIMARY };
+ /// `acting` receives the acting set as the osdmap gives it.
+ int retainer_osd(const OSDMap &osdmap, pg_t pgid, std::vector<int> *acting);
+ 
++/// How a vault entry was staged.
++enum class Mode { RENAME, COPY };
++
++/// Where vault ops are staged. A copy writes new data into the meta pool,
++/// so it goes in its own transaction (`copy_t`), queued on the PG's sequencer
++/// before the PG transaction: one txc carries one pool's statfs delta
++/// besides a move's. A rename takes the object away, so it must commit
++/// atomically with the PG log entry: `move_t` goes into the same
++/// queue_transactions call as the PG transaction, ahead of it.
++struct Staging {
++  ObjectStore::Transaction *copy_t;
++  ObjectStore::Transaction *move_t;
++};
++
+ /// Head objects of collection `coll` that transaction `t` deletes, as
+ /// opposed to overwrites:
+ ///  - the head is removed and the log has a DELETE entry for it, or
+@@ -59,25 +79,37 @@ std::set<hobject_t> deleted_heads(ObjectStore::Transaction &t,
+ 				  const coll_t &coll,
+ 				  const std::vector<pg_log_entry_t> &log);
+ 
+-/// Read head object `soid` from `ch` and append to `vt` the ops that write
+-/// a copy (data, xattrs, omap, plus rv.* metadata) into the vault.
+-/// Returns 0 if a vault copy was staged, 1 if skipped (whiteout head),
+-/// or a negative error (-ENOENT if the object is not present locally).
++/// True iff the first op of `t` that names head `hoid` of `coll` (as
++/// object, clone/rename source or destination) is its OP_REMOVE. Only then
++/// can the head be moved away ahead of `t`: an earlier op would find it
++/// gone (a clone of the head for a snapshot, say, fails hard on ENOENT).
++bool remove_is_first_use(ObjectStore::Transaction &t, const coll_t &coll,
++			 const hobject_t &hoid);
++
++/// Stage head object `soid` of `ch` into the vault: a rename into `st.move_t`
++/// if the vault mode is rename, `renamable` is true and the store can move
++/// the object without copying (ObjectStore::can_move_to_collection);
++/// otherwise a copy (data, xattrs, omap) into `st.copy_t`. Either way the
++/// entry carries rv.* metadata. A rename records rv.sha256 = "lazy" (the
++/// data is not read; BlueStore's blob checksums move with it).
++/// Returns 0 if staged, 1 if skipped (whiteout head), or a negative error
++/// (-ENOENT if the object is not present locally). `*mode` gets the mode.
+ int vault_object(CephContext *cct, ObjectStore *store,
+ 		 ObjectStore::CollectionHandle &ch, spg_t pgid,
+ 		 const hobject_t &soid, eversion_t version, int whoami,
+-		 const std::vector<int> &acting, Path path,
+-		 ObjectStore::Transaction *vt);
++		 const std::vector<int> &acting, Path path, bool renamable,
++		 const Staging &st, Mode *mode = nullptr);
+ 
+ /// For every head that transaction `t` deletes (deleted_heads), stage a vault
+-/// copy into `vt` (vault_object). The version recorded is the head's log entry
+-/// version, or `default_v` if the log has none. Returns the number staged.
++/// entry (vault_object; renamable iff remove_is_first_use). The version
++/// recorded is the head's log entry version, or `default_v` if the log has
++/// none. Returns the number staged.
+ int vault_deleted_heads(CephContext *cct, ObjectStore *store,
+ 			ObjectStore::CollectionHandle &ch, const coll_t &coll,
+ 			spg_t pgid, ObjectStore::Transaction &t,
+ 			const std::vector<pg_log_entry_t> &log,
+ 			eversion_t default_v, int whoami,
+ 			const std::vector<int> &acting, Path path,
+-			ObjectStore::Transaction *vt);
++			const Staging &st);
+ 
+ } // namespace replicavault
+diff --git a/src/osd/ReplicatedBackend.cc b/src/osd/ReplicatedBackend.cc
+index 6c42292..27fa4f8 100644
+--- a/src/osd/ReplicatedBackend.cc
++++ b/src/osd/ReplicatedBackend.cc
+@@ -531,26 +531,30 @@ void ReplicatedBackend::submit_transaction(
+ 
+   // ReplicaVault: the primary vaults every head this transaction deletes,
+   // in addition to the retainer (b1-design.md section 6, F1). The client ack
+-  // waits for the primary's own commit, so it implies a durable copy here
+-  // even if the retainer is lost before its copy commits (phase 2 c03). When
++  // waits for the primary's own commit, so it implies a durable entry here
++  // even if the retainer is lost before its entry commits (phase 2 c03). When
+   // the primary is itself the retainer (acting set of one) this is the only
+-  // copy, logged path=fallback. issue_op has already encoded op_t for the
++  // entry, logged path=fallback. issue_op has already encoded op_t for the
+   // replicas, and log_operation below has not yet appended to it, so op_t
+-  // holds only the object ops. Own txc (meta-pool accounting) on the same
+-  // sequencer as op_t, queued first.
++  // holds only the object ops. A rename (vault_move_t) joins op_t's txc,
++  // ahead of it, so the object leaves the PG collection in the same commit
++  // as the log entry that deletes it (notes/zc/phase3.md); a copy has its
++  // own txc (meta-pool accounting) on the same sequencer, queued first.
++  ObjectStore::Transaction vault_move_t;
+   if (!replicavault::deleted_heads(op_t, coll, log_entries).empty()) {
+     vector<int> acting;
+     int me = get_parent()->whoami_shard().osd;
+     bool is_retainer = replicavault::retainer_osd(
+       *get_osdmap(), get_info().pgid.pgid, &acting) == me;
+-    ObjectStore::Transaction vault_t;
+-    if (replicavault::vault_deleted_heads(
+-	  cct, store, ch, coll, get_info().pgid, op_t, log_entries,
+-	  at_version, me, acting,
+-	  is_retainer ? replicavault::Path::FALLBACK
+-		      : replicavault::Path::PRIMARY,
+-	  &vault_t) > 0) {
+-      int r = store->queue_transaction(ch, std::move(vault_t));
++    ObjectStore::Transaction vault_copy_t;
++    replicavault::vault_deleted_heads(
++      cct, store, ch, coll, get_info().pgid, op_t, log_entries,
++      at_version, me, acting,
++      is_retainer ? replicavault::Path::FALLBACK
++		  : replicavault::Path::PRIMARY,
++      {&vault_copy_t, &vault_move_t});
++    if (!vault_copy_t.empty()) {
++      int r = store->queue_transaction(ch, std::move(vault_copy_t));
+       ceph_assert(r == 0);
+     }
+   }
+@@ -569,6 +573,9 @@ void ReplicatedBackend::submit_transaction(
+       new C_OSD_OnOpCommit(this, &op)));
+ 
+   vector<ObjectStore::Transaction> tls;
++  if (!vault_move_t.empty()) {
++    tls.push_back(std::move(vault_move_t));
++  }
+   tls.push_back(std::move(op_t));
+ 
+   parent->queue_transactions(tls, op.op);
+@@ -1144,10 +1151,10 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+   decode(log, p);
+   rm->opt.set_fadvise_flag(CEPH_OSD_OP_FLAG_FADVISE_DONTNEED);
+ 
+-  // ReplicaVault: if this OSD is the retainer, copy every head this
+-  // transaction deletes into the vault, in this OSD's local transaction only.
+-  // The shipped transaction and the log entries are not modified.
+-  ObjectStore::Transaction vault_t;
++  // ReplicaVault: if this OSD is the retainer, vault every head this
++  // transaction deletes, in this OSD's local transaction only. The shipped
++  // transaction and the log entries are not modified.
++  ObjectStore::Transaction vault_copy_t, vault_move_t;
+   // deleted_heads reads only op headers; the CRUSH mapping in retainer_osd
+   // runs only for transactions that delete a head.
+   if (!rm->opt.empty() &&
+@@ -1158,7 +1165,7 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+ 				   &acting) == me) {
+       replicavault::vault_deleted_heads(
+ 	cct, store, ch, coll, get_info().pgid, rm->opt, log, m->version, me,
+-	acting, replicavault::Path::REPOP, &vault_t);
++	acting, replicavault::Path::REPOP, {&vault_copy_t, &vault_move_t});
+     }
+   }
+ 
+@@ -1198,16 +1205,21 @@ void ReplicatedBackend::do_repop(OpRequestRef op)
+   rm->opt.register_on_commit(
+     parent->bless_context(
+       new C_OSD_RepModifyCommit(this, rm)));
+-  if (!vault_t.empty()) {
++  if (!vault_copy_t.empty()) {
+     // Own txc, so BlueStore charges the vault bytes to the meta pool rather
+     // than this PG's pool. Same collection handle, hence same OpSequencer:
+     // BlueStore submits its txcs to the kv store in queue order
+     // (_txc_finish_io), so the remove below never commits before this copy.
+-    int r = store->queue_transaction(ch, std::move(vault_t));
++    int r = store->queue_transaction(ch, std::move(vault_copy_t));
+     ceph_assert(r == 0);
+   }
+   vector<ObjectStore::Transaction> tls;
+-  tls.reserve(2);
++  tls.reserve(3);
++  if (!vault_move_t.empty()) {
++    // A rename goes in the same txc as the log entry and the remove, ahead
++    // of them; the remove then finds no object, which BlueStore tolerates.
++    tls.push_back(std::move(vault_move_t));
++  }
+   tls.push_back(std::move(rm->localt));
+   tls.push_back(std::move(rm->opt));
+   parent->queue_transactions(tls, op);
+-- 
+2.43.0
+

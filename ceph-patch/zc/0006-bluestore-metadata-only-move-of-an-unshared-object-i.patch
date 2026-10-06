@@ -1,0 +1,905 @@
+From 5b0dac511b000c009bbe9ecd0357a61700d88cab Mon Sep 17 00:00:00 2001
+From: vlad777442 <vefirst@gmail.com>
+Date: Sun, 4 Oct 2026 08:51:29 -0600
+Subject: [PATCH 6/7] bluestore: metadata-only move of an unshared object into
+ the meta collection
+
+OP_COLL_MOVE_RENAME with cid != dest_cid is now accepted when the
+destination is the meta collection and the object references no shared
+blob (ReplicaVault zero-copy vault). No on-disk format change:
+
+- onode and extent-shard keys are rewritten under the new oid (as _rename);
+- omap keys, which embed the collection's pool, are rewritten under the
+  meta pool (O(keys), as _clone's omap copy);
+- the onode and its blobs are re-homed into the meta collection's
+  OnodeSpace and caches (the per-onode part of Collection::split_cache),
+  leaving a non-existent placeholder at the old oid;
+- the object's statfs contribution (computed as fsck does) moves from the
+  source pool to the meta pool through a second per-pool delta on the
+  TransContext, written to the existing PREFIX_STAT keys.
+
+No block is allocated or released. Shared-blob objects are refused: the new
+ObjectStore::can_move_to_collection() lets callers check first and copy
+instead; a move issued anyway returns -EXDEV, which the transaction treats
+as a no-op. Store-wide perf counters see the net (zero) delta.
+
+Tests: ObjectStore/RVMoveTest (bluestore) - small/large objects, sharded
+extent map with spanning blobs, 20k omap keys and xattrs, forced
+compression, move queued after an uncommitted write, 50 moves then removing
+the source collection, shared blob refused. Each checks the source is
+ENOENT, data/xattrs/omap in meta, remount, deep fsck, per-pool statfs.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GapZ5dvT4vTJ9FHbVNTeKb
+---
+ src/os/ObjectStore.h               |  16 ++
+ src/os/bluestore/BlueStore.cc      | 329 ++++++++++++++++++++++++-
+ src/os/bluestore/BlueStore.h       |  29 +++
+ src/test/objectstore/store_test.cc | 370 +++++++++++++++++++++++++++++
+ 4 files changed, 737 insertions(+), 7 deletions(-)
+
+diff --git a/src/os/ObjectStore.h b/src/os/ObjectStore.h
+index 1d3e138..3d41989 100644
+--- a/src/os/ObjectStore.h
++++ b/src/os/ObjectStore.h
+@@ -445,6 +445,22 @@ public:
+    * @returns true if object exists, false otherwise
+    */
+   virtual bool exists(CollectionHandle& c, const ghobject_t& oid) = 0;
++
++  /**
++   * can_move_to_collection -- whether OP_COLL_MOVE_RENAME of oid from c into
++   * dest (a different collection) can be applied by this store as a
++   * metadata-only move. Callers that need a cross-collection move must ask
++   * first and fall back to copying when the answer is not 0: a refused move
++   * inside a transaction is skipped, not applied.
++   *
++   * @returns 0 if movable, -ENOENT if oid does not exist, -EXDEV if it cannot
++   *          be moved without copying (e.g. it shares blobs with a clone),
++   *          -EOPNOTSUPP if the store does not support cross-collection moves.
++   */
++  virtual int can_move_to_collection(CollectionHandle& c, const ghobject_t& oid,
++                                     const coll_t& dest) {
++    return -EOPNOTSUPP;
++  }
+   /**
+    * set_collection_opts -- std::set pool options for a collectioninformation for an object
+    *
+diff --git a/src/os/bluestore/BlueStore.cc b/src/os/bluestore/BlueStore.cc
+index 01948bc..30450d7 100644
+--- a/src/os/bluestore/BlueStore.cc
++++ b/src/os/bluestore/BlueStore.cc
+@@ -5229,6 +5229,94 @@ void BlueStore::Collection::split_cache(
+   dest->cache->_trim();
+ }
+ 
++void BlueStore::Collection::move_onode_to(
++  Collection *dest,
++  OnodeRef& oldo,
++  const ghobject_t& new_oid,
++  const mempool::bluestore_cache_meta::string& new_okey)
++{
++  // Same locks as split_cache: both onode-cache shards and both buffer-cache
++  // shards. They are recursive mutexes, so shards shared by the two
++  // collections are fine.
++  auto *ocache = get_onode_cache();
++  auto *ocache_dest = dest->get_onode_cache();
++  std::lock(ocache->lock, ocache_dest->lock, cache->lock, dest->cache->lock);
++  std::lock_guard l(ocache->lock, std::adopt_lock);
++  std::lock_guard l2(ocache_dest->lock, std::adopt_lock);
++  std::lock_guard l3(cache->lock, std::adopt_lock);
++  std::lock_guard l4(dest->cache->lock, std::adopt_lock);
++
++  OnodeRef o = oldo;
++  ghobject_t old_oid = o->oid;
++  ldout(store->cct, 15) << __func__ << " " << cid << " " << old_oid << " -> "
++                        << dest->cid << " " << new_oid << dendl;
++
++  auto po = onode_space.onode_map.find(old_oid);
++  ceph_assert(po != onode_space.onode_map.end());
++  ceph_assert(po->second == o);
++
++  // a non-existent onode stays at the old location, as OnodeSpace::rename
++  // does, so lookups of the old name until this txc commits see "absent"
++  OnodeRef placeholder(new Onode(this, old_oid, o->key));
++  po->second = placeholder;
++  ocache->_add(placeholder.get(), 1);
++
++  // install at the new location in dest, replacing any stale entry
++  auto pn = dest->onode_space.onode_map.find(new_oid);
++  if (pn != dest->onode_space.onode_map.end()) {
++    ocache_dest->_rm(pn->second.get());
++    dest->onode_space.onode_map.erase(pn);
++  }
++  dest->onode_space.onode_map[new_oid] = o;
++  if (o->cached) {
++    ocache->_move_pinned(ocache_dest, o.get());
++  }
++  o->c = dest;
++  o->oid = new_oid;
++  o->key = new_okey;
++
++  // re-home blobs and their cached buffers (the per-onode part of
++  // split_cache; the caller guarantees no blob is shared, so there is no
++  // SharedBlob to move)
++  auto rehome_blob = [&](Blob* b) {
++    for (auto& i : b->bc.buffer_map) {
++      if (!i.second.is_writing()) {
++        dest->cache->_move(cache, &i.second);
++      }
++    }
++    cache->rm_blob();
++    dest->cache->add_blob();
++    ceph_assert(!b->get_shared_blob());
++    b->collection = dest;
++  };
++  for (auto& e : o->extent_map.extent_map) {
++    e.blob->last_encoded_id = -1;
++  }
++  for (auto& b : o->extent_map.spanning_blob_map) {
++    b.second->last_encoded_id = -1;
++  }
++  for (auto& e : o->extent_map.extent_map) {
++    cache->rm_extent();
++    dest->cache->add_extent();
++    Blob* tb = e.blob.get();
++    if (tb->last_encoded_id == -1) {
++      rehome_blob(tb);
++      tb->last_encoded_id = 0;
++    }
++  }
++  for (auto& b : o->extent_map.spanning_blob_map) {
++    Blob* tb = b.second.get();
++    if (tb->last_encoded_id == -1) {
++      rehome_blob(tb);
++      tb->last_encoded_id = 0;
++    }
++  }
++  oldo = placeholder;
++  ocache->_trim();
++  ocache_dest->_trim();
++  dest->cache->_trim();
++}
++
+ // =======================================================
+ 
+ // MempoolThread
+@@ -14109,14 +14197,20 @@ void BlueStore::_txc_calc_cost(TransContext *txc)
+ 
+ void BlueStore::_txc_update_store_statfs(TransContext *txc)
+ {
+-  if (txc->statfs_delta.is_empty())
++  if (txc->statfs_delta.is_empty() && txc->extra_statfs_delta.is_empty())
+     return;
+ 
+-  logger->inc(l_bluestore_allocated, txc->statfs_delta.allocated());
+-  logger->inc(l_bluestore_stored, txc->statfs_delta.stored());
+-  logger->inc(l_bluestore_compressed, txc->statfs_delta.compressed());
+-  logger->inc(l_bluestore_compressed_allocated, txc->statfs_delta.compressed_allocated());
+-  logger->inc(l_bluestore_compressed_original, txc->statfs_delta.compressed_original());
++  {
++    // store-wide counters see the net change (zero for a cross-collection
++    // move, whose two deltas cancel)
++    volatile_statfs net = txc->statfs_delta;
++    net += txc->extra_statfs_delta;
++    logger->inc(l_bluestore_allocated, net.allocated());
++    logger->inc(l_bluestore_stored, net.stored());
++    logger->inc(l_bluestore_compressed, net.compressed());
++    logger->inc(l_bluestore_compressed_allocated, net.compressed_allocated());
++    logger->inc(l_bluestore_compressed_original, net.compressed_original());
++  }
+ 
+   if (per_pool_stat_collection) {
+     if (!is_statfs_recoverable()) {
+@@ -14125,6 +14219,14 @@ void BlueStore::_txc_update_store_statfs(TransContext *txc)
+       string key;
+       get_pool_stat_key(txc->osd_pool_id, &key);
+       txc->t->merge(PREFIX_STAT, key, bl);
++      if (!txc->extra_statfs_delta.is_empty()) {
++        // a cross-collection move credits a second pool (the meta pool)
++        bufferlist ebl;
++        txc->extra_statfs_delta.encode(ebl);
++        string ekey;
++        get_pool_stat_key(txc->extra_pool_id, &ekey);
++        txc->t->merge(PREFIX_STAT, ekey, ebl);
++      }
+     }
+ 
+     std::lock_guard l(vstatfs_lock);
+@@ -14132,8 +14234,14 @@ void BlueStore::_txc_update_store_statfs(TransContext *txc)
+     stats += txc->statfs_delta;
+     
+     vstatfs += txc->statfs_delta; //non-persistent in this mode
++    if (!txc->extra_statfs_delta.is_empty()) {
++      osd_pools[txc->extra_pool_id] += txc->extra_statfs_delta;
++      vstatfs += txc->extra_statfs_delta;
++    }
+ 
+   } else {
++    // legacy global statfs: a move's two deltas cancel out
++    txc->statfs_delta += txc->extra_statfs_delta;
+     if (!is_statfs_recoverable()) {
+       bufferlist bl;
+       txc->statfs_delta.encode(bl);
+@@ -14144,6 +14252,7 @@ void BlueStore::_txc_update_store_statfs(TransContext *txc)
+     vstatfs += txc->statfs_delta;
+   } 
+   txc->statfs_delta.reset();
++  txc->extra_statfs_delta.reset();
+ }
+ 
+ void BlueStore::_txc_state_proc(TransContext *txc)
+@@ -15855,7 +15964,25 @@ void BlueStore::_txc_add_transaction(TransContext *txc, Transaction *t)
+ 
+     case Transaction::OP_COLL_MOVE_RENAME:
+     case Transaction::OP_TRY_RENAME:
+-      {
++      if (op->op == Transaction::OP_COLL_MOVE_RENAME &&
++          op->cid != op->dest_cid) {
++        // cross-collection move, supported only into the meta collection
++        // and only for onodes with no shared blob (_move_to_collection)
++        CollectionRef& d = cvec[op->dest_cid];
++        if (!d) {
++          r = -ENOENT;
++          break;
++        }
++        // c->lock is held above; meta-only transactions never take a PG
++        // collection's lock, so c-then-d cannot invert
++        std::unique_lock l2(d->lock);
++        const ghobject_t& noid = i.get_oid(op->dest_oid);
++        OnodeRef& no = ovec[op->dest_oid];
++        if (!no) {
++          no = d->get_onode(noid, false);
++        }
++        r = _move_to_collection(txc, c, d, o, no, noid);
++      } else {
+ 	ceph_assert(op->cid == op->dest_cid);
+ 	const ghobject_t& noid = i.get_oid(op->dest_oid);
+ 	OnodeRef& no = ovec[op->dest_oid];
+@@ -15934,6 +16061,12 @@ void BlueStore::_txc_add_transaction(TransContext *txc, Transaction *t)
+ 	ok = true;
+       if (r == -ENODATA)
+ 	ok = true;
++      if (r == -EXDEV && op->op == Transaction::OP_COLL_MOVE_RENAME &&
++          op->cid != op->dest_cid) {
++        // a refused cross-collection move (shared blobs) changes nothing;
++        // callers check can_move_to_collection() first and copy instead
++        ok = true;
++      }
+ 
+       if (!ok) {
+ 	const char *msg = "unexpected error code";
+@@ -18224,6 +18357,188 @@ int BlueStore::_rename(TransContext *txc,
+   return r;
+ }
+ 
++bool BlueStore::_onode_blobs_unshared(OnodeRef& o)
++{
++  o->extent_map.fault_range(db, 0, o->onode.size);
++  for (auto& e : o->extent_map.extent_map) {
++    if (e.blob->get_blob().is_shared() || e.blob->get_shared_blob()) {
++      return false;
++    }
++  }
++  for (auto& b : o->extent_map.spanning_blob_map) {
++    if (b.second->get_blob().is_shared() || b.second->get_shared_blob()) {
++      return false;
++    }
++  }
++  return true;
++}
++
++void BlueStore::_onode_statfs(OnodeRef& o, volatile_statfs *vs)
++{
++  // Mirrors fsck_check_objects_shallow / _fsck_check_extents, so fsck's
++  // per-pool expectation and the moved delta agree: stored per logical
++  // extent; compressed, compressed_original, allocated and
++  // compressed_allocated once per blob.
++  vs->reset();
++  std::set<const Blob*> seen;
++  auto add_blob = [&](const Blob* b) {
++    if (!seen.insert(b).second) {
++      return;
++    }
++    const bluestore_blob_t& blob = b->get_blob();
++    bool compressed = blob.is_compressed();
++    if (compressed) {
++      vs->compressed() += blob.get_compressed_payload_length();
++      vs->compressed_original() += b->get_referenced_bytes();
++    }
++    for (auto& pe : blob.get_extents()) {
++      if (!pe.is_valid()) {
++        continue;
++      }
++      vs->allocated() += pe.length;
++      if (compressed) {
++        vs->compressed_allocated() += pe.length;
++      }
++    }
++  };
++  for (auto& e : o->extent_map.extent_map) {
++    vs->stored() += e.length;
++    add_blob(e.blob.get());
++  }
++  for (auto& b : o->extent_map.spanning_blob_map) {
++    add_blob(b.second.get());
++  }
++}
++
++int BlueStore::_move_to_collection(TransContext *txc,
++                                   CollectionRef& c,
++                                   CollectionRef& d,
++                                   OnodeRef& oldo,
++                                   OnodeRef& newo,
++                                   const ghobject_t& new_oid)
++{
++  dout(15) << __func__ << " " << c->cid << " " << oldo->oid << " -> "
++           << d->cid << " " << new_oid << dendl;
++  int r = 0;
++  ghobject_t old_oid = oldo->oid;
++  mempool::bluestore_cache_meta::string new_okey;
++
++  if (!d->cid.is_meta()) {
++    // Only moves into the meta collection are supported; anything else
++    // could break a collection's key-range ownership.
++    r = -EINVAL;
++    goto out;
++  }
++  if (newo && newo->exists) {
++    r = -EEXIST;
++    goto out;
++  }
++  // Prior writes to this object on this sequencer must reach the kv store
++  // before its omap is read below (as _clone does).
++  oldo->flush();
++  if (!_onode_blobs_unshared(oldo)) {
++    // Refused, not asserted: the caller must have checked
++    // can_move_to_collection() and copied instead. Nothing is changed.
++    derr << __func__ << " " << oldo->oid
++         << " references a shared blob; refusing cross-collection move"
++         << dendl;
++    r = -EXDEV;
++    goto out;
++  }
++
++  {
++    // statfs: the object's contribution leaves c's pool and enters d's
++    volatile_statfs vs;
++    _onode_statfs(oldo, &vs);
++    for (size_t i = 0; i < volatile_statfs::STATFS_LAST; ++i) {
++      txc->statfs_delta.values[i] -= vs.values[i];
++    }
++    txc->extra_pool_id = META_POOL_ID;
++    txc->extra_statfs_delta += vs;
++
++    // old onode and extent-shard keys go; shards are rewritten under the new
++    // onode key when the onode is written (as _rename)
++    txc->t->rmkey(PREFIX_OBJ, oldo->key.c_str(), oldo->key.size());
++    get_object_key(cct, new_oid, &new_okey);
++    string key;
++    for (auto &sh : oldo->extent_map.shards) {
++      generate_extent_shard_key_and_apply(oldo->key, sh.shard_info->offset, &key,
++        [&](const string& final_key) {
++          txc->t->rmkey(PREFIX_OBJ, final_key);
++        }
++      );
++      sh.dirty = true;
++    }
++
++    // omap keys embed the collection's pool (and the object's hash): read
++    // them under the old collection, rewrite them under the new one
++    vector<pair<string, bufferlist>> omap_kv;
++    string omap_prefix, old_head, old_tail;
++    bool has_omap = oldo->onode.has_omap();
++    if (has_omap) {
++      omap_prefix = oldo->get_omap_prefix();
++      oldo->get_omap_header(&old_head);
++      oldo->get_omap_tail(&old_tail);
++      KeyValueDB::Iterator it = db->get_iterator(
++        omap_prefix, 0, KeyValueDB::IteratorBounds{old_head, old_tail});
++      for (it->lower_bound(old_head); it->valid(); it->next()) {
++        if (it->key() >= old_tail) {
++          break;
++        }
++        omap_kv.emplace_back(it->key(), it->value());
++      }
++    }
++
++    // re-home in memory; newo becomes the moved onode, oldo the placeholder
++    newo = oldo;
++    c->move_onode_to(d.get(), oldo, new_oid, new_okey);
++
++    if (has_omap) {
++      // same prefix (the omap flags do not change), new pool in the key
++      ceph_assert(newo->get_omap_prefix() == omap_prefix);
++      txc->t->rm_range_keys(omap_prefix, old_head, old_tail);
++      txc->t->rmkey(omap_prefix, old_tail);
++      for (auto& [k, v] : omap_kv) {
++        string nk;
++        newo->rewrite_omap_key(k, &nk);
++        txc->t->set(omap_prefix, nk, v);
++      }
++      string new_tail;
++      bufferlist empty;
++      newo->get_omap_tail(&new_tail);
++      txc->t->set(omap_prefix, new_tail, empty);
++    }
++
++    txc->write_onode(newo);
++    // keep the placeholder pinned until commit, as _rename does
++    txc->note_modified_object(oldo);
++  }
++
++ out:
++  dout(10) << __func__ << " " << c->cid << " " << old_oid << " -> "
++           << d->cid << " " << new_oid << " = " << r << dendl;
++  return r;
++}
++
++int BlueStore::can_move_to_collection(CollectionHandle& c_,
++                                      const ghobject_t& oid,
++                                      const coll_t& dest)
++{
++  Collection *c = static_cast<Collection *>(c_.get());
++  if (!c->exists) {
++    return -ENOENT;
++  }
++  if (!dest.is_meta() || !c->cid.is_pg()) {
++    return -EXDEV;
++  }
++  std::unique_lock l(c->lock);
++  OnodeRef o = c->get_onode(oid, false);
++  if (!o || !o->exists) {
++    return -ENOENT;
++  }
++  return _onode_blobs_unshared(o) ? 0 : -EXDEV;
++}
++
+ // collections
+ 
+ int BlueStore::_create_collection(
+diff --git a/src/os/bluestore/BlueStore.h b/src/os/bluestore/BlueStore.h
+index 4b2ef75..77119ca 100644
+--- a/src/os/bluestore/BlueStore.h
++++ b/src/os/bluestore/BlueStore.h
+@@ -1693,6 +1693,14 @@ private:
+     }
+ 
+     void split_cache(Collection *dest);
++    /// Move one onode (which must reference no shared blob) from this
++    /// collection's OnodeSpace and caches into dest's, under new_oid/new_okey,
++    /// leaving a non-existent placeholder at the old oid (as OnodeSpace::rename
++    /// does). oldo is reset to the placeholder. Same per-onode re-homing as
++    /// split_cache.
++    void move_onode_to(Collection *dest, OnodeRef& oldo,
++                       const ghobject_t& new_oid,
++                       const mempool::bluestore_cache_meta::string& new_okey);
+ 
+     bool flush_commit(Context *c) override;
+     void flush() override;
+@@ -1913,6 +1921,11 @@ private:
+     interval_set<uint64_t> allocated, released;
+     volatile_statfs statfs_delta;	   ///< overall store statistics delta
+     uint64_t osd_pool_id = META_POOL_ID;    ///< osd pool id we're operating on
++    /// statistics delta for a second pool, used only by a cross-collection
++    /// move (OP_COLL_MOVE_RENAME into the meta collection), which debits the
++    /// source pool (statfs_delta) and credits the destination pool here
++    volatile_statfs extra_statfs_delta;
++    uint64_t extra_pool_id = META_POOL_ID;
+ 
+     IOContext ioc;
+     bool had_ios = false;  ///< true if we submitted IOs before our kv txn
+@@ -3119,6 +3132,8 @@ public:
+   void collect_metadata(std::map<std::string,std::string> *pm) override;
+ 
+   bool exists(CollectionHandle &c, const ghobject_t& oid) override;
++  int can_move_to_collection(CollectionHandle& c, const ghobject_t& oid,
++                             const coll_t& dest) override;
+   int set_collection_opts(
+     CollectionHandle& c,
+     const pool_opts_t& opts) override;
+@@ -3789,6 +3804,20 @@ private:
+ 		   OnodeRef& oldo,
+ 		   OnodeRef& newo,
+ 		   uint64_t srcoff, uint64_t length, uint64_t dstoff);
++  /// true iff every blob o references (extent map and spanning blobs, after
++  /// faulting in the whole extent map) is unshared
++  bool _onode_blobs_unshared(OnodeRef& o);
++  /// o's contribution to per-pool statfs, computed as fsck does
++  void _onode_statfs(OnodeRef& o, volatile_statfs *vs);
++  /// metadata-only move of oldo from collection c into collection d (the
++  /// meta collection) under new_oid: onode, extent-shard and omap keys are
++  /// rewritten, statfs moves from c's pool to d's, no block is (de)allocated
++  int _move_to_collection(TransContext *txc,
++                          CollectionRef& c,
++                          CollectionRef& d,
++                          OnodeRef& oldo,
++                          OnodeRef& newo,
++                          const ghobject_t& new_oid);
+   int _rename(TransContext *txc,
+ 	      CollectionRef& c,
+ 	      OnodeRef& oldo,
+diff --git a/src/test/objectstore/store_test.cc b/src/test/objectstore/store_test.cc
+index 60e97b4..f2ce84d 100644
+--- a/src/test/objectstore/store_test.cc
++++ b/src/test/objectstore/store_test.cc
+@@ -7091,6 +7091,376 @@ TEST_P(StoreTest, BluestoreOnOffCSumTest) {
+ }
+ #endif
+ 
++// ---------------------------------------------------------------------------
++// ReplicaVault zero-copy vault: cross-collection OP_COLL_MOVE_RENAME of an
++// unshared object from a PG collection into the meta collection.
++namespace {
++
++struct RVObj {
++  ghobject_t src, dst;
++  bufferlist data;
++  map<string, bufferlist, std::less<>> attrs;
++  bufferlist omap_header;
++  map<string, bufferlist> omap;
++};
++
++const int64_t RV_POOL = 7;
++
++coll_t rv_pg_coll() {
++  return coll_t(spg_t(pg_t(0, RV_POOL), shard_id_t::NO_SHARD));
++}
++
++RVObj rv_obj(const string& name, uint32_t hash) {
++  RVObj o;
++  o.src = ghobject_t(hobject_t(sobject_t(name, CEPH_NOSNAP), "", hash, RV_POOL, ""));
++  o.dst = ghobject_t(hobject_t(sobject_t("rv1_" + name, CEPH_NOSNAP), "", hash,
++                               hobject_t::POOL_META, "replicavault"));
++  return o;
++}
++
++bufferlist rv_bytes(size_t len, int seed) {
++  bufferlist bl;
++  bufferptr bp(len);
++  for (size_t i = 0; i < len; ++i) {
++    bp.c_str()[i] = static_cast<char>((i * 131 + seed * 7 + i / 4096) & 0xff);
++  }
++  bl.append(bp);
++  return bl;
++}
++
++void rv_write(ObjectStore* store, ObjectStore::CollectionHandle& ch, RVObj& o,
++              size_t len, int seed, size_t nattrs, size_t nomap) {
++  ObjectStore::Transaction t;
++  o.data = rv_bytes(len, seed);
++  t.write(ch->cid, o.src, 0, o.data.length(), o.data);
++  for (size_t i = 0; i < nattrs; ++i) {
++    bufferlist v = rv_bytes(16 + i, seed + i);
++    o.attrs["attr" + std::to_string(i)] = v;
++  }
++  if (nattrs) {
++    t.setattrs(ch->cid, o.src, o.attrs);
++  }
++  if (nomap) {
++    o.omap_header = rv_bytes(64, seed);
++    t.omap_setheader(ch->cid, o.src, o.omap_header);
++    for (size_t i = 0; i < nomap; ++i) {
++      o.omap["key" + std::to_string(i)] = rv_bytes(24, seed + i);
++    }
++    t.omap_setkeys(ch->cid, o.src, o.omap);
++  }
++  ASSERT_EQ(0, queue_transaction(store, ch, std::move(t)));
++}
++
++void rv_check(ObjectStore* store, ObjectStore::CollectionHandle& sch,
++              ObjectStore::CollectionHandle& mch, RVObj& o) {
++  ASSERT_FALSE(store->exists(sch, o.src));
++  ASSERT_TRUE(store->exists(mch, o.dst));
++  struct stat st;
++  ASSERT_EQ(0, store->stat(mch, o.dst, &st));
++  ASSERT_EQ((uint64_t)st.st_size, (uint64_t)o.data.length());
++  bufferlist got;
++  ASSERT_EQ((int)o.data.length(), store->read(mch, o.dst, 0, o.data.length(), got));
++  ASSERT_TRUE(bl_eq(o.data, got));
++  map<string, bufferlist, std::less<>> attrs;
++  ASSERT_EQ(0, store->getattrs(mch, o.dst, attrs));
++  ASSERT_EQ(o.attrs.size(), attrs.size());
++  for (auto& [k, v] : o.attrs) {
++    ASSERT_TRUE(attrs.count(k));
++    ASSERT_TRUE(bl_eq(v, attrs[k]));
++  }
++  bufferlist hdr;
++  map<string, bufferlist> omap;
++  int r = store->omap_get(mch, o.dst, &hdr, &omap);
++  ASSERT_TRUE(r == 0 || r == -ENOENT);
++  ASSERT_TRUE(bl_eq(o.omap_header, hdr));
++  ASSERT_EQ(o.omap.size(), omap.size());
++  for (auto& [k, v] : o.omap) {
++    ASSERT_TRUE(omap.count(k));
++    ASSERT_TRUE(bl_eq(v, omap[k]));
++  }
++}
++
++struct RVStat {
++  int64_t pool_alloc, pool_stored, meta_alloc, meta_stored;
++};
++
++RVStat rv_stat(ObjectStore* store) {
++  store_statfs_t p, m;
++  bool pp;
++  EXPECT_EQ(0, store->pool_statfs(RV_POOL, &p, &pp));
++  EXPECT_EQ(0, store->pool_statfs(META_POOL_ID, &m, &pp));
++  return {(int64_t)p.allocated, (int64_t)p.data_stored,
++          (int64_t)m.allocated, (int64_t)m.data_stored};
++}
++
++} // anonymous namespace
++
++class RVMoveTest : public StoreTest {
++public:
++  coll_t pg = rv_pg_coll();
++  coll_t meta = coll_t::meta();
++  ObjectStore::CollectionHandle pch, mch;
++
++  void rv_setup() {
++    SetVal(g_conf(), "objectstore_debug_throw_on_failed_txc", "true");
++    g_conf().apply_changes(nullptr);
++    mch = store->create_new_collection(meta);
++    {
++      ObjectStore::Transaction t;
++      t.create_collection(meta, 0);
++      ASSERT_EQ(0, queue_transaction(store, mch, std::move(t)));
++    }
++    pch = store->create_new_collection(pg);
++    {
++      ObjectStore::Transaction t;
++      t.create_collection(pg, 0);
++      ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++    }
++  }
++  // move each object in one transaction on the PG collection's sequencer
++  void rv_move(vector<RVObj*> objs, bool and_remove_src = false) {
++    for (auto o : objs) {
++      ASSERT_EQ(0, store->can_move_to_collection(pch, o->src, meta));
++    }
++    ObjectStore::Transaction t;
++    for (auto o : objs) {
++      t.collection_move_rename(pg, o->src, meta, o->dst);
++      if (and_remove_src) {
++        // as the PG transaction will: remove after the move (ENOENT is fine)
++        t.remove(pg, o->src);
++      }
++    }
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  void rv_remount_fsck_check(vector<RVObj*> objs) {
++    for (auto o : objs) {
++      rv_check(store.get(), pch, mch, *o);
++    }
++    pch.reset();
++    mch.reset();
++    ASSERT_EQ(0, store->umount());
++    ASSERT_EQ(0, store->fsck(true));  // deep
++    ASSERT_EQ(0, store->mount());
++    pch = store->open_collection(pg);
++    mch = store->open_collection(meta);
++    ASSERT_TRUE(pch);
++    ASSERT_TRUE(mch);
++    for (auto o : objs) {
++      rv_check(store.get(), pch, mch, *o);
++    }
++  }
++  void rv_expect_moved_stats(const RVStat& before, const RVStat& after) {
++    // what left the PG's pool is exactly what the meta pool gained
++    ASSERT_EQ(before.pool_alloc - after.pool_alloc, after.meta_alloc - before.meta_alloc);
++    ASSERT_EQ(before.pool_stored - after.pool_stored, after.meta_stored - before.meta_stored);
++    ASSERT_GE(before.pool_stored - after.pool_stored, 0);
++  }
++};
++
++TEST_P(RVMoveTest, SmallAndLarge) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  rv_setup();
++  // 4 KiB (deferred path), 64 KiB, 4 MiB (direct), with xattrs and omap
++  RVObj a = rv_obj("small", 0x1111), b = rv_obj("mid", 0x2222), c = rv_obj("large", 0x3333);
++  rv_write(store.get(), pch, a, 4096, 1, 3, 5);
++  rv_write(store.get(), pch, b, 65536, 2, 3, 5);
++  rv_write(store.get(), pch, c, 4 << 20, 3, 3, 5);
++  RVStat s0 = rv_stat(store.get());
++  rv_move({&a});
++  rv_move({&b});
++  rv_move({&c}, true);
++  rv_expect_moved_stats(s0, rv_stat(store.get()));
++  rv_remount_fsck_check({&a, &b, &c});
++  rv_expect_moved_stats(s0, rv_stat(store.get()));
++}
++
++TEST_P(RVMoveTest, FragmentedShardedExtentMap) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  // small shards so the extent map is sharded and blobs span shards
++  SetVal(g_conf(), "bluestore_extent_map_shard_max_size", "200");
++  SetVal(g_conf(), "bluestore_extent_map_shard_target_size", "100");
++  g_conf().apply_changes(nullptr);
++  rv_setup();
++  RVObj o = rv_obj("frag", 0x4444);
++  rv_write(store.get(), pch, o, 1 << 20, 4, 1, 0);
++  // many small overwrites at scattered offsets
++  for (int i = 0; i < 300; ++i) {
++    ObjectStore::Transaction t;
++    uint64_t off = ((uint64_t)i * 7919 * 4096) % ((1 << 20) - 4096);
++    bufferlist bl = rv_bytes(1000 + (i % 3000), 100 + i);
++    t.write(pg, o.src, off, bl.length(), bl);
++    o.data.begin(off).copy_in(bl.length(), bl.c_str());
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  RVStat s0 = rv_stat(store.get());
++  rv_move({&o}, true);
++  rv_expect_moved_stats(s0, rv_stat(store.get()));
++  rv_remount_fsck_check({&o});
++}
++
++TEST_P(RVMoveTest, LargeOmapAndXattrs) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  rv_setup();
++  RVObj o = rv_obj("omap", 0x5555);
++  rv_write(store.get(), pch, o, 8192, 5, 50, 20000);
++  rv_move({&o}, true);
++  rv_remount_fsck_check({&o});
++}
++
++TEST_P(RVMoveTest, CompressionForced) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  SetVal(g_conf(), "bluestore_compression_algorithm", "snappy");
++  SetVal(g_conf(), "bluestore_compression_mode", "force");
++  g_conf().apply_changes(nullptr);
++  rv_setup();
++  // compressible data
++  RVObj a = rv_obj("comp", 0x6666);
++  {
++    ObjectStore::Transaction t;
++    bufferlist bl;
++    bl.append(string(2 << 20, 'z'));
++    a.data = bl;
++    t.write(pg, a.src, 0, bl.length(), bl);
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  store_statfs_t p0, m0, p1, m1;
++  bool pp;
++  ASSERT_EQ(0, store->pool_statfs(RV_POOL, &p0, &pp));
++  ASSERT_EQ(0, store->pool_statfs(META_POOL_ID, &m0, &pp));
++  // the write must actually have been compressed for this test to mean anything
++  ASSERT_GT(p0.data_compressed_original, 0u);
++  RVStat s0 = rv_stat(store.get());
++  rv_move({&a}, true);
++  rv_expect_moved_stats(s0, rv_stat(store.get()));
++  rv_remount_fsck_check({&a});
++  ASSERT_EQ(0, store->pool_statfs(RV_POOL, &p1, &pp));
++  ASSERT_EQ(0, store->pool_statfs(META_POOL_ID, &m1, &pp));
++  // compressed accounting moved with the object
++  ASSERT_EQ(p0.data_compressed_original - p1.data_compressed_original,
++            m1.data_compressed_original - m0.data_compressed_original);
++  ASSERT_EQ(p0.data_compressed - p1.data_compressed,
++            m1.data_compressed - m0.data_compressed);
++  ASSERT_EQ(p0.data_compressed_allocated - p1.data_compressed_allocated,
++            m1.data_compressed_allocated - m0.data_compressed_allocated);
++  ASSERT_GT(m1.data_compressed_original, 0u);
++}
++
++TEST_P(RVMoveTest, MoveQueuedAfterUncommittedWrite) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  rv_setup();
++  for (int k = 0; k < 20; ++k) {
++    RVObj o = rv_obj("raq" + std::to_string(k), 0x7000 + k);
++    rv_write(store.get(), pch, o, 4096 * (1 + k % 4), 10 + k, 1, 2);
++    // overwrite and move queued back to back without waiting for the write
++    ObjectStore::Transaction t1, t2;
++    bufferlist bl = rv_bytes(o.data.length(), 1000 + k);
++    t1.write(pg, o.src, 0, bl.length(), bl);
++    t1.omap_setkeys(pg, o.src, map<string, bufferlist>{{"late", bl}});
++    o.data = bl;
++    o.omap["late"] = bl;
++    ASSERT_EQ(0, store->queue_transaction(pch, std::move(t1)));
++    t2.collection_move_rename(pg, o.src, meta, o.dst);
++    t2.remove(pg, o.src);
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t2)));
++    rv_check(store.get(), pch, mch, o);
++  }
++  pch.reset();
++  mch.reset();
++  ASSERT_EQ(0, store->umount());
++  ASSERT_EQ(0, store->fsck(true));
++  ASSERT_EQ(0, store->mount());
++}
++
++TEST_P(RVMoveTest, ManyMovesThenRemoveSourceCollection) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  rv_setup();
++  vector<RVObj> objs;
++  for (int i = 0; i < 50; ++i) {
++    objs.push_back(rv_obj("many" + std::to_string(i), 0x8000 + i * 97));
++  }
++  for (int i = 0; i < 50; ++i) {
++    rv_write(store.get(), pch, objs[i], 4096 * (1 + i % 8), 200 + i, 2, 3);
++  }
++  vector<RVObj*> ptrs;
++  for (auto& o : objs) {
++    ptrs.push_back(&o);
++  }
++  RVStat s0 = rv_stat(store.get());
++  rv_move(ptrs, true);
++  rv_expect_moved_stats(s0, rv_stat(store.get()));
++  {
++    ObjectStore::Transaction t;
++    t.remove_collection(pg);
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  for (auto& o : objs) {
++    ASSERT_TRUE(store->exists(mch, o.dst));
++  }
++  pch.reset();
++  mch.reset();
++  ASSERT_EQ(0, store->umount());
++  ASSERT_EQ(0, store->fsck(true));
++  ASSERT_EQ(0, store->mount());
++  mch = store->open_collection(meta);
++  for (auto& o : objs) {
++    struct stat st;
++    ASSERT_EQ(0, store->stat(mch, o.dst, &st));
++    bufferlist got;
++    ASSERT_EQ((int)o.data.length(), store->read(mch, o.dst, 0, o.data.length(), got));
++    ASSERT_TRUE(bl_eq(o.data, got));
++  }
++}
++
++TEST_P(RVMoveTest, SharedBlobRefused) {
++  if (string(GetParam()) != "bluestore")
++    return;
++  rv_setup();
++  RVObj o = rv_obj("shared", 0x9999);
++  rv_write(store.get(), pch, o, 1 << 20, 9, 1, 3);
++  ghobject_t clone = o.src;
++  clone.hobj.snap = 1;
++  {
++    ObjectStore::Transaction t;
++    t.clone(pg, o.src, clone);
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  ASSERT_EQ(-EXDEV, store->can_move_to_collection(pch, o.src, meta));
++  // a move issued anyway is refused inside the transaction and changes nothing
++  {
++    ObjectStore::Transaction t;
++    t.collection_move_rename(pg, o.src, meta, o.dst);
++    ASSERT_EQ(0, queue_transaction(store, pch, std::move(t)));
++  }
++  ASSERT_TRUE(store->exists(pch, o.src));
++  ASSERT_TRUE(store->exists(pch, clone));
++  ASSERT_FALSE(store->exists(mch, o.dst));
++  bufferlist a, b;
++  ASSERT_EQ((int)o.data.length(), store->read(pch, o.src, 0, o.data.length(), a));
++  ASSERT_EQ((int)o.data.length(), store->read(pch, clone, 0, o.data.length(), b));
++  ASSERT_TRUE(bl_eq(o.data, a));
++  ASSERT_TRUE(bl_eq(o.data, b));
++  pch.reset();
++  mch.reset();
++  ASSERT_EQ(0, store->umount());
++  ASSERT_EQ(0, store->fsck(true));
++  ASSERT_EQ(0, store->mount());
++}
++
++INSTANTIATE_TEST_SUITE_P(
++  ObjectStore,
++  RVMoveTest,
++  ::testing::Values(
++#if defined(WITH_BLUESTORE)
++    "bluestore"
++#endif
++  ));
++
+ INSTANTIATE_TEST_SUITE_P(
+   ObjectStore,
+   StoreTest,
+-- 
+2.43.0
+
