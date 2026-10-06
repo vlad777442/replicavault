@@ -148,7 +148,7 @@ def main():
     for kib in sizes_kib:
         mib = kib >> 10 if kib % 1024 == 0 else kib / 1024
         key = str(mib) if a.sizes_kib is None else f"{kib}KiB"
-        names = [n for n in pgmap_names(pool_id, pg_num, target_pg, f"{a.tag}-{kib}k", a.deletes)]
+        names = [n for n in pgmap_names(pool_id, pg_num, target_pg, f"{a.tag}-del{kib}k", a.deletes)]
         data = os.urandom(kib << 10)
         for n in names:  # setup, not measured
             for off in range(0, len(data), CHUNK):
