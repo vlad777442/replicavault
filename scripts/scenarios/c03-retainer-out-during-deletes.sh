@@ -12,7 +12,18 @@
 source "$(dirname "$0")/common.sh"
 RUNS=20
 RV_RESULTS_SUBDIR=${RV_RESULTS_SUBDIR:-zc}
-scenario_init c03-retainer-out-during-deletes "$@"
+# --max-delay S: kill delay uniform in [0, S] (default 1.5); see c01. With the
+# zero-copy rename the default never kills R mid-delete (zc c03 x10: 0 of 160).
+MAX_DELAY=1.5
+NAME=c03-retainer-out-during-deletes
+args=()
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --max-delay) MAX_DELAY=$2; NAME=c03s-retainer-out-during-deletes; shift 2 ;;
+    *) args+=("$1"); shift ;;
+  esac
+done
+scenario_init "$NAME" "${args[@]}"
 SIZES=(4096 65536 1048576 4194304 8388608)
 OUT_OSD=""
 trap '[[ -n $OUT_OSD ]] && { osd_pid "$OUT_OSD" >/dev/null || restart_osd "$OUT_OSD"; ceph osd in "$OUT_OSD" >/dev/null 2>&1; }; rm -rf "$WORK"' EXIT
@@ -37,7 +48,7 @@ osd_pg_count() {  # PGs loaded on OSD $1, strays included (the OSD's own `status
 }
 
 for run in $(seq 1 "$RUNS"); do
-  delay=$(python3 -c "import random; print(round(random.uniform(0.0, 1.5), 3))")
+  delay=$(python3 -c "import random,sys; print(round(random.uniform(0.0, float(sys.argv[1])), 4))" "$MAX_DELAY")
   run_begin "$run" "{\"kill_delay_s\": $delay}"
   seed=$RUN_PREFIX-seed
   put_obj "$seed" 4096
@@ -80,7 +91,8 @@ import json, sys
 aio = json.loads(sys.argv[1]); o = aio["objects"].values()
 print(json.dumps({"kill_at_s": aio["kill_at"], "acked": sum(r["rc"] == 0 for r in o),
                   "acked_after_kill": sum(r["rc"] == 0 and not r["done_before_kill"] for r in o),
-                  "not_acked": sum(r["rc"] != 0 for r in o), "strays_removed": sys.argv[2] == "0"}))
+                  "not_acked": sum(r["rc"] != 0 for r in o), "strays_removed": sys.argv[2] == "0",
+                  "done_s": sorted(r["done_s"] for r in o if r["done_s"] is not None)}))
 EOF
 )
   note outcome "$summary"
