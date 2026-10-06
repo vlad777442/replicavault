@@ -210,3 +210,45 @@ c01s-crash-under-deletes [zc]: 10/10 runs passed, batch deep fsck True -> /users
 09:26:45 scenario z04-restore: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
 09:26:51 clean after 6 s
 09:26:51 --- z04-restore run 1 {"objects": 12}
+09:30:59 clean after 11 s
+09:31:06 clean after 6 s
+09:31:41 deep-scrubbed 32 PGs in 35 s
+09:35:36 clean after 11 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:36:55 --- z04-restore run 2 {"objects": 12}
+09:40:59 clean after 8 s
+09:41:06 clean after 6 s
+09:41:39 deep-scrubbed 32 PGs in 33 s
+09:45:30 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+09:46:45 batch deep fsck on every OSD
+z04-restore [zc]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/z04-restore-20261006T092644.json
+===== z05 (09:54:29)
+09:54:29 scenario z05-omap-heavy: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=2 pool=rvtest
+09:54:36 clean after 7 s
+09:54:36 --- z05-omap-heavy run 1 {"keys": [100,2000,20000]}
+09:58:09 clean after 13 s
+09:58:46 deep-scrubbed 32 PGs in 37 s
+10:01:27 clean after 12 s
+run 1: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:02:43 --- z05-omap-heavy run 2 {"keys": [100,2000,20000]}
+10:06:24 clean after 11 s
+10:06:59 deep-scrubbed 32 PGs in 35 s
+10:09:48 clean after 11 s
+run 2: PASS  [1=ok 2=ok 3=ok 4=ok fsck=ok]
+10:11:08 batch deep fsck on every OSD
+z05-omap-heavy [zc]: 2/2 runs passed, batch deep fsck True -> /users/vlad777/research/replicavault/results/zc/z05-omap-heavy-20261006T095429.json
+===== z06 (10:18:59)
+10:19:00 scenario z06-soak: mode=zc ceph=33b89ae8660c5816e494890c1be5d1f987232599 runs=1 pool=rvtest
+10:19:06 clean after 6 s
+10:19:07 --- z06-soak run 1 {"seconds": 3600, "kill_every_s": 240}
+11:20:04 soak done: {"seconds": 3600.0, "ops": 16981, "counts": {"write_full": 5968, "partial": 3425, "delete": 5574, "recreate": 1750, "mksnap": 149, "rmsnap": 149, "kills": 14, "unknown": 0}, "kills": [{"t": 240.5, "osd": 1}, {"t": 480.5, "osd": 2}, {"t": 720.8, "osd": 1}, {"t": 961.0, "osd": 0}, {"t": 1201.3, "osd": 0}, {"t": 1441.6, "osd": 2}, {"t": 1681.7, "osd": 2}, {"t": 1921.7, "osd": 1}, {"t": 2162.2, "osd": 1}, {"t": 2402.6, "osd": 0}, {"t": 2642.8, "osd": 3}, {"t": 2882.9, "osd": 4}, {"t": 3123.5, "osd": 2}, {"t": 3363.7, "osd": 4}]}
+11:20:11 clean after 7 s
+11:50:56 clean after 11 s
+11:51:03 clean after 6 s
+11:51:37 deep-scrubbed 32 PGs in 34 s
+11:51:53 deep-scrubbed 8 PGs in 15 s
+11:52:19 clean after 6 s
+run 1: FAIL  [1=ok 2=ok 3=FAIL 4=ok fsck=skip]
+z06-soak [zc]: 1/1 runs passed, batch deep fsck None -> /users/vlad777/research/replicavault/results/zc/z06-soak-20261006T101859.json
+===== done (11:52:35)

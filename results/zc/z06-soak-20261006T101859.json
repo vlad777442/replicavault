@@ -1,0 +1,200 @@
+{
+ "scenario": "z06-soak",
+ "timestamp": "20261006T101859",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/z06-soak.sh ",
+ "pool": "rvtest",
+ "duration_s": 5615,
+ "summary": {
+  "runs": 1,
+  "runs_passed": 1,
+  "1_no_resurrection": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": null,
+  "skipped": "RV_DEEP_FSCK_BATCH=0"
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "seconds": 3600,
+    "kill_every_s": 240
+   },
+   "notes": {
+    "soak": {
+     "seconds": 3600.0,
+     "ops": 16981,
+     "counts": {
+      "write_full": 5968,
+      "partial": 3425,
+      "delete": 5574,
+      "recreate": 1750,
+      "mksnap": 149,
+      "rmsnap": 149,
+      "kills": 14,
+      "unknown": 0
+     },
+     "kills": [
+      {
+       "t": 240.5,
+       "osd": 1
+      },
+      {
+       "t": 480.5,
+       "osd": 2
+      },
+      {
+       "t": 720.8,
+       "osd": 1
+      },
+      {
+       "t": 961.0,
+       "osd": 0
+      },
+      {
+       "t": 1201.3,
+       "osd": 0
+      },
+      {
+       "t": 1441.6,
+       "osd": 2
+      },
+      {
+       "t": 1681.7,
+       "osd": 2
+      },
+      {
+       "t": 1921.7,
+       "osd": 1
+      },
+      {
+       "t": 2162.2,
+       "osd": 1
+      },
+      {
+       "t": 2402.6,
+       "osd": 0
+      },
+      {
+       "t": 2642.8,
+       "osd": 3
+      },
+      {
+       "t": 2882.9,
+       "osd": 4
+      },
+      {
+       "t": 3123.5,
+       "osd": 2
+      },
+      {
+       "t": 3363.7,
+       "osd": 4
+      }
+     ]
+    }
+   },
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 47,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 5574,
+     "missing": [],
+     "missing_count": 0,
+     "entries_scanned": 19659,
+     "entries_not_intact": [],
+     "matched_by_mode": {
+      "rename": 4836,
+      "copy": 738
+     }
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 33,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 5599,
+   "deep_fsck_all": {
+    "pass": true,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 201
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 206
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 120
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 184
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 135
+     }
+    }
+   },
+   "vault_scan": {
+    "pass": true,
+    "checked": 5574,
+    "missing": [],
+    "missing_count": 0,
+    "entries_scanned": 19659,
+    "entries_not_intact": [],
+    "matched_by_mode": {
+     "rename": 4836,
+     "copy": 738
+    }
+   },
+   "fsck_all": {
+    "pass": null,
+    "skipped": "RV_FSCK=off"
+   },
+   "pass": true
+  }
+ ]
+}
