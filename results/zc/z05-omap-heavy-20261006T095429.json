@@ -1,0 +1,598 @@
+{
+ "scenario": "z05-omap-heavy",
+ "timestamp": "20261006T095429",
+ "mode": "zc",
+ "ceph_git": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "osd_build_marker": "zc 33b89ae8660c5816e494890c1be5d1f987232599 be70c6eb2cb36021",
+ "command": "scripts/scenarios/z05-omap-heavy.sh ",
+ "pool": "rvtest",
+ "duration_s": 1469,
+ "summary": {
+  "runs": 2,
+  "runs_passed": 2,
+  "1_no_resurrection": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "2_no_inconsistency": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "3_vault_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  },
+  "4_live_intact": {
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0
+  }
+ },
+ "batch_deep_fsck": {
+  "pass": true,
+  "deep": true,
+  "osds": {
+   "0": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 110
+   },
+   "1": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 104
+   },
+   "2": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 62
+   },
+   "3": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 90
+   },
+   "4": {
+    "pass": true,
+    "output": "fsck success",
+    "seconds": 79
+   }
+  }
+ },
+ "result": "pass",
+ "runs": [
+  {
+   "run": 1,
+   "params": {
+    "keys": [
+     100,
+     2000,
+     20000
+    ]
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r1-k100",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "28833'279",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "repop",
+         "v": "28833'279",
+         "acting": "1,4,3",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r1-k2000",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "28833'344",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "28833'344",
+         "acting": "1,0,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r1-k20000",
+       "vault": [
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "28833'414",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "28833'414",
+         "acting": "4,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 6,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 486,
+   "z05": {
+    "pass": true,
+    "deletes": [
+     {
+      "nkeys": 100,
+      "omap_bytes": 16750,
+      "rm_s": 0.00643
+     },
+     {
+      "nkeys": 2000,
+      "omap_bytes": 525000,
+      "rm_s": 0.08256
+     },
+     {
+      "nkeys": 20000,
+      "omap_bytes": 5340000,
+      "rm_s": 0.80137
+     }
+    ],
+    "checks": [
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k100",
+      "nkeys": 100,
+      "osd": 1,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 100,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 100,
+       "new_version": 280,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k100",
+      "nkeys": 100,
+      "osd": 4,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 100,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k2000",
+      "nkeys": 2000,
+      "osd": 0,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 2000,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 2000,
+       "new_version": 345,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k2000",
+      "nkeys": 2000,
+      "osd": 1,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 2000,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k20000",
+      "nkeys": 20000,
+      "osd": 3,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 20000,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 20000,
+       "new_version": 415,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r1-k20000",
+      "nkeys": 20000,
+      "osd": 4,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 20000,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     }
+    ]
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     }
+    }
+   },
+   "pass": true
+  },
+  {
+   "run": 2,
+   "params": {
+    "keys": [
+     100,
+     2000,
+     20000
+    ]
+   },
+   "notes": {},
+   "invariants": {
+    "1_no_resurrection": {
+     "pass": true,
+     "checked": 0,
+     "failures": []
+    },
+    "2_no_inconsistency": {
+     "pass": true,
+     "deep_scrub_completed": true,
+     "findings": ""
+    },
+    "3_vault_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": [],
+     "entries": [
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r2-k100",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "repop",
+         "v": "28958'478",
+         "acting": "4,1,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 4,
+         "path": "primary",
+         "v": "28958'478",
+         "acting": "4,1,2",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r2-k2000",
+       "vault": [
+        {
+         "osd": 0,
+         "path": "repop",
+         "v": "28958'663",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 2,
+         "path": "primary",
+         "v": "28958'663",
+         "acting": "2,0,4",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      },
+      {
+       "object": "rvtest:z05-omap-heavy-20261006T095429-r2-k20000",
+       "vault": [
+        {
+         "osd": 1,
+         "path": "primary",
+         "v": "28958'412",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        },
+        {
+         "osd": 3,
+         "path": "repop",
+         "v": "28958'412",
+         "acting": "1,3,0",
+         "mode": "rename",
+         "log_sha_match": null,
+         "found": true,
+         "intact": true,
+         "data_sha_match": true
+        }
+       ],
+       "ok": true
+      }
+     ],
+     "vault_lines_in_run": 6,
+     "disk_scan": "all",
+     "unlogged_copies": 0
+    },
+    "4_live_intact": {
+     "pass": true,
+     "checked": 3,
+     "failures": []
+    }
+   },
+   "clean_after": true,
+   "duration_s": 506,
+   "z05": {
+    "pass": true,
+    "deletes": [
+     {
+      "nkeys": 100,
+      "omap_bytes": 16750,
+      "rm_s": 0.00751
+     },
+     {
+      "nkeys": 2000,
+      "omap_bytes": 525000,
+      "rm_s": 0.08904
+     },
+     {
+      "nkeys": 20000,
+      "omap_bytes": 5340000,
+      "rm_s": 0.89452
+     }
+    ],
+    "checks": [
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k100",
+      "nkeys": 100,
+      "osd": 1,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 100,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 100,
+       "new_version": 479,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k100",
+      "nkeys": 100,
+      "osd": 4,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 100,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k2000",
+      "nkeys": 2000,
+      "osd": 0,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 2000,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 2000,
+       "new_version": 664,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k2000",
+      "nkeys": 2000,
+      "osd": 2,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 2000,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k20000",
+      "nkeys": 20000,
+      "osd": 1,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 20000,
+      "data_match": true,
+      "omap_match": true,
+      "restore": {
+       "data_match": true,
+       "omap_match": true,
+       "nkeys_after": 20000,
+       "new_version": 413,
+       "overwrote_existing": false
+      },
+      "pass": true
+     },
+     {
+      "name": "z05-omap-heavy-20261006T095429-r2-k20000",
+      "nkeys": 20000,
+      "osd": 3,
+      "mode": "rename",
+      "found": true,
+      "vault_nkeys": 20000,
+      "data_match": true,
+      "omap_match": true,
+      "pass": true
+     }
+    ]
+   },
+   "fsck_all": {
+    "pass": true,
+    "deep": false,
+    "osds": {
+     "0": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "1": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 10
+     },
+     "2": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 9
+     },
+     "3": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 12
+     },
+     "4": {
+      "pass": true,
+      "output": "fsck success",
+      "seconds": 11
+     }
+    }
+   },
+   "pass": true
+  }
+ ]
+}
