@@ -185,3 +185,7 @@ So the pilot's coverage model (design-note §§1, 4; GATE_REPORT caveat 2) named
 - **Phase 5 complete:** pre-registered regression list all pass (s07 after a harness fix), short-delay crash variants c01s/c03s/c04As/c04Bs all pass, z02–z06 all pass. Next: Phase 6 on the release cluster (disk now idle).
 - Phase 7 (partial): patch series exported to `ceph-patch/zc/` (7 patches, v19.2.3 → `33b89ae`). Applied with `git am --committer-date-is-author-date` to a clean v19.2.3 tree in `/data/verify-ceph` (branch `verify-zc`): HEAD `33b89ae8660c…` and tree `c48c40ce…`, identical to the original. Rebuild check deferred until Phase 6 finishes (a full compile would disturb its timings).
 - Phase 6 cost probe: first attempt aborted (the 4 KiB delete set had the same names as the 4 KiB workload objects and deleted them); renamed to `<tag>-del<kib>k`, leftovers removed, rerun started 11:57.
+
+## 2026-10-06 — Phase 6 (cost) and Phase 7 (report)
+- Phase 6 on the release cluster, two interleaved repetitions per build (vanilla, copy `05289b5`, rename `33b89ae`), 20 deletes per size, 4 KiB–128 MiB (`results/zc/cost/`). Rename delete p50 134–178 ms at every size (vanilla 141–167; copy up to 5.2 s at 128 MiB). Data-device bytes per delete about 0.6 MiB for rename and vanilla at every size (background workload); copy 2× object size. Gate condition "device bytes independent of object size" holds.
+- `results/zc/ZC_REPORT.md` written. Recommendation: adopt rename, keep copy as the fallback. Rebuild of the exported patch series from clean v19.2.3 still to run.

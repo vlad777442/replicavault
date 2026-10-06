@@ -1,0 +1,331 @@
+{
+ "build": "zc",
+ "build_type": "RelWithDebInfo",
+ "ceph_commit": "33b89ae8660c5816e494890c1be5d1f987232599",
+ "timestamp": "20261006T125630",
+ "command": "PROBE_ARGS='--sizes-kib 4 1024 4096 16384 65536 131072 --deletes 20 --threads 4 --baseline-s 30' scripts/cost-probe.sh zc",
+ "cluster": "vstart /data/ceph/build-rel, 1 MON, 1 MGR, 3 OSDs, file-backed BlueStore, single host",
+ "label": "single host, 3 OSDs sharing one disk; ratios only",
+ "retainer": 1,
+ "target_pg": "2.f",
+ "acting": [
+  0,
+  1,
+  2
+ ],
+ "acting_primary": 0,
+ "sizes": {
+  "4KiB": {
+   "size_kib": 4,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 700211.2,
+    "bluestore_deferred": 700211.2,
+    "bluefs_db_wal": 1259520.0,
+    "counters_total": {
+     "write_big_bytes": 14004224,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 14004224,
+     "bytes_written_wal": 25190400,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 7619.45
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 153.295,
+    "p99_ms": 274.916,
+    "mean_ms": 151.08
+   },
+   "ops_4k_during_delete": {
+    "n": 124,
+    "p50_ms": 98.71,
+    "p99_ms": 221.76,
+    "mean_ms": 81.415
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 41,
+    "p50_ms": 106.105,
+    "p99_ms": 204.901,
+    "mean_ms": 82.495
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 912,
+     "avg_ms": 82.492
+    },
+    "op_r_latency": {
+     "ops": 455,
+     "avg_ms": 12.196
+    },
+    "op_w_latency": {
+     "ops": 457,
+     "avg_ms": 152.481
+    }
+   }
+  },
+  "1024KiB": {
+   "size_kib": 1024,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 693657.6,
+    "bluestore_deferred": 693657.6,
+    "bluefs_db_wal": 1247436.8,
+    "counters_total": {
+     "write_big_bytes": 13873152,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 13873152,
+     "bytes_written_wal": 24948736,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 9089.85
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 133.528,
+    "p99_ms": 234.55,
+    "mean_ms": 145.592
+   },
+   "ops_4k_during_delete": {
+    "n": 129,
+    "p50_ms": 49.713,
+    "p99_ms": 221.022,
+    "mean_ms": 76.315
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 52,
+    "p50_ms": 49.383,
+    "p99_ms": 201.71,
+    "mean_ms": 74.582
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 904,
+     "avg_ms": 78.633
+    },
+    "op_r_latency": {
+     "ops": 472,
+     "avg_ms": 11.767
+    },
+    "op_w_latency": {
+     "ops": 432,
+     "avg_ms": 151.691
+    }
+   }
+  },
+  "4096KiB": {
+   "size_kib": 4096,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 620544.0,
+    "bluestore_deferred": 620544.0,
+    "bluefs_db_wal": 1130905.6,
+    "counters_total": {
+     "write_big_bytes": 12410880,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 12410880,
+     "bytes_written_wal": 22618112,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 5094.3
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 164.059,
+    "p99_ms": 341.492,
+    "mean_ms": 166.526
+   },
+   "ops_4k_during_delete": {
+    "n": 115,
+    "p50_ms": 125.436,
+    "p99_ms": 266.319,
+    "mean_ms": 96.687
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 46,
+    "p50_ms": 133.281,
+    "p99_ms": 265.732,
+    "mean_ms": 95.715
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 839,
+     "avg_ms": 90.408
+    },
+    "op_r_latency": {
+     "ops": 425,
+     "avg_ms": 11.882
+    },
+    "op_w_latency": {
+     "ops": 414,
+     "avg_ms": 171.021
+    }
+   }
+  },
+  "16384KiB": {
+   "size_kib": 16384,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 637952.0,
+    "bluestore_deferred": 637952.0,
+    "bluefs_db_wal": 1209139.2,
+    "counters_total": {
+     "write_big_bytes": 12759040,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 12759040,
+     "bytes_written_wal": 24182784,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 4904.6
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 150.596,
+    "p99_ms": 413.862,
+    "mean_ms": 159.385
+   },
+   "ops_4k_during_delete": {
+    "n": 129,
+    "p50_ms": 40.522,
+    "p99_ms": 278.101,
+    "mean_ms": 85.07
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 51,
+    "p50_ms": 39.32,
+    "p99_ms": 216.281,
+    "mean_ms": 72.556
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 805,
+     "avg_ms": 90.519
+    },
+    "op_r_latency": {
+     "ops": 397,
+     "avg_ms": 14.326
+    },
+    "op_w_latency": {
+     "ops": 408,
+     "avg_ms": 164.658
+    }
+   }
+  },
+  "65536KiB": {
+   "size_kib": 65536,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 663961.6,
+    "bluestore_deferred": 663961.6,
+    "bluefs_db_wal": 1449779.2,
+    "counters_total": {
+     "write_big_bytes": 13279232,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 13279232,
+     "bytes_written_wal": 28995584,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 6131.75
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 163.624,
+    "p99_ms": 210.477,
+    "mean_ms": 159.088
+   },
+   "ops_4k_during_delete": {
+    "n": 128,
+    "p50_ms": 46.703,
+    "p99_ms": 232.491,
+    "mean_ms": 84.423
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 49,
+    "p50_ms": 30.882,
+    "p99_ms": 210.421,
+    "mean_ms": 72.864
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 831,
+     "avg_ms": 79.308
+    },
+    "op_r_latency": {
+     "ops": 448,
+     "avg_ms": 10.685
+    },
+    "op_w_latency": {
+     "ops": 383,
+     "avg_ms": 159.576
+    }
+   }
+  },
+  "131072KiB": {
+   "size_kib": 131072,
+   "deletes": 20,
+   "device_bytes_per_delete": {
+    "bluestore_data": 642662.4,
+    "bluestore_deferred": 642662.4,
+    "bluefs_db_wal": 1564467.2,
+    "counters_total": {
+     "write_big_bytes": 12853248,
+     "write_small_bytes": 0,
+     "issued_deferred_write_bytes": 12853248,
+     "bytes_written_wal": 31289344,
+     "bytes_written_sst": 0,
+     "bytes_written_slow": 0
+    },
+    "disk_sectors_written_per_delete": 9531.35
+   },
+   "delete_latency": {
+    "n": 20,
+    "p50_ms": 178.303,
+    "p99_ms": 225.309,
+    "mean_ms": 167.354
+   },
+   "ops_4k_during_delete": {
+    "n": 138,
+    "p50_ms": 31.095,
+    "p99_ms": 582.875,
+    "mean_ms": 90.061
+   },
+   "ops_4k_during_delete_retainer_primary": {
+    "n": 51,
+    "p50_ms": 26.264,
+    "p99_ms": 583.305,
+    "mean_ms": 102.038
+   },
+   "retainer_perf_delta": {
+    "op_latency": {
+     "ops": 859,
+     "avg_ms": 86.954
+    },
+    "op_r_latency": {
+     "ops": 439,
+     "avg_ms": 11.523
+    },
+    "op_w_latency": {
+     "ops": 420,
+     "avg_ms": 165.797
+    }
+   }
+  }
+ },
+ "baseline_4k": {
+  "n": 1293,
+  "p50_ms": 92.042,
+  "p99_ms": 262.371,
+  "mean_ms": 92.875
+ },
+ "baseline_4k_retainer_primary": {
+  "n": 534,
+  "p50_ms": 87.203,
+  "p99_ms": 248.21,
+  "mean_ms": 91.474
+ }
+}
