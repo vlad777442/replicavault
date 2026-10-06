@@ -41,13 +41,15 @@ for run in $(seq 1 "$RUNS"); do
     done
     wait_clean 600 || true
   fi
-  rs=$(python3 - "$restores" "$MODE" <<'EOF'
+  # enforced on every vaulting build (it was "rv" only: on p2 and zc the restore
+  # result was recorded but never counted; fixed 2026-10-06)
+  rs=$(python3 - "$restores" "$(vault_mode && echo 1 || echo 0)" <<'EOF'
 import json, sys
 rows = [json.loads(l) for l in open(sys.argv[1]) if l.strip()]
 for r in rows:
     if "pass" not in r:
         r["pass"] = r["readback_matches"] and r["new_version_is_newer"] and not r["overwrote_existing"]
-ok = None if sys.argv[2] != "rv" else (bool(rows) and all(r["pass"] for r in rows))
+ok = None if sys.argv[2] != "1" else (bool(rows) and all(r["pass"] for r in rows))
 print(json.dumps({"pass": ok, "restored": len(rows), "results": rows}))
 EOF
 )
